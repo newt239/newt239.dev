@@ -11,5 +11,13 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  // https://github.com/vitejs/vite/issues/832#issuecomment-767644287
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/assets/base.scss";`
+      },
+    },
+  },
 })
