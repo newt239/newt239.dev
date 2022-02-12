@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
+import gsap from 'gsap'
+
+onMounted(() => {
+  const tl = gsap.timeline()
+  tl.to(".container", {
+    duration: 1,
+    opacity: 1
+  })
+})
 </script>
 
-<template>
+<template class="container">
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
@@ -27,6 +37,10 @@ import HelloWorld from '@/components/HelloWorld.vue'
   padding: 2rem;
 
   font-weight: normal;
+}
+
+.container {
+  opacity: 0;
 }
 
 header {

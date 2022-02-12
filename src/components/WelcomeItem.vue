@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .item {
   margin-top: 2rem;
   display: flex;
@@ -37,20 +37,20 @@ h3 {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.4rem;
-  color: $color-heading;
+  color: $color-text;
 }
 
 @media (min-width: 1024px) {
   .item {
     margin-top: 0;
-    padding: 0.4rem 0 1rem calc($section-gap) / 2;
+    padding: 0.4rem 0 1rem calc($section-gap / 2);
   }
 
   i {
     top: calc(50% - 25px);
     left: -26px;
     position: absolute;
-    border: 1px solid $color-border;
+    border: 1px solid $color-text;
     background: $color-background;
     border-radius: 8px;
     width: 50px;
@@ -59,7 +59,7 @@ h3 {
 
   .item:before {
     content: " ";
-    border-left: 1px solid $color-border;
+    border-left: 1px solid $color-text;
     position: absolute;
     left: 0;
     bottom: calc(50% + 25px);
@@ -68,7 +68,7 @@ h3 {
 
   .item:after {
     content: " ";
-    border-left: 1px solid $color-border;
+    border-left: 1px solid $color-text;
     position: absolute;
     left: 0;
     top: calc(50% + 25px);
