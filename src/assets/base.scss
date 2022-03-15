@@ -2,6 +2,18 @@ $color-text: hsl(0, 0%, 100%);
 $color-background: hsl(0, 0%, 13%);
 $color-link: hsl(213, 47%, 47%);
 
+$breakpoints: (
+  'mobile': 'screen and (max-width: 400px)',
+  'tablet': 'screen and (max-width: 768px)',
+  'desktop': 'screen and (max-width: 1200px)',
+) !default;
+
+@mixin mq($breakpoint: desktop) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
 body {
   color: $color-text;
   background: $color-background;
