@@ -3,12 +3,14 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <img src="@/assets/logo.svg" />
-    <h1>newt</h1>
-  </header>
-  <RouterView />
-  <div class="copyright">(c) 2022 newt</div>
+  <div class="wrapper">
+    <header>
+      <img src="@/assets/logo.svg" />
+      <h1>newt</h1>
+    </header>
+    <RouterView />
+    <div class="copyright">(c) 2022 newt</div>
+  </div>
 </template>
 
 <style lang="scss">
