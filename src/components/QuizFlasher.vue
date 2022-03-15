@@ -3,7 +3,7 @@
 
 <template>
     <div>
-        <h3>Score Watcher</h3>
+        <h3>Quiz Flasher</h3>
     </div>
 </template>
 
