@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="wrapper">
+  <RouterLink to="/">
     <header>
       <img src="@/assets/logo.svg" />
       <h1>newt</h1>
     </header>
+  </RouterLink>
+  <div class="wrapper">
     <RouterView />
     <div class="copyright">(c) 2022 newt</div>
   </div>
@@ -21,6 +23,7 @@ import { RouterView } from 'vue-router'
 }
 
 header {
+  color: $color-text;
   display: flex;
   align-items: center;
   gap: 2rem;
