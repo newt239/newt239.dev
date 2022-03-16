@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
   </RouterLink>
   <div class="wrapper">
     <RouterView />
-    <div class="copyright">(c) 2022 newt</div>
+    <div class="copyright">© 2022 newt</div>
   </div>
 </template>
 
@@ -19,14 +19,22 @@ import { RouterLink, RouterView } from 'vue-router'
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 header {
-  color: $color-text;
+  position: sticky;
+  top: 0;
+  color: $color-white;
+  background-color: $color-black;
+  padding: 1rem;
+  border: 0.3rem $color-white solid;
+  border-top: 0;
+  border-radius: 0 0 2rem 2rem;
   display: flex;
   align-items: center;
   gap: 2rem;
+  z-index: 10;
 }
 
 main {

@@ -54,8 +54,9 @@ a {
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   .card {
-    border: 1px $color-text solid;
+    border: 1px $color-white solid;
     border-radius: 1rem;
+    transition: all 0.5s;
     .card-thumbnail {
       width: 100%;
       border-radius: 1rem 1rem 0 0;
@@ -64,6 +65,13 @@ a {
       margin: 0 1rem;
       h3 {
         margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+        color: $color-white;
+        background-color: $color-black;
+      }
+      p {
+        margin-top: 0;
       }
     }
   }

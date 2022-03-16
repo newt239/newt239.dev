@@ -13,7 +13,7 @@ import { RouterView } from 'vue-router';
 
 <style lang="scss">
 .work {
-    border: 0.3rem $color-text solid;
+    border: 1px $color-white solid;
     border-radius: 1rem;
     .about {
         display: flex;
@@ -28,16 +28,6 @@ import { RouterView } from 'vue-router';
             .thumbnail {
                 width: 100%;
                 border-radius: 1rem 1rem 0 0;
-            }
-        }
-        .intro {
-            h3 {
-                margin: 1rem 0;
-                padding-left: 1rem;
-                border-bottom: $color-text 0.3rem solid;
-                font-size: 2rem;
-                line-height: 2.5rem;
-                font-weight: 800;
             }
         }
     }
