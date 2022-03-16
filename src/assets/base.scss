@@ -14,6 +14,15 @@ $breakpoints: (
   }
 }
 
+html {
+  &::-webkit-scrollbar {
+    width: .5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-white;
+    border-radius: .2rem;
+  }
+}
 body {
   margin: 0;
   color: $color-white;
@@ -42,6 +51,7 @@ h2 {
 }
 
 h3 {
+  display: inline-block;
   margin: 1rem 0;
   padding: 0 1rem;
   font-size: 2rem;
