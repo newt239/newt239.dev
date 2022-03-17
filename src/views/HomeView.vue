@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import WorkList from '@/components/WorkList.vue'
-import ContactList from '@/components/ContactList.vue'
+import { onMounted } from 'vue';
+import WorkList from '@/components/WorkList.vue';
+import ContactList from '@/components/ContactList.vue';
+
+onMounted(() => {
+  document.title = "NEWT HOUSE";
+});
 </script>
 
 <template>

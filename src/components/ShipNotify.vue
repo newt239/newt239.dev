@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+
+onMounted(() => {
+    document.title = "SHIP Notify - NEWT HOUSE";
+});
 </script>
 
 <template>

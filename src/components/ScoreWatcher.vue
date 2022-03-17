@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+
+onMounted(() => {
+    document.title = "Score Watcher - NEWT HOUSE";
+});
 </script>
 
 <template>
