@@ -38,14 +38,27 @@ import { RouterView, RouterLink } from 'vue-router';
         }
     }
     .content {
+        padding-bottom: 1rem;
         p {
             margin: 1rem;
         }
         h4 {
             display: inline-block;
             padding: 0 1rem;
+            margin-bottom: 0;
             font-size: 1.5rem;
             border-bottom: $color-white 1px solid;
+        }
+        h5 {
+            font-size: 1.3rem;
+            margin: 0.5rem 1rem;
+        }
+        .imageWrapper {
+            text-align: center;
+            img {
+                max-width: 100%;
+                max-height: 50vh;
+            }
         }
     }
 }
