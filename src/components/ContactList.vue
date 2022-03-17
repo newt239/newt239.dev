@@ -12,13 +12,13 @@ type contactsProp = {
 const contacts = ref<contactsProp>([
     {
         name: "GitHub",
-        icon: "src/assets/github.svg",
+        icon: "/img/github.svg",
         id: "@newt239",
         url: "https://github.com/newt239",
         color: "#FFF"
     }, {
         name: "Qiita",
-        icon: "src/assets/qiita.png",
+        icon: "/img/qiita.png",
         id: "@newt239",
         url: "https://qiita.com/newt239",
         color: "#55C500"

@@ -13,19 +13,19 @@ const works = ref<worksProp>([
   {
     id: "ship-notify",
     title: "SHIP Notify",
-    thumbnail: "src/assets/ship-info-screenshot.webp",
+    thumbnail: "/img/ship-info-screenshot.webp",
     description: "To notify the update of SHIP. Runnning on LINE ( as LINE Official Account ), Discord ( as bot at 'SHIP Info' server ), Web, Twitter."
   },
   {
     id: "quiz-flasher",
     title: "Quiz Flasher",
-    thumbnail: "src/assets/quiz-flasher-screenshot.webp",
+    thumbnail: "/img/quiz-flasher-screenshot.webp",
     description: "A tool to give a quiz. Import quiz data from Google Spreadsheet, then display these randomly."
   },
   {
     id: "score-watcher",
     title: "Score Watcher",
-    thumbnail: "src/assets/score-watcher_thumbnail.webp",
+    thumbnail: "/img/score-watcher_thumbnail.webp",
     description: "When you hold the quiz games, you need to create scoreboard for player and watcher. Usually, scoreboard makes with Microsoft Excel, but it's difficult to reuse, so you need to make scoreboard from scratch. This software reduce these labor."
   }
 ]);

@@ -6,7 +6,7 @@
         <div class="intro">
             <h3>SHIP Notify</h3>
         </div>
-        <img class="thumbnail" src="@/assets/ship-info-screenshot.webp" />
+        <img class="thumbnail" src="/img/ship-info-screenshot.webp" />
     </div>
     <div class="content">
         <p>

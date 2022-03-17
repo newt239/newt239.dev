@@ -6,7 +6,7 @@
         <div class="intro">
             <h3>Score Watcher</h3>
         </div>
-        <img class="thumbnail" src="@/assets/score-watcher_thumbnail.webp" />
+        <img class="thumbnail" src="/img/score-watcher_thumbnail.webp" />
     </div>
     <div class="content">
         <p></p>

@@ -6,7 +6,7 @@
         <div class="intro">
             <h3>Quiz Flasher</h3>
         </div>
-        <img class="thumbnail" src="@/assets/quiz-flasher-screenshot.webp" />
+        <img class="thumbnail" src="/img/quiz-flasher-screenshot.webp" />
     </div>
     <div class="content">
         <p></p>

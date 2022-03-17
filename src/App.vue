@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <RouterLink to="/" class="headerWrapper">
     <header>
-      <img src="@/assets/logo.svg" />
+      <img src="/img/logo.svg" />
       <h1>newt</h1>
     </header>
   </RouterLink>
