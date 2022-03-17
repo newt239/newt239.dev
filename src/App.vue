@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterLink to="/">
+  <RouterLink to="/" class="headerWrapper">
     <header>
       <img src="@/assets/logo.svg" />
       <h1>newt</h1>
@@ -19,10 +19,11 @@ import { RouterLink, RouterView } from 'vue-router'
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
-header {
+.headerWrapper {
+  display: block;
   position: sticky;
   top: 0;
   color: $color-white;
@@ -31,10 +32,15 @@ header {
   border: 0.3rem $color-white solid;
   border-top: 0;
   border-radius: 0 0 2rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
   z-index: 10;
+  &:hover {
+    opacity: 1;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
 }
 
 main {

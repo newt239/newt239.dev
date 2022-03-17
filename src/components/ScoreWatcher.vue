@@ -2,8 +2,14 @@
 </script>
 
 <template>
-    <div>
-        <h3>Score Watcher</h3>
+    <div class="about">
+        <div class="intro">
+            <h3>Score Watcher</h3>
+        </div>
+        <img class="thumbnail" src="@/assets/score-watcher_thumbnail.webp" />
+    </div>
+    <div class="content">
+        <p></p>
     </div>
 </template>
 
