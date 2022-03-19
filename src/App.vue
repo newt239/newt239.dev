@@ -21,7 +21,7 @@ import { RouterLink, RouterView } from 'vue-router'
   margin: 0 auto;
   padding: 0 0.5rem;
   .wrapper {
-    padding: 0 1.5rem;
+    padding: 0 0.5rem;
   }
 }
 
@@ -43,6 +43,9 @@ import { RouterLink, RouterView } from 'vue-router'
     display: flex;
     align-items: center;
     gap: 2rem;
+    img {
+      max-height: 10vh;
+    }
   }
 }
 

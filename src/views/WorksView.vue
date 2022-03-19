@@ -59,7 +59,8 @@ import { RouterView, RouterLink } from 'vue-router';
     }
     .content {
         padding-bottom: 1rem;
-        p {
+        p,
+        ul {
             margin: 1rem;
         }
         h4 {
@@ -71,7 +72,11 @@ import { RouterView, RouterLink } from 'vue-router';
         }
         h5 {
             font-size: 1.3rem;
-            margin: 0.5rem 1rem;
+            margin: 1rem 1rem 0;
+        }
+        h6 {
+            margin: 0 1rem;
+            font-size: 1rem;
         }
         table {
             margin: 0 1rem;
@@ -84,6 +89,14 @@ import { RouterView, RouterLink } from 'vue-router';
                 border-right: 1px $color-white solid;
             }
         }
+        code,
+        pre {
+            padding: 0.2rem 0.5rem;
+            background-color: black;
+        }
+        pre {
+            overflow-x: scroll;
+        }
         .imageWrapper {
             text-align: center;
             img {
@@ -92,6 +105,9 @@ import { RouterView, RouterLink } from 'vue-router';
                 filter: drop-shadow(2px 4px 6px black);
                 border-radius: 0.5rem;
             }
+        }
+        .url {
+            word-break: break-all;
         }
     }
 }
