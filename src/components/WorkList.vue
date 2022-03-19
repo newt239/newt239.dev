@@ -54,12 +54,12 @@ a {
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   .card {
-    border: 1px $color-white solid;
     border-radius: 1rem;
     transition: all 0.5s;
     .card-thumbnail {
       width: 100%;
-      border-radius: 1rem 1rem 0 0;
+      border-radius: 1rem;
+      filter: drop-shadow(2px 4px 6px black);
     }
     .card-body {
       margin: 0 1rem;
