@@ -73,6 +73,17 @@ import { RouterView, RouterLink } from 'vue-router';
             font-size: 1.3rem;
             margin: 0.5rem 1rem;
         }
+        table {
+            margin: 0 1rem;
+            border-spacing: 0 0.5rem;
+            th,
+            td {
+                padding: 0 1rem;
+            }
+            th {
+                border-right: 1px $color-white solid;
+            }
+        }
         .imageWrapper {
             text-align: center;
             img {

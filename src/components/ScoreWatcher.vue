@@ -11,7 +11,9 @@ onMounted(() => {
         <div class="intro">
             <h3>Score Watcher</h3>
         </div>
-        <img class="thumbnail" src="/img/score-watcher_thumbnail.webp" />
+        <div class="thumbnail">
+            <img src="/img/score-watcher_thumbnail.webp" />
+        </div>
     </div>
     <div class="content">
         <p></p>
