@@ -19,7 +19,10 @@ import { RouterLink, RouterView } from 'vue-router'
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 0.5rem;
+  .wrapper {
+    padding: 0 1.5rem;
+  }
 }
 
 .headerWrapper {
