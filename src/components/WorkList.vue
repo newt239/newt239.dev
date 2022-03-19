@@ -28,6 +28,13 @@ const works = ref<worksProp>([
     thumbnail: "/img/score-watcher_thumbnail.webp",
     description: "When you hold the quiz games, you need to create scoreboard for player and watcher. Usually, scoreboard makes with Microsoft Excel, but it's difficult to reuse, so you need to make scoreboard from scratch. This software reduce these labor."
   }
+  ,
+  {
+    id: "look-inside-view",
+    title: "Look Inside View",
+    thumbnail: "/img/look-inside-view_thumbnail.webp",
+    description: "Panoramic view of Sakaehigashi junior / senior high school. This is collaborative work."
+  }
 ]);
 </script>
 
@@ -54,11 +61,11 @@ a {
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   .card {
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     transition: all 0.5s;
     .card-thumbnail {
       width: 100%;
-      border-radius: 1rem;
+      border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
     }
     .card-body {

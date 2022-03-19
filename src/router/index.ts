@@ -2,9 +2,10 @@ import { createRouter, createWebHistory, type RouterScrollBehavior } from 'vue-r
 import gsap from 'gsap'
 import HomeView from '@/views/HomeView.vue'
 import WorksView from '@/views/WorksView.vue'
-import ShipNotify from '@/components/ShipNotify.vue'
-import QuizFlasher from '@/components/QuizFlasher.vue'
-import ScoreWatcher from '@/components/ScoreWatcher.vue'
+import ShipNotify from '@/views/Works/ShipNotify.vue'
+import QuizFlasher from '@/views/Works/QuizFlasher.vue'
+import ScoreWatcher from '@/views/Works/ScoreWatcher.vue'
+import LookInsideView from '@/views/Works/LookInsideView.vue'
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
@@ -31,6 +32,10 @@ const router = createRouter({
         {
           path: 'score-watcher',
           component: ScoreWatcher
+        },
+        {
+          path: 'look-inside-view',
+          component: LookInsideView
         }
       ]
     },
