@@ -17,6 +17,8 @@ $breakpoints: (
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Noto+Sans+JP:wght@400;900&display=swap');
 
 html {
+  width: 100vw;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: .3rem;
     height: .3rem;
