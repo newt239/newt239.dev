@@ -21,16 +21,36 @@ import { RouterView, RouterLink } from 'vue-router';
     .about {
         display: flex;
         justify-content: space-between;
+        .intro {
+            .summary {
+                table {
+                    border-spacing: 0 0.5rem;
+                    th,
+                    td {
+                        padding: 0 1rem;
+                    }
+                    th {
+                        border-right: 1px $color-white solid;
+                    }
+                }
+            }
+        }
         .thumbnail {
             width: 50%;
-            height: auto;
-            border-radius: 0 1rem 0 0;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 0 1rem 0 0;
+            }
         }
         @include mq(tablet) {
             flex-direction: column-reverse;
             .thumbnail {
                 width: 100%;
-                border-radius: 1rem 1rem 0 0;
+                img {
+                    border-radius: 1rem 1rem 0 0;
+                }
             }
             .intro h3 {
                 margin: 0;
@@ -56,8 +76,10 @@ import { RouterView, RouterLink } from 'vue-router';
         .imageWrapper {
             text-align: center;
             img {
-                max-width: 100%;
+                max-width: calc(100% - 1rem);
                 max-height: 50vh;
+                filter: drop-shadow(2px 4px 6px black);
+                border-radius: 0.5rem;
             }
         }
     }
