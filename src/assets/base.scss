@@ -2,8 +2,7 @@ $color-white: hsl(0, 0%, 100%);
 $color-black: hsl(0, 0%, 13%);
 $color-blue: hsl(213, 47%, 47%);
 
-$breakpoints: (
-  'mobile': 'screen and (max-width: 400px)',
+$breakpoints: ('mobile': 'screen and (max-width: 400px)',
   'tablet': 'screen and (max-width: 768px)',
   'desktop': 'screen and (max-width: 1200px)',
 ) !default;
@@ -17,12 +16,15 @@ $breakpoints: (
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Noto+Sans+JP:wght@400;900&display=swap');
 
 html {
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
+
   &::-webkit-scrollbar {
     width: .3rem;
     height: .3rem;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: $color-white;
     border-radius: .1rem;
@@ -72,15 +74,18 @@ a {
   color: $color-blue;
   text-decoration: none;
   transition: all .5s;
+
   &:hover {
     opacity: .5;
   }
 }
 
-p, ul, td {
+p,
+ul,
+td {
   a[target="_blank"]::after {
     padding-left: 5px;
-    content: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="hsl(213, 47%, 47%)" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>' );
+    content: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="hsl(213, 47%, 47%)" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>');
     color: $color-blue;
   }
 }
