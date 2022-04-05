@@ -1,12 +1,29 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue"
 import { RouterLink, RouterView } from 'vue-router'
+import moment from "moment"
+
+const daytime = ref(moment().format('YY/MM/DD h:mm'));
+const dow = ref(moment().format('ddd'));
+
+onMounted(() => {
+  setInterval(() => {
+    daytime.value = moment().format('YY/MM/DD h:mm');
+  }, 1000 * 60)
+});
 </script>
 
 <template>
   <RouterLink to="/" class="headerWrapper">
     <header>
-      <img src="/img/logo.svg" />
-      <h1>newt</h1>
+      <div class="headerMain">
+        <img src="/img/logo.svg" />
+        <h1>newt</h1>
+      </div>
+      <div class="headerWidget">
+        <div>{{ dow }}</div>
+        <div>{{ daytime }}</div>
+      </div>
     </header>
   </RouterLink>
   <div class="wrapper">
@@ -44,16 +61,25 @@ import { RouterLink, RouterView } from 'vue-router'
   }
   header {
     display: flex;
-    align-items: center;
-    gap: min(5vh, 5vw);
-    img {
-      max-height: min(10vh, 10vw);
+    justify-content: space-between;
+    align-items: end;
+    .headerMain {
+      display: flex;
+      align-items: center;
+      gap: min(5vh, 5vw);
+      img {
+        max-height: min(10vh, 10vw);
+      }
+      h1 {
+        margin: 0;
+        font-size: min(5vh, 5vw);
+        font-weight: 800;
+      }
     }
-
-    h1 {
-      margin: 0;
-      font-size: min(5vh, 5vw);
-      font-weight: 800;
+    .headerWidget {
+      text-align: right;
+      font-size: min(2.5vh, 2.5vw);
+      line-height: min(2.5vh, 2.5vw);
     }
   }
 }
