@@ -50,7 +50,6 @@ const contacts = ref<contactsProp>([
     display: flex;
     gap: 1rem;
     .contact {
-        width: max(150px, 20%);
         padding: 1rem;
         border-radius: 1rem;
         transition: all 0.5s;

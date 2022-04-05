@@ -28,14 +28,17 @@ import { RouterLink, RouterView } from 'vue-router'
 .headerWrapper {
   display: block;
   position: sticky;
+  width: 92%;
+  transform: translateX(4%);
   top: 0;
   color: $color-white;
   background-color: $color-black;
-  padding: 1rem;
-  border: 0.3rem $color-white solid;
+  padding: 0.8rem 1rem 1rem;
+  border: 0.1rem $color-white solid;
   border-top: 0;
   border-radius: 0 0 2rem 2rem;
   z-index: 10;
+  filter: drop-shadow(2px 4px 6px black);
   &:hover {
     opacity: 1;
   }
@@ -53,10 +56,6 @@ import { RouterLink, RouterView } from 'vue-router'
       font-weight: 800;
     }
   }
-}
-
-main {
-  margin: 1rem;
 }
 
 .copyright {
