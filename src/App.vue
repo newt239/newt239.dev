@@ -42,9 +42,15 @@ import { RouterLink, RouterView } from 'vue-router'
   header {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: min(5vh, 5vw);
     img {
-      max-height: 10vh;
+      max-height: min(10vh, 10vw);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: min(5vh, 5vw);
+      font-weight: 800;
     }
   }
 }
