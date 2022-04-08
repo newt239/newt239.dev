@@ -49,16 +49,26 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const tl = gsap.timeline()
-  tl.to(".wrapper", {
+  tl.to(".overlay", {
+    display: "block"
+  }).to(".overlay", {
     duration: 0.5,
-    opacity: 0,
+    height: "105%",
+    ease: "power3.in"
+  }).to(".atom-spinner", {
+    duration: 0.5,
+    opacity: 1,
     onComplete: () => {
       next()
     }
-  }).to(".wrapper", {
+  }, ">").to(".atom-spinner", {
     duration: 0.5,
-    opacity: 1
-  }, 1)
+    opacity: 0
+  }, ">").to(".overlay", {
+    duration: 0.5,
+    height: 0,
+    ease: "power3.in"
+  })
 })
 
 export default router
