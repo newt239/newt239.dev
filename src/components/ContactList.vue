@@ -17,7 +17,7 @@ const contacts = ref<contactsProp>([
         url: "https://github.com/newt239",
         color: "#FFF"
     }, {
-        name: "Qiita",
+        name: "QiIta",
         icon: "/img/qiita.png",
         id: "@newt239",
         url: "https://qiita.com/newt239",
@@ -28,15 +28,8 @@ const contacts = ref<contactsProp>([
 
 <template>
     <div class="contacts">
-        <a
-            class="contact"
-            :style="'border: 1px ' + contact.color + ' solid;color: ' + contact.color"
-            v-for="contact in contacts"
-            :key="contact.name"
-            :href="contact.url"
-            :alt="contact.name"
-            target="_blank"
-        >
+        <a class="contact" :style="'border: 1px ' + contact.color + ' solid;color: ' + contact.color"
+            v-for="contact in contacts" :key="contact.name" :href="contact.url" :alt="contact.name" target="_blank">
             <div>
                 <img :src="contact.icon" />
                 <span>{{ contact.id }}</span>
@@ -49,19 +42,23 @@ const contacts = ref<contactsProp>([
 .contacts {
     display: flex;
     gap: 1rem;
+
     .contact {
         padding: 1rem;
         border-radius: 1rem;
         transition: all 0.5s;
+
         div {
             display: flex;
             align-items: center;
             gap: 1rem;
+
             img {
                 height: 1.5rem;
             }
         }
     }
+
     @include mq(mobile) {
         flex-direction: column;
     }

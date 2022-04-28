@@ -14,7 +14,7 @@ const works = ref<worksProp>([
     id: "ship-notify",
     title: "SHIP Notify",
     thumbnail: "/img/ship-info-screenshot.webp",
-    description: "To notify the update of SHIP. Runnning on LINE ( as LINE Official Account ), Discord ( as bot at 'SHIP Info' server ), Web, Twitter."
+    description: "To notify the update of SHIP. Running on LINE ( as LINE Official Account ), Discord ( as bot at 'SHIP Info' server ), Web, Twitter."
   },
   {
     id: "quiz-flasher",
@@ -27,8 +27,7 @@ const works = ref<worksProp>([
     title: "Score Watcher",
     thumbnail: "/img/score-watcher_thumbnail.webp",
     description: "When you hold the quiz games, you need to create scoreboard for player and watcher. Usually, scoreboard makes with Microsoft Excel, but it's difficult to reuse, so you need to make scoreboard from scratch. This software reduce these labor."
-  }
-  ,
+  },
   {
     id: "look-inside-view",
     title: "Look Inside View",
@@ -56,20 +55,25 @@ const works = ref<worksProp>([
 a {
   color: white;
 }
+
 .cardGrid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
   .card {
     border-radius: 0.5rem;
     transition: all 0.5s;
+
     .card-thumbnail {
       width: 100%;
       border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
     }
+
     .card-body {
       margin: 0 1rem;
+
       h3 {
         margin: 0;
         padding: 0;
@@ -77,6 +81,7 @@ a {
         color: $color-white;
         background-color: $color-black;
       }
+
       p {
         margin-top: 0;
         height: 5rem;
@@ -88,10 +93,12 @@ a {
     }
   }
 }
+
 .ship-notify {
   grid-column: 1 2;
   grid-row: 1 2;
 }
+
 .quiz-flasher {
   grid-column: 2 3;
   grid-row: 1 2;
