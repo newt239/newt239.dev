@@ -13,13 +13,13 @@ const works = ref<worksProp>([
   {
     id: "ship-notify",
     title: "SHIP Notify",
-    thumbnail: "/img/ship-info-screenshot.webp",
+    thumbnail: "/img/ship-info_thumbnail.webp",
     description: "To notify the update of SHIP. Running on LINE ( as LINE Official Account ), Discord ( as bot at 'SHIP Info' server ), Web, Twitter."
   },
   {
     id: "quiz-flasher",
     title: "Quiz Flasher",
-    thumbnail: "/img/quiz-flasher-screenshot.webp",
+    thumbnail: "/img/quiz-flasher_thumbnail.webp",
     description: "A tool to give a quiz. Import quiz data from Google Spreadsheet, then display these randomly."
   },
   {

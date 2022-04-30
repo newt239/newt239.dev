@@ -30,21 +30,21 @@ onMounted(() => {
       </div>
     </div>
     <div class="thumbnail">
-      <img src="/img/ship-info-screenshot.webp" />
+      <img src="/img/ship-info_thumbnail.webp" />
     </div>
   </div>
   <div class="content">
     <p>
       SHIP ( Sakae Higashi Internet Program :
       <a href="https://ship.sakae-higashi.jp/" target="_blank">SHIPトップ</a> )
-      や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステム。
+      や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。
     </p>
     <h4>システム構成</h4>
     <p>
-      現在DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用中。Discord.pyをHeroku上で常時稼働させ、10分おきにループを回し予めセットしておいた時間になるとSHIPや栄東ニュースのスクレイピングなどを行っている。
+      現在DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用中です。Discord.pyをHeroku上で常時稼働させ、10分おきにループを回し予めセットしておいた時間になるとSHIPや栄東ニュースのスクレイピングなどを行っています。
     </p>
     <p>
-      スクレイピングにはseleniumを使っている。中高それぞれの「連絡事項」「学習教材」「学校通信」のページを1日2～5回程度取得している。データベースに保存されていないものが見つかればそのリンクをクリックし、説明文やファイルのダウンロードとSHIP-notify側のデータベースへのアップロードを行っている。
+      スクレイピングにはseleniumを使っています。中高それぞれの「連絡事項」「学習教材」「学校通信」のページを1日2～5回程度取得しています。データベースに保存されていないものが見つかればそのリンクをクリックし、説明文やファイルのダウンロードとSHIP-notify側のデータベースへのアップロードを行っています。
     </p>
     <div class="imageWrapper">
       <img src="/img/ship-assistant-system-map.webp" />
@@ -53,7 +53,7 @@ onMounted(() => {
     <p>
       認証に
       <a href="https://firebase.google.com/docs/auth?hl=ja" target="_blank">Firebase
-        Authentication</a>を通し学校以外のドメインのアカウントからのログインをブロックしている。
+        Authentication</a>を通し学校以外のドメインのアカウントからのログインをブロックしています。
     </p>
     <div class="imageWrapper">
       <img src="/img/ship-assistant-web_post-example.webp" />
@@ -62,8 +62,8 @@ onMounted(() => {
     <p>
       当初はHeroku上での利用がサポートされている
       <a href="https://devcenter.heroku.com/categories/data-management" target="_blank">Heroku
-        Postgres</a>を使っていたが、Web版の実装に伴いクライアント側から直接データの取得が可能な
-      <a href="https://firebase.google.com/docs/firestore?hl=ja" target="_blank">Firebase Cloud Firestore</a>へ移行した。
+        Postgres</a>を使っていましたが、Web版の実装に伴いクライアント側から直接データの取得が可能な
+      <a href="https://firebase.google.com/docs/firestore?hl=ja" target="_blank">Firebase Cloud Firestore</a>へ移行しました。
     </p>
     <h4>関連リンク</h4>
     <h5>SHIP-Assistant on Web</h5>

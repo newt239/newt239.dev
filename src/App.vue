@@ -4,12 +4,13 @@ import { RouterLink, RouterView } from 'vue-router'
 import moment from "moment"
 import { AtomSpinner } from 'epic-spinners'
 
-const daytime = ref(moment().format('YY/MM/DD h:mm'));
-const dow = ref(moment().format('ddd'));
+const time = ref(moment().format('HH:mm'));
+const day = ref(moment().format('YY/MM/DD'));
+const DoW = ref(moment().format('ddd'));
 
 onMounted(() => {
   setInterval(() => {
-    daytime.value = moment().format('YY/MM/DD h:mm');
+    time.value = moment().format('HH:mm');
   }, 1000 * 60)
 });
 </script>
@@ -22,8 +23,9 @@ onMounted(() => {
         <h1>newt</h1>
       </div>
       <div class="headerWidget">
-        <div>{{ dow }}</div>
-        <div>{{ daytime }}</div>
+        <div>{{ day }}</div>
+        <div>{{ time }}</div>
+        <div>{{ DoW }}</div>
       </div>
     </header>
   </RouterLink>
@@ -57,36 +59,44 @@ onMounted(() => {
   border-radius: 0 0 2rem 2rem;
   z-index: 10;
   filter: drop-shadow(2px 4px 6px black);
+
   &:hover {
     opacity: 1;
   }
+
   header {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: top;
+
     .headerMain {
       display: flex;
       align-items: center;
       gap: min(5vh, 5vw);
+
       img {
         max-height: min(10vh, 10vw);
       }
+
       h1 {
         margin: 0;
         font-size: min(5vh, 5vw);
         font-weight: 800;
       }
     }
+
     .headerWidget {
       text-align: right;
       font-size: min(2.5vh, 2.5vw);
-      line-height: min(2.5vh, 2.5vw);
+      line-height: min(3vh, 3vw);
+      letter-spacing: .1rem;
     }
   }
 }
 
 .wrapper {
   padding: 0 0.5rem;
+
   .copyright {
     padding: 1rem;
     width: 100%;
@@ -101,6 +111,7 @@ onMounted(() => {
   width: 100vw;
   height: 100%;
   background-color: $color-black;
+
   .atom-spinner {
     margin: 0 auto;
     margin-top: 50vh;

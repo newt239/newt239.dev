@@ -15,10 +15,7 @@ onMounted(() => {
           <tr>
             <th>GitHub</th>
             <td>
-              <a
-                href="https://github.com/newt239/score-watcher"
-                target="_blank"
-              >newt239/score-watcher</a>
+              <a href="https://github.com/newt239/score-watcher" target="_blank">newt239/score-watcher</a>
             </td>
           </tr>
           <tr>
@@ -37,16 +34,14 @@ onMounted(() => {
     </div>
   </div>
   <div class="content">
-    <p>クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するためのソフト。N o M x, N updown といった基本的な形式だけでなく Attack Survival や Square X といった形式にも対応。同時に問題文を表示したりタイマーをセットすることもできる。プレイデータはjsonファイルとしてエクスポート可能。</p>
+    <p>クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するためのデスクトップアプリです。N o M x, N updown といった基本的な形式だけでなく Attack Survival や Square X
+      といった形式にも対応しています。同時に問題文を表示したりタイマーをセットすることもできます。プレイデータはjsonファイルとしてのエクスポートも可能です。</p>
     <h4>関連リンク</h4>
     <h5>インストール</h5>
     <ul>
       <li>
-        <a
-          class="url"
-          href="https://github.com/newt239/score-watcher/releases"
-          target="_blank"
-        >https://github.com/newt239/score-watcher/releases</a>
+        <a class="url" href="https://github.com/newt239/score-watcher/releases"
+          target="_blank">https://github.com/newt239/score-watcher/releases</a>
       </li>
     </ul>
   </div>
