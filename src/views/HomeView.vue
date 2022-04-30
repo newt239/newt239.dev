@@ -10,13 +10,9 @@ onMounted(() => {
 
 <template>
   <main>
-    <h2>PROFILE</h2>
     <h2>WORKS</h2>
     <WorkList />
     <h2>CONTACT</h2>
     <ContactList />
   </main>
 </template>
-
-<style lang="scss" scoped>
-</style>
