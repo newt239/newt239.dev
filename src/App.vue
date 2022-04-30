@@ -54,7 +54,7 @@ onMounted(() => {
   color: $color-white;
   background-color: $color-black;
   padding: 0.8rem 1rem 1rem;
-  border: 0.1rem $color-white solid;
+
   border-top: 0;
   border-radius: 0 0 2rem 2rem;
   z-index: 10;

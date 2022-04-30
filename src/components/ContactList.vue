@@ -17,7 +17,7 @@ const contacts = ref<contactsProp>([
     url: "https://github.com/newt239",
     color: "#FFF"
   }, {
-    name: "QiIta",
+    name: "Qiita",
     icon: "/img/qiita.png",
     id: "@newt239",
     url: "https://qiita.com/newt239",
@@ -44,9 +44,14 @@ const contacts = ref<contactsProp>([
   gap: 1rem;
 
   .contact {
-    padding: 1rem;
+    padding: 1rem 2rem;
     border-radius: 1rem;
     transition: all 0.5s;
+
+    &:hover {
+      border-radius: 2rem;
+      opacity: 1;
+    }
 
     div {
       display: flex;

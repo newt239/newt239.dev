@@ -41,7 +41,10 @@ const works = ref<worksProp>([
   <div class="cardGrid">
     <RouterLink v-for="work in works" :key="work.id" :to="'/works/' + work.id">
       <div class="card">
-        <img :v-show="work.thumbnail" class="card-thumbnail" :src="work.thumbnail" />
+        <div class="card-thumbnail-wrapper">
+          <img :v-show="work.thumbnail" class="card-thumbnail" :src="work.thumbnail" />
+          <div class="hover-caption">VIEW</div>
+        </div>
         <div class="card-body">
           <h3>{{ work.title }}</h3>
           <p>{{ work.description }}</p>
@@ -65,10 +68,30 @@ a {
     border-radius: 0.5rem;
     transition: all 0.5s;
 
-    .card-thumbnail {
-      width: 100%;
-      border-radius: 0.5rem;
-      filter: drop-shadow(2px 4px 6px black);
+    .card-thumbnail-wrapper {
+      position: relative;
+
+      .card-thumbnail {
+        width: 100%;
+        border-radius: 0.5rem;
+        filter: drop-shadow(2px 4px 6px black);
+      }
+
+      .hover-caption {
+        font-size: 2rem;
+        font-weight: 800;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        mix-blend-mode: difference;
+        opacity: 0;
+        transition: all 0.5s;
+      }
+    }
+
+    &:hover .card-thumbnail-wrapper .hover-caption {
+      opacity: 1;
     }
 
     .card-body {
