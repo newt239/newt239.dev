@@ -15,10 +15,8 @@ onMounted(() => {
                     <tr>
                         <th>GitHub</th>
                         <td>
-                            <a
-                                href="https://github.com/newt239/look-inside-view"
-                                target="_blank"
-                            >newt239/look-inside-view</a>
+                            <a href="https://github.com/newt239/look-inside-view"
+                                target="_blank">newt239/look-inside-view</a>
                         </td>
                     </tr>
                     <tr>
@@ -37,22 +35,19 @@ onMounted(() => {
         </div>
     </div>
     <div class="content">
-        <p>栄東高校・中学校の校舎内を360度の画像で紹介しているサイト。2021年度のオンライン文化祭用の作品。同じ同好会のメンバー3人と制作。</p>
+        <p>栄東高校・中学校の校舎内を360度の画像で紹介するサイト。2021年度のオンライン文化祭用の作品。同じ同好会のメンバー3人と制作。</p>
         <h4>Pannellum</h4>
         <p>
             360度画像のビューワーとして、パノラマビューワーである
-            <a
-                href="https://github.com/mpetroff/pannellum"
-                target="_blank"
-            >Pannellum</a>を利用した。
+            <a href="https://github.com/mpetroff/pannellum" target="_blank">Pannellum</a>を利用した。
+        </p>
+        <h4>サイトデザイン</h4>
+        <p>2020年の初め頃から海外で注目を集めている「ニューモーフィズム」を採用した。これはベースのレイヤーから要素を押し出したり窪ませているように見せることで境界に滑らかな印象を与えることができるデザイン手法で、美しく洗練された印象に仕上げることができるというもの。またベースカラーに薄茶色を取り入れ、サイト全体に落ち着いた印象を持たせた。
         </p>
         <h4>関連リンク</h4>
         <ul>
             <li>
-                <a
-                    href="https://look-inside-view.web.app/"
-                    target="_blank"
-                >Look Inside View - shfes'21</a>
+                <a href="https://look-inside-view.web.app/" target="_blank">Look Inside View - shfes'21</a>
             </li>
         </ul>
     </div>
