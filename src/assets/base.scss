@@ -1,5 +1,6 @@
 $color-white: hsl(0, 0%, 100%);
 $color-black: hsl(0, 0%, 13%);
+$color-black-secondary: hsl(200, 19%, 18%);
 $color-blue: hsl(213, 47%, 47%);
 
 $breakpoints: ('mobile': 'screen and (max-width: 400px)',
@@ -19,12 +20,6 @@ $breakpoints: ('mobile': 'screen and (max-width: 400px)',
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-html {
-  width: 100%;
-  overflow-x: hidden;
-  scrollbar-gutter: stable;
 
   &::-webkit-scrollbar {
     width: .3rem;
@@ -35,6 +30,12 @@ html {
     background-color: $color-white;
     border-radius: .1rem;
   }
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body {
