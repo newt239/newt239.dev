@@ -53,8 +53,8 @@ router.beforeEach((to, from, next) => {
     display: "block"
   }).to(".overlay", {
     duration: 0.5,
-    height: "105%",
-    ease: "power3.in"
+    width: "100vw",
+    ease: "power2.out"
   }).to(".atom-spinner", {
     duration: 0.5,
     opacity: 1,
@@ -66,8 +66,8 @@ router.beforeEach((to, from, next) => {
     opacity: 0
   }, ">").to(".overlay", {
     duration: 0.5,
-    height: 0,
-    ease: "power3.in"
+    width: 0,
+    ease: "power2.in"
   })
 })
 
