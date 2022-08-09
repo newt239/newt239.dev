@@ -3,13 +3,13 @@ import { ref, onMounted } from 'vue';
 import axios from "axios";
 
 type trackListProp = {
-  "name": string,
-  "artists": string[],
-  "thumbnail": string,
-  "preview": string | null,
-  "duration": number,
-  "popularity": number,
-  "link": string
+  name: string,
+  artists: string[],
+  thumbnail: string,
+  preview: string | null,
+  duration: number,
+  popularity: number,
+  link: string
 }[];
 
 const trackList = ref<trackListProp>([]);
@@ -21,9 +21,9 @@ onMounted(async () => {
 })
 
 type audioStateProp = {
-  "state": boolean,
-  "source": string,
-  "music": HTMLAudioElement | null
+  state: boolean,
+  source: string,
+  music: HTMLAudioElement | null
 };
 
 const audioState = ref<audioStateProp>({ "state": false, "source": "", "music": null });
