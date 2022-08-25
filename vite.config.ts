@@ -12,7 +12,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'node-fetch': 'isomorphic-fetch'
     }
   },
   // https://github.com/vitejs/vite/issues/832#issuecomment-767644287
