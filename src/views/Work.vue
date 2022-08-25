@@ -7,7 +7,7 @@ import Markdown from 'vue3-markdown-it';
 type WorkProps = {
   title: string;
   content: String;
-  eyecatch: {
+  thumbnail: {
     url: string;
   }
   github: string;
@@ -45,7 +45,7 @@ onMounted(() => {
           <h3>{{ work.title }}</h3>
           <div class="summary">
             <table>
-              <tr>
+              <tr v-if="work.github">
                 <th>GitHub</th>
                 <td>
                   <a :href="'https://github.com/' + work.github" target="_blank">{{ work.github }}</a>
@@ -62,8 +62,8 @@ onMounted(() => {
             </table>
           </div>
         </div>
-        <div class="thumbnail">
-          <img :src="work?.eyecatch?.url" />
+        <div class="thumbnail" v-if="work?.thumbnail?.url">
+          <img :src="work.thumbnail.url" />
         </div>
       </div>
       <div class="content">
