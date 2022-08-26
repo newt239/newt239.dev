@@ -3,13 +3,13 @@ import { ref, onMounted } from 'vue';
 import axios from "axios";
 
 type trackListProp = {
-  "name": string,
-  "artists": string[],
-  "thumbnail": string,
-  "preview": string | null,
-  "duration": number,
-  "popularity": number,
-  "link": string
+  name: string,
+  artists: string[],
+  thumbnail: string,
+  preview: string | null,
+  duration: number,
+  popularity: number,
+  link: string
 }[];
 
 const trackList = ref<trackListProp>([]);
@@ -17,16 +17,15 @@ const trackList = ref<trackListProp>([]);
 onMounted(async () => {
   const res = await axios.get("https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec");
   trackList.value = res.data.slice(0, 12);
-
 })
 
-type audioStateProp = {
-  "state": boolean,
-  "source": string,
-  "music": HTMLAudioElement | null
+type AudioStateProp = {
+  state: boolean,
+  source: string,
+  music: HTMLAudioElement | null
 };
 
-const audioState = ref<audioStateProp>({ "state": false, "source": "", "music": null });
+const audioState = ref<AudioStateProp>({ "state": false, "source": "", "music": null });
 const audioButton = (src: string | null) => {
   if (src) {
     const normalPlayAction = () => {
@@ -57,8 +56,11 @@ const audioButton = (src: string | null) => {
 </script>
 
 <template>
+  <div class="intro">
+    <div v-if="trackList.length === 0">Loading...</div>
+    <div v-else>* Tap album art to play</div>
+  </div>
   <div class="myTopTracks">
-    <div v-if="trackList.length == 0">Loading...</div>
     <div class="track" v-for="track in trackList" :alt="track.name">
       <div class="thumbnailWrapper" @click="audioButton(track.preview ? track.preview : null)">
         <img :src="track.thumbnail" class="trackThumbnail" :class="track.preview ? 'trackPreview' : ''" />
@@ -86,6 +88,10 @@ const audioButton = (src: string | null) => {
 </template>
 
 <style lang="scss" scoped>
+.intro {
+  padding: 1rem;
+}
+
 .myTopTracks {
   display: flex;
   gap: 1rem;

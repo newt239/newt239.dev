@@ -1,12 +1,74 @@
 <script setup lang="ts">
-import { RouterView, RouterLink } from 'vue-router';
+import { onMounted, ref } from "vue";
+import { RouterLink, useRoute } from 'vue-router';
+import { createClient } from 'microcms-js-sdk';
+import Markdown from 'vue3-markdown-it';
+
+type WorkProps = {
+  title: string;
+  content: String;
+  thumbnail: {
+    url: string;
+  }
+  github: string;
+  creation: string;
+  tech: string;
+};
+
+const client = createClient({
+  serviceDomain: "newt-house",
+  apiKey: import.meta.env.VITE_API_KEY as string,
+});
+const route = useRoute();
+const work = ref<WorkProps | null>(null);
+
+onMounted(() => {
+  client
+    .get({
+      endpoint: 'works',
+      contentId: route.params.workId as string
+    })
+    .then((res: WorkProps) => {
+      console.log(res)
+      work.value = res
+    })
+    .catch((err) => console.error(err));
+})
 </script>
 
 <template>
   <main>
     <h2>WORKS</h2>
-    <div class="work">
-      <RouterView />
+    <div class="work" v-if="work">
+      <div class="about">
+        <div class="intro">
+          <h3>{{ work.title }}</h3>
+          <div class="summary">
+            <table>
+              <tr v-if="work.github">
+                <th>GitHub</th>
+                <td>
+                  <a :href="'https://github.com/' + work.github" target="_blank">{{ work.github }}</a>
+                </td>
+              </tr>
+              <tr v-if="work.creation">
+                <th>Creation</th>
+                <td>{{ work.creation }}</td>
+              </tr>
+              <tr v-if="work.tech">
+                <th>Tech</th>
+                <td>{{ work.tech }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="thumbnail" v-if="work?.thumbnail?.url">
+          <img :src="work.thumbnail.url" />
+        </div>
+      </div>
+      <div class="content">
+        <Markdown :source="work.content" html />
+      </div>
     </div>
     <div class="footer">
       <RouterLink class="back" to="/">BACK HOME</RouterLink>
