@@ -1,11 +1,7 @@
 import { createRouter, createWebHistory, type RouterScrollBehavior } from 'vue-router'
 import gsap from 'gsap'
 import HomeView from '@/views/Home.vue'
-import WorksView from '@/views/Works.vue'
-import ShipNotify from '@/views/Works/ShipNotify.vue'
-import QuizFlasher from '@/views/Works/QuizFlasher.vue'
-import ScoreWatcher from '@/views/Works/ScoreWatcher.vue'
-import LookInsideView from '@/views/Works/LookInsideView.vue'
+import WorkView from '@/views/Work.vue'
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
@@ -19,25 +15,8 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/works/',
-      component: WorksView,
-      children: [
-        {
-          path: 'ship-notify',
-          component: ShipNotify
-        }, {
-          path: 'quiz-flasher',
-          component: QuizFlasher
-        },
-        {
-          path: 'score-watcher',
-          component: ScoreWatcher
-        },
-        {
-          path: 'look-inside-view',
-          component: LookInsideView
-        }
-      ]
+      path: '/works/:workId',
+      component: WorkView,
     },
     {
       path: '/',

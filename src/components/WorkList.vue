@@ -1,40 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { createClient } from 'microcms-js-sdk';
 
 type worksProp = {
   id: string;
   title: string;
-  thumbnail?: string;
-  description: string;
-}[]
-
-const works = ref<worksProp>([
-  {
-    id: "ship-notify",
-    title: "SHIP Notify",
-    thumbnail: "/img/ship-info_thumbnail.webp",
-    description: "To notify the update of SHIP. Running on LINE ( as LINE Official Account ), Discord ( as bot at 'SHIP Info' server ), Web, Twitter."
-  },
-  {
-    id: "quiz-flasher",
-    title: "Quiz Flasher",
-    thumbnail: "/img/quiz-flasher_thumbnail.webp",
-    description: "A tool to give a quiz. Import quiz data from Google Spreadsheet, then display these randomly."
-  },
-  {
-    id: "score-watcher",
-    title: "Score Watcher",
-    thumbnail: "/img/score-watcher_thumbnail.webp",
-    description: "When you hold the quiz games, you need to create scoreboard for player and watcher. Usually, scoreboard makes with Microsoft Excel, but it's difficult to reuse, so you need to make scoreboard from scratch. This software reduce these labor."
-  },
-  {
-    id: "look-inside-view",
-    title: "Look Inside View",
-    thumbnail: "/img/look-inside-view_thumbnail.webp",
-    description: "Panoramic view of Sakaehigashi junior / senior high school. This is collaborative work."
+  thumbnail: {
+    url: string;
   }
-]);
+  description: string;
+}
+
+const works = ref<worksProp[]>([]);
+
+const client = createClient({
+  serviceDomain: "newt-house",
+  apiKey: import.meta.env.VITE_API_KEY as string,
+});
+
+onMounted(() => {
+  client
+    .get({
+      endpoint: 'works'
+    })
+    .then((res: { contents: worksProp[] }) => {
+      console.log(res)
+      works.value = res.contents
+    })
+    .catch((err) => console.error(err));
+})
 </script>
 
 <template>
@@ -42,7 +37,7 @@ const works = ref<worksProp>([
     <RouterLink v-for="work in works" :key="work.id" :to="'/works/' + work.id">
       <div class="card">
         <div class="card-thumbnail-wrapper">
-          <img :v-show="work.thumbnail" class="card-thumbnail" :src="work.thumbnail" />
+          <img :v-show="work.thumbnail" class="card-thumbnail" :src="work.thumbnail.url" />
           <div class="hover-caption">VIEW</div>
         </div>
         <div class="card-body">
