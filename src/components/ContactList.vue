@@ -25,7 +25,7 @@ const contacts = ref<contactsProp>([
   }, {
     name: "Zenn",
     icon: "/img/zenn.svg",
-    id: "@newt239",
+    id: "@newt_st21",
     url: "https://zenn.dev/newt_st21",
     color: "#3EA8FF"
   }
@@ -33,36 +33,29 @@ const contacts = ref<contactsProp>([
 </script>
 
 <template>
-  <div class="contacts">
-    <a class="contact" :style="'border: 1px ' + contact.color + ' solid;color: ' + contact.color"
-      v-for="contact in contacts" :key="contact.name" :href="contact.url" :alt="contact.name" target="_blank">
-      <div>
+  <ul class="contacts">
+    <li class="contact" v-for="contact in contacts" :key="contact.name">
+      <a :href="contact.url" :alt="contact.name" target="_blank"
+        :style="'color: 1px ' + contact.color + ' solid;color: ' + contact.color">
         <img :src="contact.icon" />
         <span>{{ contact.id }}</span>
-      </div>
-    </a>
-  </div>
+      </a>
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
 .contacts {
-  display: flex;
-  gap: 1rem;
 
   .contact {
-    padding: 1rem 2rem;
-    border-radius: 1rem;
     transition: all 0.5s;
+    list-style: none;
+    padding: .5rem;
 
-    &:hover {
-      border-radius: 2rem;
-      opacity: 1;
-    }
-
-    div {
+    a {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: .5rem;
 
       img {
         height: 1.5rem;
