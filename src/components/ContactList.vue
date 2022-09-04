@@ -22,6 +22,12 @@ const contacts = ref<contactsProp>([
     id: "@newt239",
     url: "https://qiita.com/newt239",
     color: "#55C500"
+  }, {
+    name: "Zenn",
+    icon: "/img/zenn.svg",
+    id: "@newt239",
+    url: "https://zenn.dev/newt_st21",
+    color: "#3EA8FF"
   }
 ]);
 </script>
