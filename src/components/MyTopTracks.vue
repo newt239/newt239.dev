@@ -145,6 +145,7 @@ const audioButton = (src: string | null) => {
 
       .trackThumbnail {
         width: 100%;
+        aspect-ratio: 1 / 1;
         border-radius: 1rem;
         filter: drop-shadow(2px 4px 6px black);
       }

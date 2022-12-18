@@ -31,24 +31,25 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+a {
+  border-radius: 3vh;
+  &:hover {
+    opacity: 1;
+  }
+}
 .headerWrapper {
   display: block;
   position: sticky;
   width: 92%;
   transform: translateX(4%);
-  top: 0;
+  top: 1vh;
   color: $color-white;
-  background-color: $color-black;
+  background-color: rgba(33, 33, 33, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid $color-black;
   padding: 0.8rem 1rem 1rem;
-
-  border-top: 0;
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 3vh;
   z-index: 10;
-  filter: drop-shadow(2px 4px 6px black);
-
-  &:hover {
-    opacity: 1;
-  }
 
   header {
     display: flex;

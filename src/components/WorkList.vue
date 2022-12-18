@@ -71,6 +71,7 @@ a {
 
       .card-thumbnail {
         width: 100%;
+        aspect-ratio: 16 / 9;
         border-radius: 0.5rem;
         filter: drop-shadow(2px 4px 6px black);
       }
