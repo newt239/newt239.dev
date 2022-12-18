@@ -35,8 +35,8 @@ const contacts = ref<contactsProp>([
 </script>
 
 <template>
-  <ul class="contacts">
-    <li v-for="contact in contacts" :key="contact.name" class="contact">
+  <div class="contacts">
+    <div v-for="contact in contacts" :key="contact.name" class="contact">
       <a
         :href="contact.url"
         :alt="contact.name"
@@ -48,15 +48,18 @@ const contacts = ref<contactsProp>([
         <img :src="contact.icon" />
         <span>{{ contact.id }}</span>
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .contacts {
+  margin: 0 5vw;
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
   .contact {
     transition: all 0.5s;
-    list-style: none;
     padding: 0.5rem;
 
     a {
