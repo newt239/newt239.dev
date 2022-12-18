@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
-import moment from 'moment'
+import { ref, onMounted } from "vue";
+import { RouterLink } from "vue-router";
+import moment from "moment";
 
-const time = ref(moment().format('HH:mm'));
-const day = ref(moment().format('YY/MM/DD'));
-const DoW = ref(moment().format('ddd'));
+const time = ref(moment().format("HH:mm"));
+const day = ref(moment().format("YY/MM/DD"));
+const DoW = ref(moment().format("ddd"));
 
 onMounted(() => {
   setInterval(() => {
-    time.value = moment().format('HH:mm');
-  }, 1000 * 60)
+    time.value = moment().format("HH:mm");
+  }, 1000 * 60);
 });
 </script>
 
@@ -75,7 +75,7 @@ onMounted(() => {
       text-align: right;
       font-size: min(2.5vh, 2.5vw);
       line-height: min(3vh, 3vw);
-      letter-spacing: .1rem;
+      letter-spacing: 0.1rem;
     }
   }
 }

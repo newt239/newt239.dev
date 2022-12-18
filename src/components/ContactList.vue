@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 type contactsProp = {
   name: string;
@@ -7,7 +7,7 @@ type contactsProp = {
   id: string;
   url: string;
   color?: string;
-}[]
+}[];
 
 const contacts = ref<contactsProp>([
   {
@@ -15,48 +15,57 @@ const contacts = ref<contactsProp>([
     icon: "/img/github.svg",
     id: "@newt239",
     url: "https://github.com/newt239",
-    color: "#FFF"
-  }, {
+    color: "#FFF",
+  },
+  {
     name: "Qiita",
     icon: "/img/qiita.png",
     id: "@newt239",
     url: "https://qiita.com/newt239",
-    color: "#55C500"
-  }
+    color: "#55C500",
+  },
+  {
+    name: "Zenn",
+    icon: "/img/zenn.svg",
+    id: "@newt_st21",
+    url: "https://zenn.dev/newt_st21",
+    color: "#3EA8FF",
+  },
 ]);
 </script>
 
 <template>
   <div class="contacts">
-    <a class="contact" :style="'border: 1px ' + contact.color + ' solid;color: ' + contact.color"
-      v-for="contact in contacts" :key="contact.name" :href="contact.url" :alt="contact.name" target="_blank">
-      <div>
+    <div v-for="contact in contacts" :key="contact.name" class="contact">
+      <a
+        :href="contact.url"
+        :alt="contact.name"
+        target="_blank"
+        :style="
+          'color: 1px ' + contact.color + ' solid;color: ' + contact.color
+        "
+      >
         <img :src="contact.icon" />
         <span>{{ contact.id }}</span>
-      </div>
-    </a>
+      </a>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .contacts {
+  margin: 0 5vw;
   display: flex;
-  gap: 1rem;
-
+  flex-direction: row;
+  gap: 1vw;
   .contact {
-    padding: 1rem 2rem;
-    border-radius: 1rem;
     transition: all 0.5s;
+    padding: 0.5rem;
 
-    &:hover {
-      border-radius: 2rem;
-      opacity: 1;
-    }
-
-    div {
+    a {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
 
       img {
         height: 1.5rem;
