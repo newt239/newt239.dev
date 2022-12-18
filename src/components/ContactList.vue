@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 type contactsProp = {
   name: string;
@@ -7,7 +7,7 @@ type contactsProp = {
   id: string;
   url: string;
   color?: string;
-}[]
+}[];
 
 const contacts = ref<contactsProp>([
   {
@@ -15,28 +15,36 @@ const contacts = ref<contactsProp>([
     icon: "/img/github.svg",
     id: "@newt239",
     url: "https://github.com/newt239",
-    color: "#FFF"
-  }, {
+    color: "#FFF",
+  },
+  {
     name: "Qiita",
     icon: "/img/qiita.png",
     id: "@newt239",
     url: "https://qiita.com/newt239",
-    color: "#55C500"
-  }, {
+    color: "#55C500",
+  },
+  {
     name: "Zenn",
     icon: "/img/zenn.svg",
     id: "@newt_st21",
     url: "https://zenn.dev/newt_st21",
-    color: "#3EA8FF"
-  }
+    color: "#3EA8FF",
+  },
 ]);
 </script>
 
 <template>
   <ul class="contacts">
-    <li class="contact" v-for="contact in contacts" :key="contact.name">
-      <a :href="contact.url" :alt="contact.name" target="_blank"
-        :style="'color: 1px ' + contact.color + ' solid;color: ' + contact.color">
+    <li v-for="contact in contacts" :key="contact.name" class="contact">
+      <a
+        :href="contact.url"
+        :alt="contact.name"
+        target="_blank"
+        :style="
+          'color: 1px ' + contact.color + ' solid;color: ' + contact.color
+        "
+      >
         <img :src="contact.icon" />
         <span>{{ contact.id }}</span>
       </a>
@@ -46,16 +54,15 @@ const contacts = ref<contactsProp>([
 
 <style lang="scss" scoped>
 .contacts {
-
   .contact {
     transition: all 0.5s;
     list-style: none;
-    padding: .5rem;
+    padding: 0.5rem;
 
     a {
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
 
       img {
         height: 1.5rem;

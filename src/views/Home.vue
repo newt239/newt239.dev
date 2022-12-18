@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import WorkList from '@/components/WorkList.vue';
-import MyTopTracks from '@/components/MyTopTracks.vue';
-import ContactList from '@/components/ContactList.vue';
+import { onMounted } from "vue";
+import WorkList from "@/components/WorkList.vue";
+import MyTopTracks from "@/components/MyTopTracks.vue";
+import ContactList from "@/components/ContactList.vue";
 
 onMounted(() => {
   document.title = "NEWT HOUSE";

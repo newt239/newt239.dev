@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import { AtomSpinner } from 'epic-spinners'
+import { RouterView } from "vue-router";
+import { AtomSpinner } from "epic-spinners";
 
-import Header from '@/components/Header.vue'
+import Header from "@/components/Header.vue";
 </script>
 
 <template>
@@ -12,7 +12,11 @@ import Header from '@/components/Header.vue'
     <div class="copyright">© 2022 newt</div>
   </div>
   <div class="overlay">
-    <AtomSpinner :animation-duration="1000" :size="70" :color="'hsl(213, 47%, 47%)'" />
+    <AtomSpinner
+      :animation-duration="1000"
+      :size="70"
+      :color="'hsl(213, 47%, 47%)'"
+    />
   </div>
 </template>
 

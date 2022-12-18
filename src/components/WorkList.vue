@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { RouterLink } from 'vue-router';
-import { createClient } from 'microcms-js-sdk';
+import { onMounted, ref } from "vue";
+import { RouterLink } from "vue-router";
+import { createClient } from "microcms-js-sdk";
 
 type worksProp = {
   id: string;
   title: string;
   thumbnail: {
     url: string;
-  }
+  };
   description: string;
-}
+};
 
 const works = ref<worksProp[]>([]);
 
@@ -22,14 +22,13 @@ const client = createClient({
 onMounted(() => {
   client
     .get({
-      endpoint: 'works'
+      endpoint: "works",
     })
     .then((res: { contents: worksProp[] }) => {
-      console.log(res)
-      works.value = res.contents
+      works.value = res.contents;
     })
     .catch((err) => console.error(err));
-})
+});
 </script>
 
 <template>
@@ -37,7 +36,11 @@ onMounted(() => {
     <RouterLink v-for="work in works" :key="work.id" :to="'/works/' + work.id">
       <div class="card">
         <div class="card-thumbnail-wrapper">
-          <img :v-show="work.thumbnail" class="card-thumbnail" :src="work.thumbnail.url" />
+          <img
+            :v-show="work.thumbnail"
+            class="card-thumbnail"
+            :src="work.thumbnail.url"
+          />
           <div class="hover-caption">VIEW</div>
         </div>
         <div class="card-body">

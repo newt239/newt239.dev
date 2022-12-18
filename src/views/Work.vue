@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { RouterLink, useRoute } from 'vue-router';
-import { createClient } from 'microcms-js-sdk';
-import Markdown from 'vue3-markdown-it';
+import { RouterLink, useRoute } from "vue-router";
+import { createClient } from "microcms-js-sdk";
+import Markdown from "vue3-markdown-it";
 
 type WorkProps = {
   title: string;
-  content: String;
+  content: string;
   thumbnail: {
     url: string;
-  }
+  };
   github: string;
   creation: string;
   tech: string;
@@ -25,21 +25,21 @@ const work = ref<WorkProps | null>(null);
 onMounted(() => {
   client
     .get({
-      endpoint: 'works',
-      contentId: route.params.workId as string
+      endpoint: "works",
+      contentId: route.params.workId as string,
     })
     .then((res: WorkProps) => {
-      console.log(res)
-      work.value = res
+      console.log(res);
+      work.value = res;
     })
     .catch((err) => console.error(err));
-})
+});
 </script>
 
 <template>
   <main>
     <h2>WORKS</h2>
-    <div class="work" v-if="work">
+    <div v-if="work" class="work">
       <div class="about">
         <div class="intro">
           <h3>{{ work.title }}</h3>
@@ -48,7 +48,11 @@ onMounted(() => {
               <tr v-if="work.github">
                 <th>GitHub</th>
                 <td>
-                  <a :href="'https://github.com/' + work.github" target="_blank">{{ work.github }}</a>
+                  <a
+                    :href="'https://github.com/' + work.github"
+                    target="_blank"
+                    >{{ work.github }}</a
+                  >
                 </td>
               </tr>
               <tr v-if="work.creation">
@@ -62,7 +66,7 @@ onMounted(() => {
             </table>
           </div>
         </div>
-        <div class="thumbnail" v-if="work?.thumbnail?.url">
+        <div v-if="work?.thumbnail?.url" class="thumbnail">
           <img :src="work.thumbnail.url" />
         </div>
       </div>

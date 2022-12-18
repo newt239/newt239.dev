@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 type trackListProp = {
-  name: string,
-  artists: string[],
-  thumbnail: string,
-  preview: string | null,
-  duration: number,
-  popularity: number,
-  link: string
+  name: string;
+  artists: string[];
+  thumbnail: string;
+  preview: string | null;
+  duration: number;
+  popularity: number;
+  link: string;
 }[];
 
 const trackList = ref<trackListProp>([]);
 
 onMounted(async () => {
-  const res = await axios.get("https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec");
+  const res = await axios.get(
+    "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
+  );
   trackList.value = res.data.slice(0, 12);
-})
+});
 
 type AudioStateProp = {
-  state: boolean,
-  source: string,
-  music: HTMLAudioElement | null
+  state: boolean;
+  source: string;
+  music: HTMLAudioElement | null;
 };
 
-const audioState = ref<AudioStateProp>({ "state": false, "source": "", "music": null });
+const audioState = ref<AudioStateProp>({
+  state: false,
+  source: "",
+  music: null,
+});
 const audioButton = (src: string | null) => {
   if (src) {
     const normalPlayAction = () => {
@@ -33,7 +39,7 @@ const audioButton = (src: string | null) => {
       audioState.value.music.play();
       audioState.value.state = true;
       audioState.value.source = src;
-    }
+    };
     if (!audioState.value.music) {
       normalPlayAction();
     } else {
@@ -61,24 +67,50 @@ const audioButton = (src: string | null) => {
     <div v-else>* Tap album art to play</div>
   </div>
   <div class="myTopTracks">
-    <div class="track" v-for="track in trackList" :alt="track.name">
-      <div class="thumbnailWrapper" @click="audioButton(track.preview ? track.preview : null)">
-        <img :src="track.thumbnail" class="trackThumbnail" :class="track.preview ? 'trackPreview' : ''" />
-        <div class="thumbnailCaption">{{ track.preview ? audioState.state ? audioState.source == track.preview ? "PAUSE"
-            : "PLAY" :
-            "PLAY" : ""
-        }}</div>
+    <div
+      v-for="track in trackList"
+      :key="track.name"
+      class="track"
+      :alt="track.name"
+    >
+      <div
+        class="thumbnailWrapper"
+        @click="audioButton(track.preview ? track.preview : null)"
+      >
+        <img
+          :src="track.thumbnail"
+          class="trackThumbnail"
+          :class="track.preview ? 'trackPreview' : ''"
+        />
+        <div class="thumbnailCaption">
+          {{
+            track.preview
+              ? audioState.state
+                ? audioState.source == track.preview
+                  ? "PAUSE"
+                  : "PLAY"
+                : "PLAY"
+              : ""
+          }}
+        </div>
       </div>
       <div class="trackInfo">
-        <a :href="track.link" target="_blank" class="trackName">{{ track.name }}</a>
+        <a :href="track.link" target="_blank" class="trackName">{{
+          track.name
+        }}</a>
         <div class="trackArtists">
           {{ track.artists.join(", ") }}
         </div>
         <div class="subInfo">
-          <div>Duration / {{ Math.floor(track.duration / 1000 / 60) + ":" + (String(Math.floor(track.duration / 1000) %
-              60).length == 1 ? "0" + String(Math.floor(track.duration / 1000) % 60) : String(Math.floor(track.duration /
-                1000) % 60))
-          }}
+          <div>
+            Duration /
+            {{
+              Math.floor(track.duration / 1000 / 60) +
+              ":" +
+              (String(Math.floor(track.duration / 1000) % 60).length == 1
+                ? "0" + String(Math.floor(track.duration / 1000) % 60)
+                : String(Math.floor(track.duration / 1000) % 60))
+            }}
           </div>
           <div>Popularity / {{ track.popularity }}</div>
         </div>
@@ -152,9 +184,9 @@ const audioButton = (src: string | null) => {
     }
 
     .subInfo {
-      padding-top: .3rem;
-      font-size: .7rem;
-      line-height: .7rem;
+      padding-top: 0.3rem;
+      font-size: 0.7rem;
+      line-height: 0.7rem;
     }
   }
 
