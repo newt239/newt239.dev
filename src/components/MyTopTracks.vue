@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import moment from "moment";
 
 type trackListProp = {
   name: string;
@@ -104,13 +105,7 @@ const audioButton = (src: string | null) => {
         <div class="subInfo">
           <div>
             Duration /
-            {{
-              Math.floor(track.duration / 1000 / 60) +
-              ":" +
-              (String(Math.floor(track.duration / 1000) % 60).length == 1
-                ? "0" + String(Math.floor(track.duration / 1000) % 60)
-                : String(Math.floor(track.duration / 1000) % 60))
-            }}
+            {{ moment(track.duration).format("m:ss") }}
           </div>
           <div>Popularity / {{ track.popularity }}</div>
         </div>
