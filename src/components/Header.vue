@@ -32,7 +32,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 a {
-  border-radius: 3vh;
   &:hover {
     opacity: 1;
   }
@@ -40,38 +39,33 @@ a {
 .headerWrapper {
   display: block;
   position: sticky;
-  width: 92%;
-  transform: translateX(4%);
-  top: 1vh;
+  top: 0;
+  width: 100%;
   color: $color-white;
   background-color: rgba(33, 33, 33, 0.6);
   backdrop-filter: blur(20px);
-  border: 1px solid $color-black;
+  border-bottom: 1px solid $color-black;
   padding: 0.8rem 1rem 1rem;
-  border-radius: 3vh;
   z-index: 10;
-
   header {
     display: flex;
     justify-content: space-between;
     align-items: top;
-
+    width: 92%;
+    transform: translateX(4%);
     .headerMain {
       display: flex;
       align-items: center;
       gap: min(5vh, 5vw);
-
       img {
         max-height: min(10vh, 10vw);
       }
-
       h1 {
         margin: 0;
         font-size: min(5vh, 5vw);
         font-weight: 800;
       }
     }
-
     .headerWidget {
       text-align: right;
       font-size: min(2.5vh, 2.5vw);
