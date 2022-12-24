@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ParsedContent } from "@nuxt/content/dist/runtime/types";
 import { onMounted, ref } from "vue";
-import { RouterLink } from "vue-router";
 const works = ref<ParsedContent[]>([]);
 onMounted(() => {
   queryContent("works")
@@ -14,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div class="cardGrid">
-    <RouterLink v-for="work in works" :key="work._path" :to="`${work._path}`">
+    <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`">
       <div class="card">
         <div class="card-thumbnail-wrapper">
           <img
@@ -29,7 +28,7 @@ onMounted(() => {
           <p>{{ work.description }}</p>
         </div>
       </div>
-    </RouterLink>
+    </NuxtLink>
   </div>
 </template>
 

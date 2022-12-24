@@ -46,10 +46,10 @@ export default {
       </ContentDoc>
     </div>
     <div class="after-content">
-      <RouterLink class="back" to="/">
+      <NuxtLink class="back" to="/">
         <chevron-left-icon />
         BACK HOME
-      </RouterLink>
+      </NuxtLink>
     </div>
   </main>
 </template>
