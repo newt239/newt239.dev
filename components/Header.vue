@@ -5,7 +5,6 @@ import moment from "moment";
 
 const time = ref(moment().format("HH:mm"));
 const day = ref(moment().format("YY/MM/DD"));
-const DoW = ref(moment().format("ddd"));
 
 onMounted(() => {
   setInterval(() => {
@@ -18,13 +17,12 @@ onMounted(() => {
   <RouterLink to="/" class="headerWrapper">
     <header>
       <div class="headerMain">
-        <img src="/img/logo.svg" />
-        <h1>newt</h1>
+        <img src="/logo.svg" />
+        <span>newt</span>
       </div>
       <div class="headerWidget">
         <div>{{ day }}</div>
         <div>{{ time }}</div>
-        <div>{{ DoW }}</div>
       </div>
     </header>
   </RouterLink>
@@ -32,7 +30,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 a {
-  border-radius: 3vh;
   &:hover {
     opacity: 1;
   }
@@ -40,42 +37,44 @@ a {
 .headerWrapper {
   display: block;
   position: sticky;
-  width: 92%;
-  transform: translateX(4%);
-  top: 1vh;
+  width: 100%;
+  top: 0;
   color: $color-white;
   background-color: rgba(33, 33, 33, 0.6);
   backdrop-filter: blur(20px);
   border: 1px solid $color-black;
-  padding: 0.8rem 1rem 1rem;
-  border-radius: 3vh;
+  padding: max(0.5rem, min(2vh, 2vw));
   z-index: 10;
 
   header {
     display: flex;
     justify-content: space-between;
-    align-items: top;
+    align-items: center;
+    width: 92%;
+    max-width: 1280px;
+    margin: 0 auto;
 
     .headerMain {
       display: flex;
       align-items: center;
-      gap: min(5vh, 5vw);
+      gap: min(3vh, 3vw);
 
       img {
-        max-height: min(10vh, 10vw);
+        max-height: min(8vh, 8vw);
+        min-height: 2rem;
       }
 
-      h1 {
+      span {
         margin: 0;
-        font-size: min(5vh, 5vw);
+        font-size: max(1.5rem, min(5vh, 5vw));
         font-weight: 800;
       }
     }
 
     .headerWidget {
       text-align: right;
-      font-size: min(2.5vh, 2.5vw);
-      line-height: min(3vh, 3vw);
+      font-size: max(0.7rem, min(2.5vh, 2.5vw));
+      line-height: max(1rem, min(3vh, 3vw));
       letter-spacing: 0.1rem;
     }
   }

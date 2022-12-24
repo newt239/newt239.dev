@@ -1,47 +1,28 @@
 <script setup lang="ts">
+import { ParsedContent } from "@nuxt/content/dist/runtime/types";
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
-import { createClient } from "microcms-js-sdk";
-
-type worksProp = {
-  id: string;
-  title: string;
-  thumbnail: {
-    url: string;
-  };
-  description: string;
-};
-
-const works = ref<worksProp[]>([]);
-
-const client = createClient({
-  serviceDomain: "newt-house",
-  apiKey: import.meta.env.VITE_API_KEY as string,
-});
-
+const works = ref<ParsedContent[]>([]);
 onMounted(() => {
-  client
-    .get({
-      endpoint: "works",
-    })
-    .then((res: { contents: worksProp[] }) => {
-      works.value = res.contents;
-    })
-    .catch((err) => console.error(err));
+  queryContent("works")
+    .find()
+    .then((v) => {
+      works.value = v;
+    });
 });
 </script>
 
 <template>
   <div class="cardGrid">
-    <RouterLink v-for="work in works" :key="work.id" :to="'/works/' + work.id">
+    <RouterLink v-for="work in works" :key="work._path" :to="`${work._path}`">
       <div class="card">
         <div class="card-thumbnail-wrapper">
           <img
             :v-show="work.thumbnail"
             class="card-thumbnail"
-            :src="work.thumbnail.url"
+            :src="`images/${work.thumbnail}`"
           />
-          <div class="hover-caption">VIEW</div>
+          <div class="hover-caption">OPEN</div>
         </div>
         <div class="card-body">
           <h3>{{ work.title }}</h3>

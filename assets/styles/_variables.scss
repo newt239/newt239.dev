@@ -1,0 +1,15 @@
+$color-white: hsl(0deg 0% 100%);
+$color-black: hsl(0deg 0% 13%);
+$color-black-secondary: hsl(200deg 19% 18%);
+$color-blue: hsl(213deg 47% 47%);
+$breakpoints: (
+  "mobile": "screen and (max-width: 500px)",
+  "tablet": "screen and (max-width: 768px)",
+  "desktop": "screen and (max-width: 1200px)",
+) !default;
+
+@mixin mq($breakpoint: desktop) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
