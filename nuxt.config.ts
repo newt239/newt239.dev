@@ -1,10 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   telemetry: false,
-  ssr: false,
-    nitro: {
-    preset: "cloudflare_pages"
-  }
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
