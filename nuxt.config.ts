@@ -6,6 +6,10 @@ export default defineNuxtConfig({
     preset: "cloudflare_pages",
   },
   app: {
+    head: {
+      title: "newt239",
+      link: [{ href: "logo.svg", type: "image/x-icon" }],
+    },
     pageTransition: { name: "page", mode: "out-in" },
   },
   css: ["@/assets/styles/main.scss"],
@@ -27,5 +31,13 @@ export default defineNuxtConfig({
     highlight: {
       theme: "github-dark-dimmed",
     },
+  },
+  generate: {
+    routes: [
+      "/works/score-watcher",
+      "/works/quiz-flasher",
+      "/works/ship-notify",
+      "/works/look-inside-view",
+    ],
   },
 });
