@@ -20,7 +20,7 @@ onMounted(() => {
           <img
             :v-show="work.thumbnail"
             class="card-thumbnail"
-            :src="`images/work/${work.thumbnail}`"
+            :src="`images/${work.thumbnail}`"
           />
           <div class="hover-caption">OPEN</div>
         </div>

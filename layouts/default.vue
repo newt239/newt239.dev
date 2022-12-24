@@ -1,8 +1,23 @@
+<script>
+import { BrandGithubIcon } from "vue-tabler-icons";
+
+export default {
+  components: { BrandGithubIcon },
+};
+</script>
+
 <template>
   <Header />
   <div class="wrapper">
     <slot />
-    <div class="copyright">© 2022 newt</div>
+    <div class="footer">
+      <div class="copyright">© 2022 newt</div>
+      <div class="contact">
+        <a href="https://github.com/newt239" target="_blank">
+          <brand-github-icon
+        /></a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,25 +26,20 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 0.5rem;
+  width: 100%;
 
-  .copyright {
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
     padding: 1rem;
-    width: 100%;
-    text-align: center;
-  }
-}
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  background-color: $color-black;
-
-  .atom-spinner {
-    margin: 0 auto;
-    margin-top: 50vh;
+    .contact {
+      a {
+        color: $color-white;
+      }
+    }
   }
 }
 

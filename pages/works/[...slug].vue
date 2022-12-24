@@ -1,3 +1,10 @@
+<script>
+import { ChevronLeftIcon } from "vue-tabler-icons";
+
+export default {
+  components: { ChevronLeftIcon },
+};
+</script>
 <template>
   <main>
     <span class="category-name">WORKS</span>
@@ -30,7 +37,7 @@
             </div>
           </div>
           <div class="thumbnail">
-            <img :src="`/images/work/${doc.thumbnail}`" />
+            <img :src="`/images/${doc.thumbnail}`" />
           </div>
         </div>
         <div class="content">
@@ -38,8 +45,11 @@
         </div>
       </ContentDoc>
     </div>
-    <div class="footer">
-      <RouterLink class="back" to="/">BACK HOME</RouterLink>
+    <div class="after-content">
+      <RouterLink class="back" to="/">
+        <chevron-left-icon />
+        BACK HOME
+      </RouterLink>
     </div>
   </main>
 </template>
@@ -148,7 +158,7 @@
   }
 }
 
-.footer {
+.after-content {
   padding: 1rem;
   text-align: center;
 
@@ -157,12 +167,6 @@
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     color: $color-white;
-
-    &::before {
-      padding-right: 5px;
-      content: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>');
-      vertical-align: -0.1rem;
-    }
   }
 }
 </style>

@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   telemetry: false,
   css: ["@/assets/styles/main.scss"],
   vite: {
+    plugins: [],
     css: {
       preprocessorOptions: {
         scss: {
