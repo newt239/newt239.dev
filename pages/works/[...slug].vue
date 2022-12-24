@@ -138,10 +138,6 @@ export default {
       td {
         padding: 0 1rem;
       }
-
-      th {
-        border-right: 1px $color-white solid;
-      }
     }
 
     code,

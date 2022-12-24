@@ -13,14 +13,9 @@ type trackListProp = {
   link: string;
 }[];
 
-const trackList = ref<trackListProp>([]);
-
-onMounted(async () => {
-  const res = await axios.get(
-    "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
-  );
-  trackList.value = res.data.slice(0, 12);
-});
+const { data: trackList } = await useFetch<trackListProp>(
+  "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
+);
 
 type AudioStateProp = {
   state: boolean;
@@ -64,12 +59,12 @@ const audioButton = (src: string | null) => {
 
 <template>
   <div class="intro">
-    <div v-if="trackList.length === 0">Loading...</div>
+    <div v-if="!trackList">Loading...</div>
     <div v-else>* Tap album art to play</div>
   </div>
   <div class="myTopTracks">
     <div
-      v-for="track in trackList"
+      v-for="track in trackList?.slice(0, 12)"
       :key="track.name"
       class="track"
       :alt="track.name"

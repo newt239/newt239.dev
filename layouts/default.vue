@@ -11,12 +11,12 @@ export default {
   <div class="wrapper">
     <slot />
     <div class="footer">
-      <div class="copyright">© 2022 newt</div>
       <div class="contact">
         <a href="https://github.com/newt239" target="_blank">
           <brand-github-icon
         /></a>
       </div>
+      <div class="copyright">© 2022 newt</div>
     </div>
   </div>
 </template>
@@ -45,10 +45,11 @@ export default {
 
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 1s;
+  transition: all 0.4s;
 }
-.page-enter,
-.page-leave-active {
+.page-enter-from,
+.page-leave-to {
   opacity: 0;
+  filter: blur(1rem);
 }
 </style>
