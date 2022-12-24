@@ -2,22 +2,16 @@
 
 * {
   box-sizing: border-box;
-
-  &::-webkit-scrollbar {
-    height: 0.3rem;
-    width: 0.3rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $color-white;
-    border-radius: 0.1rem;
-  }
 }
 
 html {
   overflow-x: hidden;
   scrollbar-gutter: stable;
   width: 100%;
+}
+
+:root {
+  color-scheme: dark;
 }
 
 body {
@@ -33,14 +27,7 @@ body {
   scrollbar-gutter: stable;
 }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: 0.2rem;
-  margin: 2rem 0 0.5rem 1rem;
-}
-
-h3 {
+h1 {
   background-color: $color-white;
   color: $color-black;
   display: inline-block;
@@ -49,6 +36,24 @@ h3 {
   line-height: 2.5rem;
   margin: 1rem 0;
   padding: 0 1rem;
+}
+
+h2,
+.category-name {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.2rem;
+  margin: 2rem 0 0.5rem 1rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin: 1rem 1rem 0;
+}
+
+h4 {
+  margin: 0 1rem;
+  font-size: 1rem;
 }
 
 a {

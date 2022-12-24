@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxt/content"],
   content: {
+    api: {
+      baseURL: "/api/works",
+    },
     highlight: {
       theme: "github-dark-dimmed",
     },

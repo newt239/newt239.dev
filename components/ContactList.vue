@@ -12,21 +12,21 @@ type contactsProp = {
 const contacts = ref<contactsProp>([
   {
     name: "GitHub",
-    icon: "/img/github.svg",
+    icon: "github.svg",
     id: "@newt239",
     url: "https://github.com/newt239",
     color: "#FFF",
   },
   {
     name: "Qiita",
-    icon: "/img/qiita.png",
+    icon: "qiita.png",
     id: "@newt239",
     url: "https://qiita.com/newt239",
     color: "#55C500",
   },
   {
     name: "Zenn",
-    icon: "/img/zenn.svg",
+    icon: "zenn.svg",
     id: "@newt_st21",
     url: "https://zenn.dev/newt_st21",
     color: "#3EA8FF",
@@ -45,7 +45,7 @@ const contacts = ref<contactsProp>([
           'color: 1px ' + contact.color + ' solid;color: ' + contact.color
         "
       >
-        <img :src="contact.icon" />
+        <img :src="`images/sns/${contact.icon}`" />
         <span>{{ contact.id }}</span>
       </a>
     </div>

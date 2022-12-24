@@ -1,21 +1,15 @@
 <template>
-  <div>
-    <Header />
-    <div class="wrapper">
-      <slot />
-      <div class="copyright">© 2022 newt</div>
-    </div>
+  <Header />
+  <div class="wrapper">
+    <slot />
+    <div class="copyright">© 2022 newt</div>
   </div>
 </template>
 
 <style lang="scss">
-#app {
+.wrapper {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 0.5rem;
-}
-
-.wrapper {
   padding: 0 0.5rem;
 
   .copyright {

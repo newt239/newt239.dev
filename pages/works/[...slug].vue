@@ -1,11 +1,11 @@
 <template>
   <main>
-    <h2>WORKS</h2>
+    <span class="category-name">WORKS</span>
     <div class="work">
       <ContentDoc v-slot="{ doc }">
         <div class="about">
           <div class="intro">
-            <h3>{{ doc.title }}</h3>
+            <h1>{{ doc.title }}</h1>
             <div class="summary">
               <table>
                 <tr v-if="doc.github">
@@ -30,11 +30,10 @@
             </div>
           </div>
           <div class="thumbnail">
-            <img :src="`/images/${doc.thumbnail}`" />
+            <img :src="`/images/work/${doc.thumbnail}`" />
           </div>
         </div>
         <div class="content">
-          <p>{{ doc.description }}</p>
           <ContentRenderer :value="doc" />
         </div>
       </ContentDoc>
@@ -92,10 +91,6 @@
           border-radius: 1rem 1rem 0 0;
         }
       }
-
-      .intro h3 {
-        margin: 0;
-      }
     }
   }
 
@@ -107,22 +102,22 @@
       margin: 1rem;
     }
 
-    h4 {
+    h2 {
       display: inline-block;
       padding: 0 1rem;
-      margin-bottom: 0;
+      letter-spacing: 0;
+      margin: 0;
       font-size: 1.5rem;
       border-bottom: $color-white 1px solid;
     }
 
+    h2,
+    h3,
+    h4,
     h5 {
-      font-size: 1.3rem;
-      margin: 1rem 1rem 0;
-    }
-
-    h6 {
-      margin: 0 1rem;
-      font-size: 1rem;
+      a {
+        color: $color-white;
+      }
     }
 
     table {
@@ -149,21 +144,6 @@
 
     pre {
       overflow-x: scroll;
-    }
-
-    .imageWrapper {
-      text-align: center;
-
-      img {
-        max-width: calc(100% - 1rem);
-        max-height: 50vh;
-        filter: drop-shadow(2px 4px 6px black);
-        border-radius: 0.5rem;
-      }
-    }
-
-    .url {
-      word-break: break-all;
     }
   }
 }
