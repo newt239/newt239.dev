@@ -8,13 +8,15 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "newt239",
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
+        { rel: "canonical", href: "https://newt239.dev" },
+      ],
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
   css: ["@/assets/styles/main.scss"],
   vite: {
-    plugins: [],
     css: {
       preprocessorOptions: {
         scss: {

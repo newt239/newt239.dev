@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 import moment from "moment";
 
@@ -13,16 +13,10 @@ type trackListProp = {
   link: string;
 }[];
 
-const trackList = ref<trackListProp>([]);
-
-onMounted(async () => {
-  const res = await axios.get(
-    "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
-  );
-  console.log(res);
-  trackList.value = res.data.slice(0, 12);
-});
-
+const { data: trackList } = await axios.get(
+  "https://hono-app.newt-house.workers.dev/spotify/my-top-tracks"
+);
+console.log(trackList.value);
 type AudioStateProp = {
   state: boolean;
   source: string;
