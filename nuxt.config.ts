@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   telemetry: false,
   ssr: false,
+  target: "static",
   modules: ["@nuxt/content"],
   nitro: {
     preset: "service-worker",
@@ -26,7 +27,6 @@ export default defineNuxtConfig({
       },
     },
   },
-
   content: {
     highlight: {
       theme: "github-dark-dimmed",
