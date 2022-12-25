@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import moment from "moment";
 
 type TrackListProp = {
@@ -19,9 +18,7 @@ type AudioStateProp = {
   music: HTMLAudioElement | null;
 };
 
-const { data: trackList }: { data: TrackListProp } = await axios.get(
-  "/api/spotify"
-);
+const { data: trackList } = await useFetch<TrackListProp>("/api/spotify");
 
 const audioState = ref<AudioStateProp>({
   state: false,

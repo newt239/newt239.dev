@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default defineEventHandler(async (e) => {
   try {
-    const res = await axios.get(
+    const res = await $fetch(
       "https://hono-app.newt-house.workers.dev/spotify/my-top-tracks",
       {
         headers: {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (e) => {
       }
     );
     console.log(res);
-    return res.data;
+    return res;
   } catch (e) {
     console.log(e);
     return {
