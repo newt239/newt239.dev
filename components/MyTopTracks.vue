@@ -25,6 +25,7 @@ const audioState = ref<AudioStateProp>({
   source: "",
   music: null,
 });
+
 const audioButton = (src: string | null) => {
   if (src) {
     const normalPlayAction = () => {
@@ -71,6 +72,7 @@ const audioButton = (src: string | null) => {
         @click="audioButton(track.preview ? track.preview : null)"
       >
         <img
+          crossorigin="anonymous"
           :src="track.thumbnail"
           class="trackThumbnail"
           :class="track.preview ? 'trackPreview' : ''"
