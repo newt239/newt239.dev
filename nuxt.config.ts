@@ -2,7 +2,9 @@
 export default defineNuxtConfig({
   telemetry: false,
   ssr: false,
-  target: "static",
+  nitro: {
+    preset: "service-worker",
+  },
   app: {
     head: {
       title: "newt239",
