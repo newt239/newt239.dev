@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "newt239",
-      link: [{ href: "logo.svg", type: "image/x-icon" }],
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
