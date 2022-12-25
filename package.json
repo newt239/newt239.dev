@@ -17,6 +17,7 @@
     "axios": "^1.2.1",
     "moment": "^2.29.4",
     "nuxt": "^3.0.0",
+    "nuxt-proxy": "^0.3.4",
     "vue-tabler-icons": "^2.17.0"
   },
   "devDependencies": {

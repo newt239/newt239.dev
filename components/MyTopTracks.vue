@@ -3,7 +3,7 @@ import { ref } from "vue";
 import axios from "axios";
 import moment from "moment";
 
-type trackListProp = {
+type TrackListProp = {
   name: string;
   artists: string[];
   thumbnail: string;
@@ -13,15 +13,15 @@ type trackListProp = {
   link: string;
 }[];
 
-const { data: trackList } = await axios.get(
-  "https://hono-app.newt-house.workers.dev/spotify/my-top-tracks"
-);
-console.log(trackList.value);
 type AudioStateProp = {
   state: boolean;
   source: string;
   music: HTMLAudioElement | null;
 };
+
+const { data: trackList }: { data: TrackListProp } = await axios.get(
+  "/api/spotify"
+);
 
 const audioState = ref<AudioStateProp>({
   state: false,
