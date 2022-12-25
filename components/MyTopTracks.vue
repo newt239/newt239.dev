@@ -13,9 +13,15 @@ type trackListProp = {
   link: string;
 }[];
 
-const { data: trackList } = await useFetch<trackListProp>(
-  "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
-);
+const trackList = ref<trackListProp>([]);
+
+onMounted(async () => {
+  const res = await axios.get(
+    "https://script.google.com/macros/s/AKfycbwnD3fNu5hmfRqpMBc1RCtWqWklYThS4QhQFREKF-EBAeJXMKVmM6BItBWvMTRwrSIm/exec"
+  );
+  console.log(res);
+  trackList.value = res.data.slice(0, 12);
+});
 
 type AudioStateProp = {
   state: boolean;
