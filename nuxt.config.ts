@@ -2,9 +2,7 @@
 export default defineNuxtConfig({
   telemetry: false,
   ssr: false,
-  nitro: {
-    preset: "cloudflare_pages",
-  },
+  target: "static",
   app: {
     head: {
       title: "newt239",
@@ -25,19 +23,8 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxt/content"],
   content: {
-    api: {
-      baseURL: "/api/works",
-    },
     highlight: {
       theme: "github-dark-dimmed",
     },
-  },
-  generate: {
-    routes: [
-      "/works/score-watcher",
-      "/works/quiz-flasher",
-      "/works/ship-notify",
-      "/works/look-inside-view",
-    ],
   },
 });
