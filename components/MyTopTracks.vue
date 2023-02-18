@@ -10,7 +10,7 @@ type TrackListProp = {
   duration: number;
   popularity: number;
   link: string;
-}[];
+};
 
 type AudioStateProp = {
   state: boolean;
@@ -18,7 +18,10 @@ type AudioStateProp = {
   music: HTMLAudioElement | null;
 };
 
-const { data: trackList } = await useFetch<TrackListProp>("/api/spotify");
+const { data: trackList } = await useAsyncData<TrackListProp[]>(
+  "top-tracks",
+  () => $fetch("https://api.newt239.dev/spotify/my-top-tracks")
+);
 
 const audioState = ref<AudioStateProp>({
   state: false,
