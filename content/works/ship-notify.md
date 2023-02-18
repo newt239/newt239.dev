@@ -28,8 +28,8 @@ tech: Python ( Discord.py ), Selenium, Heroku, Firebase ( Firestore, Hosting, Au
 
 ### SHIP-Assistant on Web
 
-- https://ship-assistant.web.app/
+- <a href="https://ship-assistant.web.app/" target="_blank">SHIP-Asisstant</a>
 
 ### Notion 上で利用方法を説明したページ
 
-- [SHIP Assistant's Note](https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a)
+- <a href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a" target="_blank">SHIP Assistant's Note</a>

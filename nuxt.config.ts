@@ -4,9 +4,6 @@ export default defineNuxtConfig({
   ssr: true,
   target: "static",
   modules: ["@nuxt/content"],
-  nitro: {
-    preset: "service-worker",
-  },
   app: {
     head: {
       title: "newt239",
@@ -53,11 +50,6 @@ export default defineNuxtConfig({
           additionalData: "@import '@/assets/styles/_variables.scss';",
         },
       },
-    },
-  },
-  content: {
-    highlight: {
-      theme: "github-dark-dimmed",
     },
   },
 });

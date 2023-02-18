@@ -24,18 +24,16 @@ description: クイズ大会におけるプレイヤーの得点状況を可視�
 - Z
 - freez X
 
+## リンク
+
+- <a href="https://score-watcher.newt239.dev/" target="_blank">Score Watcher</a>
+
 ## Score Watcher
 
-- https://github.com/newt239/score-watcher
+- <a href="https://github.com/newt239/score-watcher" target="_blank">newt239/score-watcher - GitHub</a>
 
 この Web アプリケーションの前身となったソフトです。Electron, Vue.js (v2)で開発していました。
 
 最終バージョンは以下のリンクからインストールできます。
 
-- https://github.com/newt239/score-watcher/releases
-
-## 関連リンク
-
-### サービスページ
-
-- <a href="https://score-watcher.newt239.dev/" target="_blank">Score Watcher</a>
+- <a href="https://github.com/newt239/score-watcher/releases" target="_blank">Releases ・ newtt239/score-watcher</a>
