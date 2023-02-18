@@ -8,7 +8,7 @@ export default {
 
 <template>
   <main>
-    <span class="category-name">WORKS</span>
+    <div class="category-name">WORKS</div>
     <div class="work">
       <ContentDoc v-slot="{ doc }">
         <Head>

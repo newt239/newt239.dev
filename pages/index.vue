@@ -5,7 +5,7 @@
     </Head>
     <main>
       <WorkList />
-      <MyTopTracks />
+      <MyTopTrackList />
     </main>
   </div>
 </template>

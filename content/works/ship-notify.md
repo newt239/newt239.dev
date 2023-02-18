@@ -6,7 +6,7 @@ creation: 2021/01 -
 tech: Python ( Discord.py ), Selenium, Heroku, Firebase ( Firestore, Hosting, Authentication )
 ---
 
-SHIP ( Sakae Higashi Internet Program: [SHIP トップ](https://ship.sakae-higashi.jp/) ) や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。
+<a href="https://ship.sakae-higashi.jp/" target="_blank">SHIP</a> ( Sakae Higashi Internet Program ) や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。
 
 <!--more-->
 

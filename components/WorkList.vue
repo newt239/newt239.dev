@@ -3,7 +3,7 @@ const works = await queryContent("works").find();
 </script>
 
 <template>
-  <div v-show="works.length === works.length" class="workList">
+  <div v-show="works && works.length !== 0" class="workList">
     <h2>WORKS</h2>
     <div class="cardGrid">
       <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`">
