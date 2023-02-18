@@ -11,9 +11,6 @@ export default {
     <div class="category-name">WORKS</div>
     <div class="work">
       <ContentDoc v-slot="{ doc }">
-        <Head>
-          <Title>{{ doc.title }} - newt239</Title>
-        </Head>
         <div class="about">
           <div class="intro">
             <h1>{{ doc.title }}</h1>

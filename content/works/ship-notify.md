@@ -2,7 +2,7 @@
 title: "SHIP Notify"
 thumbnail: ship-info.webp
 github: newt239/SHIP-notify-public
-creation: 2021/01 -
+creation: 2021/01 - 2022/04
 tech: Python ( Discord.py ), Selenium, Heroku, Firebase ( Firestore, Hosting, Authentication )
 ---
 
