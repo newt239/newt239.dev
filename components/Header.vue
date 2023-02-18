@@ -4,7 +4,7 @@ import { RouterLink } from "vue-router";
 import dayjs from "dayjs";
 
 const time = ref(dayjs().format("HH:mm"));
-const day = ref(dayjs().format("YY/MM/DD"));
+const day = ref(dayjs().format("YY.MM.DD"));
 
 onMounted(() => {
   setInterval(() => {

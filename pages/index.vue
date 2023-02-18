@@ -5,6 +5,7 @@
     </Head>
     <main>
       <WorkList />
+      <ArticleList />
       <MyTopTrackList />
     </main>
   </div>
