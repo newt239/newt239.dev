@@ -1,11 +1,3 @@
-<script>
-import { BrandGithubIcon } from "vue-tabler-icons";
-
-export default {
-  components: { BrandGithubIcon },
-};
-</script>
-
 <template>
   <Header />
   <div class="wrapper">
@@ -16,7 +8,7 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
   width: 100%;

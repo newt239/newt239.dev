@@ -1,5 +1,7 @@
 <template>
-  <WorkList />
-  <ArticleList />
-  <MyTopTrackList />
+  <main>
+    <WorkList />
+    <ArticleList />
+    <MyTopTrackList />
+  </main>
 </template>
