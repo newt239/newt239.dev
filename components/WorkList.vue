@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import { ParsedContent } from "@nuxt/content/dist/runtime/types";
-import { onMounted, ref } from "vue";
-const works = ref<ParsedContent[]>([]);
-onMounted(() => {
-  queryContent("works")
-    .find()
-    .then((v) => {
-      works.value = v;
-    });
-});
+const works = await queryContent("works").find();
 </script>
 
 <template>
