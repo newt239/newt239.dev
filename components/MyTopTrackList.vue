@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import moment from "moment";
+import dayjs from "dayjs";
+
 import { InfoCircleIcon } from "vue-tabler-icons";
 
 type TrackListProp = {
@@ -103,7 +104,7 @@ const audioButton = (src: string | null) => {
           <div class="subInfo">
             <div>
               Duration /
-              {{ moment(track.duration).format("m:ss") }}
+              {{ dayjs(track.duration).format("m:ss") }}
             </div>
             <div>Popularity / {{ track.popularity }}</div>
           </div>

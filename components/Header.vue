@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
-import moment from "moment";
+import dayjs from "dayjs";
 
-const time = ref(moment().format("HH:mm"));
-const day = ref(moment().format("YY/MM/DD"));
+const time = ref(dayjs().format("HH:mm"));
+const day = ref(dayjs().format("YY/MM/DD"));
 
 onMounted(() => {
   setInterval(() => {
-    time.value = moment().format("HH:mm");
+    time.value = dayjs().format("HH:mm");
   }, 1000 * 60);
 });
 </script>
