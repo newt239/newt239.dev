@@ -3,50 +3,48 @@ const works = await queryContent("works").find();
 </script>
 
 <template>
-  <div class="cardGrid">
-    <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`">
-      <div class="card">
-        <div class="card-thumbnail-wrapper">
-          <img
-            :v-show="work.thumbnail"
-            class="card-thumbnail"
-            :src="`images/${work.thumbnail}`"
-          />
-          <div class="hover-caption">OPEN</div>
+  <div v-show="works.length === works.length" class="workList">
+    <h2>WORKS</h2>
+    <div class="cardGrid">
+      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`">
+        <div class="card">
+          <div class="card-thumbnail-wrapper">
+            <img
+              :v-show="work.thumbnail"
+              class="card-thumbnail"
+              :src="`images/${work.thumbnail}`"
+            />
+            <div class="hover-caption">OPEN</div>
+          </div>
+          <div class="card-body">
+            <h3>{{ work.title }}</h3>
+            <p>{{ work.description }}</p>
+          </div>
         </div>
-        <div class="card-body">
-          <h3>{{ work.title }}</h3>
-          <p>{{ work.description }}</p>
-        </div>
-      </div>
-    </NuxtLink>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-a {
-  color: white;
-}
-
+<style lang="scss">
 .cardGrid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
+  a {
+    color: white;
+  }
   .card {
     border-radius: 0.5rem;
     transition: all 0.5s;
-
     .card-thumbnail-wrapper {
       position: relative;
-
       .card-thumbnail {
         width: 100%;
         aspect-ratio: 16 / 9;
         border-radius: 0.5rem;
         filter: drop-shadow(2px 4px 6px black);
       }
-
       .hover-caption {
         font-size: 2rem;
         font-weight: 800;
@@ -59,14 +57,11 @@ a {
         transition: all 0.5s;
       }
     }
-
     &:hover .card-thumbnail-wrapper .hover-caption {
       opacity: 1;
     }
-
     .card-body {
-      margin: 0 1rem;
-
+      margin: 0 0.5rem;
       h3 {
         margin: 0;
         padding: 0;
@@ -74,10 +69,8 @@ a {
         color: $color-white;
         background-color: $color-black;
       }
-
       p {
         margin-top: 0;
-        height: 5rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
@@ -85,15 +78,5 @@ a {
       }
     }
   }
-}
-
-.ship-notify {
-  grid-column: 1 2;
-  grid-row: 1 2;
-}
-
-.quiz-flasher {
-  grid-column: 2 3;
-  grid-row: 1 2;
 }
 </style>

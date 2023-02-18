@@ -1,17 +1,41 @@
 ---
 title: "Score Watcher"
-thumbnail: score-watcher.webp
-github: newt239/score-watcher
-creation: 2021/08 - 2021/10
-tech: Electron, Vue.js (v2)
+thumbnail: next-score-watcher.webp
+github: newt239/next-score-watcher
+creation: 2021.08 -
+tech: Next.js, Chakra UI, Dexie.js
+description: クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
 ---
 
-クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するためのデスクトップアプリです。N o M x, N updown といった基本的な形式だけでなく Attack Survival や Square X といった形式にも対応しています。同時に問題文を表示したりタイマーをセットすることもできます。プレイデータは json ファイルとしてのエクスポートも可能です。
+クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するためのデスクトップアプリです。N○M✕, N updown といった基本的な形式だけでなく Attack Survival や Square X といった形式にも対応しています。ダークモードや、問題文の表示機能も備えています。すべての処理を端末上で行っているため、オフライン環境でも動作します。
 
 <!--more-->
 
-## 関連リンク
+## 対応している形式一覧
 
-### インストール
+- スコア計算
+- N○M✕
+- 連答付き N○M✕
+- NbyN
+- Nupdown
+- SwedishX
+- Attack Survival
+- Square X
+- Z
+- freez X
+
+## Score Watcher
+
+- https://github.com/newt239/score-watcher
+
+この Web アプリケーションの前身となったソフトです。Electron, Vue.js (v2)で開発していました。
+
+最終バージョンは以下のリンクからインストールできます。
 
 - https://github.com/newt239/score-watcher/releases
+
+## 関連リンク
+
+### サービスページ
+
+- <a href="https://score-watcher.newt239.dev/" target="_blank">Score Watcher</a>

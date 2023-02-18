@@ -14,64 +14,62 @@ onMounted(() => {
 </script>
 
 <template>
-  <RouterLink to="/" class="headerWrapper">
-    <header>
-      <div class="headerMain">
+  <header>
+    <RouterLink to="/">
+      <div class="logo">
         <img src="/logo.svg" />
         <span>newt</span>
       </div>
-      <div class="headerWidget">
+      <div class="widget">
         <div>{{ day }}</div>
         <div>{{ time }}</div>
       </div>
-    </header>
-  </RouterLink>
+    </RouterLink>
+  </header>
 </template>
 
-<style lang="scss" scoped>
-a {
-  &:hover {
-    opacity: 1;
-  }
-}
-.headerWrapper {
-  display: block;
+<style lang="scss">
+header {
+  background-image: none;
+  display: flex;
+  flex-direction: column;
   position: sticky;
+  z-index: 5;
   width: 100%;
   top: 0;
-  color: $color-white;
-  background-color: rgba(33, 33, 33, 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid $color-black;
+  left: auto;
+  right: 0px;
   padding: max(0.5rem, min(2vh, 2vw));
-  z-index: 10;
-
-  header {
+  color: $color-white;
+  backdrop-filter: blur(8px);
+  border-style: solid;
+  border-color: rgba(194, 224, 255, 0.08);
+  border-width: 0px 0px thin;
+  background-color: rgba(33, 33, 33, 0.7);
+  a {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: $color-white;
     width: 92%;
     max-width: 1280px;
     margin: 0 auto;
-
-    .headerMain {
+    .logo {
       display: flex;
       align-items: center;
       gap: min(3vh, 3vw);
-
       img {
         max-height: min(8vh, 8vw);
         min-height: 2rem;
       }
-
       span {
         margin: 0;
         font-size: max(1.5rem, min(5vh, 5vw));
         font-weight: 800;
       }
     }
-
-    .headerWidget {
+    .widget {
       text-align: right;
       font-size: max(0.7rem, min(2.5vh, 2.5vw));
       line-height: max(1rem, min(3vh, 3vw));

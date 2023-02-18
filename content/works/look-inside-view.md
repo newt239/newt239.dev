@@ -18,5 +18,6 @@ tech: Pannellum, Firebase ( Firestore, Storage )
 
 2020 年の初め頃から海外で注目を集めている「ニューモーフィズム」を採用しました。これはベースのレイヤーから要素を押し出したり窪ませているように見せることで境界に滑らかな印象を与えることができるデザイン手法で、美しく洗練された印象に仕上げることができるというものです。
 
-関連リンク
-Look Inside View - shfes'21
+## リンク
+
+- <a href="https://look-inside-view.web.app/" target="_blank">Look Inside View - shfes'21</a>
