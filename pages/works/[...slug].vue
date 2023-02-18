@@ -1,9 +1,5 @@
 <script>
 import { ChevronLeftIcon } from "vue-tabler-icons";
-
-export default {
-  components: { ChevronLeftIcon },
-};
 </script>
 
 <template>

@@ -60,13 +60,13 @@ const audioButton = (src: string | null) => {
 </script>
 
 <template>
-  <div v-show="trackList && trackList.length !== 0">
+  <div v-show="trackList && trackList.length !== 0" class="myTopTrackList">
     <h2>MY TOP TRACKS</h2>
     <div class="alert info">
       <info-circle-icon />
       <div>Tap album art to play music.</div>
     </div>
-    <div class="myTopTracks">
+    <div class="musics">
       <div
         v-for="track in trackList?.slice(0, 12)"
         :key="track.name"
@@ -115,7 +115,7 @@ const audioButton = (src: string | null) => {
 </template>
 
 <style lang="scss">
-.myTopTracks {
+.musics {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
