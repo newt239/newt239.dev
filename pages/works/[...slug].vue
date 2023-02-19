@@ -56,7 +56,8 @@ import { ChevronLeftIcon } from "vue-tabler-icons";
   border: 1px $color-white solid;
   border-radius: 1rem;
 
-  a {
+  a,
+  p > code {
     word-break: break-all;
   }
 
