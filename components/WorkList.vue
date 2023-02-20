@@ -14,7 +14,7 @@ const works = await queryContent("works").find();
               class="card-thumbnail"
               :src="`images/${work.thumbnail}`"
             />
-            <div class="hover-caption">OPEN</div>
+            <div class="hover-caption" aria-hidden="true">OPEN</div>
           </div>
           <div class="card-body">
             <h3>{{ work.title }}</h3>

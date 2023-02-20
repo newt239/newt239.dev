@@ -51,17 +51,21 @@ const articleList: ArticleProp[] = [
           v-if="article.url.startsWith('https://qiita.com')"
           src="/qiita.png"
           class="site-icon icon-align"
+          alt="Qiitaのアイコン"
         />
         <img
           v-else-if="article.url.startsWith('https://zenn.dev')"
           src="/zenn.png"
           class="site-icon icon-align"
+          alt="Zennのアイコン"
         />
         <span v-else src="/zenn.png" class="site-icon"
           ><book-2-icon class="icon-align" width="16px" height="16px"
         /></span>
-        <a :href="article.url" target="_blank">{{ article.title }}</a> -
-        {{ dayjs(article.date).format("YY.MM.DD") }}
+        <a :href="article.url" target="_blank">{{ article.title }}</a> ……
+        <span :title="dayjs(article.date).format('YYYY年MM月DD日')">{{
+          dayjs(article.date).format("YY.MM.DD")
+        }}</span>
       </li>
     </ul>
   </div>

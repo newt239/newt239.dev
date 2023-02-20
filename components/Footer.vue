@@ -6,11 +6,11 @@ import { BrandTwitterIcon, BrandGithubIcon } from "vue-tabler-icons";
   <footer>
     <div class="copyright">© newt 2023</div>
     <div class="contact">
-      <a href="https://twitter.com/newt239" target="_blank">
-        <brand-twitter-icon
+      <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
+        <brand-twitter-icon role="img" aria-label="Twitterのアイコン"
       /></a>
-      <a href="https://github.com/newt239" target="_blank">
-        <brand-github-icon
+      <a href="https://github.com/newt239" target="_blank" title="GitHub">
+        <brand-github-icon role="img" aria-label="Githubのアイコン"
       /></a>
     </div>
   </footer>

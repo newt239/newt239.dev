@@ -3,12 +3,11 @@ import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import dayjs from "dayjs";
 
-const time = ref(dayjs().format("HH:mm"));
-const day = ref(dayjs().format("YY.MM.DD"));
+const now = ref(dayjs());
 
 onMounted(() => {
   setInterval(() => {
-    time.value = dayjs().format("HH:mm");
+    now.value = dayjs();
   }, 1000 * 60);
 });
 </script>
@@ -17,12 +16,12 @@ onMounted(() => {
   <header>
     <RouterLink to="/">
       <div class="logo">
-        <img src="/logo.svg" />
+        <img src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
       </div>
-      <div class="widget">
-        <div>{{ day }}</div>
-        <div>{{ time }}</div>
+      <div class="widget" :title="now.format('YYYY年MM月DD日 HH時mm分')">
+        <div>{{ now.format("HH:mm") }}</div>
+        <div>{{ now.format("YY.MM.DD") }}</div>
       </div>
     </RouterLink>
   </header>
@@ -46,6 +45,7 @@ header {
   border-color: rgba(194, 224, 255, 0.08);
   border-width: 0px 0px thin;
   background-color: rgba(33, 33, 33, 0.7);
+
   a {
     position: relative;
     display: flex;
@@ -55,20 +55,24 @@ header {
     width: 92%;
     max-width: 1280px;
     margin: 0 auto;
+
     .logo {
       display: flex;
       align-items: center;
       gap: min(3vh, 3vw);
+
       img {
         max-height: min(8vh, 8vw);
         min-height: 2rem;
       }
+
       span {
         margin: 0;
         font-size: max(1.5rem, min(5vh, 5vw));
         font-weight: 800;
       }
     }
+
     .widget {
       text-align: right;
       font-size: max(0.7rem, min(2.5vh, 2.5vw));

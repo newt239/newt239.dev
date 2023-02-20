@@ -2,7 +2,11 @@
 import { ref } from "vue";
 import dayjs from "dayjs";
 
-import { InfoCircleIcon } from "vue-tabler-icons";
+import {
+  InfoCircleIcon,
+  PlayerPlayFilledIcon,
+  PlayerPauseFilledIcon,
+} from "vue-tabler-icons";
 
 type TrackListProp = {
   name: string;
@@ -64,7 +68,7 @@ const audioButton = (src: string | null) => {
     <h2>MY TOP TRACKS</h2>
     <div class="alert info">
       <info-circle-icon />
-      <div>Tap album art to play music.</div>
+      <div>再生ボタンをタップすると楽曲のプレビューを再生できます。</div>
     </div>
     <div class="musics">
       <div
@@ -73,26 +77,27 @@ const audioButton = (src: string | null) => {
         class="track"
         :alt="track.name"
       >
-        <div
-          class="thumbnailWrapper"
-          @click="audioButton(track.preview ? track.preview : null)"
-        >
+        <div class="thumbnailWrapper">
           <img
             :src="track.thumbnail"
             class="trackThumbnail"
             :class="track.preview ? 'trackPreview' : ''"
           />
-          <div class="thumbnailCaption">
-            {{
-              track.preview
-                ? audioState.state
-                  ? audioState.source == track.preview
-                    ? "PLAYING"
-                    : "PLAY"
-                  : "PLAY"
-                : ""
-            }}
-          </div>
+          <button
+            class="previewButton"
+            @click="audioButton(track.preview ? track.preview : null)"
+            v-if="track.preview"
+            aria-label="曲のプレビューを再生"
+          >
+            <player-play-filled-icon
+              v-if="
+                !audioState.state ||
+                (audioState.state && audioState.source !== track.preview)
+              "
+              aria-label="再生アイコン"
+            />
+            <player-pause-filled-icon v-else aria-label="一時停止アイコン" />
+          </button>
         </div>
         <div class="trackInfo">
           <a :href="track.link" target="_blank" class="trackName">{{
@@ -133,7 +138,6 @@ const audioButton = (src: string | null) => {
       position: relative;
       width: min(150px, 50%);
       flex-grow: 1;
-      cursor: pointer;
 
       .trackThumbnail {
         width: 100%;
@@ -144,25 +148,33 @@ const audioButton = (src: string | null) => {
         pointer-events: none;
       }
 
-      .thumbnailCaption {
+      .previewButton {
         font-size: 2rem;
         font-weight: 800;
+        width: 30%;
+        height: 30%;
+        border: none;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        mix-blend-mode: difference;
-        opacity: 0;
-        transition: all 0.5s;
+        bottom: 0px;
+        right: 0px;
+        background-color: transparent;
+        cursor: pointer;
+
+        .icon-tabler {
+          mix-blend-mode: difference;
+          vertical-align: 0px;
+          width: 100%;
+          height: 100%;
+        }
       }
 
       @media (hover: hover) {
-        &:hover .thumbnailCaption {
+        &:hover .previewButton {
           opacity: 1;
         }
       }
       @media (hover: none) {
-        &:active .thumbnailCaption {
+        &:active .previewButton {
           opacity: 1;
         }
       }
