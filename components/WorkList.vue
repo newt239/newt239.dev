@@ -31,20 +31,27 @@ const works = await queryContent("works").find();
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
   a {
     color: white;
   }
+
   .card {
     border-radius: 0.5rem;
     transition: all 0.5s;
+
     .card-thumbnail-wrapper {
       position: relative;
+
       .card-thumbnail {
         width: 100%;
         aspect-ratio: 16 / 9;
         border-radius: 0.5rem;
         filter: drop-shadow(2px 4px 6px black);
+        -webkit-touch-callout: none;
+        pointer-events: none;
       }
+
       .hover-caption {
         font-size: 2rem;
         font-weight: 800;
@@ -57,11 +64,21 @@ const works = await queryContent("works").find();
         transition: all 0.5s;
       }
     }
-    &:hover .card-thumbnail-wrapper .hover-caption {
-      opacity: 1;
+
+    @media (hover: hover) {
+      &:hover .card-thumbnail-wrapper .hover-caption {
+        opacity: 1;
+      }
     }
+    @media (hover: none) {
+      &:active .card-thumbnail-wrapper .hover-caption {
+        opacity: 1;
+      }
+    }
+
     .card-body {
       margin: 0 0.5rem;
+
       h3 {
         margin: 0;
         padding: 0;
@@ -69,6 +86,7 @@ const works = await queryContent("works").find();
         color: $color-white;
         background-color: $color-black;
       }
+
       p {
         margin-top: 0;
         display: -webkit-box;

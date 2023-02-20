@@ -87,7 +87,7 @@ const audioButton = (src: string | null) => {
               track.preview
                 ? audioState.state
                   ? audioState.source == track.preview
-                    ? "PAUSE"
+                    ? "PLAYING"
                     : "PLAY"
                   : "PLAY"
                 : ""
@@ -119,6 +119,7 @@ const audioButton = (src: string | null) => {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
   .track {
     display: flex;
     flex-grow: 1;
@@ -127,16 +128,22 @@ const audioButton = (src: string | null) => {
     gap: 1rem;
     border-radius: 1rem;
     transition: all 0.5s;
+
     .thumbnailWrapper {
       position: relative;
       width: min(150px, 50%);
       flex-grow: 1;
+      cursor: pointer;
+
       .trackThumbnail {
         width: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 1rem;
         filter: drop-shadow(2px 4px 6px black);
+        -webkit-touch-callout: none;
+        pointer-events: none;
       }
+
       .thumbnailCaption {
         font-size: 2rem;
         font-weight: 800;
@@ -147,25 +154,36 @@ const audioButton = (src: string | null) => {
         mix-blend-mode: difference;
         opacity: 0;
         transition: all 0.5s;
-        cursor: pointer;
       }
-      &:hover .thumbnailCaption {
-        opacity: 1;
+
+      @media (hover: hover) {
+        &:hover .thumbnailCaption {
+          opacity: 1;
+        }
+      }
+      @media (hover: none) {
+        &:active .thumbnailCaption {
+          opacity: 1;
+        }
       }
     }
+
     .trackPreview {
       cursor: pointer;
     }
+
     .trackInfo {
       width: min(150px, 50%);
       flex-grow: 1;
     }
+
     .trackName {
       font-size: 1.2rem;
       line-height: 1rem;
       font-weight: 800;
       cursor: pointer;
     }
+
     .subInfo {
       padding-top: 0.3rem;
       font-size: 0.7rem;
