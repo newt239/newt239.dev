@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "newt239",
+      htmlAttrs: {
+        lang: "ja",
+      },
       meta: [
         {
           name: "theme-color",
