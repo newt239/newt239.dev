@@ -3,7 +3,7 @@ import { BrandTwitterIcon, BrandGithubIcon } from "vue-tabler-icons";
 </script>
 
 <template>
-  <div class="footer">
+  <footer>
     <div class="copyright">© newt 2023</div>
     <div class="contact">
       <a href="https://twitter.com/newt239" target="_blank">
@@ -13,11 +13,11 @@ import { BrandTwitterIcon, BrandGithubIcon } from "vue-tabler-icons";
         <brand-github-icon
       /></a>
     </div>
-  </div>
+  </footer>
 </template>
 
 <style lang="scss">
-.footer {
+footer {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
