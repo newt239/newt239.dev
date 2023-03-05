@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   ssr: true,
   target: "static",
   modules: ["@nuxt/content"],
+  buildModules: ["@nuxt/image"],
   app: {
     head: {
       title: "newt239",
