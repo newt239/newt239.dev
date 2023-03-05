@@ -16,6 +16,10 @@ export default defineNuxtConfig({
           name: "theme-color",
           content: "#0099ff",
         },
+        {
+          name: "description",
+          content: "newt239のポートフォリオサイト",
+        },
         { property: "og:title", content: "newt239" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239" },
