@@ -6,15 +6,15 @@ creation: 2021/01 - 2022/04
 tech: Python ( Discord.py ), Selenium, Heroku, Firebase ( Firestore, Hosting, Authentication )
 ---
 
-<a href="https://ship.sakae-higashi.jp/" target="_blank">SHIP</a> ( Sakae Higashi Internet Program ) や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。
+<a href="https://ship.sakae-higashi.jp/" target="_blank">SHIP</a> ( Sakae Higashi Internet Program ) や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。SHIP の閉鎖に伴いサービスの提供を終了しました。
 
 <!--more-->
 
 ## システム構成
 
-現在 Discord のサーバーと LINE 公式アカウント、Twitter、Web で運用中です。Discord.py を Heroku 上で常時稼働させ、10 分おきにループを回し予めセットしておいた時間になると SHIP や栄東ニュースのスクレイピングなどを行っています。
+Discord のサーバーと LINE 公式アカウント、Twitter、Web で運用していました。Discord.py を Heroku 上で常時稼働させ、10 分おきにループを回し予めセットしておいた時間になると SHIP や栄東ニュースのスクレイピングなどを行います。
 
-スクレイピングには selenium を使っています。中高それぞれの「連絡事項」「学習教材」「学校通信」のページを 1 日 2 ～ 5 回程度取得しています。データベースに保存されていないものが見つかればそのリンクをクリックし、説明文やファイルのダウンロードと SHIP-notify 側のデータベースへのアップロードを行っています。
+スクレイピングには selenium を使っています。中高それぞれの「連絡事項」「学習教材」「学校通信」のページを 1 日 2 ～ 5 回程度取得しています。データベースに保存されていないものが見つかればそのリンクをクリックし、説明文やファイルのダウンロードと SHIP-notify 側のデータベースへのアップロードを行います。
 
 ## Web 版
 
