@@ -1,8 +1,8 @@
-$color-white: hsl(0, 0%, 100%);
-$color-black: hsl(0, 0%, 13%);
-$color-black-secondary: hsl(200, 19%, 18%);
-$color-link: hsl(213, 47%, 47%);
-$color-blue: hsla(213, 47%, 30%, 0.3);
+$color-white: #ffffff;
+$color-black: #212121;
+$color-black-secondary: #253137;
+$color-link: #3fb0aa;
+$color-info: #173647;
 
 $breakpoints: (
   "mobile": "screen and (max-width: 500px)",
