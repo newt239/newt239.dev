@@ -16,19 +16,21 @@ description: クイズ大会におけるプレイヤーの得点状況を可視�
 - スコア計算
 - N○M✕
 - 連答付き N○M✕
+- NY
 - NbyN
 - Nupdown
 - SwedishX
-- Attack Survival
+- アタックサバイバル
 - Square X
 - Z
-- freez X
+- Freeze X
 
 ## リンク
 
 - <a href="https://score-watcher.newt239.dev/" target="_blank">Score Watcher</a>
+- <a href="https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app" target="_blank">競技クイズ用得点表示ソフト「Score Watcher」を開発しました</a>
 
-## Score Watcher
+## Score Watcher （旧バージョン）
 
 - <a href="https://github.com/newt239/score-watcher" target="_blank">newt239/score-watcher - GitHub</a>
 
