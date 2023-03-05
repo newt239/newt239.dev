@@ -13,6 +13,7 @@ const works = await queryContent("works").find();
               :v-show="work.thumbnail"
               class="card-thumbnail"
               :src="`images/${work.thumbnail}`"
+              :alt="`${work.title}のサムネイル画像`"
             />
             <div class="hover-caption" aria-hidden="true">OPEN</div>
           </div>

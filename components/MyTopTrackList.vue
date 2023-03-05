@@ -75,13 +75,13 @@ const audioButton = (src: string | null) => {
         v-for="track in trackList?.slice(0, 12)"
         :key="track.name"
         class="track"
-        :alt="track.name"
       >
         <div class="thumbnailWrapper">
           <img
-            :src="track.thumbnail"
             class="trackThumbnail"
             :class="track.preview ? 'trackPreview' : ''"
+            :src="track.thumbnail"
+            :alt="`${track.name}のアルバムアート`"
           />
           <button
             class="previewButton"

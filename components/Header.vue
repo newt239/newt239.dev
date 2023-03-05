@@ -20,8 +20,8 @@ onMounted(() => {
         <span>newt</span>
       </div>
       <div class="widget" :title="now.format('YYYY年MM月DD日 HH時mm分')">
-        <div>{{ now.format("HH:mm") }}</div>
-        <div>{{ now.format("YY.MM.DD") }}</div>
+        <div aria-disabled="true">{{ now.format("HH:mm") }}</div>
+        <div aria-disabled="true">{{ now.format("YY.MM.DD") }}</div>
       </div>
     </RouterLink>
   </header>
