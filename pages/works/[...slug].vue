@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ChevronLeftIcon } from "vue-tabler-icons";
+import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
 </script>
 
 <template>
@@ -47,7 +47,7 @@ import { ChevronLeftIcon } from "vue-tabler-icons";
     </div>
     <div class="after-content">
       <NuxtLink class="back" to="/">
-        <chevron-left-icon />
+        <ChevronLeftIcon />
         BACK HOME
       </NuxtLink>
     </div>
@@ -66,7 +66,7 @@ import { ChevronLeftIcon } from "vue-tabler-icons";
 
   a[target="_blank"]::after {
     padding-left: 5px;
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-external-link' width='24' height='24' viewBox='0 0 24 24' stroke-width='2' stroke='hsl(187, 100%, 42%)' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5' /%3E%3Cline x1='10' y1='14' x2='20' y2='4' /%3E%3Cpolyline points='15 4 20 4 20 9' /%3E%3C/svg%3E");
+    content: url("/icons/external-link.vue");
     vertical-align: -0.3rem;
     color: $color-link;
   }

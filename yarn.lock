@@ -8081,7 +8081,6 @@ __metadata:
     stylelint-config-standard-scss: "npm:^6.1.0"
     typescript: "npm:^4.9.4"
     vue-gtag-next: "npm:^1.14.0"
-    vue-tabler-icons: "npm:^2.17.0"
   languageName: unknown
   linkType: soft
 
@@ -9843,13 +9842,6 @@ __metadata:
   peerDependencies:
     vue: ^3.2.0
   checksum: bd26aa6dca5a779f0d3472971751a051a764b6f053e26e50d0ebc24b9b21b5b52adc6498a3fc322fd7166c01c8290d1b3f43c63baaacfed8d51ecaf740e88504
-  languageName: node
-  linkType: hard
-
-"vue-tabler-icons@npm:^2.17.0":
-  version: 2.20.0
-  resolution: "vue-tabler-icons@npm:2.20.0"
-  checksum: 8af33175a39eb5c7bd6a0fe0cef98ccee766e1a982702a821402ff9d37c137c0f6336ddb338e646cdabc07708e6a057b72f831cee44f605f1d81fb057a794fe0
   languageName: node
   linkType: hard
 
