@@ -11,6 +11,11 @@ type ArticleProp = {
 
 const articleList: ArticleProp[] = [
   {
+    title: "Nuxt3をSSGモードでCloudflare Pagesにデプロイする",
+    url: "https://qiita.com/newt239/items/4a28405d03bd7310189f",
+    date: "2023/03/27",
+  },
+  {
     title: "競技クイズ用得点表示ソフト「Score Watcher」を開発しました",
     url: "https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app",
     date: "2023/02/11",
