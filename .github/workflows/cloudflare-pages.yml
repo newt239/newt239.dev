@@ -2,7 +2,7 @@ name: Cloudflare Pages
 
 on:
   schedule:
-    # 毎週月曜日の0時0分
+    # 毎週月曜日 00時00分
     - cron: "0 0 * * 1"
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: nuxt generate
+        run: npx nuxt generate
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@1
         with:
