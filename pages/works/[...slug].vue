@@ -66,7 +66,7 @@ import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
 
   a[target="_blank"]::after {
     padding-left: 5px;
-    content: url("/icons/external-link.vue");
+    content: url("/assets/icons/external-link.svg");
     vertical-align: -0.3rem;
     color: $color-link;
   }
