@@ -74,42 +74,45 @@ const audioButton = (src: string | null) => {
         :key="track.name"
         class="track"
       >
-        <div class="thumbnailWrapper">
-          <img
-            class="trackThumbnail"
-            :class="track.preview ? 'trackPreview' : ''"
-            :src="track.thumbnail"
-            :alt="`${track.name}のアルバムアート`"
-          />
-          <button
-            class="previewButton"
-            @click="audioButton(track.preview ? track.preview : null)"
-            v-if="track.preview"
-            aria-label="曲のプレビューを再生"
-          >
-            <PlayerPlayFilledIcon
-              v-if="
-                !audioState.state ||
-                (audioState.state && audioState.source !== track.preview)
-              "
-              aria-label="再生アイコン"
-            />
-            <PlayerPauseFilledIcon v-else aria-label="一時停止アイコン" />
-          </button>
-        </div>
-        <div class="trackInfo">
-          <a :href="track.link" target="_blank" class="trackName">{{
-            track.name
-          }}</a>
-          <div class="trackArtists">
-            {{ track.artists.join(", ") }}
-          </div>
-          <div class="subInfo">
-            <div>
-              Duration /
-              {{ dayjs(track.duration).format("m:ss") }}
+        <img
+          class="thumbnail"
+          :class="track.preview ? 'trackPreview' : ''"
+          :src="track.thumbnail"
+          :alt="`${track.name}のアルバムアート`"
+        />
+        <div class="detail">
+          <div class="info">
+            <a :href="track.link" target="_blank" class="name">{{
+              track.name
+            }}</a>
+            <div class="subInfo">
+              <div class="artists">
+                {{ track.artists.join(", ") }}
+              </div>
+              <div>
+                Duration /
+                {{ dayjs(track.duration).format("m:ss") }}
+              </div>
+              <div>Popularity / {{ track.popularity }}</div>
             </div>
-            <div>Popularity / {{ track.popularity }}</div>
+          </div>
+          <div class="preview">
+            <button
+              class="previewButton"
+              @click="audioButton(track.preview ? track.preview : null)"
+              v-if="track.preview"
+              aria-label="曲のプレビューを再生"
+            >
+              <PlayerPlayFilledIcon
+                v-if="
+                  !audioState.state ||
+                  (audioState.state && audioState.source !== track.preview)
+                "
+                aria-label="再生アイコン"
+              />
+              <PlayerPauseFilledIcon v-else aria-label="一時停止アイコン" />
+              <span>再生</span>
+            </button>
           </div>
         </div>
       </div>
@@ -132,49 +135,24 @@ const audioButton = (src: string | null) => {
     border-radius: 1rem;
     transition: all 0.5s;
 
-    .thumbnailWrapper {
-      position: relative;
+    .thumbnail {
       width: min(150px, 50%);
       flex-grow: 1;
+      aspect-ratio: 1 / 1;
+      border-radius: 1rem;
+      filter: drop-shadow(2px 4px 6px black);
+      -webkit-touch-callout: none;
+      pointer-events: none;
+    }
 
-      .trackThumbnail {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        border-radius: 1rem;
-        filter: drop-shadow(2px 4px 6px black);
-        -webkit-touch-callout: none;
-        pointer-events: none;
+    @media (hover: hover) {
+      &:hover .previewButton {
+        opacity: 1;
       }
-
-      .previewButton {
-        font-size: 2rem;
-        font-weight: 800;
-        width: 30%;
-        height: 30%;
-        border: none;
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        background-color: transparent;
-        cursor: pointer;
-
-        .icon-tabler {
-          mix-blend-mode: difference;
-          vertical-align: 0px;
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      @media (hover: hover) {
-        &:hover .previewButton {
-          opacity: 1;
-        }
-      }
-      @media (hover: none) {
-        &:active .previewButton {
-          opacity: 1;
-        }
+    }
+    @media (hover: none) {
+      &:active .previewButton {
+        opacity: 1;
       }
     }
 
@@ -182,22 +160,59 @@ const audioButton = (src: string | null) => {
       cursor: pointer;
     }
 
-    .trackInfo {
+    .detail {
       width: min(150px, 50%);
+      height: 100%;
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .info {
+        .name {
+          font-size: 1.2rem;
+          line-height: 1rem;
+          font-weight: 800;
+          cursor: pointer;
+        }
+
+        .subInfo {
+          padding-top: 0.3rem;
+          font-size: 0.7rem;
+          line-height: 0.7rem;
+
+          .artists {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
     }
 
-    .trackName {
-      font-size: 1.2rem;
-      line-height: 1rem;
+    .previewButton {
+      display: flex;
       font-weight: 800;
+      padding: 0.1rem 0.8rem;
+      gap: 0.3rem;
+      border: 1px $color-white solid;
+      border-radius: 1rem;
+      background-color: transparent;
       cursor: pointer;
-    }
+      transition: all 0.2s;
 
-    .subInfo {
-      padding-top: 0.3rem;
-      font-size: 0.7rem;
-      line-height: 0.7rem;
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-black-secondary;
+        }
+      }
+      @media (hover: none) {
+        &:active {
+          background-color: $color-black-secondary;
+        }
+      }
+
+      .icon-tabler {
+        vertical-align: 0px;
+      }
     }
   }
 }
