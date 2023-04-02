@@ -6,21 +6,24 @@ const works = await queryContent("works").find();
   <div v-show="works && works.length !== 0" class="workList">
     <h2>WORKS</h2>
     <div class="cardGrid">
-      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`">
-        <div class="card">
-          <div class="card-thumbnail-wrapper">
-            <img
-              :v-show="work.thumbnail"
-              class="card-thumbnail"
-              :src="`images/${work.thumbnail}`"
-              :alt="`${work.title}のサムネイル画像`"
-            />
-            <div class="hover-caption" aria-hidden="true">OPEN</div>
-          </div>
-          <div class="card-body">
-            <h3>{{ work.title }}</h3>
-            <p>{{ work.description }}</p>
-          </div>
+      <NuxtLink
+        v-for="work in works"
+        :key="work._path"
+        :to="`${work._path}`"
+        class="card"
+      >
+        <div class="card-thumbnail-wrapper no-underline">
+          <img
+            :v-show="work.thumbnail"
+            class="card-thumbnail"
+            :src="`images/${work.thumbnail}`"
+            :alt="`${work.title}のサムネイル画像`"
+          />
+          <div class="hover-caption" aria-hidden="true">OPEN</div>
+        </div>
+        <div class="card-body">
+          <h3>{{ work.title }}</h3>
+          <p class="no-underline">{{ work.description }}</p>
         </div>
       </NuxtLink>
     </div>
@@ -35,6 +38,7 @@ const works = await queryContent("works").find();
 
   a {
     color: white;
+    text-decoration: none;
   }
 
   .card {

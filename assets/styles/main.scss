@@ -63,16 +63,26 @@ h4 {
 a {
   color: $color-link;
   text-decoration: none;
-  transition: all 0.5s;
+  text-underline-offset: 0.3rem;
+
+  &:focus > :not(.no-underline) > :not(p),
+  &:focus:not(:has(*)) {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+  }
 
   @media (hover: hover) {
-    &:hover {
-      opacity: 0.5;
+    &:hover > :not(.no-underline) > :not(p),
+    &:hover:not(:has(*)) {
+      text-decoration: underline;
+      text-decoration-style: dashed;
     }
   }
   @media (hover: none) {
-    &:active {
-      opacity: 0.5;
+    &:active > :not(.no-underline) > :not(p),
+    &:active:not(:has(*)) {
+      text-decoration: underline;
+      text-decoration-style: dashed;
     }
   }
 }

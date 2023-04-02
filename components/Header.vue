@@ -13,13 +13,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
+  <header class="header">
     <RouterLink to="/">
       <div class="logo">
         <img src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
       </div>
-      <div class="widget" :title="now.format('YYYY年MM月DD日 HH時mm分')">
+      <div
+        class="widget no-underline"
+        :title="now.format('YYYY年MM月DD日 HH時mm分')"
+      >
         <div aria-disabled="true">{{ now.format("HH:mm") }}</div>
         <div aria-disabled="true">{{ now.format("YY.MM.DD") }}</div>
       </div>
@@ -28,7 +31,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-header {
+.header {
   background-image: none;
   display: flex;
   flex-direction: column;
