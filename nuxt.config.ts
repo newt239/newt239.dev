@@ -60,6 +60,12 @@ export default defineNuxtConfig({
       },
     },
   },
+  content: {
+    highlight: {
+      theme: "github-dark",
+      preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
+    },
+  },
   image: {
     domains: ["https://i.scdn.co/"],
   },
