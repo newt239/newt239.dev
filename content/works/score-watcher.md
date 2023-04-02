@@ -2,7 +2,7 @@
 title: "Score Watcher"
 thumbnail: next-score-watcher.webp
 github: newt239/next-score-watcher
-creation: 2021.08 -
+creation: 2021.08 - 2023.03
 tech: Next.js, Chakra UI, Dexie.js
 description: クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
 ---

@@ -2,7 +2,7 @@
 title: "Quiz Flasher"
 thumbnail: quiz-flasher.webp
 creation: 2019.11 - 2020.07
-tech: GAS ( Google Apps Script )
+tech: GAS
 ---
 
 問題データを入れた Google スプレッドシートのファイルから、ランダムに問題を出題する Web アプリです。すべてのシートから出題させたり、特定のシートの特定の問題のみで出題させることもできます。自分が JavaScript を初めて使って作った作品です。バックエンド的に使うのももちろんですが、モーダルウィンドウなどデザイン面で利用したのもこれが初でした。

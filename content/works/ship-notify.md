@@ -3,7 +3,7 @@ title: "SHIP Notify"
 thumbnail: ship-info.webp
 github: newt239/SHIP-notify-public
 creation: 2021.01 - 2022.04
-tech: Python ( Discord.py ), Selenium, Heroku, Firebase ( Firestore, Hosting, Authentication )
+tech: Discord.py, Selenium, Heroku, Firebase
 ---
 
 <a href="https://ship.sakae-higashi.jp/" target="_blank">SHIP</a> （ Sakae Higashi Internet Program ） や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。SHIP の閉鎖に伴いサービスの提供を終了しました。
