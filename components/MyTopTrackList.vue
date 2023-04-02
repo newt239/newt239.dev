@@ -101,17 +101,23 @@ const audioButton = (src: string | null) => {
               class="previewButton"
               @click="audioButton(track.preview ? track.preview : null)"
               v-if="track.preview"
-              aria-label="曲のプレビューを再生"
             >
               <PlayerPlayFilledIcon
                 v-if="
                   !audioState.state ||
                   (audioState.state && audioState.source !== track.preview)
                 "
-                aria-label="再生アイコン"
+                aria-hidden="true"
               />
-              <PlayerPauseFilledIcon v-else aria-label="一時停止アイコン" />
-              <span>再生</span>
+              <PlayerPauseFilledIcon v-else aria-hidden="true" />
+              <span
+                v-if="
+                  !audioState.state ||
+                  (audioState.state && audioState.source !== track.preview)
+                "
+                >再生</span
+              >
+              <span v-else>停止</span>
             </button>
           </div>
         </div>

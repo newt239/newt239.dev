@@ -70,22 +70,16 @@ a {
   text-decoration: none;
   text-underline-offset: 0.3rem;
 
-  &:focus > :not(.no-underline) > :not(p),
-  &:focus:not(:has(*)) {
-    text-decoration: underline;
-    text-decoration-style: dashed;
-  }
-
   @media (hover: hover) {
     &:hover > :not(.no-underline) > :not(p),
-    &:hover:not(:has(*)) {
+    &:hover:not(:has(div)) {
       text-decoration: underline;
       text-decoration-style: dashed;
     }
   }
   @media (hover: none) {
     &:active > :not(.no-underline) > :not(p),
-    &:active:not(:has(*)) {
+    &:active:not(:has(div)) {
       text-decoration: underline;
       text-decoration-style: dashed;
     }
