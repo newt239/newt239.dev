@@ -16,9 +16,13 @@ Discord のサーバーと LINE 公式アカウント、Twitter、Web で運用�
 
 スクレイピングには selenium を使っています。中高それぞれの「連絡事項」「学習教材」「学校通信」のページを 1 日 2 ～ 5 回程度取得しています。データベースに保存されていないものが見つかればそのリンクをクリックし、説明文やファイルのダウンロードと SHIP-notify 側のデータベースへのアップロードを行います。
 
+![システム構成図](/images/ship-assistant-system-map.webp)
+
 ## Web 版
 
 認証に Firebase Authentication を通し学校以外のドメインのアカウントからのログインをブロックしています。
+
+![Web版の画面](/images/ship-assistant-web.webp)
 
 ## データベース
 

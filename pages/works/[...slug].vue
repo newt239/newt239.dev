@@ -166,7 +166,7 @@ import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
     pre {
       overflow-x: scroll;
     }
-    .imageWrapper {
+    p:has(img) {
       text-align: center;
       img {
         max-width: calc(100% - 1rem);
