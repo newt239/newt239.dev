@@ -11,6 +11,11 @@ type ArticleProp = {
 
 const articleList: ArticleProp[] = [
   {
+    title: "CSS のブラーと mix-blend-mode を同時に使うとチラつく",
+    url: "https://zenn.dev/newt_st21/articles/chromium-bug-of-rendering-artifacts",
+    date: "2023/05/04",
+  },
+  {
     title: "Nuxt3をSSGモードでCloudflare Pagesにデプロイする",
     url: "https://qiita.com/newt239/items/4a28405d03bd7310189f",
     date: "2023/03/27",
