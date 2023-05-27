@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup dependencies
+        run: npm install
       - name: Build
         run: npx nuxt generate
       - name: Publish to Cloudflare Pages
