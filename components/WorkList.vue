@@ -31,6 +31,9 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
 </template>
 
 <style lang="scss">
+.workList {
+  padding-top: 2rem;
+}
 .cardGrid {
   display: grid;
   gap: 1rem;
