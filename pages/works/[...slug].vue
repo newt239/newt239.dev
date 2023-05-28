@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
+
+useHead({
+  titleTemplate: "%s - newt239",
+});
 </script>
 
 <template>
@@ -159,6 +163,7 @@ import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
       margin: 0;
       border-radius: 0.5rem;
       background-color: $color-black-secondary;
+      cursor: text;
     }
     pre {
       margin: 0.5rem 0;

@@ -15,7 +15,7 @@ tech: GAS
 
 ### Base URL
 
-- <a href="https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec" target="_blank">https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec</a>
+- `https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec`
 
 #### Parameter
 
@@ -59,8 +59,8 @@ GET: `https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168m
 
 ### Quiz Flasher
 
-- <a href="https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec" target="_blank">https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec</a>
+- <a href="https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec" target="_blank">ホーム｜ Quiz Flasher</a>
 
 ### abcLINEQUIZ [LINE bot]
 
-- <a href="https://lin.ee/DidtKli" target="_blank">https://lin.ee/DidtKli</a>
+- <a href="https://lin.ee/DidtKli" target="_blank">LINE Add Friend</a>

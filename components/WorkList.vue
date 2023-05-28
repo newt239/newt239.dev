@@ -88,6 +88,7 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
         margin: 0;
         padding: 0;
         font-size: 1.5rem;
+        line-height: 1.8rem;
         color: $color-white;
         background-color: $color-black;
       }
