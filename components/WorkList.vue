@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const works = await queryContent("works").find();
+const works = await queryContent("works").sort({ creation: -1 }).find();
 </script>
 
 <template>

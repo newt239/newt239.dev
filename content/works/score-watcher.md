@@ -2,28 +2,32 @@
 title: "Score Watcher"
 thumbnail: next-score-watcher.webp
 github: newt239/next-score-watcher
-creation: 2021.08 - 2023.03
+creation: 2022.10 - 2023.05
 tech: Next.js, Chakra UI, Dexie.js
 description: クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
 ---
 
-クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するためのデスクトップアプリです。N○M✕, N updown といった基本的な形式だけでなく Attack Survival や Square X といった形式にも対応しています。ダークモードや、問題文の表示機能も備えています。すべての処理を端末上で行っているため、オフライン環境でも動作します。
+クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するための Web アプリケーションです。N○M✕, N updown といった基本的な形式だけでなくアタックサバイバルや Square X といった形式にも対応しています。ダークモードや、問題文の表示機能も備えています。すべての処理を端末上で行っているため、オフライン環境でも動作します。
 
 <!--more-->
 
-## 対応している形式一覧
+## 対応している形式
 
 - スコア計算
 - N○M✕
 - 連答付き N○M✕
 - NY
+- N○M 休
 - NbyN
 - Nupdown
-- SwedishX
+- Swedish10
+- Backstream
 - アタックサバイバル
 - Square X
 - Z
 - Freeze X
+
+- AQL ルール
 
 ## リンク
 
