@@ -20,7 +20,7 @@ import BrandGithubIcon from "./icons/BrandGithubIcon.vue";
 <style lang="scss">
 footer {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,6 +30,11 @@ footer {
     gap: 1rem;
     a {
       color: $color-white;
+      transition: all 0.2s;
+
+      &:hover {
+        color: $color-link;
+      }
     }
   }
 }

@@ -30,6 +30,7 @@
 .contact {
   ul {
     margin: 0;
+    line-height: 2rem;
   }
 }
 </style>
