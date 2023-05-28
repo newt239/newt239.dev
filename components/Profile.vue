@@ -1,10 +1,14 @@
 <script setup lang="ts">
-const profile: string[] = [""];
+const profile: string[] = [
+  "17さい",
+  "主にフロントエンドの開発をしています",
+  "UI / UXに興味があります",
+];
 </script>
 
 <template>
   <div class="profile">
-    <h2>PROFILE</h2>
+    <h2>ABOUT ME</h2>
     <ul>
       <li v-for="item in profile" :key="item">
         {{ item }}

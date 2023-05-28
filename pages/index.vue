@@ -6,6 +6,7 @@ useHead({
 </script>
 <template>
   <main>
+    <Profile />
     <WorkList />
     <ArticleList />
     <MyTopTrackList />
