@@ -8,7 +8,7 @@ const profile: string[] = [
 
 <template>
   <div class="profile">
-    <h2>Hi there👋</h2>
+    <h2>Welcome✨</h2>
     <ul>
       <li v-for="item in profile" :key="item">
         {{ item }}
