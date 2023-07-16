@@ -11,6 +11,12 @@ type ArticleProp = {
 
 const articleList: ArticleProp[] = [
   {
+    title:
+      "Webからローカルフォントのデータを取得する～Local Font Access APIとは～",
+    url: "https://zenn.dev/newt_st21/articles/local-font-access-api-chromium",
+    date: "2023/07/16",
+  },
+  {
     title: "CSS のブラーと mix-blend-mode を同時に使うとチラつく",
     url: "https://zenn.dev/newt_st21/articles/chromium-bug-of-rendering-artifacts",
     date: "2023/05/04",
