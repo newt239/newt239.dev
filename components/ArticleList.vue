@@ -11,6 +11,11 @@ type ArticleProp = {
 
 const articleList: ArticleProp[] = [
   {
+    title: "【Next.js + Panda CSS】メニューバーで現在のページだけ色を変える",
+    url: "https://qiita.com/newt239/items/816db98098c94632cf57",
+    date: "2023/08/15",
+  },
+  {
     title:
       "Webからローカルフォントのデータを取得する～Local Font Access APIとは～",
     url: "https://zenn.dev/newt_st21/articles/local-font-access-api-chromium",
