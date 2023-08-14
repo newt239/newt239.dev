@@ -12,7 +12,7 @@
         Discordサーバー
         <ul>
           <li>
-            <a href="https://discord.gg/rct5sx6rbZ"
+            <a href="https://discord.gg/rct5sx6rbZ" target="_blank"
               >https://discord.gg/rct5sx6rbZ</a
             >
           </li>

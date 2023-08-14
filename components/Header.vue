@@ -1,37 +1,20 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
-import dayjs from "dayjs";
-
-const now = ref(dayjs());
-
-onMounted(() => {
-  setInterval(() => {
-    now.value = dayjs();
-  }, 1000 * 60);
-});
 </script>
 
 <template>
-  <header class="header">
+  <header>
     <RouterLink to="/">
       <div class="logo">
         <img src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
-      </div>
-      <div
-        class="widget no-underline"
-        :title="now.format('YYYY年MM月DD日 HH時mm分')"
-      >
-        <div aria-disabled="true">{{ now.format("HH:mm") }}</div>
-        <div aria-disabled="true">{{ now.format("YY.MM.DD") }}</div>
       </div>
     </RouterLink>
   </header>
 </template>
 
 <style lang="scss">
-.header {
+header {
   background-image: none;
   display: flex;
   flex-direction: column;
