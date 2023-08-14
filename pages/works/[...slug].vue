@@ -167,9 +167,7 @@ useHead({
     }
     pre {
       margin: 0.5rem 0;
-    }
-    pre {
-      overflow-x: scroll;
+      overflow-x: auto;
     }
     p:has(img) {
       text-align: center;

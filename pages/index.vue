@@ -4,6 +4,7 @@ useHead({
   meta: [{ name: "description", content: "newt239のポートフォリオサイト" }],
 });
 </script>
+
 <template>
   <main>
     <Profile />
