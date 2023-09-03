@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
 
-useServerSeoMeta({
+useHead({
   titleTemplate: "%s - newt239",
 });
 </script>
 
 <template>
-  <main>
+  <main id="work-page">
     <div class="category-name">WORKS</div>
     <div class="work">
       <ContentDoc v-slot="{ doc }">

@@ -1,12 +1,17 @@
 <script lang="ts" setup>
-useServerSeoMeta({
+useHead({
   title: "newt239",
-  description: "newt239のポートフォリオサイト",
+  meta: [
+    {
+      name: "description",
+      content: "newt239のポートフォリオサイト",
+    },
+  ],
 });
 </script>
 
 <template>
-  <main>
+  <main id="home-page">
     <Profile />
     <WorkList />
     <div class="flex">

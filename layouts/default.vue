@@ -23,4 +23,10 @@
   opacity: 0;
   filter: blur(1rem);
 }
+.page-enter-from {
+  transform: translateX(30px);
+}
+.page-leave-to {
+  transform: translateX(-30px);
+}
 </style>

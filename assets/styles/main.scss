@@ -26,9 +26,20 @@ body {
   background-color: $color-black;
   font-size: 16px;
   line-height: 1.6;
-  font-family: "LINESeedJP", "Noto Sans JP", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:
+    "LINESeedJP",
+    "Noto Sans JP",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   cursor: default;
   scrollbar-gutter: stable;
 }
