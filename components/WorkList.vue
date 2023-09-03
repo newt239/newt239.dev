@@ -54,6 +54,7 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
       .card-thumbnail {
         width: 100%;
         aspect-ratio: 16 / 9;
+        object-fit: cover;
         border-radius: 0.5rem;
         filter: drop-shadow(2px 4px 6px black);
         -webkit-touch-callout: none;
