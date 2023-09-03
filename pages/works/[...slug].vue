@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
 
-useHead({
+useServerSeoMeta({
   titleTemplate: "%s - newt239",
 });
 </script>

@@ -7,22 +7,20 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "@nuxtjs/eslint-config-typescript",
+    "plugin:vue/vue3-recommended",
     "plugin:nuxt/recommended",
+    "@nuxtjs/eslint-config-typescript",
     "prettier"
   ],
-  "parser": "@typescript-eslint/parser",
+  parser: "vue-eslint-parser",
   parserOptions: {
-    ecmaVersion: 2021,
+    parser: "@typescript-eslint/parser",
+    sourceType: "module",
   },
-  plugins: [],
-  rules: {},
-  overrides: [
-    {
-      files: ["pages/*.vue"],
-      rules: {
-        "vue/multi-word-component-names": "off",
-      },
-    },
-  ],
+  plugins: ["vue", "@typescript-eslint"],
+  rules: {
+    "vue/no-multiple-template-root": "off",
+    "vue/multi-word-component-names": "off",
+  },
+  overrides: [],
 };

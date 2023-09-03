@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   telemetry: false,
   ssr: true,
-  target: "static",
   modules: ["@nuxt/content"],
   app: {
     head: {
@@ -64,5 +63,10 @@ export default defineNuxtConfig({
       theme: "github-dark",
       preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
     },
+  },
+  typescript: {
+    shim: false,
+    strict: true,
+    typeCheck: true,
   },
 });

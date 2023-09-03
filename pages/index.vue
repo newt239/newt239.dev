@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-useHead({
+useServerSeoMeta({
   title: "newt239",
-  meta: [{ name: "description", content: "newt239のポートフォリオサイト" }],
+  description: "newt239のポートフォリオサイト",
 });
 </script>
 

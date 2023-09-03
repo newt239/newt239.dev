@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import dayjs from "dayjs";
 
 import InfoCircleIcon from "./icons/InfoCircleIcon.vue";
@@ -45,13 +44,13 @@ const audioButton = (src: string | null) => {
     } else {
       audioState.value.music.pause();
       if (!audioState.value.state) {
-        if (audioState.value.source != src) {
+        if (audioState.value.source !== src) {
           normalPlayAction();
         } else {
           audioState.value.music.play();
           audioState.value.state = true;
         }
-      } else if (audioState.value.source != src) {
+      } else if (audioState.value.source !== src) {
         normalPlayAction();
       } else {
         audioState.value.state = false;
@@ -98,9 +97,9 @@ const audioButton = (src: string | null) => {
           </div>
           <div class="preview">
             <button
+              v-if="track.preview"
               class="previewButton"
               @click="audioButton(track.preview ? track.preview : null)"
-              v-if="track.preview"
             >
               <PlayerPlayFilledIcon
                 v-if="
