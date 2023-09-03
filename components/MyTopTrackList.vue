@@ -168,13 +168,16 @@ const audioButton = (src: string | null) => {
 
     .detail {
       width: min(150px, 50%);
-      height: 100%;
+      aspect-ratio: 1 / 1;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
       .info {
+        max-height: 80%;
+        overflow: hidden;
+
         .name {
           font-size: 1.2rem;
           line-height: 1rem;
