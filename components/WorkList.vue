@@ -94,6 +94,10 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
         line-height: 1.8rem;
         color: $color-white;
         background-color: $color-black;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       p {
