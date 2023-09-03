@@ -1,5 +1,5 @@
 ---
-title: "Look Inside View"
+title: Look Inside View
 thumbnail: look-inside-view.webp
 github: newt239/look-inside-view
 creation: 2021.06 - 2021.09

@@ -1,5 +1,5 @@
 ---
-title: "SHIP Notify"
+title: SHIP Notify
 thumbnail: ship-info.webp
 github: newt239/SHIP-notify-public
 creation: 2021.01 - 2022.04

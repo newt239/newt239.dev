@@ -1,5 +1,5 @@
 ---
-title: "Score Watcher"
+title: Score Watcher
 thumbnail: next-score-watcher.webp
 github: newt239/next-score-watcher
 creation: 2022.10 - 2023.05

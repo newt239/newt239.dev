@@ -1,5 +1,5 @@
 ---
-title: "Local Font Emulator"
+title: Local Font Emulator
 thumbnail: local-font-emulator.webp
 github: newt239/local-font-emulator
 creation: 2023.04 - 2023.05
