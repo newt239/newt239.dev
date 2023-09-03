@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   ssr: true,
   target: "static",
   modules: ["@nuxt/content"],
-  buildModules: ["@nuxt/image"],
   app: {
     head: {
       title: "newt239",
@@ -65,8 +64,5 @@ export default defineNuxtConfig({
       theme: "github-dark",
       preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
     },
-  },
-  image: {
-    domains: ["https://i.scdn.co/"],
   },
 });
