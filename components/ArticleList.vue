@@ -66,7 +66,7 @@ const articleList: ArticleProp[] = [
 
 <template>
   <div class="articleList">
-    <h2>ARTICLES</h2>
+    <h2>Articles</h2>
     <ul>
       <li v-for="article in articleList" :key="article.title">
         <img

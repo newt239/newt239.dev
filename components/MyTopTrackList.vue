@@ -64,7 +64,7 @@ const audioButton = (src: string | null) => {
 
 <template>
   <div v-show="trackList && trackList.length !== 0" class="myTopTrackList">
-    <h2>MY TOP TRACKS</h2>
+    <h2>My Top Tracks</h2>
     <div class="alert info">
       <InfoCircleIcon />
       <div>再生ボタンをタップすると楽曲のプレビューを再生できます。</div>

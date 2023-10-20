@@ -6,7 +6,7 @@ const active = useState();
 
 <template>
   <div v-show="works && works.length !== 0" class="workList">
-    <h2 class="work-title">WORKS</h2>
+    <h2 class="work-title">Works</h2>
     <div class="cardGrid">
       <NuxtLink
         v-for="work in works"
