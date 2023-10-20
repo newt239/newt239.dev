@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ChevronLeftIcon from "~/components/icons/ChevronLeftIcon.vue";
+import { IconChevronLeft } from "@tabler/icons-vue";
 
 useHead({
   titleTemplate: "%s - newt239",
@@ -54,7 +54,7 @@ const router = useRouter();
     </div>
     <div class="after-content">
       <button class="back link" @click="$router.back()">
-        <ChevronLeftIcon />
+        <IconChevronLeft />
         BACK HOME
       </button>
     </div>

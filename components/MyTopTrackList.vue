@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 
-import InfoCircleIcon from "~/components/icons/InfoCircleIcon.vue";
-import PlayerPlayFilledIcon from "~/components/icons/PlayerPlayFilledIcon.vue";
-import PlayerPauseFilledIcon from "~/components/icons/PlayerPauseFilledIcon.vue";
+import {
+  IconInfoSquareRounded,
+  IconPlayerPlayFilled,
+  IconPlayerPauseFilled,
+} from "@tabler/icons-vue";
 
 type TrackListProp = {
   name: string;
@@ -66,7 +68,7 @@ const audioButton = (src: string | null) => {
   <div v-show="trackList && trackList.length !== 0" class="myTopTrackList">
     <h2>My Top Tracks</h2>
     <div class="alert info">
-      <InfoCircleIcon />
+      <IconInfoSquareRounded />
       <div>再生ボタンをタップすると楽曲のプレビューを再生できます。</div>
     </div>
     <div class="musics">
@@ -76,6 +78,7 @@ const audioButton = (src: string | null) => {
         class="track"
       >
         <img
+          loading="lazy"
           class="thumbnail"
           :class="track.preview ? 'trackPreview' : ''"
           :src="track.thumbnail"
@@ -103,14 +106,14 @@ const audioButton = (src: string | null) => {
               class="previewButton"
               @click="audioButton(track.preview ? track.preview : null)"
             >
-              <PlayerPlayFilledIcon
+              <IconPlayerPlayFilled
                 v-if="
                   !audioState.state ||
                   (audioState.state && audioState.source !== track.preview)
                 "
                 aria-hidden="true"
               />
-              <PlayerPauseFilledIcon v-else aria-hidden="true" />
+              <IconPlayerPauseFilled v-else aria-hidden="true" />
               <span
                 v-if="
                   !audioState.state ||

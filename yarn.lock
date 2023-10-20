@@ -1803,6 +1803,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tabler/icons-vue@npm:^2.39.0":
+  version: 2.39.0
+  resolution: "@tabler/icons-vue@npm:2.39.0"
+  dependencies:
+    "@tabler/icons": "npm:2.39.0"
+  peerDependencies:
+    vue: ">=3.0.1"
+  checksum: 2abb92ae42126bbb4c2c7a1ff89a1308d10f6dfcd5f1fcac6a9efd7317fbaa86d77ab464a28e169369840f3da6e30fa1f7f9ebc956fc1821c3ebd9bfc1496c51
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:2.39.0":
+  version: 2.39.0
+  resolution: "@tabler/icons@npm:2.39.0"
+  checksum: a9a0c2c42ea52a25a07f1712b36ebd64f0b5432acaff1d3838d22a2c05a762d7c8b4720c85cd7104f77fbe66d39581e7e81a84809de3fed667b28ec2ec44b59a
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -10348,6 +10366,7 @@ __metadata:
     "@nuxt/types": "npm:^2.17.1"
     "@nuxtjs/eslint-config-typescript": "npm:^12.1.0"
     "@nuxtjs/eslint-module": "npm:^4.1.0"
+    "@tabler/icons-vue": "npm:^2.39.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.5.0"
     "@typescript-eslint/parser": "npm:^6.5.0"
     "@vue/eslint-config-typescript": "npm:^11.0.3"

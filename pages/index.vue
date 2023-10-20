@@ -15,6 +15,7 @@ useHead({
     <Profile />
     <WorkList />
     <div class="flex">
+      <ArticleList />
       <Contact />
     </div>
     <MyTopTrackList />

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import BrandTwitterIcon from "~/components/icons/BrandTwitterIcon.vue";
-import BrandGithubIcon from "~/components/icons/BrandGithubIcon.vue";
+import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 </script>
 
 <template>
@@ -8,10 +7,10 @@ import BrandGithubIcon from "~/components/icons/BrandGithubIcon.vue";
     <div class="copyright">© newt 2023</div>
     <div class="contact">
       <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
-        <BrandTwitterIcon
+        <IconBrandTwitter
       /></a>
       <a href="https://github.com/newt239" target="_blank" title="GitHub">
-        <BrandGithubIcon
+        <IconBrandGithub
       /></a>
     </div>
   </footer>

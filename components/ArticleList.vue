@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-
-import Book2Icon from "~/components/icons/Book2Icon.vue";
+import { IconBook2 } from "@tabler/icons-vue";
 
 type ArticleProp = {
   title: string;
@@ -82,7 +81,7 @@ const articleList: ArticleProp[] = [
           alt="Zennのアイコン"
         />
         <span v-else src="/zenn.png" class="site-icon"
-          ><Book2Icon class="icon-align" width="16px" height="16px"
+          ><IconBook2 class="icon-align" width="16px" height="16px"
         /></span>
         <a :href="article.url" target="_blank">{{ article.title }}</a> ……
         <span :title="dayjs(article.date).format('YYYY年MM月DD日')">{{

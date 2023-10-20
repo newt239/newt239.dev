@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nuxt/content": "2.8.5",
+    "@tabler/icons-vue": "^2.39.0",
     "dayjs": "^1.11.9"
   },
   "devDependencies": {
