@@ -5,6 +5,14 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
 <template>
   <div v-show="works && works.length !== 0" class="workList">
     <h2>WORKS</h2>
+    <NuxtLink to="works/mojimachi">
+      <img
+        class="card-thumbnail activea"
+        src="images/mojimachi.webp"
+        width="100"
+        height="50"
+      />
+    </NuxtLink>
     <div class="cardGrid">
       <NuxtLink
         v-for="work in works"
@@ -110,5 +118,9 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
       }
     }
   }
+}
+
+h2 {
+  view-transition-name: work-title;
 }
 </style>

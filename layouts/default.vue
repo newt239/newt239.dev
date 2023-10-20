@@ -14,19 +14,4 @@
   width: 100%;
   min-height: 100vh;
 }
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.5s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-.page-enter-from {
-  transform: translateX(30px);
-}
-.page-leave-to {
-  transform: translateX(-30px);
-}
 </style>

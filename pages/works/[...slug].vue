@@ -8,7 +8,7 @@ useHead({
 
 <template>
   <main id="work-page">
-    <div class="category-name">WORKS</div>
+    <h2 class="category-name">WORKS</h2>
     <div class="work">
       <ContentDoc v-slot="{ doc }">
         <div class="about">
@@ -189,5 +189,8 @@ useHead({
     border-radius: 0.5rem;
     color: $color-white;
   }
+}
+h2 {
+  view-transition-name: work-title;
 }
 </style>

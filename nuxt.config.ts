@@ -69,4 +69,7 @@ export default defineNuxtConfig({
     strict: true,
     typeCheck: true,
   },
+  experimental: {
+    viewTransition: true,
+  },
 });

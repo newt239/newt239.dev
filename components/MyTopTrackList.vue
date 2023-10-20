@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 
-import InfoCircleIcon from "./icons/InfoCircleIcon.vue";
-import PlayerPlayFilledIcon from "./icons/PlayerPlayFilledIcon.vue";
-import PlayerPauseFilledIcon from "./icons/PlayerPauseFilledIcon.vue";
+import InfoCircleIcon from "~/components/icons/InfoCircleIcon.vue";
+import PlayerPlayFilledIcon from "~/components/icons/PlayerPlayFilledIcon.vue";
+import PlayerPauseFilledIcon from "~/components/icons/PlayerPauseFilledIcon.vue";
 
 type TrackListProp = {
   name: string;
@@ -32,28 +32,30 @@ const audioState = ref<AudioStateProp>({
 });
 
 const audioButton = (src: string | null) => {
-  if (src) {
-    const normalPlayAction = () => {
-      audioState.value.music = new Audio(src);
-      audioState.value.music.play();
-      audioState.value.state = true;
-      audioState.value.source = src;
-    };
-    if (!audioState.value.music) {
-      normalPlayAction();
-    } else {
-      audioState.value.music.pause();
-      if (!audioState.value.state) {
-        if (audioState.value.source !== src) {
-          normalPlayAction();
-        } else {
-          audioState.value.music.play();
-          audioState.value.state = true;
-        }
-      } else if (audioState.value.source !== src) {
+  if (process.client) {
+    if (src) {
+      const normalPlayAction = () => {
+        audioState.value.music = new Audio(src);
+        audioState.value.music.play();
+        audioState.value.state = true;
+        audioState.value.source = src;
+      };
+      if (!audioState.value.music) {
         normalPlayAction();
       } else {
-        audioState.value.state = false;
+        audioState.value.music.pause();
+        if (!audioState.value.state) {
+          if (audioState.value.source !== src) {
+            normalPlayAction();
+          } else {
+            audioState.value.music.play();
+            audioState.value.state = true;
+          }
+        } else if (audioState.value.source !== src) {
+          normalPlayAction();
+        } else {
+          audioState.value.state = false;
+        }
       }
     }
   }

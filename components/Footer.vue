@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import BrandTwitterIcon from "./icons/BrandTwitterIcon.vue";
-import BrandGithubIcon from "./icons/BrandGithubIcon.vue";
+import BrandTwitterIcon from "~/components/icons/BrandTwitterIcon.vue";
+import BrandGithubIcon from "~/components/icons/BrandGithubIcon.vue";
 </script>
 
 <template>

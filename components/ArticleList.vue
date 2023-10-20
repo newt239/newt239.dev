@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 
-import Book2Icon from "./icons/Book2Icon.vue";
+import Book2Icon from "~/components/icons/Book2Icon.vue";
 
 type ArticleProp = {
   title: string;

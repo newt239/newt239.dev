@@ -11,11 +11,10 @@ useHead({
 </script>
 
 <template>
-  <main id="home-page">
+  <main id="home">
     <Profile />
     <WorkList />
     <div class="flex">
-      <ArticleList />
       <Contact />
     </div>
     <MyTopTrackList />
