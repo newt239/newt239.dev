@@ -23,7 +23,11 @@ html {
 body {
   margin: 0;
   color: $color-white;
-  background-color: $color-black;
+  background-image: linear-gradient(
+    to bottom right,
+    oklch(80% 0.4 222),
+    oklch(35% 0.5 313)
+  );
   font-size: 16px;
   line-height: 1.6;
   font-family:

@@ -4,64 +4,68 @@ import { IconChevronLeft } from "@tabler/icons-vue";
 useHead({
   titleTemplate: "%s - newt239",
 });
-
-const router = useRouter();
 </script>
 
 <template>
   <main id="work-page">
-    <div class="category-name">WORKS</div>
-    <div class="work">
-      <ContentDoc v-slot="{ doc }">
-        <div class="about">
-          <div class="intro">
-            <h1>{{ doc.title }}</h1>
-            <div class="summary">
-              <table>
-                <tr v-if="doc.github">
-                  <th>GitHub</th>
-                  <td>
-                    <a
-                      :href="`https://github.com/${doc.github}`"
-                      target="_blank"
-                      >{{ doc.github }}</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <th>製作時期</th>
-                  <td>{{ doc.creation }}</td>
-                </tr>
-                <tr>
-                  <th>使用技術</th>
-                  <td>{{ doc.tech }}</td>
-                </tr>
-              </table>
+    <div class="container">
+      <div class="category-name">Works</div>
+      <div class="work">
+        <ContentDoc v-slot="{ doc }">
+          <div class="about">
+            <div class="intro">
+              <h1>{{ doc.title }}</h1>
+              <div class="summary">
+                <table>
+                  <tr v-if="doc.github">
+                    <th>GitHub</th>
+                    <td>
+                      <a
+                        :href="`https://github.com/${doc.github}`"
+                        target="_blank"
+                        >{{ doc.github }}</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>製作時期</th>
+                    <td>{{ doc.creation }}</td>
+                  </tr>
+                  <tr>
+                    <th>使用技術</th>
+                    <td>{{ doc.tech }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="thumbnail-wrapper">
+              <img
+                class="thumbnail"
+                :src="`/images/${doc.thumbnail}`"
+                :alt="`${doc.title}のサムネイル画像`"
+              />
             </div>
           </div>
-          <div class="thumbnail-wrapper">
-            <img
-              class="thumbnail"
-              :src="`/images/${doc.thumbnail}`"
-              :alt="`${doc.title}のサムネイル画像`"
-            />
+          <div class="content">
+            <ContentRenderer :value="doc" />
           </div>
-        </div>
-        <div class="content">
-          <ContentRenderer :value="doc" />
-        </div>
-      </ContentDoc>
-    </div>
-    <div class="after-content">
-      <button class="back link" @click="$router.back()">
-        <IconChevronLeft />
-        BACK HOME
-      </button>
+        </ContentDoc>
+      </div>
+      <div class="after-content">
+        <NuxtLink class="back link" href="/">
+          <IconChevronLeft />
+          BACK HOME
+        </NuxtLink>
+      </div>
     </div>
   </main>
 </template>
 
 <style lang="scss">
+#work-page {
+  background-color: $color-black;
+  width: 100%;
+}
 .work {
   border: 1px $color-white solid;
   border-radius: 1rem;

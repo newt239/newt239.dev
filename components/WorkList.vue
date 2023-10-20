@@ -37,9 +37,6 @@ const active = useState();
 .work-title {
   view-transition-name: work-title;
 }
-.workList {
-  padding-top: 2rem;
-}
 .cardGrid {
   display: grid;
   gap: 1rem;

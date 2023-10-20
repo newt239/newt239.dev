@@ -30,7 +30,6 @@ header {
   border-style: solid;
   border-color: rgba(194, 224, 255, 0.08);
   border-width: 0px 0px thin;
-  background-color: rgba(33, 33, 33, 0.7);
 
   a {
     position: relative;

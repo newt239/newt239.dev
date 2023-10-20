@@ -11,18 +11,31 @@ useHead({
 </script>
 
 <template>
-  <main id="home">
+  <div class="container">
     <Profile />
-    <WorkList />
-    <div class="flex">
-      <ArticleList />
-      <Contact />
+  </div>
+  <main id="home">
+    <div class="container">
+      <WorkList />
+      <div class="flex">
+        <ArticleList />
+        <Contact />
+      </div>
+      <MyTopTrackList />
     </div>
-    <MyTopTrackList />
   </main>
 </template>
 
 <style lang="scss">
+#home {
+  background-color: $color-black;
+  width: 100%;
+}
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 .flex {
   display: flex;
   flex-direction: row;

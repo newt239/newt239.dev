@@ -38,8 +38,6 @@ const profile: string[] = [
     transform: translateX(-50%);
     width: 100vw;
     height: calc(100% + 2rem);
-    background: radial-gradient(#c05621 2px, transparent 1px);
-    background-size: 20px 20px;
     opacity: 0.5;
     z-index: -1;
   }
