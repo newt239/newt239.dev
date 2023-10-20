@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-import ChevronLeftIcon from "~~/components/icons/ChevronLeftIcon.vue";
+import ChevronLeftIcon from "~/components/icons/ChevronLeftIcon.vue";
 
 useHead({
   titleTemplate: "%s - newt239",
 });
+
+const router = useRouter();
 </script>
 
 <template>
   <main id="work-page">
-    <h2 class="category-name">WORKS</h2>
+    <div class="category-name">WORKS</div>
     <div class="work">
       <ContentDoc v-slot="{ doc }">
         <div class="about">
@@ -37,8 +39,9 @@ useHead({
               </table>
             </div>
           </div>
-          <div class="thumbnail">
+          <div class="thumbnail-wrapper">
             <img
+              class="thumbnail"
               :src="`/images/${doc.thumbnail}`"
               :alt="`${doc.title}のサムネイル画像`"
             />
@@ -50,10 +53,10 @@ useHead({
       </ContentDoc>
     </div>
     <div class="after-content">
-      <NuxtLink class="back" to="/">
+      <button class="back link" @click="$router.back()">
         <ChevronLeftIcon />
         BACK HOME
-      </NuxtLink>
+      </button>
     </div>
   </main>
 </template>
@@ -64,7 +67,7 @@ useHead({
   border-radius: 1rem;
 
   a,
-  p > code {
+  p code {
     word-break: break-all;
   }
 
@@ -78,10 +81,11 @@ useHead({
   .about {
     display: flex;
     justify-content: space-between;
-    .intro {
-      h1 {
+    > .intro {
+      > h1 {
         padding: 0 1rem;
         margin-top: 1rem;
+        view-transition-name: work-name;
       }
       .summary {
         table {
@@ -96,25 +100,26 @@ useHead({
         }
       }
     }
-    .thumbnail {
+    .thumbnail-wrapper {
       width: 50%;
-      img {
+      > .thumbnail {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 0 1rem 0 0;
+        view-transition-name: work-thumbnail;
       }
     }
     @include mq(tablet) {
       flex-direction: column-reverse;
-      .thumbnail {
+      .thumbnail-wrapper {
         width: 100%;
-        img {
+        .thumbnail {
           border-radius: 1rem 1rem 0 0;
         }
       }
-      .intro h3 {
-        margin: 0;
+      .intro h1 {
+        margin: 0px;
       }
     }
   }
@@ -186,11 +191,14 @@ useHead({
   .back {
     display: inline-block;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
     color: $color-white;
+    background-color: transparent;
+    cursor: pointer;
   }
 }
-h2 {
+.category-name {
   view-transition-name: work-title;
 }
 </style>

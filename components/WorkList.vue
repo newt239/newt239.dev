@@ -1,28 +1,23 @@
 <script setup lang="ts">
 const works = await queryContent("works").sort({ creation: -1 }).find();
+
+const active = useState();
 </script>
 
 <template>
   <div v-show="works && works.length !== 0" class="workList">
-    <h2>WORKS</h2>
-    <NuxtLink to="works/mojimachi">
-      <img
-        class="card-thumbnail activea"
-        src="images/mojimachi.webp"
-        width="100"
-        height="50"
-      />
-    </NuxtLink>
+    <h2 class="work-title">WORKS</h2>
     <div class="cardGrid">
       <NuxtLink
         v-for="work in works"
         :key="work._path"
         :to="`${work._path}`"
         class="card"
+        :class="{ 'active-work': active === work._path }"
+        @click="active = work._path"
       >
         <div class="card-thumbnail-wrapper no-underline">
           <img
-            :v-show="work.thumbnail"
             class="card-thumbnail"
             :src="`images/${work.thumbnail}`"
             :alt="`${work.title}のサムネイル画像`"
@@ -39,6 +34,9 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
 </template>
 
 <style lang="scss">
+.work-title {
+  view-transition-name: work-title;
+}
 .workList {
   padding-top: 2rem;
 }
@@ -117,10 +115,15 @@ const works = await queryContent("works").sort({ creation: -1 }).find();
         overflow: hidden;
       }
     }
-  }
-}
 
-h2 {
-  view-transition-name: work-title;
+    &.active-work {
+      img {
+        view-transition-name: work-thumbnail;
+      }
+      h3 {
+        view-transition-name: work-name;
+      }
+    }
+  }
 }
 </style>
