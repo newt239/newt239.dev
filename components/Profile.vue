@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import dayjs from "dayjs";
+
+const age = dayjs().diff(dayjs("2005-11-02"), "year");
+
 const profile: string[] = [
-  "17さい",
+  `${age}さい`,
   "主にWebフロントエンドの開発をしています",
   "UI / UXに興味があります",
 ];
