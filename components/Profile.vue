@@ -32,16 +32,13 @@ const profile: string[] = [
   );
   border-radius: 0.5rem;
   padding: 5vh 5vw 10vh;
+  filter: drop-shadow(2px 4px 6px black);
 }
 .profile {
   position: relative;
-  text-shadow: 5px 5px 5px black;
   ul {
     line-height: 2;
     margin: 0;
-    li {
-      text-shadow: 5px 5px 5px black;
-    }
   }
 }
 </style>
