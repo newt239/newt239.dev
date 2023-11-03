@@ -11,20 +11,29 @@ const profile: string[] = [
 </script>
 
 <template>
-  <div class="profile">
-    <h2>Welcome✨</h2>
-    <ul>
-      <li v-for="item in profile" :key="item">
-        {{ item }}
-      </li>
-    </ul>
-    <div class="dot-bg"></div>
+  <div class="top-card">
+    <div class="profile">
+      <h2>Welcome✨</h2>
+      <ul>
+        <li v-for="item in profile" :key="item">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+.top-card {
+  background-image: linear-gradient(
+    to bottom right,
+    oklch(80% 0.4 222),
+    oklch(35% 0.5 313)
+  );
+  border-radius: 0.5rem;
+  padding: 5vh 5vw 10vh;
+}
 .profile {
-  padding: 5vh 0 10vh;
   position: relative;
   text-shadow: 5px 5px 5px black;
   ul {
@@ -33,17 +42,6 @@ const profile: string[] = [
     li {
       text-shadow: 5px 5px 5px black;
     }
-  }
-
-  .dot-bg {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: calc(100% + 2rem);
-    opacity: 0.5;
-    z-index: -1;
   }
 }
 </style>
