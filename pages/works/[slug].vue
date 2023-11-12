@@ -7,7 +7,7 @@ useHead({
 </script>
 
 <template>
-  <main id="work-page">
+  <main>
     <div class="container">
       <div class="category-name">Works</div>
       <div class="work">
@@ -52,7 +52,7 @@ useHead({
         </ContentDoc>
       </div>
       <div class="after-content">
-        <NuxtLink class="back link" href="/">
+        <NuxtLink class="back link" to="/">
           <IconChevronLeft />
           BACK HOME
         </NuxtLink>
@@ -62,10 +62,6 @@ useHead({
 </template>
 
 <style lang="scss">
-#work-page {
-  background-color: $color-black;
-  width: 100%;
-}
 .work {
   border: 1px $color-white solid;
   border-radius: 1rem;

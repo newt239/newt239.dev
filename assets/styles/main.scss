@@ -101,6 +101,22 @@ ul {
   padding-left: 1rem;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  column-gap: 3rem;
+  justify-content: space-between;
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+  }
+}
+
 .tabler-icon {
   vertical-align: -0.35rem;
 }
