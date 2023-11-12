@@ -68,13 +68,15 @@ const articleList: ArticleProp[] = [
     <h2>Articles</h2>
     <ul>
       <li v-for="article in articleList" :key="article.title">
-        <img
+        <NuxtImg
+          placeholder
           v-if="article.url.startsWith('https://qiita.com')"
           src="/qiita.png"
           class="site-icon icon-align"
           alt="Qiitaのアイコン"
         />
-        <img
+        <NuxtImg
+          placeholder
           v-else-if="article.url.startsWith('https://zenn.dev')"
           src="/zenn.png"
           class="site-icon icon-align"

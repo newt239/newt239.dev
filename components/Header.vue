@@ -2,7 +2,7 @@
   <header>
     <NuxtLink to="/">
       <div class="logo">
-        <img src="/logo.svg" alt="ウェブサイトのロゴ" />
+        <NuxtImg placeholder src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
       </div>
     </NuxtLink>
