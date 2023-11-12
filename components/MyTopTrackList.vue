@@ -78,7 +78,6 @@ const audioButton = (src: string | null) => {
         class="track"
       >
         <NuxtImg
-          placeholder
           loading="lazy"
           class="thumbnail"
           :class="track.preview ? 'trackPreview' : ''"

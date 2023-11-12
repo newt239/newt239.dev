@@ -76,7 +76,6 @@ const articleList: ArticleProp[] = [
           alt="Qiitaのアイコン"
         />
         <NuxtImg
-          placeholder
           v-else-if="article.url.startsWith('https://zenn.dev')"
           src="/zenn.png"
           class="site-icon icon-align"

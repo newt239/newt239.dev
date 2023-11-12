@@ -40,7 +40,6 @@ useHead({
             </div>
             <div class="thumbnail-wrapper">
               <NuxtImg
-                placeholder
                 class="thumbnail"
                 :src="`/images/${doc.thumbnail}`"
                 :alt="`${doc.title}のサムネイル画像`"
@@ -105,7 +104,6 @@ useHead({
       width: 50%;
       > .thumbnail {
         width: 100%;
-        height: 100%;
         object-fit: cover;
         border-radius: 0 1rem 0 0;
         view-transition-name: work-thumbnail;

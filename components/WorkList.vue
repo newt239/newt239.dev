@@ -18,7 +18,6 @@ const active = useState();
       >
         <div class="card-thumbnail-wrapper no-underline">
           <NuxtImg
-            placeholder
             class="card-thumbnail"
             :src="`images/${work.thumbnail}`"
             :alt="`${work.title}のサムネイル画像`"
