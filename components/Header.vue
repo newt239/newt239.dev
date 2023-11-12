@@ -1,15 +1,11 @@
-<script setup lang="ts">
-import { RouterLink } from "vue-router";
-</script>
-
 <template>
   <header>
-    <RouterLink to="/">
+    <NuxtLink to="/">
       <div class="logo">
         <img src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
       </div>
-    </RouterLink>
+    </NuxtLink>
   </header>
 </template>
 

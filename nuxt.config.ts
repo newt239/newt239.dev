@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   telemetry: false,
   ssr: true,
-  modules: ["@nuxt/content"],
+  modules: ["@nuxt/content", "@nuxt/image"],
   app: {
     head: {
       title: "newt239",
@@ -65,7 +65,6 @@ export default defineNuxtConfig({
     },
   },
   typescript: {
-    shim: false,
     strict: true,
     typeCheck: true,
   },
