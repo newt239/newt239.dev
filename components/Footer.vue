@@ -28,11 +28,11 @@ footer {
     display: flex;
     gap: 1rem;
     a {
-      color: $color-white;
+      color: var(--color-white);
       transition: all 0.2s;
 
       &:hover {
-        color: $color-link;
+        color: var(--color-link);
       }
     }
   }

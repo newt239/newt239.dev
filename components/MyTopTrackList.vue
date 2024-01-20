@@ -206,7 +206,7 @@ const audioButton = (src: string | null) => {
       font-weight: 800;
       padding: 0.1rem 0.8rem;
       gap: 0.3rem;
-      border: 1px $color-white solid;
+      border: 1px var(--color-white) solid;
       border-radius: 1rem;
       background-color: transparent;
       cursor: pointer;
@@ -214,12 +214,12 @@ const audioButton = (src: string | null) => {
 
       @media (hover: hover) {
         &:hover {
-          background-color: $color-black-secondary;
+          background-color: var(--color-black)-secondary;
         }
       }
       @media (hover: none) {
         &:active {
-          background-color: $color-black-secondary;
+          background-color: var(--color-black)-secondary;
         }
       }
 

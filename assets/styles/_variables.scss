@@ -1,6 +1,5 @@
 $color-white: #ffffff;
 $color-black: #212121;
-$color-black-secondary: #263238;
 $color-link: #00bdd6;
 
 $breakpoints: (
@@ -26,4 +25,11 @@ $breakpoints: (
   src: url("/fonts/LINESeedJP_OTF_Eb.woff2") format("woff2");
   font-weight: 800;
   font-display: swap;
+}
+
+:root {
+  --color-white: #ffffff;
+  --color-black: #212121;
+  --color-black-secondary: #263238;
+  --color-link: #00bdd6;
 }
