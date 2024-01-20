@@ -16,7 +16,7 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
   </footer>
 </template>
 
-<style lang="scss">
+<style>
 footer {
   max-width: 1280px;
   margin: 2rem auto 0;
@@ -28,11 +28,11 @@ footer {
     display: flex;
     gap: 1rem;
     a {
-      color: $color-white;
+      color: var(--color-white);
       transition: all 0.2s;
 
       &:hover {
-        color: $color-link;
+        color: var(--color-link);
       }
     }
   }

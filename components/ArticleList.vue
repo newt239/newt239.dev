@@ -68,14 +68,13 @@ const articleList: ArticleProp[] = [
     <h2>Articles</h2>
     <ul>
       <li v-for="article in articleList" :key="article.title">
-        <NuxtImg
-          placeholder
+        <img
           v-if="article.url.startsWith('https://qiita.com')"
           src="/qiita.png"
           class="site-icon icon-align"
           alt="Qiitaのアイコン"
         />
-        <NuxtImg
+        <img
           v-else-if="article.url.startsWith('https://zenn.dev')"
           src="/zenn.png"
           class="site-icon icon-align"
@@ -93,7 +92,7 @@ const articleList: ArticleProp[] = [
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .articleList {
   ul {
     line-height: 2;

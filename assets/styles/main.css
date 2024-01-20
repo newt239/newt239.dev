@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("/fonts/LINESeedJP_OTF_Rg.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("/fonts/LINESeedJP_OTF_Eb.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --color-white: #ffffff;
+  --color-black: #212121;
+  --color-black-secondary: #263238;
+  --color-link: #00bdd6;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -9,10 +30,6 @@
   }
 }
 
-:root {
-  color-scheme: dark;
-}
-
 html {
   width: 100%;
   overflow-x: hidden;
@@ -22,8 +39,8 @@ html {
 
 body {
   margin: 0;
-  color: $color-white;
-  background-color: $color-black;
+  color: var(--color-white);
+  background-color: var(--color-black);
   font-size: 16px;
   line-height: 1.6;
   font-family:
@@ -37,8 +54,8 @@ body {
 }
 
 h1 {
-  background-color: $color-white;
-  color: $color-black;
+  background-color: var(--color-white);
+  color: var(--color-black);
   display: inline-block;
   font-size: 2rem;
   font-weight: 800;
@@ -69,7 +86,7 @@ h4 {
 
 a,
 .link {
-  color: $color-link;
+  color: var(--color-link);
   text-decoration: none;
   text-underline-offset: 0.3rem;
 
@@ -123,7 +140,7 @@ ul {
   border: 1px solid #37474f;
 
   &.info {
-    background-color: $color-black-secondary;
-    color: $color-white;
+    background-color: var(--color-black-secondary);
+    color: var(--color-white);
   }
 }

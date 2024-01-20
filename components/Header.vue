@@ -2,14 +2,14 @@
   <header>
     <NuxtLink to="/">
       <div class="logo">
-        <NuxtImg placeholder src="/logo.svg" alt="ウェブサイトのロゴ" />
+        <img src="/logo.svg" alt="ウェブサイトのロゴ" />
         <span>newt</span>
       </div>
     </NuxtLink>
   </header>
 </template>
 
-<style lang="scss">
+<style>
 header {
   background-image: none;
   display: flex;
@@ -21,7 +21,7 @@ header {
   left: auto;
   right: 0px;
   padding: max(0.5rem, min(2vh, 2vw));
-  color: $color-white;
+  color: var(--color-white);
   backdrop-filter: blur(8px);
   border-style: solid;
   border-color: rgba(194, 224, 255, 0.08);
@@ -32,7 +32,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $color-white;
+    color: var(--color-white);
     width: 92%;
     max-width: 1280px;
     margin: 0 auto;

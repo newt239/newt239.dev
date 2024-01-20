@@ -48,16 +48,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
-  css: ["@/assets/styles/main.scss"],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: "@import '@/assets/styles/_variables.scss';",
-        },
-      },
-    },
-  },
+  css: ["@/assets/styles/main.css"],
   content: {
     highlight: {
       theme: "github-dark",
@@ -70,5 +61,10 @@ export default defineNuxtConfig({
   },
   experimental: {
     viewTransition: true,
+  },
+  nitro: {
+    prerender: {
+      failOnError: false,
+    },
   },
 });

@@ -17,7 +17,7 @@ const active = useState();
         @click="active = work._path"
       >
         <div class="card-thumbnail-wrapper no-underline">
-          <NuxtImg
+          <img
             class="card-thumbnail"
             :src="`images/${work.thumbnail}`"
             :alt="`${work.title}のサムネイル画像`"
@@ -33,7 +33,7 @@ const active = useState();
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .work-title {
   view-transition-name: work-title;
 }
@@ -96,8 +96,8 @@ const active = useState();
         padding: 0;
         font-size: 1.5rem;
         line-height: 1.8rem;
-        color: $color-white;
-        background-color: $color-black;
+        color: var(--color-white);
+        background-color: var(--color-black);
         white-space: nowrap;
         width: 100%;
         overflow: hidden;

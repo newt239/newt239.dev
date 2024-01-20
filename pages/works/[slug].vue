@@ -39,7 +39,7 @@ useHead({
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <NuxtImg
+              <img
                 class="thumbnail"
                 :src="`/images/${doc.thumbnail}`"
                 :alt="`${doc.title}のサムネイル画像`"
@@ -61,9 +61,9 @@ useHead({
   </main>
 </template>
 
-<style lang="scss">
+<style>
 .work {
-  border: 1px $color-white solid;
+  border: 1px var(--color-white) solid;
   border-radius: 1rem;
 
   a,
@@ -75,7 +75,7 @@ useHead({
     padding-left: 5px;
     content: url("/assets/icons/external-link.svg");
     vertical-align: -0.3rem;
-    color: $color-link;
+    color: var(--color-link);
   }
 
   .about {
@@ -95,7 +95,7 @@ useHead({
             padding: 0 1rem;
           }
           th {
-            border-right: 1px $color-white solid;
+            border-right: 1px var(--color-white) solid;
           }
         }
       }
@@ -109,7 +109,7 @@ useHead({
         view-transition-name: work-thumbnail;
       }
     }
-    @include mq(tablet) {
+    @media (max-width: 768px) {
       flex-direction: column-reverse;
       .thumbnail-wrapper {
         width: 100%;
@@ -136,7 +136,7 @@ useHead({
       letter-spacing: 0;
       margin: 0;
       font-size: 1.5rem;
-      border-bottom: $color-white 1px solid;
+      border-bottom: var(--color-white) 1px solid;
     }
     h3 {
       padding-left: 1rem;
@@ -146,7 +146,7 @@ useHead({
     h4,
     h5 {
       a {
-        color: $color-white;
+        color: var(--color-white);
       }
     }
     table {
@@ -158,7 +158,7 @@ useHead({
         padding: 0 1rem;
       }
       th {
-        border-bottom: 1px $color-white solid;
+        border-bottom: 1px var(--color-white) solid;
       }
     }
     code,
@@ -166,7 +166,7 @@ useHead({
       padding: 0.2rem;
       margin: 0;
       border-radius: 0.5rem;
-      background-color: $color-black-secondary;
+      background-color: var(--color-black)-secondary;
       cursor: text;
     }
     pre {
@@ -192,7 +192,7 @@ useHead({
     padding: 0.5rem 1rem;
     border: none;
     font-size: 1rem;
-    color: $color-white;
+    color: var(--color-white);
     background-color: transparent;
     cursor: pointer;
   }
