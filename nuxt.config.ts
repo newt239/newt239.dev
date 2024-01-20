@@ -49,15 +49,6 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
   },
   css: ["@/assets/styles/main.css"],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: "@import '@/assets/styles/_variables.scss';",
-        },
-      },
-    },
-  },
   content: {
     highlight: {
       theme: "github-dark",
