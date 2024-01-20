@@ -109,7 +109,7 @@ useHead({
         view-transition-name: work-thumbnail;
       }
     }
-    @include mq(tablet) {
+    @media (max-width: 768px) {
       flex-direction: column-reverse;
       .thumbnail-wrapper {
         width: 100%;

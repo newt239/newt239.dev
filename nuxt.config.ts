@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
-  css: ["@/assets/styles/main.scss"],
+  css: ["@/assets/styles/main.css"],
   vite: {
     css: {
       preprocessorOptions: {
