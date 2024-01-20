@@ -5,7 +5,7 @@ const age = dayjs().diff(dayjs("2005-11-02"), "year");
 
 const profile: string[] = [
   `${age}さい`,
-  "主にWebフロントエンドの開発をしています",
+  "Webフロントエンドの開発をしています",
   "UI / UXに興味があります",
 ];
 </script>
@@ -33,6 +33,13 @@ const profile: string[] = [
   border-radius: 0.5rem;
   padding: 5vh 5vw 10vh;
   filter: drop-shadow(2px 4px 6px black);
+  @media screen and (max-width: 768px) {
+    background-image: linear-gradient(
+      0deg,
+      rgba(69, 69, 214, 1) 0%,
+      rgba(0, 212, 255, 1) 100%
+    );
+  }
 }
 .profile {
   position: relative;
