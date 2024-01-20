@@ -4,7 +4,7 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 
 <template>
   <footer>
-    <div class="copyright">© newt 2023</div>
+    <div class="copyright">© newt 2024</div>
     <div class="contact">
       <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
         <IconBrandTwitter
