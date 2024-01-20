@@ -62,4 +62,9 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
   },
+  nitro: {
+    prerender: {
+      failOnError: false,
+    },
+  },
 });
