@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useHead({
-  title: "newt239",
+  title: "newt239.dev",
 });
 </script>
 

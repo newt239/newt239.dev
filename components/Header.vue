@@ -3,7 +3,7 @@
     <NuxtLink to="/">
       <div class="logo">
         <img src="/logo.svg" alt="ウェブサイトのロゴ" />
-        <span>newt</span>
+        <span>newt239.dev</span>
       </div>
     </NuxtLink>
   </header>

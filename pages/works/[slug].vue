@@ -2,7 +2,7 @@
 import { IconChevronLeft } from "@tabler/icons-vue";
 
 useHead({
-  titleTemplate: "%s - newt239",
+  titleTemplate: "%s - newt239.dev",
 });
 </script>
 
