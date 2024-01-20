@@ -39,7 +39,7 @@ useHead({
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <NuxtImg
+              <img
                 class="thumbnail"
                 :src="`/images/${doc.thumbnail}`"
                 :alt="`${doc.title}のサムネイル画像`"

@@ -77,7 +77,7 @@ const audioButton = (src: string | null) => {
         :key="track.name"
         class="track"
       >
-        <NuxtImg
+        <img
           loading="lazy"
           class="thumbnail"
           :class="track.preview ? 'trackPreview' : ''"

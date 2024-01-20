@@ -17,7 +17,7 @@ const active = useState();
         @click="active = work._path"
       >
         <div class="card-thumbnail-wrapper no-underline">
-          <NuxtImg
+          <img
             class="card-thumbnail"
             :src="`images/${work.thumbnail}`"
             :alt="`${work.title}のサムネイル画像`"
