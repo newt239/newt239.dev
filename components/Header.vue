@@ -9,7 +9,7 @@
   </header>
 </template>
 
-<style lang="scss">
+<style>
 header {
   background-image: none;
   display: flex;

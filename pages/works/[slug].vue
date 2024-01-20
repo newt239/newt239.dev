@@ -61,7 +61,7 @@ useHead({
   </main>
 </template>
 
-<style lang="scss">
+<style>
 .work {
   border: 1px var(--color-white) solid;
   border-radius: 1rem;

@@ -23,7 +23,7 @@ const profile: string[] = [
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .top-card {
   background-image: linear-gradient(
     to bottom right,

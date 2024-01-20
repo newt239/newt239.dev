@@ -93,7 +93,7 @@ const articleList: ArticleProp[] = [
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .articleList {
   ul {
     line-height: 2;

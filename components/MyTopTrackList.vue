@@ -130,7 +130,7 @@ const audioButton = (src: string | null) => {
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .musics {
   display: flex;
   gap: 1rem;

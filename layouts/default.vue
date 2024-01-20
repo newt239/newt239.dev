@@ -6,7 +6,7 @@
   <Footer />
 </template>
 
-<style lang="scss">
+<style>
 .wrapper {
   margin: 0 auto;
   width: 100%;

@@ -33,7 +33,7 @@ const active = useState();
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .work-title {
   view-transition-name: work-title;
 }

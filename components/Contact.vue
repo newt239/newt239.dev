@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style>
 .contact {
   ul {
     margin: 0;
