@@ -10,7 +10,7 @@ useHead({
       <Profile />
     </div>
     <div class="container">
-      <WorkList />
+      <WorkList featured />
       <div class="flex">
         <ArticleList />
         <Contact />

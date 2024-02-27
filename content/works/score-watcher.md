@@ -1,6 +1,7 @@
 ---
 title: Score Watcher
 thumbnail: next-score-watcher.webp
+featured: true
 github: newt239/next-score-watcher
 creation: 2022.10 - 2023.05
 tech: Next.js, Chakra UI, Dexie.js

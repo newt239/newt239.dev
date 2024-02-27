@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const works = await queryContent('/').sort({ creation: -1 }).find();
+import { IconChevronRight } from "@tabler/icons-vue";
+
+const props = defineProps<{
+  featured?: boolean;
+}>();
+
+const works = await queryContent('/works').where(props.featured ? { featured: true } : {}).sort({ creation: -1 }).find();
 
 const active = ref<string>("");
 </script>
@@ -24,6 +30,12 @@ const active = ref<string>("");
             {{ work.description }}
           </p>
         </div>
+      </NuxtLink>
+      <NuxtLink to="works" class="see-all-works" v-if="props.featured">
+        <span>
+          すべての作品を見る
+          <IconChevronRight />
+        </span>
       </NuxtLink>
     </div>
   </div>
@@ -121,5 +133,19 @@ const active = ref<string>("");
       }
     }
   }
+}
+
+.see-all-works {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  border: 2px dashed var(--color-black-secondary);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  text-decoration: none;
+  transition: all 0.5s;
 }
 </style>

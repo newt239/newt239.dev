@@ -1,6 +1,7 @@
 ---
 title: Look Inside View
 thumbnail: look-inside-view.webp
+featured: true
 github: newt239/look-inside-view
 creation: 2021.06 - 2021.09
 tech: Pannellum, Firebase ( Firestore, Storage )
