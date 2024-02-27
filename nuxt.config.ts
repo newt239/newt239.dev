@@ -1,8 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  telemetry: false,
-  ssr: true,
+  devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxt/image"],
+  css: ["@/assets/styles/main.css"],
+  content: {
+    highlight: {
+      theme: "github-dark",
+      preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
+    },
+  },
   app: {
     head: {
       title: "newt239",
@@ -45,23 +51,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
-  css: ["@/assets/styles/main.css"],
-  content: {
-    highlight: {
-      theme: "github-dark",
-      preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
-    },
-  },
-  typescript: {
-    strict: true,
-    typeCheck: true,
-  },
   experimental: {
     viewTransition: true,
-  },
-  nitro: {
-    prerender: {
-      failOnError: false,
-    },
   },
 });

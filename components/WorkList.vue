@@ -1,32 +1,28 @@
 <script setup lang="ts">
-const works = await queryContent("works").sort({ creation: -1 }).find();
+const works = await queryContent('/').sort({ creation: -1 }).find();
 
-const active = useState();
+const active = ref<string>("");
 </script>
 
 <template>
   <div v-show="works && works.length !== 0" class="workList">
-    <h2 class="work-title">Works</h2>
+    <h2 class="work-title">
+      Works
+    </h2>
     <div class="cardGrid">
-      <NuxtLink
-        v-for="work in works"
-        :key="work._path"
-        :to="`${work._path}`"
-        class="card"
-        :class="{ 'active-work': active === work._path }"
-        @click="active = work._path"
-      >
+      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
+        :class="{ 'active-work': active === work._path }" @click="active = work._path!">
         <div class="card-thumbnail-wrapper no-underline">
-          <img
-            class="card-thumbnail"
-            :src="`images/${work.thumbnail}`"
-            :alt="`${work.title}のサムネイル画像`"
-          />
-          <div class="hover-caption" aria-hidden="true">OPEN</div>
+          <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`">
+          <div class="hover-caption" aria-hidden="true">
+            OPEN
+          </div>
         </div>
         <div class="card-body">
           <h3>{{ work.title }}</h3>
-          <p class="no-underline">{{ work.description }}</p>
+          <p class="no-underline">
+            {{ work.description }}
+          </p>
         </div>
       </NuxtLink>
     </div>
@@ -37,6 +33,7 @@ const active = useState();
 .work-title {
   view-transition-name: work-title;
 }
+
 .cardGrid {
   display: grid;
   gap: 1rem;
@@ -82,6 +79,7 @@ const active = useState();
         opacity: 1;
       }
     }
+
     @media (hover: none) {
       &:active .card-thumbnail-wrapper .hover-caption {
         opacity: 1;
@@ -117,6 +115,7 @@ const active = useState();
       img {
         view-transition-name: work-thumbnail;
       }
+
       h3 {
         view-transition-name: work-name;
       }
