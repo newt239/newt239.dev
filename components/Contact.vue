@@ -12,12 +12,10 @@
         Discordサーバー
         <ul>
           <li>
-            <a href="https://discord.gg/rct5sx6rbZ" target="_blank"
-              >https://discord.gg/rct5sx6rbZ</a
-            >
+            <a href="https://discord.gg/rct5sx6rbZ" target="_blank">https://discord.gg/rct5sx6rbZ</a>
           </li>
           <li>
-            私についての情報やプロダクトのアップデート情報などをお届けします。
+            気軽にご参加ください！
           </li>
         </ul>
       </li>
