@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { IconSun, IconMoon } from "@tabler/icons-vue";
+
+const colorMode = useColorMode();
+</script>
+
 <template>
   <header>
     <NuxtLink to="/">
@@ -6,6 +12,18 @@
         <span>newt239.dev</span>
       </div>
     </NuxtLink>
+    <div>
+      <input id="toggle-color-mode" class="hidden" type="checkbox"
+        @click="$colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light'">
+      <label for="toggle-color-mode" class="toggle-color-mode-button">
+        <IconSun v-if="colorMode.value === 'light'" />
+        <IconMoon v-else />
+        <span class="hidden-mobile">
+          {{ colorMode.value === 'light' ? 'Light' : 'Dark' }}
+        </span>
+      </label>
+    </div>
+    </input>
   </header>
 </template>
 
@@ -13,7 +31,9 @@
 header {
   background-image: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
   position: sticky;
   z-index: 5;
   width: 100%;
@@ -24,8 +44,8 @@ header {
   color: var(--color-white);
   backdrop-filter: blur(8px);
   border-style: solid;
-  border-color: rgba(194, 224, 255, 0.08);
-  border-width: 0px 0px thin;
+  border-color: var(--color-black-secondary);
+  border-width: 0px 0px 1px;
 
   a {
     position: relative;
@@ -35,7 +55,6 @@ header {
     color: var(--color-white);
     width: 92%;
     max-width: 1280px;
-    margin: 0 auto;
 
     .logo {
       display: flex;
@@ -61,5 +80,16 @@ header {
       letter-spacing: 0.1rem;
     }
   }
+}
+
+.toggle-color-mode-button {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-black-secondary);
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
 }
 </style>

@@ -7,11 +7,11 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
     <div class="copyright">© newt 2024</div>
     <div class="contact">
       <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
-        <IconBrandTwitter
-      /></a>
+        <IconBrandTwitter />
+      </a>
       <a href="https://github.com/newt239" target="_blank" title="GitHub">
-        <IconBrandGithub
-      /></a>
+        <IconBrandGithub />
+      </a>
     </div>
   </footer>
 </template>
@@ -24,11 +24,13 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem 2rem;
+
   .contact {
     display: flex;
     gap: 1rem;
+
     a {
-      color: var(--color-white);
+      color: var(--color-text);
       transition: all 0.2s;
 
       &:hover {

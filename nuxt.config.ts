@@ -51,6 +51,10 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
+  colorMode: {
+    preference: "dark",
+    fallback: "dark",
+  },
   experimental: {
     viewTransition: true,
   },

@@ -20,11 +20,7 @@ useHead({
                   <tr v-if="doc.github">
                     <th>GitHub</th>
                     <td>
-                      <a
-                        :href="`https://github.com/${doc.github}`"
-                        target="_blank"
-                        >{{ doc.github }}</a
-                      >
+                      <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
                     </td>
                   </tr>
                   <tr>
@@ -39,11 +35,7 @@ useHead({
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <img
-                class="thumbnail"
-                :src="`/images/${doc.thumbnail}`"
-                :alt="`${doc.title}のサムネイル画像`"
-              />
+              <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`" />
             </div>
           </div>
           <div class="content">
@@ -63,7 +55,7 @@ useHead({
 
 <style>
 .work {
-  border: 1px var(--color-white) solid;
+  border: 1px var(--color-text) solid;
   border-radius: 1rem;
 
   a,
@@ -81,86 +73,106 @@ useHead({
   .about {
     display: flex;
     justify-content: space-between;
-    > .intro {
-      > h1 {
+
+    >.intro {
+      >h1 {
         padding: 0 1rem;
         margin-top: 1rem;
         view-transition-name: work-name;
       }
+
       .summary {
         table {
           border-spacing: 0 0.5rem;
+
           th,
           td {
             padding: 0 1rem;
           }
+
           th {
-            border-right: 1px var(--color-white) solid;
+            border-right: 1px var(--color-text) solid;
           }
         }
       }
     }
+
     .thumbnail-wrapper {
       width: 50%;
-      > .thumbnail {
+
+      >.thumbnail {
         width: 100%;
         object-fit: cover;
         border-radius: 0 1rem 0 0;
         view-transition-name: work-thumbnail;
       }
     }
+
     @media (max-width: 768px) {
       flex-direction: column-reverse;
+
       .thumbnail-wrapper {
         width: 100%;
+
         .thumbnail {
           border-radius: 1rem 1rem 0 0;
         }
       }
+
       .intro h1 {
         margin: 0px;
       }
     }
   }
+
   .content {
     padding-bottom: 1rem;
+
     p {
       margin: 1rem;
     }
+
     ul {
       margin: 0.5rem 1.5rem;
     }
+
     h2 {
       display: inline-block;
       padding: 1rem 1rem 0;
       letter-spacing: 0;
       margin: 0;
       font-size: 1.5rem;
-      border-bottom: var(--color-white) 1px solid;
+      border-bottom: var(--color-text) 1px solid;
     }
+
     h3 {
       padding-left: 1rem;
     }
+
     h2,
     h3,
     h4,
     h5 {
       a {
-        color: var(--color-white);
+        color: var(--color-text);
       }
     }
+
     table {
       margin: 0 1rem;
       border-spacing: 0 0.5rem;
+
       th,
       td {
         text-align: left;
         padding: 0 1rem;
       }
+
       th {
-        border-bottom: 1px var(--color-white) solid;
+        border-bottom: 1px var(--color-text) solid;
       }
     }
+
     code,
     pre {
       padding: 0.2rem;
@@ -169,12 +181,15 @@ useHead({
       background-color: var(--color-black)-secondary;
       cursor: text;
     }
+
     pre {
       margin: 0.5rem 0;
       overflow-x: auto;
     }
+
     p:has(img) {
       text-align: center;
+
       img {
         max-width: calc(100% - 1rem);
         max-height: 50vh;
@@ -184,19 +199,22 @@ useHead({
     }
   }
 }
+
 .after-content {
   padding: 1rem;
   text-align: center;
+
   .back {
     display: inline-block;
     padding: 0.5rem 1rem;
     border: none;
     font-size: 1rem;
-    color: var(--color-white);
+    color: var(--color-text);
     background-color: transparent;
     cursor: pointer;
   }
 }
+
 .category-name {
   view-transition-name: work-title;
 }

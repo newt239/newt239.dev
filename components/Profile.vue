@@ -56,6 +56,7 @@ const profile: string[] = [
   justify-content: space-between;
   width: 100%;
   gap: 2rem;
+  color: white;
 
   @media screen and (max-width: 700px) {
     flex-direction: column;
@@ -109,7 +110,7 @@ const profile: string[] = [
   }
 
   a {
-    color: var(--color-white);
+    color: white;
     border-radius: 0.5rem;
     padding: 0.6rem 1rem;
     filter: drop-shadow(2px 4px 6px black);

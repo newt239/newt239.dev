@@ -11,12 +11,20 @@
   font-display: swap;
 }
 
-:root {
+.dark-mode {
   color-scheme: dark;
-  --color-white: #ffffff;
-  --color-black: #212121;
+  --color-text: #ffffff;
+  --color-back: #212121;
   --color-black-secondary: #263238;
   --color-link: #00bdd6;
+}
+
+.light-mode {
+  color-scheme: light;
+  --color-text: #121212;
+  --color-back: #fafafa;
+  --color-black-secondary: #e0e0e0;
+  --color-link: #0077cc;
 }
 
 * {
@@ -39,8 +47,8 @@ html {
 
 body {
   margin: 0;
-  color: var(--color-white);
-  background-color: var(--color-black);
+  color: var(--color-text);
+  background-color: var(--color-back);
   font-size: 16px;
   line-height: 1.6;
   font-family:
@@ -54,8 +62,8 @@ body {
 }
 
 h1 {
-  background-color: var(--color-white);
-  color: var(--color-black);
+  background-color: var(--color-text);
+  color: var(--color-back);
   display: inline-block;
   font-size: 2rem;
   font-weight: 800;
@@ -141,6 +149,16 @@ ul {
 
   &.info {
     background-color: var(--color-black-secondary);
-    color: var(--color-white);
+    color: var(--color-text);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .hidden-mobile {
+    display: none;
   }
 }
