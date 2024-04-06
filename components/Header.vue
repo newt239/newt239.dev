@@ -49,13 +49,11 @@ header {
   border-width: 0px 0px 1px;
 
   a {
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
     color: rgb(var(--color-white));
-    max-width: 1280px;
 
     .logo {
       display: flex;
@@ -73,13 +71,6 @@ header {
         font-weight: 800;
       }
     }
-
-    .widget {
-      text-align: right;
-      font-size: max(0.7rem, min(2.5vh, 2.5vw));
-      line-height: max(1rem, min(3vh, 3vw));
-      letter-spacing: 0.1rem;
-    }
   }
 }
 
@@ -92,5 +83,6 @@ header {
   padding: 0.5rem;
   border-radius: 0.5rem;
   gap: 0.5rem;
+  cursor: pointer;
 }
 </style>
