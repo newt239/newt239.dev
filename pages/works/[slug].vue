@@ -55,7 +55,7 @@ useHead({
 
 <style>
 .work {
-  border: 1px var(--color-text) solid;
+  border: 1px rgb(var(--color-text)) solid;
   border-radius: 1rem;
 
   a,
@@ -67,7 +67,7 @@ useHead({
     padding-left: 5px;
     content: url("/assets/icons/external-link.svg");
     vertical-align: -0.3rem;
-    color: var(--color-link);
+    color: rgb(var(--color-link));
   }
 
   .about {
@@ -91,7 +91,7 @@ useHead({
           }
 
           th {
-            border-right: 1px var(--color-text) solid;
+            border-right: 1px rgb(var(--color-text)) solid;
           }
         }
       }
@@ -142,7 +142,7 @@ useHead({
       letter-spacing: 0;
       margin: 0;
       font-size: 1.5rem;
-      border-bottom: var(--color-text) 1px solid;
+      border-bottom: rgb(var(--color-text)) 1px solid;
     }
 
     h3 {
@@ -154,7 +154,7 @@ useHead({
     h4,
     h5 {
       a {
-        color: var(--color-text);
+        color: rgb(var(--color-text));
       }
     }
 
@@ -169,7 +169,7 @@ useHead({
       }
 
       th {
-        border-bottom: 1px var(--color-text) solid;
+        border-bottom: 1px rgb(var(--color-text)) solid;
       }
     }
 
@@ -178,7 +178,7 @@ useHead({
       padding: 0.2rem;
       margin: 0;
       border-radius: 0.5rem;
-      background-color: var(--color-black)-secondary;
+      background-color: rgb(var(--color-black-secondary));
       cursor: text;
     }
 
@@ -209,7 +209,7 @@ useHead({
     padding: 0.5rem 1rem;
     border: none;
     font-size: 1rem;
-    color: var(--color-text);
+    color: rgb(var(--color-text));
     background-color: transparent;
     cursor: pointer;
   }

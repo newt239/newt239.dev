@@ -13,18 +13,18 @@
 
 .dark-mode {
   color-scheme: dark;
-  --color-text: #ffffff;
-  --color-back: #212121;
-  --color-black-secondary: #263238;
-  --color-link: #00bdd6;
+  --color-text: 255, 255, 255;
+  --color-back: 33, 33, 33;
+  --color-black-secondary: 38, 50, 56;
+  --color-link: 0, 189, 214;
 }
 
 .light-mode {
   color-scheme: light;
-  --color-text: #121212;
-  --color-back: #fafafa;
-  --color-black-secondary: #e0e0e0;
-  --color-link: #0077cc;
+  --color-text: 33, 33, 33;
+  --color-back: 250, 250, 250;
+  --color-black-secondary: 224, 224, 224;
+  --color-link: 0, 119, 204;
 }
 
 * {
@@ -47,8 +47,8 @@ html {
 
 body {
   margin: 0;
-  color: var(--color-text);
-  background-color: var(--color-back);
+  color: rgb(var(--color-text));
+  background-color: rgb(var(--color-back));
   font-size: 16px;
   line-height: 1.6;
   font-family:
@@ -62,8 +62,8 @@ body {
 }
 
 h1 {
-  background-color: var(--color-text);
-  color: var(--color-back);
+  background-color: rgb(var(--color-text));
+  color: rgb(var(--color-back));
   display: inline-block;
   font-size: 2rem;
   font-weight: 800;
@@ -94,7 +94,7 @@ h4 {
 
 a,
 .link {
-  color: var(--color-link);
+  color: rgb(var(--color-link));
   text-decoration: none;
   text-underline-offset: 0.3rem;
 
@@ -148,8 +148,8 @@ ul {
   border: 1px solid #37474f;
 
   &.info {
-    background-color: var(--color-black-secondary);
-    color: var(--color-text);
+    background-color: rgb(var(--color-black-secondary));
+    color: rgb(var(--color-text));
   }
 }
 

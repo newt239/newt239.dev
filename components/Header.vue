@@ -32,19 +32,20 @@ header {
   background-image: none;
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: sticky;
   z-index: 5;
   width: 100%;
   top: 0;
   left: auto;
   right: 0px;
-  padding: max(0.5rem, min(2vh, 2vw));
-  color: var(--color-white);
+  padding: 1rem max(1rem, (100vw - 1280px) / 2);
+  color: rgb(var(--color-white));
   backdrop-filter: blur(8px);
   border-style: solid;
-  border-color: var(--color-black-secondary);
+  border-color: rgba(var(--color-black-secondary), 0.8);
   border-width: 0px 0px 1px;
 
   a {
@@ -52,8 +53,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--color-white);
-    width: 92%;
+    flex-grow: 1;
+    color: rgb(var(--color-white));
     max-width: 1280px;
 
     .logo {
@@ -85,7 +86,7 @@ header {
 .toggle-color-mode-button {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--color-black-secondary);
+  border-color: rgba(var(--color-black-secondary), 0.8);
   display: flex;
   flex-direction: row;
   padding: 0.5rem;

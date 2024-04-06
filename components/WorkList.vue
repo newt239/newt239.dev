@@ -52,7 +52,7 @@ const active = ref<string>("");
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   a {
-    color: var(--color-text);
+    color: rgb(var(--color-text));
     text-decoration: none;
   }
 
@@ -106,8 +106,8 @@ const active = ref<string>("");
         padding: 0;
         font-size: 1.5rem;
         line-height: 1.8rem;
-        color: var(--color-text);
-        background-color: var(--color-back);
+        color: rgb(var(--color-text));
+        background-color: rgb(var(--color-back));
         white-space: nowrap;
         width: 100%;
         overflow: hidden;
@@ -116,7 +116,7 @@ const active = ref<string>("");
 
       p {
         margin-top: 0;
-        color: var(--color-text);
+        color: rgb(var(--color-text));
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
@@ -143,9 +143,9 @@ const active = ref<string>("");
   height: 100%;
   padding: 1rem 0;
   border-radius: 0.5rem;
-  border: 2px dashed var(--color-black-secondary);
-  background-color: var(--color-black);
-  color: var(--color-text);
+  border: 2px dashed rgb(var(--color-black-secondary));
+  background-color: rgb(var(--color-black));
+  color: rgb(var(--color-text));
   text-decoration: none;
   transition: all 0.5s;
 }

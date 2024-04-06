@@ -30,11 +30,11 @@ footer {
     gap: 1rem;
 
     a {
-      color: var(--color-text);
+      color: rgb(var(--color-text));
       transition: all 0.2s;
 
       &:hover {
-        color: var(--color-link);
+        color: rgb(var(--color-link));
       }
     }
   }
