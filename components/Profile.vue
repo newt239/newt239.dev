@@ -35,17 +35,17 @@ const profile: string[] = [
       </a>
       <a class="sns-github" href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">GitHub</div>
-        <div>newt239</div>
+        <div>@newt239</div>
         <IconBrandGithub />
       </a>
       <a class="sns-zenn" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Zenn</div>
-        <div>newt_st21</div>
+        <div>@newt_st21</div>
         <img src="/zenn.png" alt="Zenn" class="sns-icon" />
       </a>
       <a class="sns-qiita" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Qiita</div>
-        <div>newt239</div>
+        <div>@newt239</div>
         <img src="/qiita.png" alt="Qiita" class="sns-icon" />
       </a>
     </div>
@@ -68,6 +68,10 @@ const profile: string[] = [
 }
 
 .top-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
   width: 70%;
   background-image: linear-gradient(to bottom right,
       oklch(80% 0.4 222),
@@ -89,10 +93,10 @@ const profile: string[] = [
 
 .card-content {
   position: relative;
-  margin: 5vh 5vw 0;
+  margin: 3vh 3vh 0;
 
   ul {
-    line-height: 2;
+    line-height: 1.5;
     margin: 0;
   }
 }
@@ -100,7 +104,7 @@ const profile: string[] = [
 .card-bottom {
   position: relative;
   text-align: right;
-  padding: 0 4vw 5vh;
+  padding: 0 3vh 3vh;
 
   .more-detail-button {
     display: inline-block;
