@@ -7,7 +7,7 @@ const age = dayjs().diff(dayjs("2005-11-02"), "year");
 const profile: string[] = [
   `${age}さい`,
   "すきなもの: Webフロントエンド, UI / UX, アクセシビリティ",
-  "言語: TypeScript, Python, Go, (Rust 書けるようになりたい)",
+  "言語: TypeScript, Python, Go",
   "趣味: アニメ, ボカロ等",
 ];
 </script>
@@ -22,6 +22,9 @@ const profile: string[] = [
             {{ item }}
           </li>
         </ul>
+      </div>
+      <div class="card-bottom">
+        <NuxtLink to="/about" class="more-detail-button">もっとくわしく！</NuxtLink>
       </div>
     </div>
     <div class="sns-links">
@@ -70,11 +73,10 @@ const profile: string[] = [
       oklch(80% 0.4 222),
       oklch(35% 0.5 313));
   border-radius: 0.5rem;
-  padding: 5vh 5vw;
   filter: drop-shadow(2px 4px 6px black);
 
   h2 {
-    padding: 1rem 0;
+    padding: 0 0 1rem;
   }
 
   @media screen and (max-width: 700px) {
@@ -87,10 +89,31 @@ const profile: string[] = [
 
 .card-content {
   position: relative;
+  margin: 5vh 5vw 0;
 
   ul {
     line-height: 2;
     margin: 0;
+  }
+}
+
+.card-bottom {
+  position: relative;
+  text-align: right;
+  padding: 0 4vw 5vh;
+
+  .more-detail-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 

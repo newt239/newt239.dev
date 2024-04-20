@@ -12,7 +12,7 @@ useHead({
       <div class="category-name">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
-          <div class="about">
+          <div class="about-work">
             <div class="intro">
               <h1>{{ doc.title }}</h1>
               <div class="summary">
@@ -70,7 +70,7 @@ useHead({
     color: rgb(var(--color-link));
   }
 
-  .about {
+  .about-work {
     display: flex;
     justify-content: space-between;
 

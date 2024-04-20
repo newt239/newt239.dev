@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import { IconSun, IconMoon } from "@tabler/icons-vue";
-
-const colorMode = useColorMode();
-</script>
-
 <template>
   <header>
     <NuxtLink to="/">
