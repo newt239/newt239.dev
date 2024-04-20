@@ -12,17 +12,6 @@ const colorMode = useColorMode();
         <span>newt239.dev</span>
       </div>
     </NuxtLink>
-    <div>
-      <input id="toggle-color-mode" class="hidden" type="checkbox"
-        @click="$colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light'">
-      <label for="toggle-color-mode" class="toggle-color-mode-button">
-        <IconSun v-if="colorMode.value === 'light'" />
-        <IconMoon v-else />
-        <span class="hidden-mobile">
-          {{ colorMode.value === 'light' ? 'Light' : 'Dark' }}
-        </span>
-      </label>
-    </div>
     </input>
   </header>
 </template>
@@ -34,7 +23,6 @@ header {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
   position: sticky;
   z-index: 5;
   width: 100%;
