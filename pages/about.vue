@@ -19,7 +19,7 @@ useHead({
           <div>ロボティクス・情報デザイン系</div>
         </div>
       </div>
-      <div class="detail">
+      <div class="profile-detail">
         <h3>開発</h3>
         <h4>環境</h4>
         <ul>
@@ -69,6 +69,11 @@ useHead({
           <li>HoneyWorks</li>
           <li>Mrs. GREEN APPLE</li>
         </ul>
+        <h3>リンク集</h3>
+        <ul>
+          <li><a href="https://bento.me/newt" target="_blank">Bento</a></li>
+          <li><a href="https://annict.com/@newt" target="_blank">Annict</a></li>
+        </ul>
       </div>
     </div>
   </main>
@@ -117,7 +122,7 @@ useHead({
   display: block;
 }
 
-.detail {
+.profile-detail {
   margin: 0 auto;
   width: 100%;
   max-width: 600px;
