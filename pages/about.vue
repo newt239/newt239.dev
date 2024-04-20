@@ -9,16 +9,14 @@ useHead({
     <div class="container">
       <div class="about-me">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon" />
-        <div>
+        <div class="short-description">
           <h2>newt <span class="sub">@newt239</span></h2>
-          <dl>
-            <dt>誕生日</dt>
-            <dd>2005年11月2日</dd>
-            <dt>所属</dt>
-            <dd>芝浦工業大学 学士1年</dd>
-            <dd>デザイン工学部 デザイン工学科</dd>
-            <dd>ロボティクス・情報デザイン系</dd>
-          </dl>
+          <h4>誕生日</h4>
+          <div>2005年11月2日</div>
+          <h4>所属</h4>
+          <div>芝浦工業大学 学士1年</div>
+          <div>デザイン工学部 デザイン工学科</div>
+          <div>ロボティクス・情報デザイン系</div>
         </div>
       </div>
       <div class="detail">
@@ -86,15 +84,27 @@ useHead({
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 550px;
   gap: 2rem;
+  margin: 0 auto;
 
   @media screen and (max-width: 700px) {
     flex-direction: column;
+
+    .short-description {
+      width: 100%;
+    }
   }
 
   h2 {
     padding: 0 0 0.5rem;
+  }
+
+  h3,
+  h4 {
+    padding-left: 0;
   }
 }
 
@@ -111,10 +121,15 @@ useHead({
   margin: 0 auto;
   width: 100%;
   max-width: 600px;
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  border-color: rgb(var(--color-text-secondary));
+  padding-top: 2rem;
+  margin-top: 2rem;
 
-  ul {
-    width: fit-content;
-    padding-left: 2rem;
+  h3,
+  h4 {
+    padding-left: 0;
   }
 }
 </style>
