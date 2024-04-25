@@ -14,18 +14,13 @@ useHead({
           <h4>誕生日</h4>
           <div>2005年11月2日</div>
           <h4>所属</h4>
-          <div>芝浦工業大学 学士1年</div>
+          <div>芝浦工業大学 1年</div>
           <div>デザイン工学部 デザイン工学科</div>
           <div>ロボティクス・情報デザイン系</div>
         </div>
       </div>
       <div class="profile-detail">
         <h3>開発</h3>
-        <h4>環境</h4>
-        <ul>
-          <li>MacBook Air M3 / 16GB, 256GB</li>
-          <li>Visual Studio Code</li>
-        </ul>
         <h4>言語や技術</h4>
         <ul>
           <li>TypeScript</li>
@@ -52,6 +47,11 @@ useHead({
             <li>AtCoder茶で書く程度</li>
           </ul>
           <li>LaTeX</li>
+        </ul>
+        <h4>環境</h4>
+        <ul>
+          <li>MacBook Air M3 / 16GB, 256GB</li>
+          <li>Visual Studio Code</li>
         </ul>
         <h3>趣味</h3>
         <h4>好きなアニメ</h4>
