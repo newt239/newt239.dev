@@ -69,6 +69,23 @@ useHead({
           <li>HoneyWorks</li>
           <li>Mrs. GREEN APPLE</li>
         </ul>
+        <h3>コンタクト</h3>
+        <ul>
+          <li>
+            メール
+            <ul>
+              <li><a href="mailto:contact@newt239.dev">contact@newt239.dev</a></li>
+            </ul>
+          </li>
+          <li>
+            Discordサーバー
+            <ul>
+              <li>
+                <a href="https://discord.gg/rct5sx6rbZ" target="_blank">https://discord.gg/rct5sx6rbZ</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
         <h3>リンク集</h3>
         <ul>
           <li><a href="https://bento.me/newt" target="_blank">Bento</a></li>

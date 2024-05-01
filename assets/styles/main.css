@@ -101,7 +101,7 @@ a {
   text-decoration: none;
 }
 
-.underline, .eachWorkPage .work a {
+.underline, .eachWorkPage .work a, li a {
   color: rgb(var(--color-link));
   text-decoration: none;
   color: rgb(var(--color-link));
