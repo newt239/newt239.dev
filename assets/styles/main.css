@@ -17,6 +17,7 @@
   --color-text-secondary: 113, 118, 123;
   --color-back: 33, 33, 33;
   --color-black-secondary: 38, 50, 56;
+  --color-black-tertiary: 55, 71, 79;
   --color-link: 0, 189, 214;
 }
 
@@ -74,7 +75,7 @@ h1 {
 }
 
 h2,
-.category-name {
+.categoryName {
   font-size: 2rem;
   font-weight: 800;
   padding: 2rem 0 0.5rem;
@@ -119,41 +120,15 @@ ul {
   padding: 2rem;
 }
 
-.flex {
-  display: flex;
-  flex-direction: row;
-  column-gap: 3rem;
-  justify-content: space-between;
-  @media screen and (max-width: 1000px) {
-    flex-direction: column;
-  }
-}
-
 .tabler-icon {
   vertical-align: -0.35rem;
 }
 
-.alert {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 0 0 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid #37474f;
-
-  &.info {
-    background-color: rgb(var(--color-black-secondary));
-    color: rgb(var(--color-text));
-  }
+.site-icon {
+  height: 16px;
+  padding-right: 0.3rem;
 }
 
-.hidden {
-  display: none;
-}
-
-@media screen and (max-width: 500px) {
-  .hidden-mobile {
-    display: none;
-  }
+.icon-align {
+  vertical-align: -0.15rem;
 }

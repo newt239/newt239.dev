@@ -10,7 +10,7 @@ useHead({
       <Profile />
     </div>
     <div class="container">
-      <WorkList featured />
+      <FeaturedWorkList />
       <LatestArticleList />
       <MyTopTrackList />
     </div>

@@ -7,10 +7,10 @@ const articles = articleList.slice(0, 5);
 
 <template>
   <div class="latestArticleList">
-    <h2>Articles</h2>
+    <h2 class="categoryTitle">Articles</h2>
     <div class="cardGrid">
       <a v-for="article in articles" :key="article.url" :href="`${article.url}`" target="_blank" class="card">
-        <div class="card-body">
+        <div class="cardBody">
           <h4>{{ article.title }}</h4>
         </div>
         <div class="card-footer">
@@ -27,18 +27,22 @@ const articles = articleList.slice(0, 5);
           <div>{{ article.date }}</div>
         </div>
       </a>
-      <a href="/articles" class="see-all-articles">
+      <NuxtLink to="/articles" class="seeAllArticles">
         <span>
           すべての作品を見る
           <IconChevronRight />
         </span>
-      </a>
+      </NuxtLink>
     </div>
   </div>
 </template>
 
 <style>
 .latestArticleList {
+  .categoryTitle {
+    view-transition-name: article-category-name;
+  }
+
   .cardGrid {
     display: grid;
     gap: 1rem;
@@ -52,8 +56,21 @@ const articles = articleList.slice(0, 5);
       background-color: rgb(var(--color-black-secondary));
       border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
+      transition: all 0.2s;
 
-      .card-body {
+      @media (hover: hover) {
+        &:hover {
+          filter: none;
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
+          filter: none;
+        }
+      }
+
+      .cardBody {
         padding: 1rem;
 
         h4 {
@@ -73,21 +90,7 @@ const articles = articleList.slice(0, 5);
     }
   }
 
-  ul {
-    line-height: 2;
-    margin: 0;
-  }
-
-  .site-icon {
-    height: 16px;
-    padding-right: 0.3rem;
-  }
-
-  .icon-align {
-    vertical-align: -0.15rem;
-  }
-
-  .see-all-articles {
+  .seeAllArticles {
     display: grid;
     grid-row: span 2;
     justify-content: center;

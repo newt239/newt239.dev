@@ -1,37 +1,27 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-const props = defineProps<{
-  featured?: boolean;
-}>();
-
-const works = await queryContent('/works').where(props.featured ? { featured: true } : {}).sort({ creation: -1 }).find();
-
+const works = await queryContent('/works').where({ featured: true }).sort({ creation: -1 }).find();
 const active = ref<string>("");
 </script>
 
 <template>
   <div v-show="works && works.length !== 0" class="workList">
-    <h2 class="work-title">
+    <h2 class="categoryTitle">
       Works
     </h2>
     <div class="cardGrid">
       <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
         :class="{ 'active-work': active === work._path }" @click="active = work._path!">
-        <div class="card-thumbnail-wrapper no-underline">
-          <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`">
-          <div class="hover-caption" aria-hidden="true">
-            OPEN
-          </div>
-        </div>
-        <div class="card-body">
+        <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`">
+        <div class="cardBody">
           <h3>{{ work.title }}</h3>
-          <p class="no-underline">
+          <p>
             {{ work.description }}
           </p>
         </div>
       </NuxtLink>
-      <NuxtLink to="works" class="see-all-works" v-if="props.featured">
+      <NuxtLink to="works" class="seeAllWorks">
         <span>
           すべての作品を見る
           <IconChevronRight />
@@ -43,8 +33,8 @@ const active = ref<string>("");
 
 <style>
 .workList {
-  .work-title {
-    view-transition-name: work-title;
+  .categoryTitle {
+    view-transition-name: work-category-name;
   }
 
   .cardGrid {
@@ -58,49 +48,37 @@ const active = ref<string>("");
     }
 
     .card {
+      display: flex;
+      flex-direction: column;
+      color: rgb(var(--color-text));
+      background-color: rgb(var(--color-black-secondary));
       border-radius: 0.5rem;
-      transition: all 0.5s;
-
-      .card-thumbnail-wrapper {
-        position: relative;
-
-        .card-thumbnail {
-          width: 100%;
-          aspect-ratio: 16 / 9;
-          object-fit: cover;
-          border-radius: 0.5rem;
-          filter: drop-shadow(2px 4px 6px black);
-          -webkit-touch-callout: none;
-          pointer-events: none;
-        }
-
-        .hover-caption {
-          font-size: 2rem;
-          font-weight: 800;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translateY(-50%) translateX(-50%);
-          mix-blend-mode: difference;
-          opacity: 0;
-          transition: all 0.5s;
-        }
-      }
+      filter: drop-shadow(2px 4px 6px black);
+      transition: all 0.2s;
 
       @media (hover: hover) {
-        &:hover .card-thumbnail-wrapper .hover-caption {
-          opacity: 1;
+        &:hover {
+          filter: none;
         }
       }
 
       @media (hover: none) {
-        &:active .card-thumbnail-wrapper .hover-caption {
-          opacity: 1;
+        &:active {
+          filter: none;
         }
       }
 
-      .card-body {
-        margin: 0 0.5rem;
+      .cardThumbnail {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 0.5rem 0.5rem 0 0;
+        -webkit-touch-callout: none;
+        pointer-events: none;
+      }
+
+      .cardBody {
+        padding: 1rem;
 
         h3 {
           margin: 0;
@@ -108,7 +86,6 @@ const active = ref<string>("");
           font-size: 1.5rem;
           line-height: 1.8rem;
           color: rgb(var(--color-text));
-          background-color: rgb(var(--color-back));
           white-space: nowrap;
           width: 100%;
           overflow: hidden;
@@ -116,7 +93,7 @@ const active = ref<string>("");
         }
 
         p {
-          margin-top: 0;
+          margin: 0;
           color: rgb(var(--color-text));
           display: -webkit-box;
           -webkit-box-orient: vertical;
@@ -137,7 +114,7 @@ const active = ref<string>("");
     }
   }
 
-  .see-all-works {
+  .seeAllWorks {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,6 +123,8 @@ const active = ref<string>("");
     border-radius: 0.5rem;
     border: 2px solid rgb(var(--color-black-secondary));
     color: rgb(var(--color-text));
+    background-color: rgb(var(--color-black));
+    filter: drop-shadow(2px 4px 6px black);
   }
 }
 </style>

@@ -9,7 +9,7 @@ useHead({
 <template>
   <main>
     <div class="container eachWorkPage">
-      <div class="category-name">Works</div>
+      <div class="categoryName">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
           <div class="about-work">
@@ -54,168 +54,170 @@ useHead({
 </template>
 
 <style>
-.eachWorkPage .work {
-  border: 1px rgb(var(--color-text)) solid;
-  border-radius: 1rem;
-
-  a,
-  p code {
-    word-break: break-all;
+.eachWorkPage {
+  .categoryName {
+    view-transition-name: work-category-name;
   }
 
-  a[target="_blank"]::after {
-    padding-left: 5px;
-    content: url("/assets/icons/external-link.svg");
-    vertical-align: -0.3rem;
-    color: rgb(var(--color-link));
-  }
+  .work {
+    border: 1px rgb(var(--color-text)) solid;
+    border-radius: 1rem;
 
-  .about-work {
-    display: flex;
-    justify-content: space-between;
+    a,
+    p code {
+      word-break: break-all;
+    }
 
-    >.intro {
-      >h1 {
-        padding: 0 1rem;
-        margin-top: 1rem;
-        view-transition-name: work-name;
-      }
+    a[target="_blank"]::after {
+      padding-left: 5px;
+      content: url("/assets/icons/external-link.svg");
+      vertical-align: -0.3rem;
+      color: rgb(var(--color-link));
+    }
 
-      .summary {
-        table {
-          border-spacing: 0 0.5rem;
+    .about-work {
+      display: flex;
+      justify-content: space-between;
 
-          th,
-          td {
-            padding: 0 1rem;
-          }
+      >.intro {
+        >h1 {
+          padding: 0 1rem;
+          margin-top: 1rem;
+          view-transition-name: work-name;
+        }
 
-          th {
-            border-right: 1px rgb(var(--color-text)) solid;
+        .summary {
+          table {
+            border-spacing: 0 0.5rem;
+
+            th,
+            td {
+              padding: 0 1rem;
+            }
+
+            th {
+              border-right: 1px rgb(var(--color-text)) solid;
+            }
           }
         }
       }
-    }
-
-    .thumbnail-wrapper {
-      width: 50%;
-
-      >.thumbnail {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 0 1rem 0 0;
-        view-transition-name: work-thumbnail;
-      }
-    }
-
-    @media (max-width: 768px) {
-      flex-direction: column-reverse;
 
       .thumbnail-wrapper {
-        width: 100%;
+        width: 50%;
 
-        .thumbnail {
-          border-radius: 1rem 1rem 0 0;
+        >.thumbnail {
+          width: 100%;
+          object-fit: cover;
+          border-radius: 0 1rem 0 0;
+          view-transition-name: work-thumbnail;
         }
       }
 
-      .intro h1 {
-        margin: 0px;
-      }
-    }
-  }
+      @media (max-width: 768px) {
+        flex-direction: column-reverse;
 
-  .content {
-    padding-bottom: 1rem;
+        .thumbnail-wrapper {
+          width: 100%;
 
-    p {
-      margin: 1rem;
-    }
+          .thumbnail {
+            border-radius: 1rem 1rem 0 0;
+          }
+        }
 
-    ul {
-      margin: 0.5rem 1.5rem;
-    }
-
-    h2 {
-      display: inline-block;
-      padding: 1rem 1rem 0;
-      letter-spacing: 0;
-      margin: 0;
-      font-size: 1.5rem;
-      border-bottom: rgb(var(--color-text)) 1px solid;
-    }
-
-    h3 {
-      padding-left: 1rem;
-    }
-
-    h2,
-    h3,
-    h4,
-    h5 {
-      a {
-        color: rgb(var(--color-text));
+        .intro h1 {
+          margin: 0px;
+        }
       }
     }
 
-    table {
-      margin: 0 1rem;
-      border-spacing: 0 0.5rem;
+    .content {
+      padding-bottom: 1rem;
 
-      th,
-      td {
-        text-align: left;
-        padding: 0 1rem;
+      p {
+        margin: 1rem;
       }
 
-      th {
-        border-bottom: 1px rgb(var(--color-text)) solid;
+      ul {
+        margin: 0.5rem 1.5rem;
       }
-    }
 
-    code,
-    pre {
-      padding: 0.2rem;
-      margin: 0;
-      border-radius: 0.5rem;
-      background-color: rgb(var(--color-black-secondary));
-      cursor: text;
-    }
+      h2 {
+        display: inline-block;
+        padding: 1rem 1rem 0;
+        letter-spacing: 0;
+        margin: 0;
+        font-size: 1.5rem;
+        border-bottom: rgb(var(--color-text)) 1px solid;
+      }
 
-    pre {
-      margin: 0.5rem 0;
-      overflow-x: auto;
-    }
+      h3 {
+        padding-left: 1rem;
+      }
 
-    p:has(img) {
-      text-align: center;
+      h2,
+      h3,
+      h4,
+      h5 {
+        a {
+          color: rgb(var(--color-text));
+        }
+      }
 
-      img {
-        max-width: calc(100% - 1rem);
-        max-height: 50vh;
-        filter: drop-shadow(2px 4px 6px black);
+      table {
+        margin: 0 1rem;
+        border-spacing: 0 0.5rem;
+
+        th,
+        td {
+          text-align: left;
+          padding: 0 1rem;
+        }
+
+        th {
+          border-bottom: 1px rgb(var(--color-text)) solid;
+        }
+      }
+
+      code,
+      pre {
+        padding: 0.2rem;
+        margin: 0;
         border-radius: 0.5rem;
+        background-color: rgb(var(--color-black-secondary));
+        cursor: text;
+      }
+
+      pre {
+        margin: 0.5rem 0;
+        overflow-x: auto;
+      }
+
+      p:has(img) {
+        text-align: center;
+
+        img {
+          max-width: calc(100% - 1rem);
+          max-height: 50vh;
+          filter: drop-shadow(2px 4px 6px black);
+          border-radius: 0.5rem;
+        }
       }
     }
   }
-}
 
-.after-content {
-  padding: 1rem;
-  text-align: center;
+  .after-content {
+    padding: 1rem;
+    text-align: center;
 
-  .back {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border: none;
-    font-size: 1rem;
-    color: rgb(var(--color-text));
-    background-color: transparent;
-    cursor: pointer;
+    .back {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: none;
+      font-size: 1rem;
+      color: rgb(var(--color-text));
+      background-color: transparent;
+      cursor: pointer;
+    }
   }
-}
-
-.category-name {
-  view-transition-name: work-title;
 }
 </style>
