@@ -52,6 +52,7 @@ const active = ref<string>("");
       flex-direction: column;
       color: rgb(var(--color-text));
       background-color: rgb(var(--color-black-secondary));
+      border: 2px solid rgb(var(--color-black-secondary));
       border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;

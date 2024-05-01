@@ -52,6 +52,7 @@ const articles = articleList.slice(0, 5);
       display: grid;
       grid-template-rows: subgrid;
       grid-row: span 2;
+      gap: 0;
       color: rgb(var(--color-text));
       background-color: rgb(var(--color-black-secondary));
       border-radius: 0.5rem;

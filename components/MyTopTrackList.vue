@@ -55,7 +55,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     flex-grow: 1;
     align-items: flex-start;
     width: max(30%, 300px);
-    gap: 1rem;
+    gap: 0.5rem;
     border-radius: 1rem;
     transition: all 0.5s;
 
@@ -87,7 +87,6 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 
     .detail {
       width: min(150px, 50%);
-      aspect-ratio: 1 / 1;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -99,7 +98,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 
         .name {
           font-size: 1.2rem;
-          line-height: 1rem;
+          line-height: 2rem;
           font-weight: 800;
           cursor: pointer;
         }
