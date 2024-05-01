@@ -11,10 +11,7 @@ useHead({
     </div>
     <div class="container">
       <WorkList featured />
-      <div class="flex">
-        <ArticleList />
-        <Contact />
-      </div>
+      <LatestArticleList />
       <MyTopTrackList />
     </div>
   </main>

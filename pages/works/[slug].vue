@@ -8,7 +8,7 @@ useHead({
 
 <template>
   <main>
-    <div class="container">
+    <div class="container eachWorkPage">
       <div class="category-name">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
@@ -54,7 +54,7 @@ useHead({
 </template>
 
 <style>
-.work {
+.eachWorkPage .work {
   border: 1px rgb(var(--color-text)) solid;
   border-radius: 1rem;
 
