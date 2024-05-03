@@ -60,7 +60,9 @@ useHead({
   }
 
   .work {
-    border: 1px rgb(var(--color-text)) solid;
+    background-color: rgb(var(--color-black-secondary));
+    border: 1px rgb(var(--color-black-secondary)) solid;
+    filter: drop-shadow(2px 4px 6px black);
     border-radius: 1rem;
 
     a,
