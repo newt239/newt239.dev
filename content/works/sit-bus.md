@@ -2,6 +2,7 @@
 title: SIT Bus
 thumbnail: sit-bus.webp
 featured: true
+order: 5
 github: newt239/sit-bus
 creation: 2024.04
 tech: Next.js, Tailwind

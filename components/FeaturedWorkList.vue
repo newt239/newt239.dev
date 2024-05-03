@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-const works = await queryContent('/works').where({ featured: true }).sort({ creation: -1 }).find();
+const works = await queryContent('/works').where({ featured: true }).sort({ order: 1 }).find();
 const active = ref<string>("");
 </script>
 

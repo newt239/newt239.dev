@@ -2,6 +2,7 @@
 title: Gateway
 thumbnail: gateway.webp
 featured: true
+order: 1
 github: newt239/gateway-front
 creation: 2021.12 - 2022.09
 tech: React, Golang, MySQL, AWS 等
