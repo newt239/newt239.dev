@@ -12,7 +12,7 @@ useHead({
       <div class="categoryName">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
-          <div class="about-work">
+          <div class="aboutWork">
             <div class="intro">
               <h1>{{ doc.title }}</h1>
               <div class="summary">
@@ -34,7 +34,7 @@ useHead({
                 </table>
               </div>
             </div>
-            <div class="thumbnail-wrapper">
+            <div class="thumbnailWrapper">
               <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`" />
             </div>
           </div>
@@ -43,8 +43,8 @@ useHead({
           </div>
         </ContentDoc>
       </div>
-      <div class="after-content">
-        <NuxtLink class="back link" to="/">
+      <div class="afterContent">
+        <NuxtLink class="back" to="/">
           <IconChevronLeft />
           BACK HOME
         </NuxtLink>
@@ -77,7 +77,7 @@ useHead({
       color: rgb(var(--color-link));
     }
 
-    .about-work {
+    .aboutWork {
       display: flex;
       justify-content: space-between;
 
@@ -104,13 +104,13 @@ useHead({
         }
       }
 
-      .thumbnail-wrapper {
+      .thumbnailWrapper {
         width: 50%;
 
         >.thumbnail {
           width: 100%;
           object-fit: cover;
-          border-radius: 0 1rem 0 0;
+          border-radius: 0 1rem 0 1rem;
           view-transition-name: work-thumbnail;
         }
       }
@@ -118,7 +118,7 @@ useHead({
       @media (max-width: 768px) {
         flex-direction: column-reverse;
 
-        .thumbnail-wrapper {
+        .thumbnailWrapper {
           width: 100%;
 
           .thumbnail {
@@ -207,7 +207,7 @@ useHead({
     }
   }
 
-  .after-content {
+  .afterContent {
     padding: 1rem;
     text-align: center;
 
@@ -219,6 +219,19 @@ useHead({
       color: rgb(var(--color-text));
       background-color: transparent;
       cursor: pointer;
+      transition: all 0.2s;
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
+          opacity: 0.5;
+        }
+      }
     }
   }
 }

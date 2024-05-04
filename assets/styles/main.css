@@ -108,6 +108,19 @@ a {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
   text-decoration-style: dashed;
+  transition: all 0.2s;
+
+  @media (hover: hover) {
+    &:hover {
+  opacity: 0.5;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+  opacity: 0.5;
+    }
+  }
 }
 
 ul {

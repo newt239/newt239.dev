@@ -41,6 +41,19 @@ header {
       display: flex;
       align-items: center;
       gap: min(3vh, 3vw);
+      transition: all 0.2s;
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
+          opacity: 0.5;
+        }
+      }
 
       img {
         max-height: min(8vh, 8vw);
