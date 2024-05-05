@@ -27,7 +27,7 @@ header {
   color: rgb(var(--color-white));
   backdrop-filter: blur(8px);
   border-style: solid;
-  border-color: rgba(var(--color-black-secondary), 0.8);
+  border-color: rgb(var(--color-back-secondary) / 0.8);
   border-width: 0px 0px 1px;
 
   a {
@@ -67,17 +67,5 @@ header {
       }
     }
   }
-}
-
-.toggle-color-mode-button {
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(var(--color-black-secondary), 0.8);
-  display: flex;
-  flex-direction: row;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  gap: 0.5rem;
-  cursor: pointer;
 }
 </style>

@@ -13,20 +13,12 @@
 
 .dark-mode {
   color-scheme: dark;
-  --color-text: 255, 255, 255;
-  --color-text-secondary: 113, 118, 123;
-  --color-back: 33, 33, 33;
-  --color-black-secondary: 38, 50, 56;
-  --color-black-tertiary: 55, 71, 79;
-  --color-link: 0, 189, 214;
-}
-
-.light-mode {
-  color-scheme: light;
-  --color-text: 33, 33, 33;
-  --color-back: 250, 250, 250;
-  --color-black-secondary: 224, 224, 224;
-  --color-link: 0, 119, 204;
+  --color-text: 255 255 255;
+  --color-text-secondary: 113 118 123;
+  --color-back: 33 33 33;
+  --color-back-secondary: 38 50 56;
+  --color-back-tertiary: 55 71 79;
+  --color-link: 0 189 214;
 }
 
 * {
@@ -78,7 +70,7 @@ h2,
 .categoryName {
   font-size: 2rem;
   font-weight: 800;
-  padding: 2rem 0 0.5rem;
+  padding: 1rem 0 0.5rem;
   margin: 0px;
   width: fit-content;
 }
@@ -101,7 +93,7 @@ a {
   text-decoration: none;
 }
 
-.underline, .eachWorkPage .work a, li a {
+.underline, p a, li a, table a {
   color: rgb(var(--color-link));
   text-decoration: none;
   color: rgb(var(--color-link));
@@ -133,15 +125,15 @@ ul {
   padding: 2rem;
 }
 
-.tabler-icon {
-  vertical-align: -0.35rem;
-}
-
-.site-icon {
+.siteIcon {
   height: 16px;
   padding-right: 0.3rem;
 }
 
-.icon-align {
+.iconAlign {
   vertical-align: -0.15rem;
+}
+
+.tabler-icon {
+  vertical-align: -0.35rem;
 }

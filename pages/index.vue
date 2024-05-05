@@ -11,7 +11,11 @@ useHead({
     </div>
     <div class="container">
       <FeaturedWorkList />
+    </div>
+    <div class="container">
       <LatestArticleList />
+    </div>
+    <div class="container">
       <MyTopTrackList />
     </div>
   </main>

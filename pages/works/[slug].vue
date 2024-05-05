@@ -60,8 +60,8 @@ useHead({
   }
 
   .work {
-    background-color: rgb(var(--color-black-secondary));
-    border: 1px rgb(var(--color-black-secondary)) solid;
+    background-color: rgb(var(--color-back-secondary));
+    border: 1px rgb(var(--color-back-secondary)) solid;
     filter: drop-shadow(2px 4px 6px black);
     border-radius: 1rem;
 
@@ -183,10 +183,12 @@ useHead({
       code,
       pre {
         padding: 0.2rem;
-        margin: 0;
-        border-radius: 0.5rem;
-        background-color: rgb(var(--color-black-secondary));
+        background-color: rgb(var(--color-back));
         cursor: text;
+      }
+
+      code {
+        margin: 0;
       }
 
       pre {

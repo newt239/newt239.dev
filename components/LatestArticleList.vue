@@ -15,12 +15,12 @@ const articles = articleList.slice(0, 5);
         </div>
         <div class="card-footer">
           <div>
-            <img v-if="article.url.startsWith('https://qiita.com')" src="/qiita.png" class="site-icon icon-align"
+            <img v-if="article.url.startsWith('https://qiita.com')" src="/qiita.png" class="siteIcon iconAlign"
               alt="Qiitaのアイコン" />
-            <img v-else-if="article.url.startsWith('https://zenn.dev')" src="/zenn.png" class="site-icon icon-align"
+            <img v-else-if="article.url.startsWith('https://zenn.dev')" src="/zenn.png" class="siteIcon iconAlign"
               alt="Zennのアイコン" />
-            <span v-else class="site-icon">
-              <IconBook2 class="icon-align" width="16px" height="16px" />
+            <span v-else class="siteIcon">
+              <IconBook2 class="iconAlign" width="16px" height="16px" />
             </span>
             <span class="site-name">{{ article.url.split("/")[2] }}</span>
           </div>
@@ -54,7 +54,7 @@ const articles = articleList.slice(0, 5);
       grid-row: span 2;
       gap: 0;
       color: rgb(var(--color-text));
-      background-color: rgb(var(--color-black-secondary));
+      background-color: rgb(var(--color-back-secondary));
       border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;
@@ -99,9 +99,9 @@ const articles = articleList.slice(0, 5);
     height: 100%;
     padding: 1rem 0;
     border-radius: 0.5rem;
-    border: 2px solid rgb(var(--color-black-secondary));
+    border: 2px solid rgb(var(--color-back-secondary));
     color: rgb(var(--color-text));
-    background-color: rgb(var(--color-black));
+    background-color: rgb(var(--color-back));
     filter: drop-shadow(2px 4px 6px black);
   }
 }

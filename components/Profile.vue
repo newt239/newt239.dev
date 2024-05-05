@@ -74,7 +74,7 @@ const profile: string[] = [
     background-image: linear-gradient(to bottom right,
         oklch(80% 0.4 222),
         oklch(35% 0.5 313));
-    border: 2px solid rgb(var(--color-black-secondary));
+    border: 2px solid rgb(var(--color-back-secondary));
     color: white;
     border-radius: 0.5rem;
     filter: drop-shadow(2px 4px 6px black);
@@ -108,8 +108,8 @@ const profile: string[] = [
     @media screen and (max-width: 700px) {
       width: 100%;
       background-image: linear-gradient(0deg,
-          rgba(69, 69, 214, 1) 0%,
-          rgba(0, 212, 255, 1) 100%);
+          rgb(69 69 214) 0%,
+          rgb(0 212 255) 100%);
     }
   }
 
@@ -181,7 +181,7 @@ const profile: string[] = [
   }
 
   .snsCard {
-    border: 2px solid rgb(var(--color-black-secondary));
+    border: 2px solid rgb(var(--color-back-secondary));
   }
 
   .twitterCard {

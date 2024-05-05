@@ -51,8 +51,8 @@ const active = ref<string>("");
       display: flex;
       flex-direction: column;
       color: rgb(var(--color-text));
-      background-color: rgb(var(--color-black-secondary));
-      border: 2px solid rgb(var(--color-black-secondary));
+      background-color: rgb(var(--color-back-secondary));
+      border: 2px solid rgb(var(--color-back-secondary));
       border-radius: 0.5rem;
       filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;
@@ -122,9 +122,9 @@ const active = ref<string>("");
     height: 100%;
     padding: 1rem 0;
     border-radius: 0.5rem;
-    border: 2px solid rgb(var(--color-black-secondary));
+    border: 2px solid rgb(var(--color-back-secondary));
     color: rgb(var(--color-text));
-    background-color: rgb(var(--color-black));
+    background-color: rgb(var(--color-back));
     filter: drop-shadow(2px 4px 6px black);
   }
 }
