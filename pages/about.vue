@@ -25,7 +25,7 @@ useHead({
         <ul>
           <li>TypeScript</li>
           <ul>
-            <li>React, Next.js, Remix, Vue.js, Nuxt, Astro, Svelte, Hono, Electron</li>
+            <li>React, Next.js, Remix, Nuxt, Astro, Hono, Electron</li>
             <li>MUI, Chakra UI, Mantine, radix-ui, shadcn/ui</li>
             <li>Emotion, Panda CSS, Kuma UI, Tailwind</li>
             <li>jotai, Recoil</li>
@@ -40,17 +40,21 @@ useHead({
           </ul>
           <li>Rust</li>
           <ul>
-            <li>勉強中。Tauri で利用したことがあります</li>
+            <li>Tauri</li>
           </ul>
           <li>C++</li>
           <ul>
-            <li>AtCoder茶で書く程度</li>
+            <li>AtCoder</li>
           </ul>
           <li>LaTeX</li>
         </ul>
         <h4>環境</h4>
         <ul>
-          <li>MacBook Air M3 / 16GB, 256GB</li>
+          <li>MacBook Air M3</li>
+          <ul>
+            <li>16GB ユニファイドメモリ</li>
+            <li>256GB SSD</li>
+          </ul>
           <li>Visual Studio Code</li>
         </ul>
         <h3>趣味</h3>
