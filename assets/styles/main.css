@@ -79,14 +79,12 @@ h3 {
   font-size: 1.5rem;
   padding: 1rem 1rem 0;
   margin: 0px;
-  width: fit-content;
 }
 
 h4 {
   padding: 1rem 1rem 0;
   margin: 0;
   font-size: 1rem;
-  width: fit-content;
 }
 
 a {
@@ -136,4 +134,9 @@ ul {
 
 .tabler-icon {
   vertical-align: -0.35rem;
+}
+
+.sub {
+  font-size: 50%;
+  color: rgb(var(--color-text-secondary));
 }
