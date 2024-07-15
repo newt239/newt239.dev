@@ -3,12 +3,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxt/image", "@nuxtjs/color-mode"],
   css: ["@/assets/styles/main.css"],
+
   content: {
     highlight: {
       theme: "github-dark",
       preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
     },
   },
+
   app: {
     head: {
       title: "newt239",
@@ -51,11 +53,15 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
+
   colorMode: {
     preference: "dark",
     fallback: "dark",
   },
+
   experimental: {
     viewTransition: true,
   },
+
+  compatibilityDate: "2024-07-15",
 });
