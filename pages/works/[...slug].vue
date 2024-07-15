@@ -12,35 +12,40 @@ useHead({
       <div class="categoryName">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
-          <div class="aboutWork">
-            <div class="intro">
-              <h1>{{ doc.title }}</h1>
-              <div class="summary">
-                <table>
-                  <tr v-if="doc.github">
-                    <th>GitHub</th>
-                    <td>
-                      <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>製作時期</th>
-                    <td>{{ doc.creation }}</td>
-                  </tr>
-                  <tr>
-                    <th>使用技術</th>
-                    <td>{{ doc.tech }}</td>
-                  </tr>
-                </table>
+          <templete #default>
+            <div class="aboutWork">
+              <div class="intro">
+                <h1>{{ doc.title }}</h1>
+                <div class="summary">
+                  <table>
+                    <tr v-if="doc.github">
+                      <th>GitHub</th>
+                      <td>
+                        <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>製作時期</th>
+                      <td>{{ doc.creation }}</td>
+                    </tr>
+                    <tr>
+                      <th>使用技術</th>
+                      <td>{{ doc.tech }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="thumbnailWrapper">
+                <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`" />
               </div>
             </div>
-            <div class="thumbnailWrapper">
-              <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`" />
+            <div class="content">
+              <ContentRenderer :value="doc" />
             </div>
-          </div>
-          <div class="content">
-            <ContentRenderer :value="doc" />
-          </div>
+          </templete>
+          <templete #not-found>
+            <p>Not Found</p>
+          </templete>
         </ContentDoc>
       </div>
       <div class="afterContent">

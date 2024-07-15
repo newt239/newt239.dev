@@ -19,5 +19,8 @@
     "vue": "^3.4.31",
     "vue-gtag-next": "^1.14.0",
     "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "glob": "^11.0.0"
   }
 }
