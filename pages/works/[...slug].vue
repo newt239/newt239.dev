@@ -65,21 +65,12 @@ useHead({
   }
 
   .work {
-    background-color: rgb(var(--color-back-secondary));
-    border: 1px rgb(var(--color-back-secondary)) solid;
-    filter: drop-shadow(2px 4px 6px black);
+    border: 2px solid rgb(var(--color-text));
     border-radius: 1rem;
 
     a,
     p code {
       word-break: break-all;
-    }
-
-    a[target="_blank"]::after {
-      padding-left: 5px;
-      content: url("/assets/icons/external-link.svg");
-      vertical-align: -0.3rem;
-      color: rgb(var(--color-link));
     }
 
     .aboutWork {
@@ -115,7 +106,7 @@ useHead({
         >.thumbnail {
           width: 100%;
           object-fit: cover;
-          border-radius: 0 1rem 0 1rem;
+          border-radius: 0 calc(1rem - 2px) 0 calc(1rem - 2px);
           view-transition-name: work-thumbnail;
         }
       }
@@ -127,7 +118,7 @@ useHead({
           width: 100%;
 
           .thumbnail {
-            border-radius: 1rem 1rem 0 0;
+            border-radius: calc(1rem - 2px) calc(1rem - 2px) 0 0;
           }
         }
 
@@ -188,7 +179,7 @@ useHead({
       code,
       pre {
         padding: 0.2rem;
-        background-color: rgb(var(--color-back));
+        background-color: rgb(var(--color-back-secondary));
         cursor: text;
       }
 
@@ -207,7 +198,6 @@ useHead({
         img {
           max-width: calc(100% - 1rem);
           max-height: 50vh;
-          filter: drop-shadow(2px 4px 6px black);
           border-radius: 0.5rem;
         }
       }

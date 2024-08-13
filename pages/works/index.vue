@@ -47,20 +47,20 @@ useHead({
       display: flex;
       flex-direction: column;
       color: rgb(var(--color-text));
-      background-color: rgb(var(--color-back-secondary));
+      background-color: rgb(var(--color-back));
+      border: 2px solid rgb(var(--color-text));
       border-radius: 0.5rem;
-      filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;
 
       @media (hover: hover) {
         &:hover {
-          filter: none;
+          scale: 1.05;
         }
       }
 
       @media (hover: none) {
         &:active {
-          filter: none;
+          scale: 1.05;
         }
       }
 
@@ -68,7 +68,7 @@ useHead({
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: cover;
-        border-radius: 0.5rem 0.5rem 0 0;
+        border-radius: calc(0.5rem - 2px) calc(0.5rem - 2px) 0 0;
         -webkit-touch-callout: none;
         pointer-events: none;
       }

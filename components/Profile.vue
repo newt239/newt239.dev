@@ -72,31 +72,30 @@ const profile: string[] = [
     gap: 1rem;
     width: 70%;
     background-image: linear-gradient(135deg,
-        hsl(199, 91%, 64%) 0%,
-        hsl(199, 91%, 50%) 100%);
-    border: 2px solid rgb(var(--color-back-secondary));
-    color: white;
+        rgb(var(--color-back-secondary)) 0%,
+        rgb(var(--color-text-secondary)) 100%);
+    color: rgb(var(--color-back));
     border-radius: 0.5rem;
-    filter: drop-shadow(2px 4px 6px black);
+    transition: all 0.2s;
 
     @media (hover: hover) {
       &:hover {
-        filter: none;
+        scale: 1.03;
 
         .moreDetailButton {
-          background-color: white;
-          color: black;
+          background-color: rgb(var(--color-back));
+          color: rgb(var(--color-text));
         }
       }
     }
 
     @media (hover: none) {
       &:active {
-        filter: none;
+        scale: 1.03;
 
         .moreDetailButton {
-          background-color: white;
-          color: black;
+          background-color: rgb(var(--color-back));
+          color: rgb(var(--color-text));
         }
       }
     }
@@ -107,9 +106,6 @@ const profile: string[] = [
 
     @media screen and (max-width: 700px) {
       width: 100%;
-      background-image: linear-gradient(0deg,
-          rgb(69 69 214) 0%,
-          rgb(0 212 255) 100%);
     }
   }
 
@@ -131,11 +127,11 @@ const profile: string[] = [
     right: 1rem;
     width: 10rem;
     height: 3rem;
-    border: 1px solid white;
+    border: 1px solid rgb(var(--color-back));
     border-radius: 1rem;
     cursor: pointer;
     transition: all 0.2s;
-    color: white;
+    color: rgb(var(--color-back));
 
     &:hover {
       text-decoration: none;
@@ -158,10 +154,9 @@ const profile: string[] = [
     }
 
     a {
-      color: white;
+      color: rgb(var(--color-back));
       border-radius: 0.5rem;
       padding: 0.6rem 1rem;
-      filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;
       display: flex;
       flex-wrap: wrap;
@@ -169,7 +164,7 @@ const profile: string[] = [
 
       &:hover {
         text-decoration: none;
-        filter: none;
+        scale: 1.05;
       }
     }
   }
@@ -180,28 +175,24 @@ const profile: string[] = [
     opacity: 0.7;
   }
 
-  .snsCard {
-    border: 2px solid rgb(var(--color-back-secondary));
-  }
-
   .twitterCard {
     background-color: #1da1f2;
-    color: white;
+    color: rgb(var(--color-back));
   }
 
   .githubCard {
     background-color: #0e0c0d;
-    color: white;
+    color: rgb(var(--color-back));
   }
 
   .zennCard {
     background-color: #3ea8ff;
-    color: white;
+    color: rgb(var(--color-back));
   }
 
   .qiitaCard {
     background-color: #55c500;
-    color: white;
+    color: rgb(var(--color-back));
   }
 
   .snsIcon {

@@ -12,13 +12,14 @@
 }
 
 .dark-mode {
-  color-scheme: dark;
-  --color-text: 255 255 255;
-  --color-text-secondary: 113 118 123;
-  --color-back: 33 33 33;
-  --color-back-secondary: 38 50 56;
+  color-scheme: light;
+  --color-text: 70, 130, 169;
+  --color-text-secondary: 116, 155, 194;
+  --color-back: 246, 244, 235;
+  --color-back-secondary: 145, 200, 228;
   --color-back-tertiary: 55 71 79;
-  --color-link: 0 189 214;
+  --color-link: var(--color-text);
+  --shadow: drop-shadow(2px 4px 6px black);
 }
 
 * {
@@ -27,7 +28,7 @@
   box-sizing: border-box;
 
   &:focus-visible {
-    outline: 3px solid yellow;
+    outline: 3px solid red;
     outline-offset: 2px;
   }
 }
@@ -96,7 +97,7 @@ a {
   text-decoration: none;
   color: rgb(var(--color-link));
   text-decoration: underline;
-  text-underline-offset: 0.3rem;
+  text-underline-offset: 0.15rem;
   text-decoration-style: dashed;
   transition: all 0.2s;
 
@@ -120,7 +121,7 @@ ul {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .siteIcon {

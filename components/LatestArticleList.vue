@@ -54,20 +54,20 @@ const articles = articleList.slice(0, 5);
       grid-row: span 2;
       gap: 0;
       color: rgb(var(--color-text));
-      background-color: rgb(var(--color-back-secondary));
+      background-color: rgb(var(--color-back));
+      border: 2px solid rgb(var(--color-text));
       border-radius: 0.5rem;
-      filter: drop-shadow(2px 4px 6px black);
       transition: all 0.2s;
 
       @media (hover: hover) {
         &:hover {
-          filter: none;
+          scale: 1.05;
         }
       }
 
       @media (hover: none) {
         &:active {
-          filter: none;
+          scale: 1.05;
         }
       }
 
@@ -99,10 +99,22 @@ const articles = articleList.slice(0, 5);
     height: 100%;
     padding: 1rem 0;
     border-radius: 0.5rem;
-    border: 2px solid rgb(var(--color-back-secondary));
+    border: 2px solid rgb(var(--color-text));
     color: rgb(var(--color-text));
     background-color: rgb(var(--color-back));
-    filter: drop-shadow(2px 4px 6px black);
+    transition: all 0.2s;
+
+    @media (hover: hover) {
+      &:hover {
+        scale: 1.05;
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        scale: 1.05;
+      }
+    }
   }
 }
 </style>

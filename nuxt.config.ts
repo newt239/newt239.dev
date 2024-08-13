@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 
   content: {
     highlight: {
-      theme: "github-dark",
+      theme: "github-light",
       preload: ["diff", "ts", "js", "css", "sql", "xml", "json"],
     },
   },
@@ -81,8 +81,8 @@ export default defineNuxtConfig({
   },
 
   colorMode: {
-    preference: "dark",
-    fallback: "dark",
+    preference: "light",
+    fallback: "light",
   },
 
   experimental: {

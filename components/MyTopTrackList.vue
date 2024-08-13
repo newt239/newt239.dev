@@ -64,7 +64,6 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
       flex-grow: 1;
       aspect-ratio: 1 / 1;
       border-radius: 1rem;
-      filter: drop-shadow(2px 4px 6px black);
       -webkit-touch-callout: none;
       pointer-events: none;
     }
@@ -98,7 +97,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 
         .name {
           font-size: 1.2rem;
-          line-height: 2rem;
+          line-height: 1rem;
           font-weight: 800;
           cursor: pointer;
         }
