@@ -76,6 +76,11 @@ export default defineNuxtConfig({
         { property: "twitter:domain", content: "newt239.dev" },
       ],
       link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
+      script: [
+        {
+          src: "https://use.typekit.net/uel8jnk.js",
+        },
+      ],
     },
     pageTransition: { name: "page", mode: "out-in" },
   },

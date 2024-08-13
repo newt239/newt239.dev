@@ -1,16 +1,3 @@
-@font-face {
-  font-family: "LINESeedJP";
-  src: url("/fonts/LINESeedJP_OTF_Rg.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "LINESeedJP";
-  src: url("/fonts/LINESeedJP_OTF_Bd.woff2") format("woff2");
-  font-weight: 800;
-  font-display: swap;
-}
-
 .dark-mode {
   color-scheme: light;
   --color-text: 70, 130, 169;
@@ -47,6 +34,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   font-family:
+    fot-udkakugo-large-pr6n,
     "LINESeedJP",
     "BIZ UDPGothic",
     "Noto Sans JP",
