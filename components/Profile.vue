@@ -6,7 +6,7 @@ const age = dayjs().diff(dayjs("2005-11-02"), "year");
 
 const profile: string[] = [
   `${age}さい`,
-  "すきなもの: Webフロントエンド, UI / UX, アクセシビリティ",
+  "すきなもの: Webフロントエンド, UI/UX, アクセシビリティ",
   "言語: TypeScript, Python, Go",
   "趣味: アニメ, ボカロ等",
 ];
@@ -71,9 +71,9 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
-    background-image: linear-gradient(to bottom right,
-        oklch(80% 0.4 222),
-        oklch(35% 0.5 313));
+    background-image: linear-gradient(135deg,
+        hsl(199, 91%, 64%) 0%,
+        hsl(199, 91%, 50%) 100%);
     border: 2px solid rgb(var(--color-back-secondary));
     color: white;
     border-radius: 0.5rem;

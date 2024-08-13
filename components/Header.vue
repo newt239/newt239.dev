@@ -58,6 +58,7 @@ header {
       img {
         max-height: min(8vh, 8vw);
         min-height: 2rem;
+        border-radius: 36% 64% 53% 47% / 41% 71% 29% 59%;
       }
 
       span {
