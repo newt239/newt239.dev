@@ -73,7 +73,7 @@ const profile: string[] = [
     width: 70%;
     background-image: linear-gradient(135deg,
         rgb(var(--color-back-secondary)) 0%,
-        rgb(var(--color-text-secondary)) 100%);
+        rgb(var(--color-text)) 100%);
     color: rgb(var(--color-back));
     border-radius: 0.5rem;
     transition: all 0.2s;

@@ -15,7 +15,7 @@ useHead({
           <templete #default>
             <div class="aboutWork">
               <div class="intro">
-                <h1>{{ doc.title }}</h1>
+                <h1 :style="`view-transition-name: ${doc._path.split('/')[2]}-name;`">{{ doc.title }}</h1>
                 <div class="summary">
                   <table>
                     <tr v-if="doc.github">
@@ -36,7 +36,8 @@ useHead({
                 </div>
               </div>
               <div class="thumbnailWrapper">
-                <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`" />
+                <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`"
+                  :style="`view-transition-name: ${doc._path.split('/')[2]}-img;`" />
               </div>
             </div>
             <div class="content">
@@ -81,7 +82,6 @@ useHead({
         >h1 {
           padding: 0 1rem;
           margin-top: 1rem;
-          view-transition-name: work-name;
         }
 
         .summary {
@@ -107,7 +107,6 @@ useHead({
           width: 100%;
           object-fit: cover;
           border-radius: 0 calc(1rem - 2px) 0 calc(1rem - 2px);
-          view-transition-name: work-thumbnail;
         }
       }
 

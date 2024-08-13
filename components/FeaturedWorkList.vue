@@ -12,10 +12,11 @@ const active = ref<string>("");
     </h2>
     <div class="cardGrid">
       <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
-        :class="{ 'active-work': active === work._path }" @click="active = work._path!">
-        <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`">
+        :class="{ 'active-work': active === work._path }">
+        <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
+          :style="`view-transition-name: ${work._path.split('/')[2]}-img;`">
         <div class="cardBody">
-          <h3>{{ work.title }}</h3>
+          <h3 :style="`view-transition-name: ${work._path.split('/')[2]}-name;`">{{ work.title }}</h3>
           <p>
             {{ work.description }}
           </p>
@@ -99,16 +100,6 @@ const active = ref<string>("");
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 3;
           overflow: hidden;
-        }
-      }
-
-      &.active-work {
-        img {
-          view-transition-name: work-thumbnail;
-        }
-
-        h3 {
-          view-transition-name: work-name;
         }
       }
     }
