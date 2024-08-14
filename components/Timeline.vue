@@ -9,8 +9,9 @@ const items = [
     year: 2024,
     grade: "大学1年",
     items: [
-      { term: "2024/08", title: "技育CAMP vol.11 「みちくさ」(努力賞)" },
-      { term: "2024/05 - 2025/03", title: "SecHack365'24 開発駆動コース 仲山ゼミ", src: "https://sechack365.nict.go.jp/" },
+      { term: "2024/08", title: "技育CAMP vol.11 「みちくさ」 (努力賞)" },
+      { term: "2024/07 - now", title: "CA Tech lounge 会員 (Webフロントエンド)", src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/" },
+      { term: "2024/06 - now", title: "SecHack365'24 開発駆動コース 仲山ゼミ", src: "https://sechack365.nict.go.jp/" },
       { term: "2024/04", title: "芝浦工業大学 デザイン工学部 入学" }
     ]
   },
@@ -83,6 +84,9 @@ const items = [
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 4px 0;
+  background-color: rgb(var(--color-back));
+  z-index: 10;
 }
 
 .indicator-dot {
