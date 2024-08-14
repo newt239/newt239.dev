@@ -100,7 +100,7 @@ const items = [
 
 .post-count {
   text-align: left;
-  color: #888888;
+  color: rgb(var(--color-text-secondary));
   width: min(30rem, 70%);
   transition: color 0.3s ease;
 }
@@ -114,7 +114,6 @@ const items = [
   color: inherit;
   transition: all 0.2s;
   border-radius: 0.5rem;
-
 
   @media screen and (min-width: 500px) {
     height: 2.5rem;
@@ -199,19 +198,19 @@ const items = [
   color: rgb(var(--color-text-secondary));
 }
 
-.post-link:hover .title-text {
+.post-link[href^="http"]:hover .title-text {
   color: rgb(var(--color-link));
   transform: translateX(4px);
 }
 
-.post-link:hover .dash-line {
+.post-link[href^="http"]:hover .dash-line {
   background-color: rgb(var(--color-link));
   height: 20px;
 }
 
-.post-link:hover .term-text,
-.post-link:hover .post-count,
-.post-link:hover .src-text {
+.post-link[href^="http"]:hover .term-text,
+.post-link[href^="http"]:hover .post-count,
+.post-link[href^="http"]:hover .src-text {
   color: rgb(var(--color-link));
 }
 </style>
