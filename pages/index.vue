@@ -16,6 +16,9 @@ useHead({
       <LatestArticleList />
     </div>
     <div class="container">
+      <Timeline />
+    </div>
+    <div class="container">
       <MyTopTrackList />
     </div>
   </main>
