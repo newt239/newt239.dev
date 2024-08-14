@@ -18,7 +18,7 @@ const items = [
     year: 2023,
     grade: "高校3年",
     items: [
-      { term: "2023/03", title: "栄東高等学校 卒業" }
+      { term: "2024/03", title: "栄東高等学校 卒業" }
     ]
   },
   {
@@ -105,11 +105,16 @@ const items = [
   display: block;
   position: relative;
   width: 100%;
-  height: 2.5rem;
+  height: 3.5rem;
   text-decoration: none;
   color: inherit;
   transition: all 0.2s;
   border-radius: 0.5rem;
+
+
+  @media screen and (min-width: 500px) {
+    height: 2.5rem;
+  }
 }
 
 .post-container {
@@ -170,11 +175,18 @@ const items = [
 
 .title-text {
   font-weight: bold;
-  line-height: 1rem;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
   color: rgb(var(--color-text));
   text-align: left;
   width: min(30rem, 70%);
   transition: all 0.2s ease;
+
+
+  @media screen and (min-width: 360px) {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
 }
 
 .src-text {

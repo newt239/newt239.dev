@@ -58,11 +58,13 @@ useHead({
           <li>CSS</li>
           <li>Python</li>
           <ul>
+            <li>NumPy, Matplotlib</li>
             <li>Selenium, BeautifulSoup, pycord</li>
           </ul>
           <li>Go</li>
           <ul>
-            <li>gorm, discordgo, goquery</li>
+            <li>echo, gorm</li>
+            <li>discordgo, goquery</li>
           </ul>
           <li>Rust</li>
           <ul>

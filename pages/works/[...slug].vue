@@ -178,7 +178,7 @@ useHead({
       code,
       pre {
         padding: 0.2rem;
-        background-color: rgb(var(--color-back-secondary));
+        background-color: rgb(var(--color-text-tertiary));
         cursor: text;
       }
 
