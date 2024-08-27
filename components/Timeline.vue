@@ -1,31 +1,26 @@
 <script setup lang="ts">
-import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
-import dayjs from "dayjs";
-
-const age = dayjs().diff(dayjs("2005-11-02"), "year");
-
 const items = [
   {
     year: 2024,
     grade: "大学1年",
     items: [
-      { term: "2024/08", title: "技育CAMP vol.11 「みちくさ」 (努力賞)" },
+      { term: "2024/08", title: "技育CAMP vol.11 「みちくさ」 (努力賞)", src: "https://x.com/newt239/status/1820045439695196344" },
       { term: "2024/07 - now", title: "CA Tech lounge 会員 (Webフロントエンド)", src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/" },
       { term: "2024/06 - now", title: "SecHack365'24 開発駆動コース 仲山ゼミ", src: "https://sechack365.nict.go.jp/" },
-      { term: "2024/04", title: "芝浦工業大学 デザイン工学部 入学" }
+      { term: "2024/04", title: "芝浦工業大学 デザイン工学部 入学", src: "https://www.shibaura-it.ac.jp/" }
     ]
   },
   {
     year: 2023,
     grade: "高校3年",
     items: [
-      { term: "2024/03", title: "栄東高等学校 卒業" }
+      { term: "2024/03", title: "栄東高等学校 卒業", src: "" }
     ]
   },
   {
     year: 2005,
     items: [
-      { term: "2005/11/02", title: "誕生" }
+      { term: "2005/11/02", title: "誕生", src: "" }
     ]
   },
 ];
@@ -184,7 +179,6 @@ const items = [
   text-align: left;
   width: min(30rem, 70%);
   transition: all 0.2s ease;
-
 
   @media screen and (min-width: 360px) {
     font-size: 1rem;
