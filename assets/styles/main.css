@@ -1,4 +1,4 @@
-.dark-mode {
+:root {
   color-scheme: light;
   --color-text: 74, 74, 74;
   --color-text-secondary: 136, 136, 136;
