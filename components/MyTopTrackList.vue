@@ -24,9 +24,9 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
         <img loading="lazy" class="thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />
         <div class="detail">
           <div class="info">
-            <a :href="track.link" target="_blank" class="name underline">{{
-    track.name
-  }}</a>
+            <a :href="track.link" target="_blank" class="name underline">
+              {{track.name}}
+            </a>
             <div class="subInfo">
               <div class="artists">
                 {{ track.artists.join(", ") }}

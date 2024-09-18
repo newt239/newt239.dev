@@ -18,7 +18,7 @@ header {
   flex-wrap: nowrap;
   align-items: center;
   position: sticky;
-  z-index: 5;
+  z-index: 100;
   width: 100%;
   top: 0;
   left: auto;
