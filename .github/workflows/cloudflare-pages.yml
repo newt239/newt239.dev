@@ -14,8 +14,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Specify node version
+        uses: actions/setup-node@v4
         with:
-          node-version-file: ".node-version"
+          node-version: 22.9.0
+          cache: "pnpm"
       - name: Setup dependencies
         run: yarn install
       - name: Build
