@@ -18,20 +18,22 @@ useHead({
                 <h1 :style="`view-transition-name: ${doc._path.split('/')[2]}-name;`">{{ doc.title }}</h1>
                 <div class="summary">
                   <table>
-                    <tr v-if="doc.github">
-                      <th>GitHub</th>
-                      <td>
-                        <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>製作時期</th>
-                      <td>{{ doc.creation }}</td>
-                    </tr>
-                    <tr>
-                      <th>使用技術</th>
-                      <td>{{ doc.tech }}</td>
-                    </tr>
+                    <tbody>
+                      <tr v-if="doc.github">
+                        <th>GitHub</th>
+                        <td>
+                          <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>製作時期</th>
+                        <td>{{ doc.creation }}</td>
+                      </tr>
+                      <tr>
+                        <th>使用技術</th>
+                        <td>{{ doc.tech }}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
