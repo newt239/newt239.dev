@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "WebでGoogleマップのようなハーフモーダルを実装する",
+    url: "https://zenn.dev/newt_st21/articles/half-modal-like-google-map",
+    date: "2024/08/29",
+  },
+  {
     title: "【Next.js + Panda CSS】メニューバーで現在のページだけ色を変える",
     url: "https://qiita.com/newt239/items/816db98098c94632cf57",
     date: "2023/08/15",
