@@ -2,7 +2,6 @@
 import { IconChevronRight } from "@tabler/icons-vue";
 
 const works = await queryContent('/works').where({ featured: true }).sort({ order: 1 }).find();
-const active = ref<string>("");
 </script>
 
 <template>
@@ -11,8 +10,7 @@ const active = ref<string>("");
       Works
     </h2>
     <div class="cardGrid">
-      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
-        :class="{ 'active-work': active === work._path }">
+      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card">
         <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
           :style="`view-transition-name: ${work._path.split('/')[2]}-img;`">
         <div class="cardBody">
