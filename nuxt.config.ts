@@ -1,34 +1,8 @@
-import { globSync } from "glob";
-
-const getContentRoutes = (): string[] => {
-  const routeNames = globSync("src/content/**/*.md").map((f) =>
-    f.replaceAll("\\", "/").replaceAll("src/content", "").replace(".md", "")
-  );
-  const extraRoutes = [
-    "/works/gateway",
-    "/works/local-font-emulator",
-    "/works/look-inside-view",
-    "/works/mojimachi",
-    "/works/quiz-flasher",
-    "/works/roomkeeper",
-    "/works/score-watcher",
-    "/works/sh309cafe",
-    "/works/ship-notify",
-    "/works/sit-bus",
-  ];
-  return [...routeNames, ...extraRoutes];
-};
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxt/image", "@nuxtjs/color-mode"],
   css: ["@/assets/styles/main.css"],
-  nitro: {
-    prerender: {
-      routes: getContentRoutes(),
-    },
-  },
 
   content: {
     highlight: {
