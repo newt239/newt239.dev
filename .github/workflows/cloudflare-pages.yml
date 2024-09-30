@@ -18,12 +18,13 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.9
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22.9.0
           cache: "pnpm"
       - name: Setup dependencies
-      - run: pnpm install
+        run: pnpm install
       - name: Build
         run: npx nuxt generate
       - name: Publish to Cloudflare Pages
