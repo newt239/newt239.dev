@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "LayerXサマーインターン参加記",
+    url: "https://newt239.hatenablog.com/entry/2024/09/22/201608",
+    date: "2024/09/22",
+  },
+  {
     title: "WebでGoogleマップのようなハーフモーダルを実装する",
     url: "https://zenn.dev/newt_st21/articles/half-modal-like-google-map",
     date: "2024/08/29",
