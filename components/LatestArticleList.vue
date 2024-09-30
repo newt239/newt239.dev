@@ -3,6 +3,18 @@ import { IconBook2, IconChevronRight } from "@tabler/icons-vue";
 import { articleList } from "~/libs/articles";
 
 const articles = articleList.slice(0, 5);
+
+const getSiteName = (url: string) => {
+  if (url.startsWith("https://qiita.com")) {
+    return "Qiita";
+  } else if (url.startsWith("https://zenn.dev")) {
+    return "Zenn";
+  } else if (url.startsWith("https://newt239.hatenablog.com/")) {
+    return "はてな";
+  } else {
+    return url.split("/")[2];
+  }
+};
 </script>
 
 <template>
@@ -20,9 +32,9 @@ const articles = articleList.slice(0, 5);
             <img v-else-if="article.url.startsWith('https://zenn.dev')" src="/zenn.png" class="siteIcon iconAlign"
               alt="Zennのアイコン" />
             <span v-else class="siteIcon">
-              <IconBook2 class="iconAlign" width="16px" height="16px" />
+              <IconBook2 class="iconAlign" width="24px" height="24px" style="vertical-align: -0.35rem;" />
             </span>
-            <span class="site-name">{{ article.url.split("/")[2] }}</span>
+            <span class="site-name">{{ getSiteName(article.url) }}</span>
           </div>
           <div>{{ article.date }}</div>
         </div>
@@ -83,10 +95,7 @@ const articles = articleList.slice(0, 5);
         display: flex;
         justify-content: space-between;
         padding: 1rem;
-
-        .site-name {
-          color: rgb(var(--color-text-secondary));
-        }
+        color: rgb(var(--color-text-secondary));
       }
     }
   }

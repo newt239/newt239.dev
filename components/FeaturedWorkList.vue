@@ -12,9 +12,9 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
     <div class="cardGrid">
       <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card">
         <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
-          :style="`view-transition-name: ${work._path.split('/')[2]}-img;`">
+          :style="`view-transition-name: ${work._path!.split('/')[2]}-img;`">
         <div class="cardBody">
-          <h3 :style="`view-transition-name: ${work._path.split('/')[2]}-name;`">{{ work.title }}</h3>
+          <h3 :style="`view-transition-name: ${work._path!.split('/')[2]}-name;`">{{ work.title }}</h3>
           <p>
             {{ work.description }}
           </p>
