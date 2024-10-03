@@ -16,7 +16,14 @@ const items = [
     year: 2023,
     grade: "高校3年",
     items: [
-      { term: "2024/03", title: "栄東高等学校 卒業", src: "" }
+      { term: "2024/03", title: "栄東高等学校 卒業", src: "https://x.com/newt239/status/1766442681688088755" }
+    ]
+  },
+  {
+    year: 2022,
+    grade: "高校2年",
+    items: [
+      { term: "2022/04", title: "基本情報技術者試験 合格", src: "https://x.com/newt239/status/1511657961013215232" }
     ]
   },
   {
