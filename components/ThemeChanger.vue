@@ -11,6 +11,10 @@ const onSubmit = async () => {
     }),
   });
   console.log(data.value);
+  const r = document.documentElement;
+  if (r) {
+    r.style.setProperty('--color-back', "0, 0, 0");
+  }
 }
 </script>
 
