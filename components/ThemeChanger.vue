@@ -1,27 +1,32 @@
-<script setup lang="ts">
-const model = defineModel();
-const onSubmit = async () => {
-  const { data } = await useFetch("/api/ai-theme", {
+<script lang="ts" setup>
+const promptModel = defineModel();
+const generateTheme = async () => {
+  console.log("generating...");
+  const data = await $fetch("/api/ai-theme", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      prompt: model.value,
+      prompt: promptModel.value,
     }),
   });
-  console.log(data.value);
+  const variables = data.variables;
   const r = document.documentElement;
   if (r) {
-    r.style.setProperty('--color-back', "0, 0, 0");
+    variables.forEach((v: any) => {
+      console.log(v)
+      r.style.setProperty(`${v.variable_name}`, v.rgb);
+    });
   }
+  return;
 }
 </script>
 
 <template>
   <div class="themeChanger">
-    <input type="text" id="themeChangerInput" v-model="model" />
-    <button :onclick="onSubmit">Generate</button>
+    <input type="text" id="themeChangerInput" v-model="promptModel" />
+    <button v-on:click="generateTheme">Generate</button>
   </div>
 </template>
 
