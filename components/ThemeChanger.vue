@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const isModalOpen = ref(false);
+
 const promptModel = defineModel();
 const generateTheme = async () => {
   console.log("generating...");
@@ -16,7 +18,7 @@ const generateTheme = async () => {
   if (r) {
     variables.forEach((v: any) => {
       console.log(v)
-      r.style.setProperty(`${v.variable_name}`, v.rgb);
+      r.style.setProperty(`${v.name}`, v.rgb);
     });
   }
   return;
@@ -24,13 +26,21 @@ const generateTheme = async () => {
 </script>
 
 <template>
-  <div class="themeChanger">
+  <button class="modalToggle" v-on:click="isModalOpen = true;">Open</button>
+  <div class="themeChanger" :v-show="isModalOpen">
     <input type="text" id="themeChangerInput" v-model="promptModel" />
     <button v-on:click="generateTheme">Generate</button>
   </div>
 </template>
 
 <style>
+.modalToggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
 .themeChanger {
   position: fixed;
   bottom: 1rem;

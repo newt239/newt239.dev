@@ -8,7 +8,6 @@ useHead({
   <main>
     <div class="container">
       <Profile />
-      <ThemeChanger />
     </div>
     <div class="container">
       <FeaturedWorkList />

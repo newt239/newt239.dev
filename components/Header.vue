@@ -6,7 +6,7 @@
         <span>newt239.dev</span>
       </div>
     </NuxtLink>
-    </input>
+    <ThemeChanger />
   </header>
 </template>
 
