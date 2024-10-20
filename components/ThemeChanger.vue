@@ -1,14 +1,27 @@
 <script lang="ts" setup>
-import { IconSparkles } from "@tabler/icons-vue";
+import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
+
+
+export type ResponseData = {
+  type: "success" | "limited" | "error";
+  message: string;
+  variables: {
+    name: string;
+    rgb: string;
+  }[];
+};
 
 const isModalOpen = ref(false);
+const isGenerating = ref(false);
 const promptModel = defineModel();
 const openButtonRef = ref();
 const inputRef = ref();
 
 const generateTheme = async () => {
   console.log("generating...");
-  const data = await $fetch("/api/ai-theme", {
+  isGenerating.value = true;
+  const res = await fetch(
+    "https://api.newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,11 +29,14 @@ const generateTheme = async () => {
     body: JSON.stringify({
       prompt: promptModel.value,
     }),
-  });
-  const variables = data.variables;
+  }
+  );
+  const data = await res.json();
+  const content = JSON.parse(data.body);
+  console.log(content);
   const r = document.documentElement;
-  if (r) {
-    variables.forEach((v: any) => {
+  if (r && content) {
+    content.variables.forEach((v: any) => {
       console.log(v);
       r.style.setProperty(`${v.name}`, v.rgb);
     });
@@ -36,6 +52,7 @@ const onModalOpen = () => {
 }
 const onModalClose = () => {
   isModalOpen.value = false;
+  isGenerating.value = false;
   openButtonRef.value.focus();
 }
 const onKeyDown = (event: KeyboardEvent) => {
@@ -61,15 +78,17 @@ onUnmounted(() => {
     <IconSparkles />
   </button>
   <Teleport to="#modal-target">
-    <div class="modal" :data-show="isModalOpen">
+    <div class="modal" :data-show="isModalOpen" :aria-busy="isGenerating">
       <div class="modalOverlay" v-on:click="onModalClose"></div>
       <div class="modalContent">
         <p class="modalDescription">Enter a prompt to generate a new theme.</p>
         <div class="themeChangeForm">
           <input type="text" id="themeChangerInput" placeholder="fairy tale" v-model="promptModel"
             :onkeydown="onKeyDown" ref="inputRef" />
-          <button v-on:click="generateTheme" class="themeChangeButton">
-            <IconSparkles />Generate
+          <button v-on:click="generateTheme" class="themeChangeButton" :disabled="isGenerating">
+            <IconSparkles v-if="isGenerating === false" />
+            <IconLoader2 v-else />
+            Generate
           </button>
         </div>
       </div>
@@ -195,9 +214,24 @@ onUnmounted(() => {
     background-color: rgb(var(--color-back));
   }
 
-  .tabler-icon-sparkles {
+  .tabler-icon-sparkles,
+  .tabler-icon-loader-2 {
     width: 2rem;
     height: 2rem;
+  }
+
+  .tabler-icon-loader-2 {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
