@@ -22,7 +22,7 @@ const generateTheme = async () => {
   console.log("generating...");
   isGenerating.value = true;
   const res = await fetch(
-    "https://newt239.dev/ai/generate-theme", {
+    "https://api.newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -228,6 +228,46 @@ onUnmounted(() => {
 
   .tabler-icon-loader-2 {
     animation: spin 1s linear infinite;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modalContent {
+    padding: 1rem;
+  }
+
+  .modalDescription {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .themeChangeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    #themeChangerInput {
+      font-size: 1rem;
+      height: 2.5rem;
+      padding-left: 0.5rem;
+    }
+
+    .themeChangeButton {
+      font-size: 1rem;
+      height: 2.5rem;
+      padding: 0 0.5rem;
+      gap: 0;
+
+      .tabler-icon-sparkles,
+      .tabler-icon-loader-2 {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+
+  .modalMessage {
+    font-size: 0.5rem;
   }
 }
 
