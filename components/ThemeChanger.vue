@@ -16,12 +16,13 @@ const isGenerating = ref(false);
 const promptModel = defineModel();
 const openButtonRef = ref();
 const inputRef = ref();
+const responseMessage = ref("");
 
 const generateTheme = async () => {
   console.log("generating...");
   isGenerating.value = true;
   const res = await fetch(
-    "https://api.newt239.dev/ai/generate-theme", {
+    "https://newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,14 +34,18 @@ const generateTheme = async () => {
   );
   const data = await res.json();
   const content = JSON.parse(data.body);
-  console.log(content);
   const r = document.documentElement;
   if (r && content) {
-    content.variables.forEach((v: any) => {
-      console.log(v);
-      r.style.setProperty(`${v.name}`, v.rgb);
-    });
-    onModalClose();
+    if (content.type === "success") {
+      content.variables.forEach((v: any) => {
+        console.log(v);
+        r.style.setProperty(`${v.name}`, v.rgb);
+      });
+      onModalClose();
+    } else {
+      isGenerating.value = false;
+      responseMessage.value = content.message;
+    }
   }
   return;
 }
@@ -91,6 +96,7 @@ onUnmounted(() => {
             Generate
           </button>
         </div>
+        <p class="modalMessage">{{ responseMessage }}</p>
       </div>
     </div>
   </Teleport>
