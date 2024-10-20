@@ -96,7 +96,7 @@ onUnmounted(() => {
             Generate
           </button>
         </div>
-        <p class="modalMessage">{{ responseMessage }}</p>
+        <p class="modalMessage" aria-live="polite">{{ responseMessage }}</p>
       </div>
     </div>
   </Teleport>
