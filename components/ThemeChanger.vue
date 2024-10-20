@@ -37,11 +37,16 @@ const generateTheme = async () => {
   const r = document.documentElement;
   if (r && content) {
     if (content.type === "success") {
-      content.variables.forEach((v: any) => {
-        console.log(v);
-        r.style.setProperty(`${v.name}`, v.rgb);
-      });
-      onModalClose();
+      if (content.variables.length === 0) {
+        isGenerating.value = false;
+        responseMessage.value = "Something went wrong. Please try another word.";
+      } else {
+        content.variables.forEach((v: any) => {
+          console.log(v);
+          r.style.setProperty(`${v.name}`, v.rgb);
+        });
+        onModalClose();
+      }
     } else {
       isGenerating.value = false;
       responseMessage.value = content.message;
@@ -58,6 +63,7 @@ const onModalOpen = () => {
 const onModalClose = () => {
   isModalOpen.value = false;
   isGenerating.value = false;
+  responseMessage.value = "";
   openButtonRef.value.focus();
 }
 const onKeyDown = (event: KeyboardEvent) => {
