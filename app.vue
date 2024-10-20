@@ -3,6 +3,7 @@
     <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
+  <div id="modal-target"></div>
 </template>
 
 <style>

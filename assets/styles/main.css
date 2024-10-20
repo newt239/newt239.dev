@@ -1,13 +1,13 @@
 :root {
   color-scheme: light;
-  --color-text: 74, 74, 74;
-  --color-text-secondary: 136, 136, 136;
-  --color-text-tertiary: 204, 204, 204;
-  --color-back: 246, 244, 235;
-  --color-back-secondary: 145, 200, 228;
+  --color-text: 74 74 74;
+  --color-text-secondary: 136 136 136;
+  --color-text-tertiary: 204 204 204;
+  --color-back: 246 244 235;
+  --color-back-secondary: 145 200 228;
   --color-back-tertiary: 55 71 79;
-  --color-link: 70, 130, 169;
-  --color-link-secondary: 116, 155, 194;
+  --color-link: 70 130 169;
+  --color-link-secondary: 116 155 194;
   --shadow: drop-shadow(2px 4px 6px black);
 }
 
