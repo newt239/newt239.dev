@@ -1,21 +1,9 @@
 <script lang="ts" setup>
 import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
 
-
-export type ResponseData = {
-  type: "success" | "limited" | "error";
-  message: string;
-  variables: {
-    name: string;
-    rgb: string;
-  }[];
-};
-
-const isModalOpen = ref(false);
 const isGenerating = ref(false);
 const promptModel = defineModel();
-const openButtonRef = ref();
-const inputRef = ref();
+const modalRef = ref();
 const responseMessage = ref("");
 
 const generateTheme = async () => {
@@ -55,61 +43,50 @@ const generateTheme = async () => {
   return;
 }
 const onModalOpen = () => {
-  isModalOpen.value = true;
-  nextTick(() => {
-    inputRef.value.focus();
-  });
+  modalRef.value.showModal();
+  document.addEventListener('click', handleBackdropClick);
 }
 const onModalClose = () => {
-  isModalOpen.value = false;
+  modalRef.value.close();
   isGenerating.value = false;
   responseMessage.value = "";
-  openButtonRef.value.focus();
+  document.removeEventListener('click', handleBackdropClick);
 }
 const onKeyDown = (event: KeyboardEvent) => {
   if (event.key === "Enter") {
     generateTheme();
   }
 }
-const handleEscKey = (event: KeyboardEvent) => {
-  if (event.key === "Escape" && isModalOpen.value) {
+const handleBackdropClick = (event: MouseEvent) => {
+  if (event.target instanceof HTMLDialogElement) {
     onModalClose();
   }
 }
-onMounted(() => {
-  document.addEventListener('keydown', handleEscKey);
-});
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleEscKey);
-});
 </script>
 
 <template>
-  <button class="modalToggle" v-on:click="onModalOpen" ref="openButtonRef">
+  <button class="modalOpenButton" v-on:click="onModalOpen" ref="openButtonRef">
     <IconSparkles />
   </button>
-  <Teleport to="#modal-target">
-    <div class="modal" :data-show="isModalOpen" :aria-busy="isGenerating">
-      <div class="modalOverlay" v-on:click="onModalClose"></div>
-      <div class="modalContent">
-        <p class="modalDescription">Enter a prompt to generate a new theme.</p>
-        <div class="themeChangeForm">
-          <input type="text" id="themeChangerInput" placeholder="fairy tale" v-model="promptModel"
-            :onkeydown="onKeyDown" ref="inputRef" />
-          <button v-on:click="generateTheme" class="themeChangeButton" :disabled="isGenerating">
-            <IconSparkles v-if="isGenerating === false" />
-            <IconLoader2 v-else />
-            Generate
-          </button>
-        </div>
-        <p class="modalMessage" aria-live="polite">{{ responseMessage }}</p>
+  <dialog :aria-busy="isGenerating" ref="modalRef">
+    <div class="modalContent">
+      <p class="modalDescription">Enter a prompt to generate a new theme.</p>
+      <div class="themeChangeForm">
+        <input type="text" id="themeChangerInput" placeholder="fairy tale" v-model="promptModel" :onkeydown="onKeyDown"
+          autofocus />
+        <button v-on:click="generateTheme" class="themeChangeButton" :disabled="isGenerating">
+          <IconSparkles v-if="isGenerating === false" />
+          <IconLoader2 v-else />
+          Generate
+        </button>
       </div>
+      <p class="modalMessage" aria-live="polite">{{ responseMessage }}</p>
     </div>
-  </Teleport>
+  </dialog>
 </template>
 
-<style>
-.modalToggle {
+<style scoped>
+.modalOpenButton {
   width: 2.5rem;
   height: 2.5rem;
   color: rgb(var(--color-text));
@@ -126,59 +103,52 @@ onUnmounted(() => {
   }
 }
 
-.modal {
-  display: none;
+dialog {
+  padding: 0;
   transition: all 0.3s;
   transition-behavior: allow-discrete;
 
-  &[data-show="true"] {
-    display: block;
-  }
-
-  &[data-show="false"] {
-    .modalOverlay {
-      backdrop-filter: blur(0);
-    }
-
-    .modalContent {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.9);
-    }
-  }
-}
-
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100dvh;
-  z-index: 100;
-  color: rgb(var(--color-white));
-  backdrop-filter: blur(8px);
-  transition: all 0.3s;
-
-  @starting-style {
-    backdrop-filter: blur(0);
-  }
-}
-
-.modalContent {
-  position: fixed;
-  top: 50dvh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 2rem;
-  width: min(90%, 600px);
-  border-radius: 1rem;
-  background-color: rgb(var(--color-back));
-  border: 1px solid rgb(var(--color-back-secondary) / 0.8);
-  z-index: 1000;
-  transition: all 0.3s;
-
-  @starting-style {
+  .modalContent {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
+    position: fixed;
+    top: 50dvh;
+    left: 50%;
+    padding: 2rem;
+    width: min(90%, 600px);
+    border-radius: 1rem;
+    background-color: rgb(var(--color-back));
+    border: 1px solid rgb(var(--color-back-secondary) / 0.8);
+    z-index: 1000;
+    transition: all 0.3s;
+    transition-behavior: allow-discrete;
+  }
+
+  &::backdrop {
+    opacity: 0;
+    transition: all 0.3s;
+    transition-behavior: allow-discrete;
+  }
+
+  &[open] {
+    .modalContent {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+
+      @starting-style {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+    }
+
+    &::backdrop {
+      opacity: 1;
+      backdrop-filter: blur(8px);
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
   }
 }
 
