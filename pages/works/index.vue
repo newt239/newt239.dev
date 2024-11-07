@@ -9,14 +9,14 @@ useHead({
 
 <template>
   <main>
-    <div class="container workListPage">
-      <h2 class="categoryName">Works</h2>
-      <div class="cardGrid">
+    <div class="container work-list-page">
+      <h2 class="category-name">Works</h2>
+      <div class="card-grid">
         <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
           :class="{ 'active-work': active === work._path }">
-          <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
+          <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
             :style="`view-transition-name: ${work._path.split('/')[2]}-img;`">
-          <div class="cardBody">
+          <div class="card-body">
             <h3 :style="`view-transition-name: ${work._path.split('/')[2]}-name;`">{{ work.title }}</h3>
             <p>
               {{ work.description }}
@@ -29,12 +29,12 @@ useHead({
 </template>
 
 <style>
-.workListPage {
-  .categoryName {
+.work-list-page {
+  .category-name {
     view-transition-name: work-category-name;
   }
 
-  .cardGrid {
+  .card-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -65,7 +65,7 @@ useHead({
         }
       }
 
-      .cardThumbnail {
+      .card-thumbnail {
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: cover;
@@ -74,7 +74,7 @@ useHead({
         pointer-events: none;
       }
 
-      .cardBody {
+      .card-body {
         padding: 1rem;
 
         h3 {

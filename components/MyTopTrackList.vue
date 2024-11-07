@@ -17,7 +17,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 </script>
 
 <template>
-  <div v-show="trackList && trackList.length !== 0" class="myTopTrackList">
+  <div v-show="trackList && trackList.length !== 0" class="my-top-track-list">
     <h2>My Top Tracks</h2>
     <div class="musics">
       <div v-for="track in trackList?.slice(0, 12)" :key="track.name" class="track">
@@ -25,9 +25,9 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
         <div class="detail">
           <div class="info">
             <a :href="track.link" target="_blank" class="name underline">
-              {{track.name}}
+              {{ track.name }}
             </a>
-            <div class="subInfo">
+            <div class="sub-info">
               <div class="artists">
                 {{ track.artists.join(", ") }}
               </div>
@@ -69,18 +69,18 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     }
 
     @media (hover: hover) {
-      &:hover .previewButton {
+      &:hover .preview-button {
         opacity: 1;
       }
     }
 
     @media (hover: none) {
-      &:active .previewButton {
+      &:active .preview-button {
         opacity: 1;
       }
     }
 
-    .trackPreview {
+    .track-preview {
       cursor: pointer;
     }
 
@@ -102,7 +102,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
           cursor: pointer;
         }
 
-        .subInfo {
+        .sub-info {
           padding-top: 0.3rem;
           font-size: 0.7rem;
           line-height: 0.7rem;

@@ -22,20 +22,20 @@ const getSiteName = (url: string) => {
 </script>
 
 <template>
-  <a :href="`${props.url}`" target="_blank" class="articleItem">
-    <div class="articleItemBody">
+  <a :href="`${props.url}`" target="_blank" class="article-item">
+    <div class="article-item-body">
       <h4>{{ props.title }}</h4>
     </div>
-    <div class="articleItemFooter">
+    <div class="article-item-footer">
       <div>
-        <img v-if="props.url.startsWith('https://qiita.com')" src="/qiita.png" class="siteIcon iconAlign"
+        <img v-if="props.url.startsWith('https://qiita.com')" src="/qiita.png" class="site-icon icon-align"
           alt="Qiitaのアイコン" />
-        <img v-else-if="props.url.startsWith('https://zenn.dev')" src="/zenn.png" class="siteIcon iconAlign"
+        <img v-else-if="props.url.startsWith('https://zenn.dev')" src="/zenn.png" class="site-icon icon-align"
           alt="Zennのアイコン" />
-        <span v-else class="siteIcon">
-          <IconBook2 class="iconAlign" width="16px" height="16px" />
+        <span v-else class="site-icon">
+          <IconBook2 class="icon-align" width="16px" height="16px" />
         </span>
-        <span class="siteName">{{ getSiteName(props.url) }}</span>
+        <span class="site-name">{{ getSiteName(props.url) }}</span>
       </div>
       <div>{{ props.date }}</div>
     </div>
@@ -43,7 +43,7 @@ const getSiteName = (url: string) => {
 </template>
 
 <style>
-.articleItem {
+.article-item {
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 2;
@@ -67,7 +67,7 @@ const getSiteName = (url: string) => {
   }
 }
 
-.articleItemBody {
+.article-item-body {
   padding: 1rem;
 
   h4 {
@@ -75,7 +75,7 @@ const getSiteName = (url: string) => {
   }
 }
 
-.articleItemFooter {
+.article-item-footer {
   display: flex;
   justify-content: space-between;
   padding: 1rem;

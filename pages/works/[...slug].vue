@@ -8,12 +8,12 @@ useHead({
 
 <template>
   <main>
-    <div class="container eachWorkPage">
-      <div class="categoryName">Works</div>
+    <div class="container each-work-page">
+      <div class="category-name">Works</div>
       <div class="work">
         <ContentDoc v-slot="{ doc }">
           <templete #default>
-            <div class="aboutWork">
+            <div class="about-work">
               <div class="intro">
                 <h1 :style="`view-transition-name: ${doc._path!.split('/')[2]}-name;`">{{ doc.title }}</h1>
                 <div class="summary">
@@ -37,7 +37,7 @@ useHead({
                   </table>
                 </div>
               </div>
-              <div class="thumbnailWrapper">
+              <div class="thumbnail-wrapper">
                 <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`"
                   :style="`view-transition-name: ${doc._path!.split('/')[2]}-img;`" />
               </div>
@@ -51,7 +51,7 @@ useHead({
           </templete>
         </ContentDoc>
       </div>
-      <div class="afterContent">
+      <div class="after-content">
         <NuxtLink class="back" to="/">
           <IconChevronLeft />
           BACK HOME
@@ -62,8 +62,8 @@ useHead({
 </template>
 
 <style>
-.eachWorkPage {
-  .categoryName {
+.each-work-page {
+  .category-name {
     view-transition-name: work-category-name;
   }
 
@@ -76,7 +76,7 @@ useHead({
       word-break: break-all;
     }
 
-    .aboutWork {
+    .about-work {
       display: flex;
       justify-content: space-between;
 
@@ -102,7 +102,7 @@ useHead({
         }
       }
 
-      .thumbnailWrapper {
+      .thumbnail-wrapper {
         width: 50%;
 
         >.thumbnail {
@@ -115,7 +115,7 @@ useHead({
       @media (max-width: 768px) {
         flex-direction: column-reverse;
 
-        .thumbnailWrapper {
+        .thumbnail-wrapper {
           width: 100%;
 
           .thumbnail {
@@ -205,7 +205,7 @@ useHead({
     }
   }
 
-  .afterContent {
+  .after-content {
     padding: 1rem;
     text-align: center;
 

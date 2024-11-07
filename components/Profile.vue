@@ -14,8 +14,8 @@ const profile: string[] = [
 
 <template>
   <div class="profile">
-    <NuxtLink to="/about" class="topCard">
-      <div class="cardContent">
+    <NuxtLink to="/about" class="top-card">
+      <div class="card-content">
         <h2>Welcome✨</h2>
         <ul>
           <li v-for="item in profile" :key="item">
@@ -23,28 +23,28 @@ const profile: string[] = [
           </li>
         </ul>
       </div>
-      <div class="moreDetailButton">もっとくわしく！</div>
+      <div class="more-detail-button">もっとくわしく！</div>
     </NuxtLink>
-    <div class="snsLinks">
-      <a class="snsCard twitterCard" href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
-        <div class="snsName">Twitter</div>
+    <div class="sns-links">
+      <a class="sns-card twitter-card" href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
+        <div class="sns-name">Twitter</div>
         <div>@newt239</div>
         <IconBrandTwitter />
       </a>
-      <a class="snsCard githubCard" href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
-        <div class="snsName">GitHub</div>
+      <a class="sns-card github-card" href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
+        <div class="sns-name">GitHub</div>
         <div>@newt239</div>
         <IconBrandGithub />
       </a>
-      <a class="snsCard zennCard" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
-        <div class="snsName">Zenn</div>
+      <a class="sns-card zenn-card" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
+        <div class="sns-name">Zenn</div>
         <div>@newt_st21</div>
-        <img src="/zenn.png" alt="Zenn" class="snsIcon" />
+        <img src="/zenn.png" alt="Zenn" class="sns-icon" />
       </a>
-      <a class="snsCard qiitaCard" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
-        <div class="snsName">Qiita</div>
+      <a class="sns-card qiita-card" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
+        <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" alt="Qiita" class="snsIcon" />
+        <img src="/qiita.png" alt="Qiita" class="sns-icon" />
       </a>
     </div>
   </div>
@@ -64,7 +64,7 @@ const profile: string[] = [
     align-items: center;
   }
 
-  .topCard {
+  .top-card {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -82,7 +82,7 @@ const profile: string[] = [
       &:hover {
         scale: 1.03;
 
-        .moreDetailButton {
+        .more-detail-button {
           background-color: rgb(var(--color-back));
           color: rgb(var(--color-text));
         }
@@ -93,7 +93,7 @@ const profile: string[] = [
       &:active {
         scale: 1.03;
 
-        .moreDetailButton {
+        .more-detail-button {
           background-color: rgb(var(--color-back));
           color: rgb(var(--color-text));
         }
@@ -109,7 +109,7 @@ const profile: string[] = [
     }
   }
 
-  .cardContent {
+  .card-content {
     margin: 3vh 3vh 5rem;
 
     ul {
@@ -118,7 +118,7 @@ const profile: string[] = [
     }
   }
 
-  .moreDetailButton {
+  .more-detail-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,7 +138,7 @@ const profile: string[] = [
     }
   }
 
-  .snsLinks {
+  .sns-links {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -169,33 +169,33 @@ const profile: string[] = [
     }
   }
 
-  .snsName {
+  .sns-name {
     width: 100%;
     font-size: 0.5rem;
     opacity: 0.7;
   }
 
-  .twitterCard {
+  .twitter-card {
     background-color: #1da1f2;
     color: rgb(var(--color-back));
   }
 
-  .githubCard {
+  .github-card {
     background-color: #0e0c0d;
     color: rgb(var(--color-back));
   }
 
-  .zennCard {
+  .zenn-card {
     background-color: #3ea8ff;
     color: rgb(var(--color-back));
   }
 
-  .qiitaCard {
+  .qiita-card {
     background-color: #55c500;
     color: rgb(var(--color-back));
   }
 
-  .snsIcon {
+  .sns-icon {
     width: 24px;
     height: 24px;
     filter: brightness(0) invert(1);

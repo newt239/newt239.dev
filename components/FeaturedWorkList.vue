@@ -5,22 +5,22 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
 </script>
 
 <template>
-  <div v-show="works && works.length !== 0" class="workList">
-    <h2 class="categoryTitle">
+  <div v-show="works && works.length !== 0" class="work-list">
+    <h2 class="category-title">
       Works
     </h2>
-    <div class="cardGrid">
+    <div class="card-grid">
       <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card">
-        <img class="cardThumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
+        <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
           :style="`view-transition-name: ${work._path!.split('/')[2]}-img;`">
-        <div class="cardBody">
+        <div class="card-body">
           <h3 :style="`view-transition-name: ${work._path!.split('/')[2]}-name;`">{{ work.title }}</h3>
           <p>
             {{ work.description }}
           </p>
         </div>
       </NuxtLink>
-      <NuxtLink to="works" class="seeAllWorks">
+      <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る
           <IconChevronRight />
@@ -31,12 +31,12 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
 </template>
 
 <style>
-.workList {
-  .categoryTitle {
+.work-list {
+  .category-title {
     view-transition-name: work-category-name;
   }
 
-  .cardGrid {
+  .card-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -67,7 +67,7 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
         }
       }
 
-      .cardThumbnail {
+      .card-thumbnail {
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: cover;
@@ -76,7 +76,7 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
         pointer-events: none;
       }
 
-      .cardBody {
+      .card-body {
         padding: 1rem;
 
         h3 {
@@ -103,7 +103,7 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
     }
   }
 
-  .seeAllWorks {
+  .see-all-works {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -65,28 +65,28 @@ const handleBackdropClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <button class="modalOpenButton" v-on:click="onModalOpen" ref="openButtonRef">
+  <button class="modal-open-button" v-on:click="onModalOpen" ref="openButtonRef">
     <IconSparkles />
   </button>
   <dialog :aria-busy="isGenerating" ref="modalRef">
-    <div class="modalContent">
-      <p class="modalDescription">Enter a prompt to generate a new theme.</p>
-      <div class="themeChangeForm">
-        <input type="text" id="themeChangerInput" placeholder="fairy tale" v-model="promptModel" :onkeydown="onKeyDown"
-          autofocus />
-        <button v-on:click="generateTheme" class="themeChangeButton" :disabled="isGenerating">
+    <div class="modal-content">
+      <p class="modal-description">Enter a prompt to generate a new theme.</p>
+      <div class="theme-change-form">
+        <input type="text" id="theme-changer-input" placeholder="fairy tale" v-model="promptModel"
+          :onkeydown="onKeyDown" autofocus />
+        <button v-on:click="generateTheme" class="theme-change-button" :disabled="isGenerating">
           <IconSparkles v-if="isGenerating === false" />
           <IconLoader2 v-else />
           Generate
         </button>
       </div>
-      <p class="modalMessage" aria-live="polite">{{ responseMessage }}</p>
+      <p class="modal-message" aria-live="polite">{{ responseMessage }}</p>
     </div>
   </dialog>
 </template>
 
 <style scoped>
-.modalOpenButton {
+.modal-open-button {
   width: 2.5rem;
   height: 2.5rem;
   color: rgb(var(--color-text));
@@ -108,7 +108,7 @@ dialog {
   transition: all 0.3s;
   transition-behavior: allow-discrete;
 
-  .modalContent {
+  .modal-content {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
     position: fixed;
@@ -131,7 +131,7 @@ dialog {
   }
 
   &[open] {
-    .modalContent {
+    .modal-content {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
 
@@ -152,16 +152,16 @@ dialog {
   }
 }
 
-.modalDescription {
+.modal-description {
   font-size: 2rem;
   margin: 0 0 3rem;
 }
 
-.themeChangeForm {
+.theme-change-form {
   position: relative;
 }
 
-#themeChangerInput {
+#theme-changer-input {
   font-family: unset;
   font-size: 2rem;
   width: 100%;
@@ -173,7 +173,7 @@ dialog {
   border-radius: 2rem;
 }
 
-.themeChangeButton {
+.theme-change-button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -208,27 +208,27 @@ dialog {
 }
 
 @media screen and (max-width: 600px) {
-  .modalContent {
+  .modal-content {
     padding: 1rem;
   }
 
-  .modalDescription {
+  .modal-description {
     font-size: 1.5rem;
     line-height: 2rem;
   }
 
-  .themeChangeForm {
+  .theme-change-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    #themeChangerInput {
+    #theme-changer-input {
       font-size: 1rem;
       height: 2.5rem;
       padding-left: 0.5rem;
     }
 
-    .themeChangeButton {
+    .theme-change-button {
       font-size: 1rem;
       height: 2.5rem;
       padding: 0 0.5rem;
@@ -242,7 +242,7 @@ dialog {
     }
   }
 
-  .modalMessage {
+  .modal-message {
     font-size: 0.5rem;
   }
 }

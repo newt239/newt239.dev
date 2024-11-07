@@ -8,12 +8,12 @@ const articles = articleList.slice(0, 5);
 </script>
 
 <template>
-  <div class="latestArticleList">
-    <h2 class="categoryTitle">Articles</h2>
-    <div class="articleGrid">
+  <div class="latest-article-list">
+    <h2 class="category-title">Articles</h2>
+    <div class="article-grid">
       <ArticleItem v-for="article in articles" :key="article.url" :title="article.title" :url="article.url"
         :date="article.date" />
-      <NuxtLink to="/articles" class="seeAllArticles">
+      <NuxtLink to="/articles" class="see-all-articles">
         <span>
           すべての記事を見る
           <IconChevronRight />
@@ -24,18 +24,18 @@ const articles = articleList.slice(0, 5);
 </template>
 
 <style>
-.articleGrid {
+.article-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.latestArticleList {
-  .categoryTitle {
+.latest-article-list {
+  .category-title {
     view-transition-name: article-category-name;
   }
 
-  .seeAllArticles {
+  .see-all-articles {
     display: grid;
     grid-row: span 2;
     justify-content: center;

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-import { IconBook2 } from "@tabler/icons-vue";
 import { articleList } from "~/libs/articles";
 
 useHead({
@@ -10,9 +8,9 @@ useHead({
 
 <template>
   <main>
-    <div class="container articleListPage">
-      <h2 class="categoryName">Articles</h2>
-      <div class="articleGrid">
+    <div class="container article-list-page">
+      <h2 class="category-name">Articles</h2>
+      <div class="article-grid">
         <ArticleItem v-for="article in articleList" :key="article.url" :title="article.title" :url="article.url"
           :date="article.date" />
       </div>
@@ -21,8 +19,8 @@ useHead({
 </template>
 
 <style>
-.articleListPage {
-  .categoryName {
+.article-list-page {
+  .category-name {
     view-transition-name: article-category-name;
   }
 

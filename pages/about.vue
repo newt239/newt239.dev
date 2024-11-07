@@ -6,9 +6,9 @@ useHead({
 
 <template>
   <main>
-    <div class="container aboutPage">
-      <div class="aboutMeSpace"></div>
-      <div class="aboutMe">
+    <div class="container about-page">
+      <div class="about-me-space"></div>
+      <div class="about-me">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon" />
         <div class="short-description">
           <h2>newt <span class="sub">@newt239</span></h2>
@@ -119,7 +119,7 @@ useHead({
 </template>
 
 <style>
-.aboutPage {
+.about-page {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -128,7 +128,7 @@ useHead({
     flex-direction: column;
   }
 
-  .aboutMeSpace {
+  .about-me-space {
     width: 50%;
     height: 100vh;
 
@@ -137,7 +137,7 @@ useHead({
     }
   }
 
-  .aboutMe {
+  .about-me {
     position: fixed;
     padding-right: 2rem;
     top: 50%;

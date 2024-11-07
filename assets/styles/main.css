@@ -37,9 +37,9 @@ body {
   line-height: 1.6;
   font-family:
     fot-udkakugo-large-pr6n,
-    "LINESeedJP",
-    "BIZ UDPGothic",
-    "Noto Sans JP",
+    "line-seed-jp",
+    "biz-udp-gothic",
+    "noto-sans-jp",
     -apple-system,
     sans-serif;
   cursor: default;
@@ -58,7 +58,7 @@ h1 {
 }
 
 h2,
-.categoryName {
+.category-name {
   font-size: 2rem;
   font-weight: 800;
   padding: 1rem 0 0.5rem;
@@ -114,12 +114,12 @@ ul {
   padding: 1rem;
 }
 
-.siteIcon {
+.site-icon {
   height: 16px;
   padding-right: 0.3rem;
 }
 
-.iconAlign {
+.icon-align {
   vertical-align: -0.15rem;
 }
 
