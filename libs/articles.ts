@@ -6,6 +6,12 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title:
+      "レイアウトを維持したままLLMに外面的なデザインを生成させるUIコンポーネントライブラリを開発している話",
+    url: "https://qiita.com/newt239/items/203ab81778d0852d2bbf",
+    date: "2024/12/09",
+  },
+  {
     title: "LayerXサマーインターン参加記",
     url: "https://newt239.hatenablog.com/entry/2024/09/22/201608",
     date: "2024/09/22",

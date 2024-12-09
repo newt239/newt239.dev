@@ -68,7 +68,14 @@ const getSiteName = (url: string) => {
 }
 
 .article-item-body {
-  padding: 1rem;
+  margin: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* ブラウザがサポートしていない場合のフェールセーフ */
+  height: 4.5rem;
 
   h4 {
     padding: 0;
