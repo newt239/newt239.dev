@@ -4,7 +4,7 @@ import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
 const isGenerating = ref(false);
 const promptModel = defineModel();
 const modalRef = ref();
-const responseMessage = ref("");
+const responseMessage = ref("Caution: All prompts are recorded.");
 
 const generateTheme = async () => {
   console.log("generating...");
@@ -49,7 +49,7 @@ const onModalOpen = () => {
 const onModalClose = () => {
   modalRef.value.close();
   isGenerating.value = false;
-  responseMessage.value = "";
+  responseMessage.value = "Caution: All prompts are recorded.";
   document.removeEventListener('click', handleBackdropClick);
 }
 const onKeyDown = (event: KeyboardEvent) => {
@@ -154,7 +154,14 @@ dialog {
 
 .modal-description {
   font-size: 2rem;
-  margin: 0 0 3rem;
+  line-height: 2.5rem;
+  margin: 0 0 2rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.modal-message {
+  text-align: center;
 }
 
 .theme-change-form {
