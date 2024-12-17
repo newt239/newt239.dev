@@ -104,11 +104,12 @@ useHead({
 
       .thumbnail-wrapper {
         width: 50%;
+        margin: .5rem;
 
         >.thumbnail {
           width: 100%;
           object-fit: cover;
-          border-radius: 0 calc(1rem - 2px) 0 calc(1rem - 2px);
+          border-radius: calc(1rem - 2px);
         }
       }
 
@@ -116,11 +117,7 @@ useHead({
         flex-direction: column-reverse;
 
         .thumbnail-wrapper {
-          width: 100%;
-
-          .thumbnail {
-            border-radius: calc(1rem - 2px) calc(1rem - 2px) 0 0;
-          }
+          width: calc(100% - 1rem);
         }
 
         .intro h1 {
