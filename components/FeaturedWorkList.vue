@@ -50,7 +50,6 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
       display: flex;
       flex-direction: column;
       color: rgb(var(--color-text));
-      background-color: rgb(var(--color-back));
       border: 2px solid rgb(var(--color-text));
       border-radius: 0.5rem;
       transition: all 0.2s;
@@ -77,13 +76,13 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
       }
 
       .card-body {
-        padding: 1rem;
+        padding: 0.5rem 1rem 1rem 1rem;
 
         h3 {
           margin: 0;
           padding: 0;
           font-size: 1.5rem;
-          line-height: 1.8rem;
+          line-height: 2.3rem;
           color: rgb(var(--color-text));
           white-space: nowrap;
           width: 100%;

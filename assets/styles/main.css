@@ -87,7 +87,7 @@ a {
   text-decoration: none;
   color: rgb(var(--color-link));
   text-decoration: underline;
-  text-underline-offset: 0.15rem;
+  text-underline-offset: 0.25rem;
   text-decoration-style: dashed;
   transition: all 0.2s;
 
