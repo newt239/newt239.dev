@@ -6,6 +6,16 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "chroma.jsでJavaScriptから色を操作してみる",
+    url: "https://zenn.dev/newt_st21/articles/chromajs-introduction",
+    date: "2024/12/22",
+  },
+  {
+    title: "芝浦学バスAPIとの邂逅",
+    url: "https://newt239.hatenablog.com/entry/2024/12/19/065605",
+    date: "2024/12/19",
+  },
+  {
     title:
       "レイアウトを維持したままLLMに外面的なデザインを生成させるUIコンポーネントライブラリを開発している話",
     url: "https://qiita.com/newt239/items/203ab81778d0852d2bbf",
