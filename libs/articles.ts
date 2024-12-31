@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "2024年のふりかえり",
+    url: "https://newt239.hatenablog.com/entry/2024/12/31/193723",
+    date: "2024/12/31",
+  },
+  {
     title: "chroma.jsでJavaScriptから色を操作してみる",
     url: "https://zenn.dev/newt_st21/articles/chromajs-introduction",
     date: "2024/12/22",
