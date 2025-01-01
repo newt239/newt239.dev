@@ -34,7 +34,7 @@ const generateTheme = async () => {
       } else {
         content.variables.forEach((v: any) => {
           console.log(v);
-          r.style.setProperty(`${v.name}`, v.rgb);
+          r.style.setProperty(`${v.name}`, v.value);
         });
         onModalClose();
       }
