@@ -120,6 +120,7 @@ dialog {
     padding: 2rem;
     width: min(90%, 600px);
     border-radius: 1rem;
+    color: rgb(var(--color-text));
     background-color: rgb(var(--color-back));
     border: 1px solid rgb(var(--color-back-secondary) / 0.8);
     z-index: 1000;
