@@ -17,6 +17,7 @@ header {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  gap: 1rem;
   position: sticky;
   z-index: 100;
   width: 100%;
@@ -36,6 +37,7 @@ header {
     align-items: center;
     flex-grow: 1;
     color: rgb(var(--color-white));
+    border-radius: 0.5rem;
 
     .logo {
       display: flex;
