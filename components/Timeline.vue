@@ -28,13 +28,15 @@ const items = [
   },
   {
     year: 2005,
+    grade: null,
     items: [
-      { term: "2005/11/02", title: "誕生", src: "" }
+      { term: "2005/11/02", title: "誕生", src: null }
     ]
   },
 ];
 
 </script>
+
 <template>
   <div class="timeline">
     <h2 class="category-title">Timeline</h2>
@@ -46,18 +48,30 @@ const items = [
         </div>
         <div class="post-count">{{ year.grade }}</div>
       </div>
-      <a v-for="item in year.items" :key="item.src" :href="item.src" class="post-link" target="_blank">
-        <div class="post-container">
-          <div class="term-text">{{ item.term }}</div>
-          <div class="dash-line-container">
-            <div class="dash-line"></div>
+      <template v-for="item in year.items">
+        <a v-if="item.src" :key="item.src" :href="item.src" class="post-item" target="_blank">
+          <div class="post-container">
+            <div class="term-text">{{ item.term }}</div>
+            <div class="dash-line-container">
+              <div class="dash-line"></div>
+            </div>
+            <div class="title-text">{{ item.title }}</div>
           </div>
-          <div class="title-text">{{ item.title }}</div>
+        </a>
+        <div v-else :key="item.title" class="post-item">
+          <div class="post-container no-link">
+            <div class="term-text">{{ item.term }}</div>
+            <div class="dash-line-container">
+              <div class="dash-line"></div>
+            </div>
+            <div class="title-text">{{ item.title }}</div>
+          </div>
         </div>
-      </a>
+      </template>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .year-section {
@@ -109,7 +123,7 @@ const items = [
   transition: color 0.3s ease;
 }
 
-.post-link {
+.post-item {
   display: block;
   position: relative;
   width: 100%;
@@ -130,6 +144,11 @@ const items = [
   justify-content: flex-start;
   flex-direction: row;
   height: 100%;
+
+  &.no-link {
+    cursor: default;
+    text-decoration: none;
+  }
 }
 
 .term-text {
@@ -201,19 +220,19 @@ const items = [
   color: rgb(var(--color-text-secondary));
 }
 
-.post-link[href^="http"]:hover .title-text {
+.post-item[href^="http"]:hover .title-text {
   color: rgb(var(--color-link));
   transform: translateX(4px);
 }
 
-.post-link[href^="http"]:hover .dash-line {
+.post-item[href^="http"]:hover .dash-line {
   background-color: rgb(var(--color-link));
   height: 20px;
 }
 
-.post-link[href^="http"]:hover .term-text,
-.post-link[href^="http"]:hover .post-count,
-.post-link[href^="http"]:hover .src-text {
+.post-item[href^="http"]:hover .term-text,
+.post-item[href^="http"]:hover .post-count,
+.post-item[href^="http"]:hover .src-text {
   color: rgb(var(--color-link));
 }
 </style>
