@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
+import WorkItem, { type WorkItemProps } from '~/components/WorkItem.vue';
 
-const works = await queryContent('/works').where({ featured: true }).sort({ order: 1 }).find();
+const works = await queryContent<WorkItemProps["work"]>('/works').where({ featured: true }).sort({ order: 1 }).find();
 </script>
 
 <template>
@@ -10,16 +11,7 @@ const works = await queryContent('/works').where({ featured: true }).sort({ orde
       Works
     </h2>
     <div class="card-grid">
-      <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card">
-        <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
-          :style="`view-transition-name: ${work._path!.split('/')[2]}-img;`">
-        <div class="card-body">
-          <h3 :style="`view-transition-name: ${work._path!.split('/')[2]}-name;`">{{ work.title }}</h3>
-          <p>
-            {{ work.description }}
-          </p>
-        </div>
-      </NuxtLink>
+      <WorkItem v-for="work in works" :key="work._path" :work="work" />
       <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る

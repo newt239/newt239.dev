@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const works = await queryContent('/works').sort({ creation: -1 }).find();
+import WorkItem, { type WorkItemProps } from '~/components/WorkItem.vue';
+
+const works = await queryContent<WorkItemProps["work"]>('/works').sort({ creation: -1 }).find();
 const active = ref<string>("");
 
 useHead({
@@ -12,17 +14,7 @@ useHead({
     <div class="container work-list-page">
       <h2 class="category-name">Works</h2>
       <div class="card-grid">
-        <NuxtLink v-for="work in works" :key="work._path" :to="`${work._path}`" class="card"
-          :class="{ 'active-work': active === work._path }">
-          <img class="card-thumbnail" :src="`images/${work.thumbnail}`" :alt="`${work.title}のサムネイル画像`"
-            :style="`view-transition-name: ${work._path.split('/')[2]}-img;`">
-          <div class="card-body">
-            <h3 :style="`view-transition-name: ${work._path.split('/')[2]}-name;`">{{ work.title }}</h3>
-            <p>
-              {{ work.description }}
-            </p>
-          </div>
-        </NuxtLink>
+        <WorkItem v-for="work in works" :key="work._path" :work="work" :active="active === work._path" />
       </div>
     </div>
   </main>
