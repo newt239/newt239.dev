@@ -97,9 +97,13 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 
         .name {
           font-size: 1.2rem;
-          line-height: 1rem;
+          line-height: 1.5rem;
           font-weight: 800;
           cursor: pointer;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
         }
 
         .sub-info {
@@ -109,6 +113,10 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 
           .artists {
             margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
           }
         }
       }
