@@ -6,13 +6,12 @@ export type WorkItemProps = {
     title: string;
     description: string;
   };
-  active?: boolean;
 };
 const props = defineProps<WorkItemProps>();
 </script>
 
 <template>
-  <NuxtLink :to="`${props.work._path}`" class="card" :class="{ 'active-work': props.active }">
+  <NuxtLink :to="`${props.work._path}`" class="card">
     <img class="card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
       :style="`view-transition-name: ${props.work._path.split('/')[2]}-img;`">
     <div class="card-body">
@@ -76,16 +75,6 @@ const props = defineProps<WorkItemProps>();
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
       overflow: hidden;
-    }
-  }
-
-  &.active-work {
-    img {
-      view-transition-name: work-thumbnail;
-    }
-
-    h3 {
-      view-transition-name: work-name;
     }
   }
 }
