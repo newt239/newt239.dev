@@ -5,7 +5,7 @@ const items = [
     grade: "大学1年",
     items: [
       { term: "2024/09", title: "LayerX サマーインターン", src: "https://layerx.co.jp/" },
-      { term: "2024/08", title: "MIXI git challenge #14", src: "https://mixigroup-recruit.mixi.co.jp/recruitment-category/event/11833/" },
+      { term: "2024/08", title: "MIXI git challenge #14", src: "https://x.com/newt239/status/1827302836448989582" },
       { term: "2024/08", title: "技育CAMP vol.11 「みちくさ」 (努力賞)", src: "https://x.com/newt239/status/1820045439695196344" },
       { term: "2024/07 - now", title: "CA Tech lounge 会員 (Webフロントエンド)", src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/" },
       { term: "2024/06 - now", title: "SecHack365'24 開発駆動コース 仲山ゼミ", src: "https://sechack365.nict.go.jp/" },
