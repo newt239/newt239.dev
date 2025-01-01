@@ -7,6 +7,9 @@ const modalRef = ref();
 const responseMessage = ref("Caution: All prompts are recorded.");
 
 const generateTheme = async () => {
+  if (!promptModel.value) {
+    promptModel.value = "fairy tale";
+  }
   console.log("generating...");
   isGenerating.value = true;
   const res = await fetch(
