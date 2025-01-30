@@ -160,6 +160,7 @@ useHead({
       width: 100%;
       flex-direction: column;
       margin: 0 auto;
+      padding-right: 0;
 
       .short-description {
         width: 100%;
