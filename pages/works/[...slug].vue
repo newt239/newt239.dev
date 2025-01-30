@@ -136,6 +136,10 @@ useHead({
       ul {
         margin: 0.5rem 1.5rem;
       }
+      
+      li > ul {
+        margin-left: 0;
+      }
 
       h2 {
         display: inline-block;
