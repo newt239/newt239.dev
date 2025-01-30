@@ -10,7 +10,6 @@ const generateTheme = async () => {
   if (!promptModel.value) {
     promptModel.value = "fairy tale";
   }
-  console.log("generating...");
   isGenerating.value = true;
   const res = await fetch(
     "https://api.newt239.dev/ai/generate-theme", {
@@ -32,8 +31,10 @@ const generateTheme = async () => {
         isGenerating.value = false;
         responseMessage.value = "Something went wrong. Please try another word.";
       } else {
-        content.variables.forEach((v: any) => {
-          console.log(v);
+        content.variables.forEach((v: {
+          name: string;
+          value: string;
+        }) => {
           r.style.setProperty(`${v.name}`, v.value);
         });
         onModalClose();
