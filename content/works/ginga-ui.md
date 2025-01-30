@@ -1,7 +1,6 @@
 ---
 title: GingaUI
 thumbnail: ginga-ui-eyecatch.webp
-featured: true
 order: 3
 github: newt239/ginga-ui
 creation: 2024.08 -

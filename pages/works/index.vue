@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import WorkItem, { type WorkItemProps } from '~/components/WorkItem.vue';
+import WorkItem from '~/components/WorkItem.vue';
 
-const works = await queryContent<WorkItemProps["work"]>('/works').sort({ creation: -1 }).find();
+const works = await queryCollection('works').order("order", "ASC").all();
 
 useHead({
   title: "作品一覧 - newt239.dev",
@@ -13,7 +13,7 @@ useHead({
     <div class="container work-list-page">
       <h2 class="category-name">Works</h2>
       <div class="card-grid">
-        <WorkItem v-for="work in works" :key="work._path" :work="work" />
+        <WorkItem v-for="work in works" :key="work.id" :work="work" />
       </div>
     </div>
   </main>

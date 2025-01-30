@@ -1,7 +1,6 @@
 ---
 title: Look Inside View
 thumbnail: look-inside-view.webp
-featured: true
 order: 4
 github: newt239/look-inside-view
 creation: 2021.06 - 2021.09

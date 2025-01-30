@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { IconChevronLeft } from "@tabler/icons-vue";
 
+const route = useRoute();
+const { data } = await useAsyncData(route.path, () => {
+  return queryCollection('works').path(route.path).first()
+});
 useHead({
   titleTemplate: "%s - newt239.dev",
 });
@@ -11,45 +15,40 @@ useHead({
     <div class="container each-work-page">
       <div class="category-name">Works</div>
       <div class="work">
-        <ContentDoc v-slot="{ doc }">
-          <templete #default>
-            <div class="about-work">
-              <div class="intro">
-                <h1 :style="`view-transition-name: ${doc._path!.split('/')[2]}-name;`">{{ doc.title }}</h1>
-                <div class="summary">
-                  <table>
-                    <tbody>
-                      <tr v-if="doc.github">
-                        <th>GitHub</th>
-                        <td>
-                          <a :href="`https://github.com/${doc.github}`" target="_blank">{{ doc.github }}</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>製作時期</th>
-                        <td>{{ doc.creation }}</td>
-                      </tr>
-                      <tr>
-                        <th>使用技術</th>
-                        <td>{{ doc.tech }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="thumbnail-wrapper">
-                <img class="thumbnail" :src="`/images/${doc.thumbnail}`" :alt="`${doc.title}のサムネイル画像`"
-                  :style="`view-transition-name: ${doc._path!.split('/')[2]}-img;`" />
+        <template v-if="data">
+          <div class="about-work">
+            <div class="intro">
+              <h1 :style="`view-transition-name: ${data.path!.split('/')[2]}-name;`">{{ data.title }}</h1>
+              <div class="summary">
+                <table>
+                  <tbody>
+                    <tr v-if="data.github">
+                      <th>GitHub</th>
+                      <td>
+                        <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>製作時期</th>
+                      <td>{{ data.creation }}</td>
+                    </tr>
+                    <tr>
+                      <th>使用技術</th>
+                      <td>{{ data.tech }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div class="content">
-              <ContentRenderer :value="doc" />
+            <div class="thumbnail-wrapper">
+              <img class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
+                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
             </div>
-          </templete>
-          <templete #not-found>
-            <p>Not Found</p>
-          </templete>
-        </ContentDoc>
+          </div>
+          <div class="content">
+            <ContentRenderer :value="data" />
+          </div>
+        </template>
       </div>
       <div class="after-content">
         <NuxtLink class="back" to="/">
@@ -136,8 +135,8 @@ useHead({
       ul {
         margin: 0.5rem 1.5rem;
       }
-      
-      li > ul {
+
+      li>ul {
         margin-left: 0;
       }
 

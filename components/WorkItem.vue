@@ -1,9 +1,9 @@
 <script setup lang="ts">
 export type WorkItemProps = {
   work: {
-    _path: string;
-    thumbnail: string;
+    path: string;
     title: string;
+    thumbnail: string;
     description: string;
   };
 };
@@ -11,11 +11,11 @@ const props = defineProps<WorkItemProps>();
 </script>
 
 <template>
-  <NuxtLink :to="`${props.work._path}`" class="card">
+  <NuxtLink :to="`/works/${props.work.path}`" class="card">
     <img class="card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
-      :style="`view-transition-name: ${props.work._path.split('/')[2]}-img;`">
+      :style="`view-transition-name: ${props.work.path.split('/')[2]}-img;`">
     <div class="card-body">
-      <h3 :style="`view-transition-name: ${props.work._path.split('/')[2]}-name;`">{{ props.work.title }}</h3>
+      <h3 :style="`view-transition-name: ${props.work.path.split('/')[2]}-name;`">{{ props.work.title }}</h3>
       <p>
         {{ props.work.description }}
       </p>

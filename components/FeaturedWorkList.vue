@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
-import WorkItem, { type WorkItemProps } from '~/components/WorkItem.vue';
+import WorkItem from '~/components/WorkItem.vue';
 
-const works = await queryContent<WorkItemProps["work"]>('/works').where({ featured: true }).sort({ order: 1 }).find();
+const works = await queryCollection('works').where("order", "IS NOT NULL").order("order", "ASC").all();
 </script>
 
 <template>
@@ -11,7 +11,7 @@ const works = await queryContent<WorkItemProps["work"]>('/works').where({ featur
       Works
     </h2>
     <div class="card-grid">
-      <WorkItem v-for="work in works" :key="work._path" :work="work" />
+      <WorkItem v-for="work in works" :key="work.path" :work="work" />
       <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る
