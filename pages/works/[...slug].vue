@@ -55,11 +55,11 @@ if (!data.value) {
                       </td>
                     </tr>
                     <tr>
-                      <th>製作時期</th>
+                      <th>Period</th>
                       <td>{{ data.creation }}</td>
                     </tr>
                     <tr>
-                      <th>使用技術</th>
+                      <th>Tech Stack</th>
                       <td>{{ data.tech }}</td>
                     </tr>
                   </tbody>
@@ -76,7 +76,7 @@ if (!data.value) {
           </div>
         </template>
         <template v-else>
-          <p>Not Founded</p>
+          <p class="not-founded">お探しの作品は見つかりませんでした。</p>
         </template>
       </div>
       <div class="after-content">
@@ -231,6 +231,11 @@ if (!data.value) {
           border-radius: 0.5rem;
         }
       }
+    }
+
+    .not-founded {
+      padding: 5rem 1rem;
+      text-align: center;
     }
   }
 
