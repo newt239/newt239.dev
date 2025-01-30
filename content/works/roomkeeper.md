@@ -2,7 +2,6 @@
 title: Roomkeeper
 thumbnail: roomkeeper.webp
 featured: true
-order: 4
 github: newt239/roomkeeper
 creation: 2023.09 -
 tech: Next.js, Panda CSS, Supabase, Drizzle
