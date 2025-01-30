@@ -3,8 +3,9 @@ import WorkItem from '~/components/WorkItem.vue';
 
 const works = await queryCollection('works').order("order", "ASC").all();
 
-useHead({
+useSeoMeta({
   title: "作品一覧 - newt239.dev",
+  ogTitle: "作品一覧 - newt239.dev",
 });
 </script>
 

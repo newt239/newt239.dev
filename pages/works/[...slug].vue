@@ -5,9 +5,31 @@ const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
 });
-useHead({
-  titleTemplate: "%s - newt239.dev",
-});
+if (!data.value) {
+  useSeoMeta({
+    title: 'Not Founded - newt239.dev',
+    ogTitle: 'Not Founded - newt239.dev',
+    description: 'コンテンツが見つかりませんでした',
+    ogDescription: 'コンテンツが見つかりませんでした',
+  });
+} else {
+  useSeoMeta({
+    title: `${data.value.title} - newt239.dev`,
+    ogTitle: `${data.value.title} - newt239.dev`,
+    twitterTitle: `${data.value.title} - newt239.dev`,
+    description: data.value.description,
+    ogDescription: data.value.description,
+    twitterDescription: data.value.description,
+    ogImage: {
+      url: `https://newt239.dev/images/${data.value.thumbnail}`,
+      alt: `${data.value.title}のサムネイル画像`,
+    },
+    twitterImage: {
+      url: `https://newt239.dev/images/${data.value.thumbnail}`,
+      alt: `${data.value.title}のサムネイル画像`,
+    }
+  });
+}
 </script>
 
 <template>
@@ -48,6 +70,9 @@ useHead({
           <div class="content">
             <ContentRenderer :value="data" />
           </div>
+        </template>
+        <template v-else>
+          <p>Not Founded</p>
         </template>
       </div>
       <div class="after-content">
