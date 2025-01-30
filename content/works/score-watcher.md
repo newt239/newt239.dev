@@ -3,7 +3,7 @@ title: Score Watcher
 thumbnail: next-score-watcher.webp
 order: 2
 github: newt239/next-score-watcher
-creation: 2022.10 - 2023.05
+period: 2022.10 - 2023.05
 tech: React, Chakra UI, Dexie.js
 description: クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
 ---

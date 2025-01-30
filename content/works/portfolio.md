@@ -2,7 +2,7 @@
 title: ポートフォリオサイト
 thumbnail: portfolio.webp
 github: newt239/newt239.dev
-creation: 2021 -
+period: 2021 -
 tech: Nuxt, Cloudflare Pages
 ---
 

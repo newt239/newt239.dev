@@ -3,7 +3,7 @@ title: GingaUI
 thumbnail: ginga-ui-eyecatch.webp
 order: 3
 github: newt239/ginga-ui
-creation: 2024.08 -
+period: 2024.08 -
 tech: React, Vite, React Aria
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Lounge Books
 thumbnail: lounge-books.webp
-creation: 2024.08 -
+period: 2024.08 -
 tech: SvelteKit, Go, Docker
 ---
 

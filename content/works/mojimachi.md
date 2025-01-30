@@ -2,7 +2,7 @@
 title: もじまち
 thumbnail: mojimachi.webp
 github: newt239/mojimachi
-creation: 2023.06 - 2023.08
+period: 2023.06 - 2023.08
 tech: React, Tauri, Chakra UI
 ---
 
@@ -10,7 +10,7 @@ tech: React, Tauri, Chakra UI
 
 <!--more-->
 
-前身となった[Local Font Emulator](./local-font-emulator)は、デスクトップのGoogle Chromeでしか利用することができない等、制約の多いWebアプリでした。
+前身となった[Local Font Emulator](./local-font-emulator)は、デスクトップの Google Chrome でしか利用することができない等、制約の多い Web アプリでした。
 
 そこで、様々な環境で利用できるようデスクトップアプリケーションを開発しました。
 
@@ -18,4 +18,4 @@ tech: React, Tauri, Chakra UI
 
 ## インストール
 
-GitHubの<a href="https://github.com/newt239/mojimachi/releases" target="_blank">Releases</a>ページからインストーラーをダウンロードできます。
+GitHub の<a href="https://github.com/newt239/mojimachi/releases" target="_blank">Releases</a>ページからインストーラーをダウンロードできます。

@@ -3,7 +3,7 @@ title: SIT Bus
 thumbnail: sit-bus.webp
 order: 5
 github: newt239/sit-bus
-creation: 2024.04
+period: 2024.04
 tech: Next.js, Tailwind
 description: 東大宮駅<->大宮キャンパス間を走る学バスが次に来る時間を表示します。
 ---

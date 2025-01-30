@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import WorkItem from '~/components/WorkItem.vue';
 
-const works = await queryCollection('works').order("order", "ASC").all();
+const works = await queryCollection('works').order("period", "DESC").all();
 
 useSeoMeta({
   title: "作品一覧 - newt239.dev",

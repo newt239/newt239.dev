@@ -1,7 +1,7 @@
 ---
 title: Quiz Flasher
 thumbnail: quiz-flasher.webp
-creation: 2019.11 - 2020.07
+period: 2019.11 - 2020.07
 tech: GAS
 ---
 

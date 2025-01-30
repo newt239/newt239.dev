@@ -28,8 +28,8 @@ if (!data.value) {
       url: `https://newt239.dev/images/${data.value.thumbnail}`,
       alt: `${data.value.title}のサムネイル画像`,
     },
-    twitterLabel1: "Development Period",
-    twitterData1: data.value.creation,
+    twitterLabel1: "Period",
+    twitterData1: data.value.period,
     twitterLabel2: "Tech Stack",
     twitterData2: data.value.tech
   });
@@ -56,7 +56,7 @@ if (!data.value) {
                     </tr>
                     <tr>
                       <th>Period</th>
-                      <td>{{ data.creation }}</td>
+                      <td>{{ data.period }}</td>
                     </tr>
                     <tr>
                       <th>Tech Stack</th>
