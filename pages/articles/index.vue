@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { articleList } from "~/libs/articles";
 
-
 useSeoMeta({
   title: "記事一覧 - newt239.dev",
   ogTitle: "記事一覧 - newt239.dev",
