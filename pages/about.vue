@@ -40,49 +40,34 @@ useHead({
         </ul>
         <h3>興味・関心</h3>
         <ul>
-          <li>Webフロントエンド</li>
-          <li>UI/UX, ユーザビリティ</li>
-          <li>アクセシビリティ</li>
-          <li>HCI</li>
+          <li>Webフロントエンド
+            <ul>
+              <li>Web 標準化</li>
+              <li>
+                Web API
+              </li>
+            </ul>
+          </li>
+          <li>UI/UX, デザイン
+            <ul>
+              <li>フォント</li>
+            </ul>
+          </li>
         </ul>
         <h3>開発</h3>
         <h4>言語や技術</h4>
         <ul>
           <li>TypeScript</li>
-          <ul>
-            <li>React, Next.js, Remix, Nuxt, Astro, Hono, Electron</li>
-            <li>MUI, Chakra UI, Mantine, radix-ui, shadcn/ui</li>
-            <li>Emotion, Panda CSS, Kuma UI, Tailwind</li>
-            <li>jotai, Recoil</li>
-          </ul>
           <li>CSS</li>
           <li>Python</li>
-          <ul>
-            <li>NumPy, Matplotlib</li>
-            <li>Selenium, BeautifulSoup, pycord</li>
-          </ul>
           <li>Go</li>
-          <ul>
-            <li>echo, gorm</li>
-            <li>discordgo, goquery</li>
-          </ul>
           <li>Rust</li>
-          <ul>
-            <li>Tauri</li>
-          </ul>
           <li>C++</li>
-          <ul>
-            <li>AtCoder</li>
-          </ul>
           <li>LaTeX</li>
         </ul>
         <h4>開発環境</h4>
         <ul>
           <li>MacBook Air M3</li>
-          <ul>
-            <li>16GB ユニファイドメモリ</li>
-            <li>256GB SSD</li>
-          </ul>
           <li>Visual Studio Code</li>
         </ul>
         <h3>趣味</h3>
