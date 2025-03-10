@@ -6,6 +6,12 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title:
+      "GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—",
+    url: "https://zenn.dev/newt_st21/articles/introducing-ginga-ui",
+    date: "2025/03/09",
+  },
+  {
     title: "Slackしか使っていないTwitter用のメタタグがある",
     url: "https://zenn.dev/newt_st21/articles/twitter-label1",
     date: "2025/03/05",
