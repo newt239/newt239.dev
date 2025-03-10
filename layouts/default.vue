@@ -9,11 +9,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header />
-  <div class="wrapper">
-    <slot />
+  <div>
+    <Header />
+    <div class="wrapper">
+      <slot />
+    </div>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <style>

@@ -39,12 +39,12 @@ const profile: string[] = [
       <a class="sns-card zenn-card" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Zenn</div>
         <div>@newt_st21</div>
-        <img src="/zenn.png" alt="Zenn" class="sns-icon" />
+        <img src="/zenn.png" alt="Zenn" class="sns-icon" >
       </a>
       <a class="sns-card qiita-card" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" alt="Qiita" class="sns-icon" />
+        <img src="/qiita.png" alt="Qiita" class="sns-icon" >
       </a>
     </div>
   </div>

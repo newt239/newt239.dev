@@ -11,7 +11,8 @@ const articles = articleList.slice(0, 5);
   <div class="latest-article-list">
     <h2 class="category-title">Articles</h2>
     <div class="article-grid">
-      <ArticleItem v-for="article in articles" :key="article.url" :title="article.title" :url="article.url"
+      <ArticleItem
+v-for="article in articles" :key="article.url" :title="article.title" :url="article.url"
         :date="article.date" />
       <NuxtLink to="/articles" class="see-all-articles">
         <span>

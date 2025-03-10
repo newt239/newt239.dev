@@ -67,8 +67,9 @@ if (!data.value) {
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <img class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
+              <img
+class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
+                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" >
             </div>
           </div>
           <div class="content">
@@ -110,8 +111,9 @@ if (!data.value) {
 
       >.intro {
         >h1 {
-          padding: 0 1rem;
-          margin-top: 1rem;
+          margin: 0.5rem;
+          padding: 0.5rem 1.5rem;
+          border-radius: calc(1rem - 2px);
         }
 
         .summary {
@@ -148,8 +150,9 @@ if (!data.value) {
           width: calc(100% - 1rem);
         }
 
-        .intro h1 {
-          margin: 0px;
+        .intro {
+          margin: 0 auto;
+          text-align: center;
         }
       }
     }

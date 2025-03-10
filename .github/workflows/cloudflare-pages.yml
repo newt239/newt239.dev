@@ -14,18 +14,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.9.0
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Setup dependencies
-        run: pnpm install
+        run: bun install
       - name: Build
-        run: npx nuxt generate
+        run: bun run generate
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@1
         with:

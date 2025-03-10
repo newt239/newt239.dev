@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "Slackしか使っていないTwitter用のメタタグがある",
+    url: "https://zenn.dev/newt_st21/articles/twitter-label1",
+    date: "2025/03/05",
+  },
+  {
     title: "2024年のふりかえり",
     url: "https://newt239.hatenablog.com/entry/2024/12/31/193723",
     date: "2024/12/31",
