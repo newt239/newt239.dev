@@ -7,9 +7,9 @@ useHead({
 <template>
   <main>
     <div class="container about-page">
-      <div class="about-me-space"></div>
+      <div class="about-me-space"/>
       <div class="about-me">
-        <img src="/icon.webp" alt="プロフィール画像" class="profile-icon" />
+        <img src="/icon.webp" alt="プロフィール画像" class="profile-icon" >
         <div class="short-description">
           <h2>newt <span class="sub">@newt239</span></h2>
           <h4>誕生日</h4>

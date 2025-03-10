@@ -12,7 +12,8 @@ useSeoMeta({
     <div class="container article-list-page">
       <h2 class="category-name">Articles</h2>
       <div class="article-grid">
-        <ArticleItem v-for="article in articleList" :key="article.url" :title="article.title" :url="article.url"
+        <ArticleItem
+v-for="article in articleList" :key="article.url" :title="article.title" :url="article.url"
           :date="article.date" />
       </div>
     </div>

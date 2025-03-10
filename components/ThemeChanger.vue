@@ -2,7 +2,7 @@
 import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
 
 const isGenerating = ref(false);
-const promptModel = defineModel();
+const promptModel = defineModel<string>();
 const modalRef = ref();
 const responseMessage = ref("Caution: All prompts are recorded.");
 
@@ -69,16 +69,16 @@ const handleBackdropClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <button class="modal-open-button" v-on:click="onModalOpen" ref="openButtonRef">
+  <button ref="openButtonRef" class="modal-open-button" @click="onModalOpen">
     <IconSparkles />
   </button>
-  <dialog :aria-busy="isGenerating" ref="modalRef">
+  <dialog ref="modalRef" :aria-busy="isGenerating">
     <div class="modal-content">
       <p class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
-        <input type="text" id="theme-changer-input" placeholder="fairy tale" v-model="promptModel"
-          :onkeydown="onKeyDown" autofocus />
-        <button v-on:click="generateTheme" class="theme-change-button" :disabled="isGenerating">
+        <input id="theme-changer-input" v-model="promptModel" type="text" placeholder="fairy tale"
+          :onkeydown="onKeyDown" autofocus>
+        <button class="theme-change-button" :disabled="isGenerating" @click="generateTheme">
           <IconSparkles v-if="isGenerating === false" />
           <IconLoader2 v-else />
           Generate

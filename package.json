@@ -7,15 +7,19 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@nuxt/content": "^3.2.2",
+    "@nuxt/eslint": "1.2.0",
     "@nuxt/image": "^1.9.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@tabler/icons-vue": "^3.31.0",
     "dayjs": "^1.11.13",
-    "nuxt": "^3.15.4",
+    "eslint": "^9.0.0",
+    "nuxt": "^3.16.0",
     "openai": "^4.86.1",
     "vue": "^3.5.13",
     "vue-gtag-next": "^1.14.0",

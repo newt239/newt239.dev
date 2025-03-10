@@ -67,8 +67,9 @@ if (!data.value) {
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <img class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
+              <img
+class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
+                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" >
             </div>
           </div>
           <div class="content">

@@ -44,7 +44,7 @@ const items = [
       <div class="year-container">
         <div class="year-text">{{ year.year }}</div>
         <div class="indicator">
-          <div class="indicator-dot"></div>
+          <div class="indicator-dot"/>
         </div>
         <div class="post-count">{{ year.grade }}</div>
       </div>
@@ -53,7 +53,7 @@ const items = [
           <div class="post-container">
             <div class="term-text">{{ item.term }}</div>
             <div class="dash-line-container">
-              <div class="dash-line"></div>
+              <div class="dash-line"/>
             </div>
             <div class="title-text">{{ item.title }}</div>
           </div>
@@ -62,7 +62,7 @@ const items = [
           <div class="post-container no-link">
             <div class="term-text">{{ item.term }}</div>
             <div class="dash-line-container">
-              <div class="dash-line"></div>
+              <div class="dash-line"/>
             </div>
             <div class="title-text">{{ item.title }}</div>
           </div>
