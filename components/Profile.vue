@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
+import { IconBrandGithub, IconBrandX } from "@tabler/icons-vue";
 import dayjs from "dayjs";
 
 const age = dayjs().diff(dayjs("2005-11-02"), "year");
@@ -26,10 +26,10 @@ const profile: string[] = [
       <div class="more-detail-button">もっとくわしく！</div>
     </NuxtLink>
     <div class="sns-links">
-      <a class="sns-card twitter-card" href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
-        <div class="sns-name">Twitter</div>
+      <a class="sns-card x-card" href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
+        <div class="sns-name">X</div>
         <div>@newt239</div>
-        <IconBrandTwitter />
+        <IconBrandX />
       </a>
       <a class="sns-card github-card" href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">GitHub</div>
@@ -39,12 +39,12 @@ const profile: string[] = [
       <a class="sns-card zenn-card" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Zenn</div>
         <div>@newt_st21</div>
-        <img src="/zenn.png" alt="Zenn" class="sns-icon" >
+        <img src="/zenn.png" alt="Zenn" class="sns-icon">
       </a>
       <a class="sns-card qiita-card" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
         <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" alt="Qiita" class="sns-icon" >
+        <img src="/qiita.png" alt="Qiita" class="sns-icon">
       </a>
     </div>
   </div>
@@ -154,13 +154,15 @@ const profile: string[] = [
     }
 
     a {
-      color: rgb(var(--color-back));
+      color: rgb(var(--color-text));
+      border: 2px solid rgb(var(--color-text));
       border-radius: 0.5rem;
       padding: 0.6rem 1rem;
       transition: all 0.2s;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      font-weight: 800;
 
       &:hover {
         text-decoration: none;
@@ -172,33 +174,12 @@ const profile: string[] = [
   .sns-name {
     width: 100%;
     font-size: 0.5rem;
-    opacity: 0.7;
-  }
-
-  .twitter-card {
-    background-color: #1da1f2;
-    color: rgb(var(--color-back));
-  }
-
-  .github-card {
-    background-color: #0e0c0d;
-    color: rgb(var(--color-back));
-  }
-
-  .zenn-card {
-    background-color: #3ea8ff;
-    color: rgb(var(--color-back));
-  }
-
-  .qiita-card {
-    background-color: #55c500;
-    color: rgb(var(--color-back));
+    font-weight: 400;
   }
 
   .sns-icon {
     width: 24px;
     height: 24px;
-    filter: brightness(0) invert(1);
   }
 }
 </style>

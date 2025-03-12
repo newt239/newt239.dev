@@ -69,7 +69,7 @@ const handleBackdropClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <button ref="openButtonRef" class="modal-open-button" @click="onModalOpen">
+  <button ref="openButtonRef" type="button" aria-label="テーマ変更" class="modal-open-button" @click="onModalOpen">
     <IconSparkles />
   </button>
   <dialog ref="modalRef" :aria-busy="isGenerating">
