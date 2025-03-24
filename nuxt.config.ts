@@ -1,12 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [
-    "@nuxt/content",
-    "@nuxt/image",
-    "@nuxtjs/color-mode",
-    "@nuxt/eslint",
-  ],
+  modules: ["@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
   css: ["@/assets/styles/main.css"],
 
   app: {
@@ -38,11 +33,6 @@ export default defineNuxtConfig({
 
   image: {
     domeins: ["i.scdn.co"],
-  },
-
-  colorMode: {
-    preference: "light",
-    fallback: "light",
   },
 
   experimental: {
