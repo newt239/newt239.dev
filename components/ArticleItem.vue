@@ -28,10 +28,10 @@ const getSiteName = (url: string) => {
     </div>
     <div class="article-item-footer">
       <div>
-        <img v-if="props.url.startsWith('https://qiita.com')" src="/qiita.png" class="site-icon icon-align"
-          alt="Qiitaのアイコン">
-        <img v-else-if="props.url.startsWith('https://zenn.dev')" src="/zenn.png" class="site-icon icon-align"
-          alt="Zennのアイコン">
+        <NuxtImg v-if="props.url.startsWith('https://qiita.com')" src="/qiita.png" class="site-icon icon-align"
+          alt="Qiitaのアイコン" />
+        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev')" src="/zenn.png" class="site-icon icon-align"
+          alt="Zennのアイコン" />
         <span v-else class="site-icon">
           <IconBook2 class="icon-align" width="16px" height="16px" />
         </span>

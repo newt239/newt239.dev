@@ -12,9 +12,8 @@ const props = defineProps<WorkItemProps>();
 
 <template>
   <NuxtLink :to="`/works/${props.work.path.split('/')[2]}`" class="card">
-    <img
-class="card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
-      :style="`view-transition-name: ${props.work.path.split('/')[2]}-img;`">
+    <NuxtImg class="card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
+      :style="`view-transition-name: ${props.work.path.split('/')[2]}-img;`" />
     <div class="card-body">
       <h3 :style="`view-transition-name: ${props.work.path.split('/')[2]}-name;`">{{ props.work.title }}</h3>
       <p>
