@@ -21,7 +21,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     <h2>My Top Tracks</h2>
     <div class="musics">
       <div v-for="track in trackList?.slice(0, 12)" :key="track.name" class="track">
-        <img loading="lazy" class="thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" >
+        <img loading="lazy" class="thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`">
         <div class="detail">
           <div class="info">
             <a :href="track.link" target="_blank" class="name underline">

@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
   },
 
+  image: {
+    domeins: ["i.scdn.co"],
+  },
+
   colorMode: {
     preference: "light",
     fallback: "light",
