@@ -23,7 +23,7 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
       script: [
         {
-          src: "https://use.typekit.net/uel8jnk.js",
+          src: "https://use.typekit.net/ylu0yhm.js",
         },
       ],
     },
