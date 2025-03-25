@@ -3,7 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
   css: ["@/assets/styles/main.css"],
-
   app: {
     head: {
       htmlAttrs: {
@@ -29,6 +28,10 @@ export default defineNuxtConfig({
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
+  },
+
+  nitro: {
+    compressPublicAssets: true,
   },
 
   image: {
