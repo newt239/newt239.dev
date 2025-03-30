@@ -152,6 +152,14 @@ if (!data.value) {
         .intro {
           margin: 0 auto;
           text-align: center;
+
+          th {
+            text-align: end;
+          }
+
+          td {
+            text-align: start;
+          }
         }
       }
     }
