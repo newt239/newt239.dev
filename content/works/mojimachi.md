@@ -3,7 +3,10 @@ title: もじまち
 thumbnail: mojimachi.webp
 github: newt239/mojimachi
 period: 2023.06 - 2023.08
-tech: React, Tauri, Chakra UI
+tech:
+  - React
+  - Tauri
+  - Chakra UI
 ---
 
 デバイス上にインストールされたフォントの一覧を表示する、デスクトップアプリケーションです。

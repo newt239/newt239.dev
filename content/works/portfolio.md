@@ -3,7 +3,9 @@ title: ポートフォリオサイト
 thumbnail: portfolio.webp
 github: newt239/newt239.dev
 period: 2021 -
-tech: Nuxt, Cloudflare Pages
+tech:
+  - Nuxt
+  - Cloudflare Pages
 ---
 
 このサイトです。一番長いあいだ作り込んでいるものであるとも言えます。

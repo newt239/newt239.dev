@@ -4,7 +4,9 @@ thumbnail: look-inside-view.webp
 order: 4
 github: newt239/look-inside-view
 period: 2021.06 - 2021.09
-tech: Pannellum, Firebase ( Firestore, Storage )
+tech:
+  - Pannellum
+  - Firebase
 ---
 
 栄東高校・中学校の校舎内を 360 度の画像で紹介するサイトです。2021 年度のオンライン文化祭用の作品で、同じ同好会のメンバー 3 人と制作しました。

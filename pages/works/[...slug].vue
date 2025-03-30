@@ -31,7 +31,7 @@ if (!data.value) {
     twitterLabel1: "Period",
     twitterData1: data.value.period,
     twitterLabel2: "Tech Stack",
-    twitterData2: data.value.tech
+    twitterData2: data.value.tech.join(", "),
   });
 }
 </script>
@@ -60,16 +60,15 @@ if (!data.value) {
                     </tr>
                     <tr>
                       <th>Tech Stack</th>
-                      <td>{{ data.tech }}</td>
+                      <td>{{ data.tech.join(", ") }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <img
-class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" >
+              <img class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
+                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`">
             </div>
           </div>
           <div class="content">

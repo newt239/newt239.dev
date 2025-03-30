@@ -3,7 +3,9 @@ title: Local Font Emulator
 thumbnail: local-font-emulator.webp
 github: newt239/local-font-emulator
 period: 2023.04 - 2023.05
-tech: React, Mantine
+tech:
+  - React
+  - Mantine
 ---
 
 ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができる Web アプリです。

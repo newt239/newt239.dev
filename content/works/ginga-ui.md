@@ -4,7 +4,10 @@ thumbnail: ginga-ui-eyecatch.webp
 order: 3
 github: newt239/ginga-ui
 period: 2024.08 -
-tech: React, Vite, React Aria
+tech:
+  - React
+  - Vite
+  - React Aria
 ---
 
 LLM による外面的なデザインの生成が可能な UI コンポーネントライブラリを開発しています。

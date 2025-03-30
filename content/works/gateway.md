@@ -4,7 +4,11 @@ thumbnail: gateway.webp
 order: 1
 github: newt239/gateway-front
 period: 2021.12 - 2022.09
-tech: React, Golang, MySQL, AWS 等
+tech:
+  - React
+  - Golang
+  - MySQL
+  - AWS
 description: 栄東祭 2022 において、来場者の滞在状況を記録するシステムを開発・運用しました。
 ---
 
