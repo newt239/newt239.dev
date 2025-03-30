@@ -7,7 +7,7 @@ const age = dayjs().diff(dayjs("2005-11-02"), "year");
 const profile: string[] = [
   `${age}さい`,
   "すきなもの: Webフロントエンド, UI/UX",
-  "言語: TypeScript, Python, Go",
+  "言語: TypeScript",
   "趣味: アニメ, ボカロ等",
 ];
 </script>
