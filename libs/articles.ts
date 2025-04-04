@@ -6,6 +6,17 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "SecHack365での1年間を振り返って",
+    url: "https://newt239.hatenablog.com/entry/2025/04/04/161851",
+    date: "2025/04/04",
+  },
+  {
+    title:
+      "Spindleへの新規コンポーネント追加を通じて学んだデザインシステムにおける設計の大切さ",
+    url: "https://developers.cyberagent.co.jp/blog/archives/55646/",
+    date: "2025/03/31",
+  },
+  {
     title:
       "GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—",
     url: "https://zenn.dev/newt_st21/articles/introducing-ginga-ui",

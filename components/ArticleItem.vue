@@ -9,14 +9,19 @@ interface Props {
 const props = defineProps<Props>();
 
 const getSiteName = (url: string) => {
-  if (url.startsWith("https://qiita.com")) {
-    return "Qiita";
-  } else if (url.startsWith("https://zenn.dev")) {
-    return "Zenn";
-  } else if (url.startsWith("https://newt239.hatenablog.com/")) {
-    return "はてな";
-  } else {
-    return url.split("/")[2];
+  switch (true) {
+    case url.startsWith("https://qiita.com/"):
+      return "Qiita";
+    case url.startsWith("https://zenn.dev/"):
+      return "Zenn";
+    case url.startsWith("https://newt239.hatenablog.com/"):
+      return "はてな";
+    case url.startsWith("https://note.com/"):
+      return "note";
+    case url.startsWith("https://developers.cyberagent.co.jp/"):
+      return "CyberAgent";
+    default:
+      return url.split("/")[2];
   }
 };
 </script>
@@ -27,14 +32,13 @@ const getSiteName = (url: string) => {
       <h4>{{ props.title }}</h4>
     </div>
     <div class="article-item-footer">
-      <div>
-        <NuxtImg v-if="props.url.startsWith('https://qiita.com')" src="/qiita.png" class="site-icon icon-align"
-          alt="Qiitaのアイコン" />
-        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev')" src="/zenn.png" class="site-icon icon-align"
-          alt="Zennのアイコン" />
-        <span v-else class="site-icon">
-          <IconBook2 class="icon-align" width="16px" height="16px" />
-        </span>
+      <div class="site-info">
+        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.png" alt="" width="16px" height="16px" />
+        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16px"
+          height="16px" />
+        <NuxtImg v-else-if="props.url.startsWith('https://newt239.hatenablog.com/')" src="/hatena.webp" alt=""
+          width="16px" height="16px" />
+        <IconBook2 v-else width="16px" height="16px" />
         <span class="site-name">{{ getSiteName(props.url) }}</span>
       </div>
       <div>{{ props.date }}</div>
@@ -65,6 +69,12 @@ const getSiteName = (url: string) => {
       scale: 1.05;
     }
   }
+}
+
+.site-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .article-item-body {
