@@ -29,7 +29,7 @@ header {
   backdrop-filter: blur(8px);
   border-style: solid;
   border-color: rgb(var(--color-back-secondary) / 0.8);
-  border-width: 0px 0px 1px;
+  border-width: 0px 0px 2px;
 
   a {
     display: flex;

@@ -57,7 +57,7 @@ const onModalClose = () => {
   document.removeEventListener('click', handleBackdropClick);
 }
 const onKeyDown = (event: KeyboardEvent) => {
-  if (event.key === "Enter") {
+  if (event.key === "Enter" && !event.isComposing) {
     generateTheme();
   }
 }
@@ -76,8 +76,8 @@ const handleBackdropClick = (event: MouseEvent) => {
     <div class="modal-content">
       <p class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
-        <input id="theme-changer-input" v-model="promptModel" type="text" placeholder="fairy tale"
-          :onkeydown="onKeyDown" autofocus>
+        <input id="theme-changer-input" v-model="promptModel" type="text" placeholder="fairy tale" autofocus
+          @keydown.enter="onKeyDown">
         <button class="theme-change-button" :disabled="isGenerating" @click="generateTheme">
           <IconSparkles v-if="isGenerating === false" />
           <IconLoader2 v-else />
@@ -95,7 +95,7 @@ const handleBackdropClick = (event: MouseEvent) => {
   height: 2.5rem;
   color: rgb(var(--color-text));
   background-color: rgb(var(--color-back));
-  border: 1px solid rgb(var(--color-text));
+  border: 2px solid rgb(var(--color-text));
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -123,7 +123,7 @@ dialog {
     border-radius: 1rem;
     color: rgb(var(--color-text));
     background-color: rgb(var(--color-back));
-    border: 1px solid rgb(var(--color-back-secondary) / 0.8);
+    border: 2px solid rgb(var(--color-back-secondary) / 0.8);
     z-index: 1000;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
@@ -255,7 +255,7 @@ dialog {
   }
 
   .modal-message {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
   }
 }
 
