@@ -15,6 +15,11 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
+  &::selection {
+    background-color: rgb(var(--color-text));
+    color: rgb(var(--color-back));
+  }
 }
 
 a, button {

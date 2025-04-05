@@ -139,6 +139,7 @@ if (!data.value) {
           width: 100%;
           object-fit: cover;
           border-radius: calc(1rem - 2px);
+          aspect-ratio: 16 / 9;
         }
       }
 
