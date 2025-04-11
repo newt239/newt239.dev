@@ -7,15 +7,15 @@ useHead({
 <template>
   <main>
     <div class="container about-page">
-      <div class="about-me-space"/>
+      <div class="about-me-space" />
       <div class="about-me">
-        <img src="/icon.webp" alt="プロフィール画像" class="profile-icon" >
+        <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
         <div class="short-description">
           <h2>newt <span class="sub">@newt239</span></h2>
           <h4>誕生日</h4>
           <div>2005年11月2日</div>
           <h4>所属</h4>
-          <div>芝浦工業大学 1年</div>
+          <div>芝浦工業大学 2年</div>
           <div>デザイン工学部 デザイン工学科</div>
           <div>ロボティクス・情報デザイン系</div>
         </div>
@@ -54,25 +54,10 @@ useHead({
             </ul>
           </li>
         </ul>
-        <h3>開発</h3>
-        <h4>言語や技術</h4>
-        <ul>
-          <li>TypeScript</li>
-          <li>CSS</li>
-          <li>Python</li>
-          <li>Go</li>
-          <li>Rust</li>
-          <li>C++</li>
-          <li>LaTeX</li>
-        </ul>
-        <h4>開発環境</h4>
-        <ul>
-          <li>MacBook Air M3</li>
-          <li>Visual Studio Code</li>
-        </ul>
         <h3>趣味</h3>
         <h4>好きなアニメ</h4>
         <ul>
+          <li>アオのハコ</li>
           <li>響け！ユーフォニアム</li>
           <li>色づく世界の明日から</li>
           <li>リコリス・リコイル</li>
@@ -81,6 +66,7 @@ useHead({
         </ul>
         <h4>好きなアーティスト</h4>
         <ul>
+          <li>*Luna</li>
           <li>DECO*27</li>
           <li>Orangestar</li>
           <li>HoneyWorks</li>
