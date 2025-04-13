@@ -10,13 +10,13 @@ tech:
   - React Aria
 ---
 
-LLM による外面的なデザインの生成が可能な UI コンポーネントライブラリを開発しています。
+LLM を活用し文脈に合わせたテーマを生成する UI コンポーネントライブラリを開発しています。
 
-2024 年度の SecHack365 に採択され、開発を行いました。
+NICT (情報通信研究機構)のセキュリティイノベータ育成プログラムである [SecHack365](https://sechack365.nict.go.jp/) に採択され、開発を行いました。
 
 ## 関連リンク
 
-- GtiHub リポジトリ
+- GitHub リポジトリ
   - [newt239/ginga-ui](https://github.com/newt239/ginga-ui)
 - npm
   - [@ginga-ui/core](https://www.npmjs.com/package/@ginga-ui/core)
