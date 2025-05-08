@@ -78,6 +78,10 @@ const profile: string[] = [
     border-radius: 0.5rem;
     transition: all 0.2s;
 
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
     @media (hover: hover) {
       &:hover {
         scale: 1.03;
@@ -131,6 +135,11 @@ const profile: string[] = [
     border-radius: 1rem;
     cursor: pointer;
     transition: all 0.2s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
     color: rgb(var(--color-back));
 
     &:hover {
@@ -159,6 +168,11 @@ const profile: string[] = [
       border-radius: 0.5rem;
       padding: 0.6rem 1rem;
       transition: all 0.2s;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;

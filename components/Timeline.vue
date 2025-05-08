@@ -95,6 +95,10 @@ const items = [
   width: 20%;
   min-width: 6rem;
   transition: color 0.3s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .indicator {
@@ -122,6 +126,10 @@ const items = [
   color: rgb(var(--color-text));
   width: min(30rem, 70%);
   transition: color 0.3s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .post-item {
@@ -136,6 +144,10 @@ const items = [
 
   @media screen and (min-width: 500px) {
     height: 2.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }
 
@@ -160,6 +172,10 @@ const items = [
   width: 20%;
   min-width: 6rem;
   transition: color 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .dash-line-container {
@@ -184,6 +200,10 @@ const items = [
     transition-property: all;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     transition-duration: .2s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 }
 
@@ -197,6 +217,11 @@ const items = [
   margin: 0 auto;
   border-radius: 4px;
   transition: all 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   z-index: 10;
 }
 
@@ -212,6 +237,10 @@ const items = [
   @media screen and (min-width: 360px) {
     font-size: 1rem;
     line-height: 1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }
 

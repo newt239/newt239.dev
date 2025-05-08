@@ -1,6 +1,7 @@
 ---
 title: Look Inside View
 thumbnail: look-inside-view.webp
+alt: 校舎内を 360 度のパノラマ画像で確認できるウェブサイトのスクリーンショット。画面左上に「Look Inside View」ロゴがあり、中央に校舎ピロティのパノラマ画像、下部に施設名と説明文が表示されている。左下にナビゲーションメニューがあり、「施設一覧」「企画について」「栄東祭トップ」というボタンが並んでいる。
 order: 4
 github: newt239/look-inside-view
 period: 2021.06 - 2021.09

@@ -112,6 +112,10 @@ a {
   opacity: 0.5;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 ul {
@@ -131,4 +135,12 @@ ul {
 .sub {
   font-size: 50%;
   color: rgb(var(--color-text-secondary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

@@ -36,6 +36,10 @@ footer {
       &:hover {
         color: rgb(var(--color-link));
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
   }
 }

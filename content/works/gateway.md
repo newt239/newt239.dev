@@ -1,6 +1,7 @@
 ---
 title: Gateway
 thumbnail: gateway.webp
+alt: 校舎内のピロティでプロジェクター付きホワイトボードに映された展示ごとの滞在者数を、制服やクラスTシャツを着た生徒たちが距離を取って閲覧している写真。
 order: 1
 github: newt239/gateway-front
 period: 2021.12 - 2022.09

@@ -62,6 +62,10 @@ const works = await queryCollection('works').where("order", "IS NOT NULL").order
         scale: 1.05;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 }
 </style>

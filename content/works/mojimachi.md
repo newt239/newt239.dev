@@ -1,6 +1,7 @@
 ---
 title: もじまち
 thumbnail: mojimachi.webp
+alt: 余白の大きい白背景に、立体感のあるパープルの「F」アイコンと、右側に濃紫色で「もじまち」、その下に「フォントビューワーソフト」と書かれたブランドロゴ
 github: newt239/mojimachi
 period: 2023.06 - 2023.08
 tech:

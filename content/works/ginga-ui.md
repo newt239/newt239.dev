@@ -1,6 +1,7 @@
 ---
 title: GingaUI
 thumbnail: ginga-ui-eyecatch.webp
+alt: カラフルなグラデーション背景に「GingaUI」という白抜きロゴを中央配置したプロモーションバナー。周囲の白い角丸カードが機能を説明しており、左から時計回りに「UI Component Library for React（React ロゴ）」「20 + Components（パズルピースのアイコン）」「Accessible（立体ハート）」「Simple to Use（笑顔の絵文字）」「Generate Theme with AI（パレットのアイコン）」「Free and Opensource（札束のアイコン）」「Support SSR（ドライバーのアイコン）」「TypeScript Based（TS ロゴ）」と記載されている。
 order: 3
 github: newt239/ginga-ui
 period: 2024.08 -

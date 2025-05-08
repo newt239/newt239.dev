@@ -69,6 +69,10 @@ const getSiteName = (url: string) => {
       scale: 1.05;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .site-info {

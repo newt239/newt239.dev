@@ -32,6 +32,10 @@ const props = defineProps<WorkItemProps>();
   border-radius: 0.5rem;
   transition: all 0.2s;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   @media (hover: hover) {
     &:hover {
       scale: 1.05;

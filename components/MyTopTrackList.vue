@@ -80,6 +80,10 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
     .track-preview {
       cursor: pointer;
     }
