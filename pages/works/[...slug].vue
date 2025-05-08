@@ -264,6 +264,10 @@ if (!data.value) {
       cursor: pointer;
       transition: all 0.2s;
 
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
       @media (hover: hover) {
         &:hover {
           opacity: 0.5;

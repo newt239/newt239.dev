@@ -57,6 +57,10 @@ header {
         }
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
       img {
         max-height: min(8vh, 8vw);
         min-height: 2rem;

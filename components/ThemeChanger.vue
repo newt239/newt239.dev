@@ -100,6 +100,10 @@ const handleBackdropClick = (event: MouseEvent) => {
   cursor: pointer;
   transition: all 0.2s;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   &:hover {
     scale: 1.1;
     color: rgb(var(--color-link));
@@ -127,12 +131,20 @@ dialog {
     z-index: 1000;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 
   &::backdrop {
     opacity: 0;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 
   &[open] {

@@ -9,6 +9,10 @@
 .page-enter-active,
 .page-leave-active {
   transition: all 0.5s;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .page-enter-from,

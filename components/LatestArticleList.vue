@@ -60,6 +60,10 @@ v-for="article in articles" :key="article.url" :title="article.title" :url="arti
         scale: 1.05;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 }
 </style>
