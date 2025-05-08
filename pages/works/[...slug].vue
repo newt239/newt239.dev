@@ -22,11 +22,11 @@ if (!data.value) {
     twitterDescription: data.value.description,
     ogImage: {
       url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: `${data.value.title}のサムネイル画像`,
+      alt: data.value.alt,
     },
     twitterImage: {
       url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: `${data.value.title}のサムネイル画像`,
+      alt: data.value.alt,
     },
     twitterLabel1: "Period",
     twitterData1: data.value.period,
@@ -67,8 +67,8 @@ if (!data.value) {
               </div>
             </div>
             <div class="thumbnail-wrapper">
-              <img class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="`${data.title}のサムネイル画像`"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`">
+              <NuxtImg class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="data.alt"
+                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
             </div>
           </div>
           <div class="content">

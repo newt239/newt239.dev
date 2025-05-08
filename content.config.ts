@@ -7,6 +7,7 @@ export default defineContentConfig({
       type: "page",
       schema: z.object({
         thumbnail: z.string(),
+        alt: z.string(),
         tech: z.array(z.string()),
         period: z.string(),
         github: z.string(),
