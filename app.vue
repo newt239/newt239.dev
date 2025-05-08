@@ -1,11 +1,17 @@
 <template>
   <NuxtLayout>
-    <NuxtLoadingIndicator />
+    <NuxtLoadingIndicator class="loading-indicator" />
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <style>
+.loading-indicator {
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.5s;

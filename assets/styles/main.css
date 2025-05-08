@@ -136,3 +136,11 @@ ul {
   font-size: 50%;
   color: rgb(var(--color-text-secondary));
 }
+
+@media (prefers-reduced-motion) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
