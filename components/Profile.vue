@@ -8,7 +8,7 @@ const profile: string[] = [
   `${age}さい`,
   "すきなもの: Webフロントエンド, UI/UX",
   "言語: TypeScript",
-  "趣味: アニメ, ボカロ等",
+  "趣味: アニメ鑑賞, 旅行",
 ];
 </script>
 
