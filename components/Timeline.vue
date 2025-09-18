@@ -1,6 +1,14 @@
 <script setup lang="ts">
 const items = [
   {
+    year: 2025,
+    grade: "大学2年",
+    items: [
+      { term: "9月", title: "SmartHR サマーインターン", src: "https://x.com/newt239/status/1966481283690770887" },
+      { term: "6月 - 現在", title: "株式会社dele", src: "https://dele.work/" }
+    ]
+  },
+  {
     year: 2024,
     grade: "大学1年",
     items: [
