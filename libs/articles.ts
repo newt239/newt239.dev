@@ -6,6 +6,21 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "フロントエンドカンファレンス北海道2025に参加してきました",
+    url: "https://newt239.hatenablog.com/entry/2025/09/18/152547",
+    date: "2025/09/18",
+  },
+  {
+    title: "隠岐＆山陰の旅",
+    url: "https://newt239.hatenablog.com/entry/2025/08/24/112624",
+    date: "2025/08/24",
+  },
+  {
+    title: "大阪万博に行ってきた話",
+    url: "https://newt239.hatenablog.com/entry/2025/07/06/112152",
+    date: "2025/07/06",
+  },
+  {
     title: "SecHack365での1年間を振り返って",
     url: "https://newt239.hatenablog.com/entry/2025/04/04/161851",
     date: "2025/04/04",
