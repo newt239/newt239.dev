@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow bun",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
