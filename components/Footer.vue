@@ -5,8 +5,8 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 <template>
   <footer>
     <nav class="footer-nav">
-      <NuxtLink to="/about">About</NuxtLink>
-      <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+      <NuxtLink to="/about">わたしについて</NuxtLink>
+      <NuxtLink to="/privacy">プライバシーポリシー</NuxtLink>
     </nav>
     <div class="footer-bottom">
       <div class="copyright">© newt 2025</div>
@@ -42,13 +42,14 @@ footer {
     }
 
     a {
-      color: rgb(var(--color-text));
+      color: rgb(var(--color-link));
       text-decoration: none;
       font-size: 0.9rem;
+      border-bottom: 1px dashed rgb(var(--color-link));
       transition: all 0.2s;
 
       &:hover {
-        color: rgb(var(--color-link));
+        opacity: 0.8;
       }
 
       @media (prefers-reduced-motion: reduce) {
