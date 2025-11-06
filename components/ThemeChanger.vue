@@ -11,8 +11,7 @@ const generateTheme = async () => {
     promptModel.value = "fairy tale";
   }
   isGenerating.value = true;
-  const res = await fetch(
-    "https://api.newt239.dev/ai/generate-theme", {
+  const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,8 +19,7 @@ const generateTheme = async () => {
     body: JSON.stringify({
       prompt: promptModel.value,
     }),
-  }
-  );
+  });
   const data = await res.json();
   const content = JSON.parse(data.body);
   const r = document.documentElement;
@@ -29,12 +27,10 @@ const generateTheme = async () => {
     if (content.type === "success") {
       if (content.variables.length === 0) {
         isGenerating.value = false;
-        responseMessage.value = "Something went wrong. Please try another word.";
+        responseMessage.value =
+          "Something went wrong. Please try another word.";
       } else {
-        content.variables.forEach((v: {
-          name: string;
-          value: string;
-        }) => {
+        content.variables.forEach((v: { name: string; value: string }) => {
           r.style.setProperty(`${v.name}`, v.value);
         });
         onModalClose();
@@ -45,42 +41,61 @@ const generateTheme = async () => {
     }
   }
   return;
-}
+};
 const onModalOpen = () => {
   modalRef.value.showModal();
-  document.addEventListener('click', handleBackdropClick);
-}
+  document.addEventListener("click", handleBackdropClick);
+};
 const onModalClose = () => {
   modalRef.value.close();
   isGenerating.value = false;
   responseMessage.value = "Caution: All prompts are recorded.";
-  document.removeEventListener('click', handleBackdropClick);
-}
+  document.removeEventListener("click", handleBackdropClick);
+};
 const onKeyDown = (event: KeyboardEvent) => {
   if (event.key === "Enter" && !event.isComposing) {
     generateTheme();
   }
-}
+};
 const handleBackdropClick = (event: MouseEvent) => {
   if (event.target instanceof HTMLDialogElement) {
     onModalClose();
   }
-}
+};
 </script>
 
 <template>
-  <button ref="openButtonRef" type="button" aria-label="テーマ変更" class="modal-open-button" @click="onModalOpen">
-    <IconSparkles />
+  <button
+    ref="openButtonRef"
+    type="button"
+    aria-label="テーマ変更"
+    class="modal-open-button"
+    @click="onModalOpen"
+  >
+    <IconSparkles aria-hidden />
   </button>
   <dialog ref="modalRef" :aria-busy="isGenerating">
     <div class="modal-content">
       <p class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
-        <input id="theme-changer-input" v-model="promptModel" type="text" placeholder="fairy tale" autofocus
-          @keydown.enter="onKeyDown">
-        <button class="theme-change-button" :disabled="isGenerating" @click="generateTheme">
-          <IconSparkles v-if="isGenerating === false" />
-          <IconLoader2 v-else />
+        <input
+          id="theme-changer-input"
+          v-model="promptModel"
+          type="text"
+          placeholder="fairy tale"
+          autofocus
+          @keydown.enter="onKeyDown"
+        />
+        <button
+          class="theme-change-button"
+          :disabled="isGenerating"
+          @click="generateTheme"
+        >
+          <IconSparkles
+            v-if="isGenerating === false"
+            aria-label="Generating..."
+          />
+          <IconLoader2 v-else aria-hidden />
           Generate
         </button>
       </div>

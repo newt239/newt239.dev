@@ -4,7 +4,6 @@ import { articleList } from "~/libs/articles";
 import ArticleItem from "./ArticleItem.vue";
 
 const articles = articleList.slice(0, 5);
-
 </script>
 
 <template>
@@ -12,12 +11,16 @@ const articles = articleList.slice(0, 5);
     <h2 class="category-title">Articles</h2>
     <div class="article-grid">
       <ArticleItem
-v-for="article in articles" :key="article.url" :title="article.title" :url="article.url"
-        :date="article.date" />
+        v-for="article in articles"
+        :key="article.url"
+        :title="article.title"
+        :url="article.url"
+        :date="article.date"
+      />
       <NuxtLink to="/articles" class="see-all-articles">
         <span>
           すべての記事を見る
-          <IconChevronRight />
+          <IconChevronRight aria-hidden />
         </span>
       </NuxtLink>
     </div>
