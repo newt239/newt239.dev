@@ -25,3 +25,4 @@ logs
 
 wrangler.toml
 .wrangler/
+.serena/
