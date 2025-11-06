@@ -26,25 +26,45 @@ const profile: string[] = [
       <div class="more-detail-button">もっとくわしく！</div>
     </NuxtLink>
     <div class="sns-links">
-      <a class="sns-card x-card" href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
+      <a
+        class="sns-card x-card"
+        href="https://x.com/newt239"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="sns-name">X</div>
         <div>@newt239</div>
-        <IconBrandX />
+        <IconBrandX aria-hidden />
       </a>
-      <a class="sns-card github-card" href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
+      <a
+        class="sns-card github-card"
+        href="https://github.com/newt239"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="sns-name">GitHub</div>
         <div>@newt239</div>
-        <IconBrandGithub />
+        <IconBrandGithub aria-hidden />
       </a>
-      <a class="sns-card zenn-card" href="https://zenn.dev/newt_st21" target="_blank" rel="noopener noreferrer">
+      <a
+        class="sns-card zenn-card"
+        href="https://zenn.dev/newt_st21"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="sns-name">Zenn</div>
         <div>@newt_st21</div>
-        <img src="/zenn.png" alt="Zenn" class="sns-icon">
+        <img src="/zenn.png" aria-hidden class="sns-icon" />
       </a>
-      <a class="sns-card qiita-card" href="https://qiita.com/newt239" target="_blank" rel="noopener noreferrer">
+      <a
+        class="sns-card qiita-card"
+        href="https://qiita.com/newt239"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" alt="Qiita" class="sns-icon">
+        <img src="/qiita.png" aria-hidden class="sns-icon" />
       </a>
     </div>
   </div>
@@ -71,9 +91,11 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
-    background-image: linear-gradient(135deg,
-        rgb(var(--color-back-secondary)) 0%,
-        rgb(var(--color-text)) 100%);
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-back-secondary)) 0%,
+      rgb(var(--color-text)) 100%
+    );
     color: rgb(var(--color-back));
     border-radius: 0.5rem;
     transition: all 0.2s;

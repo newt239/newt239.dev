@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
-import WorkItem from '~/components/WorkItem.vue';
+import WorkItem from "~/components/WorkItem.vue";
 
-const works = await queryCollection('works').where("order", "IS NOT NULL").order("order", "ASC").all();
+const works = await queryCollection("works")
+  .where("order", "IS NOT NULL")
+  .order("order", "ASC")
+  .all();
 </script>
 
 <template>
   <div v-show="works && works.length !== 0" class="work-list">
-    <h2 class="category-title">
-      Works
-    </h2>
+    <h2 class="category-title">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="work in works" :key="work.path" :work="work" />
       <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る
-          <IconChevronRight />
+          <IconChevronRight aria-hidden />
         </span>
       </NuxtLink>
     </div>

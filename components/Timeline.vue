@@ -4,46 +4,87 @@ const items = [
     year: 2025,
     grade: "大学2年",
     items: [
-      { term: "9月", title: "SmartHR サマーインターン", src: "https://x.com/newt239/status/1966481283690770887" },
-      { term: "6月 - 現在", title: "株式会社dele", src: "https://dele.work/" }
-    ]
+      {
+        term: "9月",
+        title: "SmartHR サマーインターン",
+        src: "https://x.com/newt239/status/1966481283690770887",
+      },
+      {
+        term: "4月",
+        title: "応用情報技術者試験 合格",
+        src: "https://x.com/newt239/status/1940620995062268213",
+      },
+    ],
   },
   {
     year: 2024,
     grade: "大学1年",
     items: [
-      { term: "3月", title: "サイバーエージェント 長期就業型インターン", src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227" },
-      { term: "9月", title: "LayerX サマーインターン", src: "https://layerx.co.jp/" },
-      { term: "8月", title: "MIXI git challenge #14", src: "https://x.com/newt239/status/1827302836448989582" },
-      { term: "8月", title: "技育CAMP vol.11 「みちくさ」 (努力賞)", src: "https://x.com/newt239/status/18045439695196344" },
-      { term: "7月 - 現在", title: "CA Tech lounge 会員 (Webフロントエンド)", src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/" },
-      { term: "6月 - 3月", title: "SecHack365'24 開発駆動コース 仲山ゼミ", src: "https://sechack365.nict.go.jp/" },
-      { term: "4月", title: "芝浦工業大学 デザイン工学部 入学", src: "https://www.shibaura-it.ac.jp/" }
-    ]
+      {
+        term: "3月",
+        title: "サイバーエージェント 長期就業型インターン",
+        src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
+      },
+      {
+        term: "9月",
+        title: "LayerX サマーインターン",
+        src: "https://layerx.co.jp/",
+      },
+      {
+        term: "8月",
+        title: "MIXI git challenge #14",
+        src: "https://x.com/newt239/status/1827302836448989582",
+      },
+      {
+        term: "8月",
+        title: "技育CAMP vol.11 「みちくさ」 (努力賞)",
+        src: "https://x.com/newt239/status/1820045439695196344",
+      },
+      {
+        term: "7月 - 現在",
+        title: "CA Tech lounge 会員 (Webフロントエンド)",
+        src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/",
+      },
+      {
+        term: "6月 - 3月",
+        title: "SecHack365'24 開発駆動コース 仲山ゼミ",
+        src: "https://sechack365.nict.go.jp/",
+      },
+      {
+        term: "4月",
+        title: "芝浦工業大学 デザイン工学部 入学",
+        src: "https://www.shibaura-it.ac.jp/",
+      },
+    ],
   },
   {
     year: 2023,
     grade: "高校3年",
     items: [
-      { term: "3月", title: "栄東高等学校 卒業", src: "https://x.com/newt239/status/1766442681688088755" }
-    ]
+      {
+        term: "3月",
+        title: "栄東高等学校 卒業",
+        src: "https://x.com/newt239/status/1766442681688088755",
+      },
+    ],
   },
   {
     year: 2022,
     grade: "高校2年",
     items: [
-      { term: "4月", title: "基本情報技術者試験 合格", src: "https://x.com/newt239/status/1511657961013215232" }
-    ]
+      {
+        term: "4月",
+        title: "基本情報技術者試験 合格",
+        src: "https://x.com/newt239/status/1511657961013215232",
+      },
+    ],
   },
   {
     year: 2005,
     grade: null,
-    items: [
-      { term: "11月2日", title: "誕生", src: null }
-    ]
+    items: [{ term: "11月2日", title: "誕生", src: null }],
   },
 ];
-
 </script>
 
 <template>
@@ -58,7 +99,13 @@ const items = [
         <div class="post-count">{{ year.grade }}</div>
       </div>
       <template v-for="item in year.items">
-        <a v-if="item.src" :key="item.src" :href="item.src" class="post-item" target="_blank">
+        <a
+          v-if="item.src"
+          :key="item.src"
+          :href="item.src"
+          class="post-item"
+          target="_blank"
+        >
           <div class="post-container">
             <div class="term-text">{{ item.term }}</div>
             <div class="dash-line-container">
@@ -80,7 +127,6 @@ const items = [
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .year-section {
@@ -206,8 +252,8 @@ const items = [
     border-style: dashed;
     border-color: rgb(var(--color-text-tertiary));
     transition-property: all;
-    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;

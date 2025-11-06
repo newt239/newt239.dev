@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "Vue Fes Japan 2025に参加してきました！",
+    url: "https://newt239.hatenablog.com/entry/2025/11/01/151407",
+    date: "2025/11/01",
+  },
+  {
     title: "フロントエンドカンファレンス北海道2025に参加してきました",
     url: "https://newt239.hatenablog.com/entry/2025/09/18/152547",
     date: "2025/09/18",
