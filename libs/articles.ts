@@ -6,6 +6,21 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "ショートカットとして使える「.new」ドメインが便利という話",
+    url: "https://qiita.com/newt239/items/0d97fa1849173dda3cd3",
+    date: "2025/12/22",
+  },
+  {
+    title: "新しい爆速なフォーマッタである Oxfmt を試してみる",
+    url: "https://zenn.dev/newt_st21/articles/introducing-oxfmt",
+    date: "2025/12/08",
+  },
+  {
+    title: "サークル内SNSの投稿から投稿者を判定する分類器を作ってみた",
+    url: "https://newt239.hatenablog.com/entry/2025/12/01/000000",
+    date: "2025/12/01",
+  },
+  {
     title: "Vue Fes Japan 2025に参加してきました！",
     url: "https://newt239.hatenablog.com/entry/2025/11/01/151407",
     date: "2025/11/01",
