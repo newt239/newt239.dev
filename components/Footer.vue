@@ -9,7 +9,7 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
       <NuxtLink to="/privacy">プライバシーポリシー</NuxtLink>
     </nav>
     <div class="footer-bottom">
-      <div class="copyright">© newt 2025</div>
+      <div class="copyright">© newt 2026</div>
       <div class="contact">
         <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
           <IconBrandTwitter />
