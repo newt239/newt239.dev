@@ -89,7 +89,7 @@ const items = [
 
 <template>
   <div class="timeline">
-    <h2 class="category-title">Timeline</h2>
+    <h2 class="category-title" lang="en">Timeline</h2>
     <div v-for="year in items" :key="year.year" class="year-section">
       <div class="year-container">
         <div class="year-text">{{ year.year }}</div>

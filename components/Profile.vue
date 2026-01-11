@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 const age = dayjs().diff(dayjs("2005-11-02"), "year");
 
 const profile: string[] = [
-  `${age}さい`,
+  `${age}yo`,
   "すきなもの: Webフロントエンド, UI/UX",
   "言語: TypeScript",
   "趣味: アニメ鑑賞, 旅行",
@@ -16,7 +16,7 @@ const profile: string[] = [
   <div class="profile">
     <NuxtLink to="/about" class="top-card">
       <div class="card-content">
-        <h2>Welcome✨</h2>
+        <h2 lang="en">Welcome✨</h2>
         <ul>
           <li v-for="item in profile" :key="item">
             {{ item }}

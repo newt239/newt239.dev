@@ -10,7 +10,7 @@ useSeoMeta({
 <template>
   <main>
     <div class="container article-list-page">
-      <h2 class="category-name">Articles</h2>
+      <h2 class="category-name" lang="en">Articles</h2>
       <div class="article-grid">
         <ArticleItem
 v-for="article in articleList" :key="article.url" :title="article.title" :url="article.url"

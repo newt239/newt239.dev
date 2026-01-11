@@ -39,7 +39,7 @@ if (!data.value) {
 <template>
   <main>
     <div class="container each-work-page">
-      <div class="category-name">Works</div>
+      <div class="category-name" lang="en">Works</div>
       <div class="work">
         <template v-if="data">
           <div class="about-work">

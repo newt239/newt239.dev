@@ -8,7 +8,7 @@ const articles = articleList.slice(0, 5);
 
 <template>
   <div class="latest-article-list">
-    <h2 class="category-title">Articles</h2>
+    <h2 class="category-title" lang="en">Articles</h2>
     <div class="article-grid">
       <ArticleItem
         v-for="article in articles"

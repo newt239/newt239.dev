@@ -12,7 +12,7 @@ useSeoMeta({
 <template>
   <main>
     <div class="container work-list-page">
-      <h2 class="category-name">Works</h2>
+      <h2 class="category-name" lang="en">Works</h2>
       <div class="card-grid">
         <WorkItem v-for="work in works" :key="work.id" :work="work" />
       </div>
