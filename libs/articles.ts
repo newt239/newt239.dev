@@ -6,6 +6,11 @@ export type ArticleProp = {
 
 export const articleList: ArticleProp[] = [
   {
+    title: "2025年のふりかえり",
+    url: "https://newt239.hatenablog.com/entry/2025/12/31/223530",
+    date: "2025/12/31",
+  },
+  {
     title: "ショートカットとして使える「.new」ドメインが便利という話",
     url: "https://qiita.com/newt239/items/0d97fa1849173dda3cd3",
     date: "2025/12/22",
