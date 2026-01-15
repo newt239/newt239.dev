@@ -35,7 +35,7 @@ export default defineNuxtConfig({
   },
 
   image: {
-    domeins: ["i.scdn.co"],
+    domains: ["i.scdn.co"],
   },
 
   experimental: {

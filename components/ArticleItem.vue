@@ -29,7 +29,7 @@ const getSiteName = (url: string) => {
 <template>
   <a :href="`${props.url}`" target="_blank" class="article-item">
     <div class="article-item-body">
-      <h4>{{ props.title }}</h4>
+      <h4 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h4>
     </div>
     <div class="article-item-footer">
       <div class="site-info">
