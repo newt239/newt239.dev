@@ -18,7 +18,7 @@
     "@tabler/icons-vue": "3.36.1",
     "better-sqlite3": "12.6.2",
     "dayjs": "1.11.19",
-    "eslint": "9.39.2",
+    "eslint": "10.0.0",
     "nuxt": "4.3.0",
     "vue": "3.5.27",
     "vue-gtag-next": "1.14.0",
