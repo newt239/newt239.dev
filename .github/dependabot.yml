@@ -1,9 +1,10 @@
 version: 2
+enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
