@@ -16,7 +16,7 @@
     "@nuxt/eslint": "1.14.0",
     "@nuxt/image": "2.0.0",
     "@tabler/icons-vue": "3.36.1",
-    "better-sqlite3": "12.5.0",
+    "better-sqlite3": "12.6.2",
     "dayjs": "1.11.19",
     "eslint": "9.39.2",
     "nuxt": "4.3.0",
