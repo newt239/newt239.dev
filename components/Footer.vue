@@ -4,19 +4,38 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 
 <template>
   <footer>
-    <nav class="footer-nav">
-      <NuxtLink to="/about">わたしについて</NuxtLink>
-      <NuxtLink to="/privacy">プライバシーポリシー</NuxtLink>
-    </nav>
-    <div class="footer-bottom">
-      <div class="copyright">© newt 2026</div>
-      <div class="contact">
-        <a href="https://twitter.com/newt239" target="_blank" title="Twitter">
-          <IconBrandTwitter />
-        </a>
-        <a href="https://github.com/newt239" target="_blank" title="GitHub">
-          <IconBrandGithub />
-        </a>
+    <div class="footer-inner">
+      <div class="footer-sitemap">
+        <div class="sitemap-section">
+          <h3>Pages</h3>
+          <ul>
+            <li><NuxtLink to="/">ホーム</NuxtLink></li>
+            <li><NuxtLink to="/about">わたしについて</NuxtLink></li>
+            <li><NuxtLink to="/works">作品一覧</NuxtLink></li>
+            <li><NuxtLink to="/articles">記事一覧</NuxtLink></li>
+            <li><NuxtLink to="/privacy">プライバシーポリシー</NuxtLink></li>
+          </ul>
+        </div>
+        <div class="sitemap-section">
+          <h3>Links</h3>
+          <ul>
+            <li>
+              <a href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
+                <IconBrandTwitter :size="18" />
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
+                <IconBrandGithub :size="18" />
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="copyright">&copy; newt 2026</div>
       </div>
     </div>
   </footer>
@@ -24,32 +43,66 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 
 <style>
 footer {
-  max-width: 1280px;
-  margin: 2rem auto 0;
-  padding: 1rem 2rem 2rem;
+  margin-top: 4rem;
 
-  .footer-nav {
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 2rem;
+  }
+
+  .footer-sitemap {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgb(var(--color-text-secondary) / 0.2);
-    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(var(--text-muted) / 0.15);
+  }
 
-    @media screen and (max-width: 700px) {
-      gap: 1rem;
+  .sitemap-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    h3 {
+      padding: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgb(var(--text-muted));
+      margin: 0;
+      flex-shrink: 0;
+      width: 3.5rem;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
       flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
     }
 
     a {
-      color: rgb(var(--color-link));
+      color: rgb(var(--text));
       text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px dashed rgb(var(--color-link));
-      transition: all 0.2s;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
 
-      &:hover {
-        opacity: 0.8;
+      @media (hover: hover) {
+        &:hover {
+          color: rgb(var(--accent));
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -59,32 +112,13 @@ footer {
   }
 
   .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    @media screen and (max-width: 700px) {
-      flex-direction: column;
-      gap: 1rem;
-    }
+    margin-top: 1.5rem;
+    text-align: right;
   }
 
-  .contact {
-    display: flex;
-    gap: 1rem;
-
-    a {
-      color: rgb(var(--color-text));
-      transition: all 0.2s;
-
-      &:hover {
-        color: rgb(var(--color-link));
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-    }
+  .copyright {
+    font-size: 0.875rem;
+    color: rgb(var(--text-muted));
   }
 }
 </style>

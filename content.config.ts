@@ -6,13 +6,16 @@ export default defineContentConfig({
       source: "works/**",
       type: "page",
       schema: z.object({
-        thumbnail: z.string(),
-        alt: z.string(),
         tech: z.array(z.string()),
         period: z.string(),
-        github: z.string(),
-        featured: z.boolean(),
-        order: z.number(),
+        github: z.string().optional(),
+        order: z.number().optional(),
+        images: z.array(
+          z.object({
+            src: z.string(),
+            alt: z.string(),
+          })
+        ).min(1),
       }),
     }),
   },

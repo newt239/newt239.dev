@@ -37,7 +37,7 @@ bun run lint:fix
 - **Nuxt Content v3** を使用してポートフォリオ作品を管理
 - 作品は `content/works/` 内に frontmatter メタデータ付きの Markdown ファイルとして保存
 - [content.config.ts](content.config.ts) でコンテンツスキーマが定義されており、以下のフィールドが必須:
-  - `thumbnail`, `alt`, `tech`, `period`, `github`, `featured`, `order`
+ - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`
 - 記事は [libs/articles.ts](libs/articles.ts) でハードコードされたリストとして管理され、外部ブログ（Zenn、Qiita、はてなブログ）へのリンクを保持
 
 ### ルーティングとページ構成

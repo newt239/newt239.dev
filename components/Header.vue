@@ -24,19 +24,19 @@ header {
   top: 0;
   left: auto;
   right: 0px;
-  padding: 1rem max(1rem, (100vw - 1280px) / 2);
-  color: rgb(var(--color-white));
+  padding: 0.75rem max(1rem, (100vw - 1280px) / 2);
+  color: rgb(var(--text));
   backdrop-filter: blur(8px);
   border-style: solid;
-  border-color: rgb(var(--color-back-secondary) / 0.8);
-  border-width: 0px 0px 2px;
+  border-color: rgb(0 0 0 / 0.08);
+  border-width: 0px 0px 1px;
 
   a {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
-    color: rgb(var(--color-white));
+    color: rgb(var(--text));
     border-radius: 0.5rem;
 
     .logo {
@@ -62,14 +62,13 @@ header {
       }
 
       img {
-        max-height: min(8vh, 8vw);
-        min-height: 2rem;
+        height: 2.5rem;
         border-radius: 36% 64% 53% 47% / 41% 71% 29% 59%;
       }
 
       span {
         margin: 0;
-        font-size: max(1.5rem, min(5vh, 5vw));
+        font-size: 2rem;
         font-weight: 800;
       }
     }

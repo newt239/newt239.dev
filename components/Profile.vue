@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconBrandGithub, IconBrandX } from "@tabler/icons-vue";
+import { IconBrandGithub, IconBrandX, IconChevronRight } from "@tabler/icons-vue";
 import dayjs from "dayjs";
 
 const age = dayjs().diff(dayjs("2005-11-02"), "year");
@@ -23,11 +23,14 @@ const profile: string[] = [
           </li>
         </ul>
       </div>
-      <div class="more-detail-button">もっとくわしく！</div>
+      <div class="more-detail-button">
+        わたしについて
+        <IconChevronRight :size="16" aria-hidden />
+      </div>
     </NuxtLink>
     <div class="sns-links">
       <a
-        class="sns-card x-card"
+        class="sns-card"
         href="https://x.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -37,7 +40,7 @@ const profile: string[] = [
         <IconBrandX aria-hidden />
       </a>
       <a
-        class="sns-card github-card"
+        class="sns-card"
         href="https://github.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -47,7 +50,7 @@ const profile: string[] = [
         <IconBrandGithub aria-hidden />
       </a>
       <a
-        class="sns-card zenn-card"
+        class="sns-card"
         href="https://zenn.dev/newt_st21"
         target="_blank"
         rel="noopener noreferrer"
@@ -57,7 +60,7 @@ const profile: string[] = [
         <img src="/zenn.png" aria-hidden class="sns-icon" />
       </a>
       <a
-        class="sns-card qiita-card"
+        class="sns-card"
         href="https://qiita.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -76,12 +79,10 @@ const profile: string[] = [
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  gap: 2rem;
-  color: white;
+  gap: 1rem;
 
   @media screen and (max-width: 700px) {
     flex-direction: column;
-    align-items: center;
   }
 
   .top-card {
@@ -91,13 +92,24 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
-    background-image: linear-gradient(
-      135deg,
-      rgb(var(--color-back-secondary)) 0%,
-      rgb(var(--color-text)) 100%
-    );
-    color: rgb(var(--color-back));
-    border-radius: 0.5rem;
+    background-image: radial-gradient(
+        ellipse at 10% 0%,
+        rgb(var(--bg-accent) / 0.7) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgb(var(--bg-warm) / 0.5) 0%,
+        transparent 40%
+      ),
+      linear-gradient(
+        135deg,
+        rgb(var(--text)) 0%,
+        rgb(var(--text-muted)) 50%,
+        rgb(var(--text)) 100%
+      );
+    color: rgb(var(--bg));
+    border-radius: 0.75rem;
     transition: all 0.2s;
 
     @media (prefers-reduced-motion: reduce) {
@@ -106,22 +118,18 @@ const profile: string[] = [
 
     @media (hover: hover) {
       &:hover {
-        scale: 1.03;
-
         .more-detail-button {
-          background-color: rgb(var(--color-back));
-          color: rgb(var(--color-text));
+          background-color: rgb(var(--bg));
+          color: rgb(var(--text));
         }
       }
     }
 
     @media (hover: none) {
       &:active {
-        scale: 1.03;
-
         .more-detail-button {
-          background-color: rgb(var(--color-back));
-          color: rgb(var(--color-text));
+          background-color: rgb(var(--bg));
+          color: rgb(var(--text));
         }
       }
     }
@@ -145,27 +153,23 @@ const profile: string[] = [
   }
 
   .more-detail-button {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
+    gap: 0.25rem;
     position: absolute;
     bottom: 1rem;
     right: 1rem;
-    width: 10rem;
-    height: 3rem;
-    border: 1px solid rgb(var(--color-back));
-    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(var(--bg));
+    border-radius: 9999px;
     cursor: pointer;
     transition: all 0.2s;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgb(var(--bg));
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
-    }
-
-    color: rgb(var(--color-back));
-
-    &:hover {
-      text-decoration: none;
     }
   }
 
@@ -173,43 +177,51 @@ const profile: string[] = [
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 30%;
     font-size: 1rem;
 
     @media screen and (max-width: 700px) {
       width: 100%;
       display: grid;
-      gap: 1rem;
+      gap: 0.75rem;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 
-    a {
-      color: rgb(var(--color-text));
-      border: 2px solid rgb(var(--color-text));
-      border-radius: 0.5rem;
+    .sns-card {
+      color: rgb(var(--text));
+      background: rgb(0 0 0 / 0.035);
+      border: none;
+      border-radius: 0.75rem;
       padding: 0.6rem 1rem;
-      transition: all 0.2s;
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-
+      transition: background 0.2s;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       font-weight: 800;
 
-      &:hover {
-        text-decoration: none;
-        scale: 1.05;
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background: rgb(0 0 0 / 0.08);
+          text-decoration: none;
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
+          background: rgb(0 0 0 / 0.08);
+        }
       }
     }
   }
 
   .sns-name {
     width: 100%;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     font-weight: 400;
   }
 

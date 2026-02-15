@@ -27,46 +27,45 @@ const getSiteName = (url: string) => {
 </script>
 
 <template>
-  <a :href="`${props.url}`" target="_blank" class="article-item">
-    <div class="article-item-body">
+  <a :href="`${props.url}`" target="_blank" rel="noopener noreferrer" class="article-card">
+    <div class="article-card-body">
       <h4 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h4>
     </div>
-    <div class="article-item-footer">
+    <div class="article-card-footer">
       <div class="site-info">
-        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.png" alt="" width="16px" height="16px" />
-        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16px"
-          height="16px" />
+        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.png" alt="" width="16" height="16" />
+        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16" height="16" />
         <NuxtImg v-else-if="props.url.startsWith('https://newt239.hatenablog.com/')" src="/hatena.webp" alt=""
-          width="16px" height="16px" />
-        <IconBook2 v-else width="16px" height="16px" />
+          width="16" height="16" />
+        <IconBook2 v-else :size="16" />
         <span class="site-name">{{ getSiteName(props.url) }}</span>
       </div>
-      <div>{{ props.date }}</div>
+      <time class="article-date">{{ props.date }}</time>
     </div>
   </a>
 </template>
 
-<style>
-.article-item {
+<style scoped>
+.article-card {
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 2;
   gap: 0;
-  color: rgb(var(--color-text));
-  background-color: rgb(var(--color-back));
-  border: 2px solid rgb(var(--color-text));
-  border-radius: 0.5rem;
-  transition: all 0.2s;
+  color: rgb(var(--text));
+  background: rgb(0 0 0 / 0.035);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: background 0.2s;
 
   @media (hover: hover) {
     &:hover {
-      scale: 1.05;
+      background: rgb(0 0 0 / 0.08);
     }
   }
 
   @media (hover: none) {
     &:active {
-      scale: 1.05;
+      background: rgb(0 0 0 / 0.08);
     }
   }
 
@@ -78,28 +77,39 @@ const getSiteName = (url: string) => {
 .site-info {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.375rem;
 }
 
-.article-item-body {
-  margin: 1rem;
-  overflow: hidden;
-  display: -webkit-box;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  /* ブラウザがサポートしていない場合のフェールセーフ */
-  height: 4.5rem;
+.site-name {
+  font-size: 0.875rem;
+  color: rgb(var(--text-muted));
+}
+
+.article-card-body {
+  padding: 1rem 1rem 0.5rem;
 
   h4 {
+    margin: 0;
     padding: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 }
 
-.article-item-footer {
+.article-card-footer {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  color: rgb(var(--color-text));
+  align-items: center;
+  padding: 0.5rem 1rem 1rem;
+}
+
+.article-date {
+  font-size: 0.875rem;
+  color: rgb(var(--text-muted));
+  font-variant-numeric: tabular-nums;
 }
 </style>

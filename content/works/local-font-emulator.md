@@ -1,12 +1,13 @@
 ---
 title: Local Font Emulator
-thumbnail: local-font-emulator.webp
-alt: 黄色の角丸ブロックをレンガ状に配置し、太字黒文字で 「Local Font Emulator」と記載。右中段のブロックに「newt239 / local-font-emulator」のリポジトリ名が小さく入ったビジュアルバナー。
 github: newt239/local-font-emulator
 period: 2023.04 - 2023.05
 tech:
   - React
   - Mantine
+images:
+  - src: local-font-emulator.webp
+    alt: 黄色の角丸ブロックをレンガ状に配置し、太字黒文字で 「Local Font Emulator」と記載。右中段のブロックに「newt239 / local-font-emulator」のリポジトリ名が小さく入ったビジュアルバナー。
 ---
 
 ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができる Web アプリです。

@@ -1,12 +1,13 @@
 ---
 title: ポートフォリオサイト
-thumbnail: portfolio.webp
-alt: "「ne​wt239.dev」のポートフォリオ Web サイトのトップページ画面。左上に幾何学模様で象られたマスコットロゴとサイト名、右上にテーマ生成のためのボタンがある。ヒーローセクションはブルーグレーのグラデーションカードで、見出し「Welcome✨」と箇条書き「19さい」「すきなもの: Webフロントエンド, UI/UX」「言語: TypeScript, Python, Go」「趣味: アニメ, ボカロ等」と記載されている。その右側にソーシャルリンクボタンが縦並びで「Twitter @newt239」「GitHub @newt239」「Zenn @newt_st21」「Qiita @newt239」とある。下部には見出し「Works」と 4 件のカードが並び、それぞれ「Gateway」「Score Watcher」「Look Inside View」「Roomkeeper」と記載されている。"
 github: newt239/newt239.dev
 period: 2021 -
 tech:
   - Nuxt
   - Cloudflare Pages
+images:
+  - src: portfolio.webp
+    alt: "「ne​wt239.dev」のポートフォリオ Web サイトのトップページ画面。左上に幾何学模様で象られたマスコットロゴとサイト名、右上にテーマ生成のためのボタンがある。ヒーローセクションはブルーグレーのグラデーションカードで、見出し「Welcome✨」と箇条書き「19さい」「すきなもの: Webフロントエンド, UI/UX」「言語: TypeScript, Python, Go」「趣味: アニメ, ボカロ等」と記載されている。その右側にソーシャルリンクボタンが縦並びで「Twitter @newt239」「GitHub @newt239」「Zenn @newt_st21」「Qiita @newt239」とある。下部には見出し「Works」と 4 件のカードが並び、それぞれ「Gateway」「Score Watcher」「Look Inside View」「Roomkeeper」と記載されている。"
 ---
 
 このサイトです。一番長いあいだ作り込んでいるものであるとも言えます。

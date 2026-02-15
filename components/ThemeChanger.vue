@@ -11,6 +11,18 @@ const generateTheme = async () => {
     promptModel.value = "fairy tale";
   }
   isGenerating.value = true;
+  const requiredVariables = [
+    { name: "--text", description: "Text color", defaultValue: "48 42 37" },
+    { name: "--text-muted", description: "Muted text color", defaultValue: "110 100 90" },
+    { name: "--text-faint", description: "Faint text color", defaultValue: "175 168 158" },
+    { name: "--bg", description: "Background color", defaultValue: "255 248 240" },
+    { name: "--bg-accent", description: "Accent background color", defaultValue: "216 226 240" },
+    { name: "--bg-warm", description: "Warm background color", defaultValue: "240 220 196" },
+    { name: "--accent", description: "Primary accent color", defaultValue: "74 136 224" },
+    { name: "--accent-dark", description: "Dark accent color", defaultValue: "26 72 120" },
+    { name: "--highlight", description: "Highlight / emphasis color", defaultValue: "162 132 32" },
+  ];
+
   const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
@@ -18,6 +30,7 @@ const generateTheme = async () => {
     },
     body: JSON.stringify({
       prompt: promptModel.value,
+      requiredVariables,
     }),
   });
   const data = await res.json();
@@ -108,21 +121,37 @@ const handleBackdropClick = (event: MouseEvent) => {
 .modal-open-button {
   width: 2.5rem;
   height: 2.5rem;
-  color: rgb(var(--color-text));
-  background-color: rgb(var(--color-back));
-  border: 2px solid rgb(var(--color-text));
-  border-radius: 0.5rem;
+  color: rgb(var(--text));
+  background-color: rgb(0 0 0 / 0.05);
+  border: 1.5px solid rgb(0 0 0 / 0.1);
+  border-radius: 0.625rem;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 
-  &:hover {
-    scale: 1.1;
-    color: rgb(var(--color-link));
-    border-color: rgb(var(--color-link));
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgb(0 0 0 / 0.08);
+      border-color: rgb(var(--accent));
+      color: rgb(var(--accent));
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      background-color: rgb(0 0 0 / 0.08);
+    }
   }
 }
 
@@ -140,9 +169,9 @@ dialog {
     padding: 2rem;
     width: min(90%, 600px);
     border-radius: 1rem;
-    color: rgb(var(--color-text));
-    background-color: rgb(var(--color-back));
-    border: 2px solid rgb(var(--color-back-secondary) / 0.8);
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
+    border: 2px solid rgb(var(--bg-accent) / 0.8);
     z-index: 1000;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
@@ -206,9 +235,9 @@ dialog {
   width: 100%;
   height: 4rem;
   padding-left: 1rem;
-  color: rgb(var(--color-text));
-  background-color: rgb(var(--color-back));
-  border: 1px solid rgb(var(--color-text));
+  color: rgb(var(--text));
+  background-color: rgb(var(--bg));
+  border: 1px solid rgb(var(--text));
   border-radius: 2rem;
 }
 
@@ -223,16 +252,16 @@ dialog {
   top: 0;
   height: 4rem;
   padding: 0 1rem;
-  background-color: rgb(var(--color-text));
-  color: rgb(var(--color-back));
-  border: 1px solid rgb(var(--color-text));
+  background-color: rgb(var(--text));
+  color: rgb(var(--bg));
+  border: 1px solid rgb(var(--text));
   border-radius: 2rem;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    color: rgb(var(--color-text));
-    background-color: rgb(var(--color-back));
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
   }
 
   .tabler-icon-sparkles,

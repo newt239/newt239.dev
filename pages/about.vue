@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconChevronRight } from "@tabler/icons-vue";
+
 useHead({
   title: "わたしについて - newt239.dev",
 });
@@ -7,83 +9,110 @@ useHead({
 <template>
   <main>
     <div class="container about-page">
-      <div class="about-me-space" />
-      <div class="about-me">
+      <div class="about-hero">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
-        <div class="short-description">
+        <div class="hero-info">
           <h2>newt <span class="sub">@newt239</span></h2>
-          <h4>誕生日</h4>
-          <div>2005年11月2日</div>
-          <h4>所属</h4>
-          <div>芝浦工業大学 2年</div>
-          <div>デザイン工学部 デザイン工学科</div>
-          <div>ロボティクス・情報デザイン系</div>
+          <dl class="basic-info">
+            <dt>誕生日</dt>
+            <dd>2005年11月2日</dd>
+            <dt>所属</dt>
+            <dd>芝浦工業大学 2年<br>デザイン工学部 デザイン工学科<br>ロボティクス・情報デザイン系</dd>
+          </dl>
         </div>
       </div>
-      <div class="profile-detail">
-        <h3>コンタクト</h3>
-        <ul>
-          <li>
-            メール
-            <ul>
-              <li><a href="mailto:contact@newt239.dev">contact@newt239.dev</a></li>
-            </ul>
-          </li>
-          <li>
-            Discordサーバー
+
+      <div class="about-sections">
+        <section class="about-section">
+          <h3>コンタクト</h3>
+          <div class="section-body">
             <ul>
               <li>
-                <a href="https://discord.gg/rct5sx6rbZ" target="_blank">https://discord.gg/rct5sx6rbZ</a>
+                メール
+                <ul>
+                  <li><a href="mailto:contact@newt239.dev">contact@newt239.dev</a></li>
+                </ul>
               </li>
-            </ul>
-          </li>
-        </ul>
-        <h3>興味・関心</h3>
-        <ul>
-          <li>Webフロントエンド
-            <ul>
-              <li>Web 標準化</li>
               <li>
-                Web API
+                Discordサーバー
+                <ul>
+                  <li>
+                    <a href="https://discord.gg/rct5sx6rbZ" target="_blank" rel="noopener noreferrer">https://discord.gg/rct5sx6rbZ</a>
+                  </li>
+                </ul>
               </li>
             </ul>
-          </li>
-          <li>UI/UX, デザイン
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h3>興味・関心</h3>
+          <div class="section-body">
             <ul>
-              <li>フォント</li>
+              <li>Webフロントエンド
+                <ul>
+                  <li>Web 標準化</li>
+                  <li>Web API</li>
+                </ul>
+              </li>
+              <li>UI/UX, デザイン
+                <ul>
+                  <li>フォント</li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-        <h3>趣味</h3>
-        <h4>好きなアニメ</h4>
-        <ul>
-          <li>アオのハコ</li>
-          <li>響け！ユーフォニアム</li>
-          <li>色づく世界の明日から</li>
-          <li>リコリス・リコイル</li>
-          <li>やはり俺の青春ラブコメはまちがっている。</li>
-          <li>Charlotte</li>
-        </ul>
-        <h4>好きなアーティスト</h4>
-        <ul>
-          <li>*Luna</li>
-          <li>DECO*27</li>
-          <li>Orangestar</li>
-          <li>HoneyWorks</li>
-          <li>Mrs. GREEN APPLE</li>
-        </ul>
-        <h4>好きな書体</h4>
-        <ul>
-          <li>LINE Seed JP</li>
-          <li>ユールカ</li>
-          <li>新ゴ</li>
-          <li>筑紫アンティークゴシック</li>
-        </ul>
-        <h3>リンク集</h3>
-        <ul>
-          <li><a href="https://bento.me/newt" target="_blank">Bento</a></li>
-          <li><a href="https://annict.com/@newt" target="_blank">Annict</a></li>
-        </ul>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h3>趣味</h3>
+          <div class="section-body hobbies">
+            <div>
+              <h4>好きなアニメ</h4>
+              <ul>
+                <li>アオのハコ</li>
+                <li>響け！ユーフォニアム</li>
+                <li>色づく世界の明日から</li>
+                <li>リコリス・リコイル</li>
+                <li>やはり俺の青春ラブコメはまちがっている。</li>
+                <li>Charlotte</li>
+              </ul>
+            </div>
+            <div>
+              <h4>好きなアーティスト</h4>
+              <ul>
+                <li>*Luna</li>
+                <li>DECO*27</li>
+                <li>Orangestar</li>
+                <li>HoneyWorks</li>
+                <li>Mrs. GREEN APPLE</li>
+              </ul>
+            </div>
+            <div>
+              <h4>好きな書体</h4>
+              <ul>
+                <li>LINE Seed JP</li>
+                <li>ユールカ</li>
+                <li>新ゴ</li>
+                <li>筑紫アンティークゴシック</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h3>リンク集</h3>
+          <div class="section-body link-list">
+            <a href="https://bento.me/newt" target="_blank" rel="noopener noreferrer" class="link-card">
+              Bento
+              <IconChevronRight :size="16" />
+            </a>
+            <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
+              Annict
+              <IconChevronRight :size="16" />
+            </a>
+          </div>
+        </section>
       </div>
     </div>
   </main>
@@ -91,122 +120,136 @@ useHead({
 
 <style>
 .about-page {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
 
-  @media screen and (max-width: 1080px) {
-    flex-direction: column;
-  }
-
-  .about-me-space {
-    width: 50%;
-    height: 100vh;
-
-    @media screen and (max-width: 1080px) {
-      display: none;
-    }
-  }
-
-  .about-me {
-    position: fixed;
-    padding-right: 2rem;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-100%);
-    width: calc(50% + 2rem);
+  .about-hero {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    max-width: 550px;
+    justify-content: center;
     gap: 2rem;
+    padding: 2rem 0;
 
-    @media screen and (max-width: 1080px) {
-      flex-direction: row;
-      position: relative;
-      transform: none;
-      top: 0;
-      left: 0;
-      width: 100%;
+    @media screen and (max-width: 600px) {
       flex-direction: column;
-      margin: 0 auto;
-      padding-right: 0;
+      align-items: flex-start;
+    }
 
-      .short-description {
-        width: 100%;
+    .profile-icon {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+
+      @media screen and (max-width: 600px) {
+        align-self: center;
       }
     }
 
-    @media screen and (max-width: 700px) {
-      flex-direction: column;
+    .hero-info {
+      h2 {
+        padding: 0 0 0.5rem;
+      }
 
-      .short-description {
-        width: 100%;
+      .basic-info {
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.25rem 1rem;
+
+        dt {
+          font-weight: 700;
+          font-size: 0.875rem;
+          color: rgb(var(--text-muted));
+          padding-top: 0.125rem;
+        }
+
+        dd {
+          margin: 0;
+          line-height: 1.5;
+        }
       }
     }
+  }
 
-    h2 {
+  .about-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .about-section {
+    h3 {
+      font-size: 1.5rem;
       padding: 0 0 0.5rem;
-    }
-
-    h3,
-    h4 {
-      padding-left: 0;
-    }
-  }
-
-  .profile-icon {
-    width: 80%;
-    max-width: 250px;
-    height: auto;
-    border-radius: 50%;
-    aspect-ratio: 1 / 1;
-    display: block;
-  }
-
-  .profile-detail {
-    margin: 0 auto;
-    width: 50%;
-    max-width: 600px;
-    padding-top: 2rem;
-    margin-top: 2rem;
-
-    @media screen and (max-width: 1080px) {
-      width: 100%;
-      max-width: 1080px;
-      ;
       margin: 0;
     }
 
-    h3 {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-    }
-
-    h3:before,
-    h3:after {
-      content: '';
-      position: absolute;
-      top: 60%;
-      display: inline-block;
-      width: calc(50% - 4rem);
-      height: 1px;
-      background-color: rgb(var(--color-text-secondary));
-    }
-
-    h3:before {
-      left: 0;
-    }
-
-    h3:after {
-      right: 0;
-    }
-
     h4 {
-      padding-left: 0;
+      padding: 0;
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+    }
+
+    .section-body {
+      background: rgb(0 0 0 / 0.035);
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+
+      ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      li {
+        line-height: 1.8;
+      }
+    }
+
+    .hobbies {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+
+      > div {
+        min-width: 0;
+      }
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .link-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      color: rgb(var(--text));
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.15s;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgb(0 0 0 / 0.06);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background: rgb(0 0 0 / 0.04);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
   }
 }

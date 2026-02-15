@@ -1,14 +1,14 @@
 :root {
   color-scheme: light;
-  --color-text: 74 74 74;
-  --color-text-secondary: 136 136 136;
-  --color-text-tertiary: 204 204 204;
-  --color-back: 246 244 235;
-  --color-back-secondary: 145 200 228;
-  --color-back-tertiary: 55 71 79;
-  --color-link: 70 130 169;
-  --color-link-secondary: 116 155 194;
-  --shadow: drop-shadow(2px 4px 6px black);
+  --text: 48 42 37;
+  --text-muted: 110 100 90;
+  --text-faint: 175 168 158;
+  --bg: 255 248 240;
+  --bg-accent: 216 226 240;
+  --bg-warm: 240 220 196;
+  --accent: 74 136 224;
+  --accent-dark: 26 72 120;
+  --highlight: 162 132 32;
 }
 
 * {
@@ -17,8 +17,8 @@
   box-sizing: border-box;
 
   &::selection {
-    background-color: rgb(var(--color-text));
-    color: rgb(var(--color-back));
+    background-color: rgb(var(--text));
+    color: rgb(var(--bg));
   }
 }
 
@@ -41,8 +41,8 @@ html {
 
 body {
   margin: 0;
-  color: rgb(var(--color-text));
-  background-color: rgb(var(--color-back));
+  color: rgb(var(--text));
+  background-color: rgb(var(--bg));
   font-size: 16px;
   line-height: 1.6;
   font-family:
@@ -57,12 +57,12 @@ body {
 }
 
 h1 {
-  background-color: rgb(var(--color-text));
-  color: rgb(var(--color-back));
+  background-color: rgb(var(--text));
+  color: rgb(var(--bg));
   display: inline-block;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  line-height: 2.5rem;
+  line-height: 3rem;
   padding: 1rem 0 0;
   margin: 0px;
 }
@@ -85,7 +85,7 @@ h3 {
 h4 {
   padding: 1rem 1rem 0;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.125rem;
 }
 
 a {
@@ -93,9 +93,9 @@ a {
 }
 
 .underline, p a, li a, table a {
-  color: rgb(var(--color-link));
+  color: rgb(var(--accent));
   text-decoration: none;
-  color: rgb(var(--color-link));
+  color: rgb(var(--accent));
   text-decoration: underline;
   text-underline-offset: 0.25rem;
   text-decoration-style: dashed;
@@ -134,7 +134,7 @@ ul {
 
 .sub {
   font-size: 50%;
-  color: rgb(var(--color-text-secondary));
+  color: rgb(var(--text-muted));
 }
 
 @media (prefers-reduced-motion: reduce) {

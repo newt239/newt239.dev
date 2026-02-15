@@ -5,10 +5,11 @@ const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
 });
+
 if (!data.value) {
   useSeoMeta({
-    title: 'Not Founded - newt239.dev',
-    ogTitle: 'Not Founded - newt239.dev',
+    title: 'Not Found - newt239.dev',
+    ogTitle: 'Not Found - newt239.dev',
     description: 'コンテンツが見つかりませんでした',
     ogDescription: 'コンテンツが見つかりませんでした',
   });
@@ -21,12 +22,12 @@ if (!data.value) {
     ogDescription: data.value.description,
     twitterDescription: data.value.description,
     ogImage: {
-      url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: data.value.alt,
+      url: `https://newt239.dev/images/${data.value.images[0].src}`,
+      alt: data.value.images[0].alt,
     },
     twitterImage: {
-      url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: data.value.alt,
+      url: `https://newt239.dev/images/${data.value.images[0].src}`,
+      alt: data.value.images[0].alt,
     },
     twitterLabel1: "Period",
     twitterData1: data.value.period,
@@ -34,46 +35,65 @@ if (!data.value) {
     twitterData2: data.value.tech.join(", "),
   });
 }
+
+const imageList = computed(() => {
+  if (!data.value?.images?.length) return [];
+  return data.value.images;
+});
+
+const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
+
+const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
+
+function openLightbox(index: number) {
+  lightboxIndex.value = index;
+  lightboxOpen.value = true;
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false;
+}
 </script>
 
 <template>
   <main>
     <div class="container each-work-page">
-      <div class="category-name" lang="en">Works</div>
       <div class="work">
         <template v-if="data">
-          <div class="about-work">
-            <div class="intro">
-              <h1 :style="`view-transition-name: ${data.path!.split('/')[2]}-name;`">{{ data.title }}</h1>
-              <div class="summary">
-                <table>
-                  <tbody>
-                    <tr v-if="data.github">
-                      <th>GitHub</th>
-                      <td>
-                        <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Period</th>
-                      <td>{{ data.period }}</td>
-                    </tr>
-                    <tr>
-                      <th>Tech Stack</th>
-                      <td>{{ data.tech.join(", ") }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="thumbnail-wrapper">
-              <NuxtImg class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="data.alt"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
+          <div class="work-hero">
+            <ImageCarousel
+              :images="imageList"
+              :work-slug="workSlug"
+              @open-lightbox="openLightbox"
+            />
+            <div class="work-sidebar">
+              <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
+              <dl class="work-meta">
+              <template v-if="data.github">
+                <dt>GitHub</dt>
+                <dd>
+                  <a :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
+                </dd>
+              </template>
+              <dt>Period</dt>
+              <dd>{{ data.period }}</dd>
+              <dt>Tech Stack</dt>
+              <dd class="tech-tags">
+                <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
+              </dd>
+            </dl>
             </div>
           </div>
           <div class="content">
             <ContentRenderer :value="data" />
           </div>
+          <ImageLightbox
+            :images="imageList"
+            :initial-index="lightboxIndex"
+            :open="lightboxOpen"
+            @close="closeLightbox"
+          />
         </template>
         <template v-else>
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
@@ -91,106 +111,125 @@ if (!data.value) {
 
 <style>
 .each-work-page {
-  .category-name {
-    view-transition-name: work-category-name;
-  }
-
   .work {
-    border: 2px solid rgb(var(--color-text));
-    border-radius: 1rem;
-
     a,
     p code {
       word-break: break-all;
     }
 
-    .about-work {
+    .work-hero {
       display: flex;
-      justify-content: space-between;
+      gap: 2rem;
+      align-items: start;
 
-      >.intro {
-        >h1 {
-          margin: 0.5rem;
-          padding: 0.5rem 1.5rem;
-          border-radius: calc(1rem - 2px);
-        }
-
-        .summary {
-          table {
-            border-spacing: 0 0.5rem;
-
-            th,
-            td {
-              padding: 0 1rem;
-            }
-
-            th {
-              border-right: 1px rgb(var(--color-text)) solid;
-            }
-          }
-        }
+      > .carousel {
+        flex: 1;
+        min-width: 0;
       }
 
-      .thumbnail-wrapper {
-        width: 50%;
-        margin: .5rem;
+      > .work-sidebar {
+        flex-shrink: 0;
+        width: 280px;
 
-        >.thumbnail {
-          width: 100%;
-          object-fit: cover;
-          border-radius: calc(1rem - 2px);
-          aspect-ratio: 16 / 9;
+        .work-title {
+          display: block;
+          font-size: 1.75rem;
+          font-weight: 800;
+          padding: 0;
+          margin: 0 0 0.75rem;
+          background: none;
+          color: rgb(var(--text));
         }
       }
 
       @media (max-width: 768px) {
-        flex-direction: column-reverse;
+        flex-direction: column;
+        gap: 1rem;
 
-        .thumbnail-wrapper {
-          width: calc(100% - 1rem);
-        }
-
-        .intro {
-          margin: 0 auto;
-          text-align: center;
-
-          th {
-            text-align: end;
-          }
-
-          td {
-            text-align: start;
-          }
+        > .work-sidebar {
+          width: 100%;
+          order: -1;
         }
       }
     }
 
+    .work-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      margin: 0;
+      padding: 0;
+
+      dt {
+        font-weight: 700;
+        color: rgb(var(--text-muted));
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+        line-height: 1.5;
+        margin-top: 0.75rem;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
+
+      dd {
+        margin: 0;
+        line-height: 1.6;
+
+        a {
+          color: rgb(var(--accent));
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          text-underline-offset: 0.25rem;
+        }
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+        align-items: center;
+      }
+
+      .tech-tag {
+        display: inline-block;
+        padding: 0.125rem 0.625rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        background: rgb(var(--text-faint) / 0.35);
+        color: rgb(var(--text));
+      }
+    }
+
     .content {
+      padding-top: 1.5rem;
       padding-bottom: 1rem;
 
       p {
-        margin: 1rem;
+        margin: 1rem 0;
       }
 
       ul {
-        margin: 0.5rem 1.5rem;
+        margin: 0.5rem 0 0.5rem 1.5rem;
       }
 
-      li>ul {
+      li > ul {
         margin-left: 0;
       }
 
       h2 {
         display: inline-block;
-        padding: 1rem 1rem 0;
+        padding: 1rem 0 0;
         letter-spacing: 0;
         margin: 0;
-        font-size: 1.5rem;
-        border-bottom: rgb(var(--color-text)) 1px solid;
+        font-size: 1.75rem;
+        border-bottom: rgb(var(--text)) 1px solid;
       }
 
       h3 {
-        padding-left: 1rem;
+        padding-left: 0;
       }
 
       h2,
@@ -198,12 +237,12 @@ if (!data.value) {
       h4,
       h5 {
         a {
-          color: rgb(var(--color-text));
+          color: rgb(var(--text));
         }
       }
 
       table {
-        margin: 0 1rem;
+        margin: 0;
         border-spacing: 0 0.5rem;
 
         th,
@@ -213,14 +252,14 @@ if (!data.value) {
         }
 
         th {
-          border-bottom: 1px rgb(var(--color-text)) solid;
+          border-bottom: 1px rgb(var(--text)) solid;
         }
       }
 
       code,
       pre {
         padding: 0.2rem;
-        background-color: rgb(var(--color-text-tertiary));
+        background-color: rgb(var(--text-faint));
         cursor: text;
       }
 
@@ -237,7 +276,7 @@ if (!data.value) {
         text-align: center;
 
         img {
-          max-width: calc(100% - 1rem);
+          max-width: 100%;
           max-height: 50vh;
           border-radius: 0.5rem;
         }
@@ -259,7 +298,7 @@ if (!data.value) {
       padding: 0.5rem 1rem;
       border: none;
       font-size: 1rem;
-      color: rgb(var(--color-text));
+      color: rgb(var(--text));
       background-color: transparent;
       cursor: pointer;
       transition: all 0.2s;

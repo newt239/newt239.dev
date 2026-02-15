@@ -9,11 +9,12 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "compress": "bun run scripts/compress-images.ts"
   },
   "dependencies": {
     "@nuxt/content": "3.11.2",
-    "@nuxt/eslint": "1.14.0",
+    "@nuxt/eslint": "1.15.1",
     "@nuxt/image": "2.0.0",
     "@tabler/icons-vue": "3.36.1",
     "better-sqlite3": "12.6.2",
@@ -25,6 +26,8 @@
     "vue-router": "5.0.2"
   },
   "devDependencies": {
+    "@types/node": "25.2.3",
+    "sharp": "0.34.5",
     "typescript": "5.9.3"
   }
 }
