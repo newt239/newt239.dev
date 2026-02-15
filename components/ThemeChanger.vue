@@ -12,15 +12,18 @@ const generateTheme = async () => {
   }
   isGenerating.value = true;
   const requiredVariables = [
-    { name: "--text", description: "Text color", defaultValue: "48 42 37" },
-    { name: "--text-muted", description: "Muted text color", defaultValue: "110 100 90" },
-    { name: "--text-faint", description: "Faint text color", defaultValue: "175 168 158" },
-    { name: "--bg", description: "Background color", defaultValue: "255 248 240" },
-    { name: "--bg-accent", description: "Accent background color", defaultValue: "216 226 240" },
-    { name: "--bg-warm", description: "Warm background color", defaultValue: "240 220 196" },
-    { name: "--accent", description: "Primary accent color", defaultValue: "74 136 224" },
-    { name: "--accent-dark", description: "Dark accent color", defaultValue: "26 72 120" },
-    { name: "--highlight", description: "Highlight / emphasis color", defaultValue: "162 132 32" },
+    { name: "--text", description: "Main text color. Must contrast well against --bg and --surface.", defaultValue: "48 42 37" },
+    { name: "--text-muted", description: "Secondary text color. Must be readable on --bg and --surface.", defaultValue: "110 100 90" },
+    { name: "--text-faint", description: "Tertiary text color. Must be slightly visible on --bg and --surface.", defaultValue: "175 168 158" },
+    { name: "--bg", description: "Page background color. Must contrast well against --text.", defaultValue: "255 248 240" },
+    { name: "--bg-accent", description: "Accent background for tags/badges. Must contrast against --text placed on it.", defaultValue: "216 226 240" },
+    { name: "--bg-warm", description: "Warm background for highlighted sections. Must contrast against --text placed on it.", defaultValue: "240 220 196" },
+    { name: "--accent", description: "Primary accent color for links. Must stand out on --bg and --surface.", defaultValue: "74 136 224" },
+    { name: "--accent-dark", description: "Dark accent color. Must contrast against --bg.", defaultValue: "26 72 120" },
+    { name: "--highlight", description: "Highlight/emphasis color. Must differ from --accent and stand out on --bg.", defaultValue: "162 132 32" },
+    { name: "--surface", description: "Card/section background. Should be close to --bg but visibly distinct. --text-muted must be readable on it.", defaultValue: "246 240 232" },
+    { name: "--surface-hover", description: "Hover state background. Should be noticeably darker/lighter than --surface.", defaultValue: "236 230 222" },
+    { name: "--border", description: "Subtle border color. Must be visible against --bg and --surface.", defaultValue: "240 234 228" },
   ];
 
   const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
@@ -33,8 +36,7 @@ const generateTheme = async () => {
       requiredVariables,
     }),
   });
-  const data = await res.json();
-  const content = JSON.parse(data.body);
+  const content = await res.json();
   const r = document.documentElement;
   if (r && content) {
     if (content.type === "success") {
@@ -122,8 +124,8 @@ const handleBackdropClick = (event: MouseEvent) => {
   width: 2.5rem;
   height: 2.5rem;
   color: rgb(var(--text));
-  background-color: rgb(0 0 0 / 0.05);
-  border: 1.5px solid rgb(0 0 0 / 0.1);
+  background-color: rgb(var(--surface));
+  border: 1.5px solid rgb(var(--border));
   border-radius: 0.625rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -142,7 +144,7 @@ const handleBackdropClick = (event: MouseEvent) => {
 
   @media (hover: hover) {
     &:hover {
-      background-color: rgb(0 0 0 / 0.08);
+      background-color: rgb(var(--surface-hover));
       border-color: rgb(var(--accent));
       color: rgb(var(--accent));
     }
@@ -150,7 +152,7 @@ const handleBackdropClick = (event: MouseEvent) => {
 
   @media (hover: none) {
     &:active {
-      background-color: rgb(0 0 0 / 0.08);
+      background-color: rgb(var(--surface-hover));
     }
   }
 }
@@ -214,9 +216,9 @@ dialog {
 }
 
 .modal-description {
-  font-size: 2rem;
-  line-height: 2.5rem;
-  margin: 0 0 2rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0 0 1.5rem;
   text-align: center;
   text-wrap: balance;
 }
@@ -281,8 +283,8 @@ dialog {
   }
 
   .modal-description {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
   }
 
   .theme-change-form {

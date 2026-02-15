@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { IconChevronLeft } from "@tabler/icons-vue";
 
 const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
@@ -99,12 +98,7 @@ function closeLightbox() {
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
         </template>
       </div>
-      <div class="after-content">
-        <NuxtLink class="back" to="/">
-          <IconChevronLeft />
-          BACK HOME
-        </NuxtLink>
-      </div>
+      <BackToTop />
     </div>
   </main>
 </template>
@@ -224,11 +218,12 @@ function closeLightbox() {
         padding: 1rem 0 0;
         letter-spacing: 0;
         margin: 0;
-        font-size: 1.75rem;
+        font-size: 1.25rem;
         border-bottom: rgb(var(--text)) 1px solid;
       }
 
       h3 {
+        font-size: 1.125rem;
         padding-left: 0;
       }
 
@@ -289,36 +284,5 @@ function closeLightbox() {
     }
   }
 
-  .after-content {
-    padding: 1rem;
-    text-align: center;
-
-    .back {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border: none;
-      font-size: 1rem;
-      color: rgb(var(--text));
-      background-color: transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          opacity: 0.5;
-        }
-      }
-
-      @media (hover: none) {
-        &:active {
-          opacity: 0.5;
-        }
-      }
-    }
-  }
 }
 </style>

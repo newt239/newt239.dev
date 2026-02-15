@@ -55,20 +55,20 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     gap: 0.75rem;
     padding: 0.75rem;
     border-radius: 0.75rem;
-    background: rgb(0 0 0 / 0.035);
+    background: rgb(var(--surface));
     color: rgb(var(--text));
     text-decoration: none;
     transition: background 0.2s;
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(0 0 0 / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(0 0 0 / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
 

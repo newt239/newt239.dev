@@ -137,6 +137,7 @@ const filteredArticles = computed(() => {
           :date="article.date"
         />
       </div>
+      <BackToTop />
     </div>
   </main>
 </template>
@@ -244,7 +245,7 @@ const filteredArticles = computed(() => {
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--text) / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
   }
@@ -266,5 +267,6 @@ const filteredArticles = computed(() => {
       text-decoration: none;
     }
   }
+
 }
 </style>
