@@ -13,6 +13,14 @@ export default defineContentConfig({
         github: z.string(),
         featured: z.boolean(),
         order: z.number(),
+        images: z
+          .array(
+            z.object({
+              src: z.string(),
+              alt: z.string(),
+            })
+          )
+          .optional(),
       }),
     }),
   },

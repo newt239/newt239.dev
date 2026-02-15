@@ -10,6 +10,11 @@ tech:
   - Chakra UI
   - Dexie.js
 description: クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
+images:
+  - src: next-score-watcher.webp
+    alt: Webアプリ「Score Watcher」のスクリーンショット。画面上部に形式名「5by5」、第20問、問題文と解答が表示されている。
+  - src: next-score-watcher.webp
+    alt: Score Watcherの得点表示画面。5人のプレイヤーの得点と順位が表示されている。
 ---
 
 クイズ大会におけるプレイヤーのリアルタイムでの得点情報を可視化するための Web アプリケーションです。N○M✕, N updown といった基本的な形式だけでなくアタックサバイバルや Square X といった形式にも対応しています。ダークモードや問題文の表示機能、undo 機能等も備えています。すべての処理を端末上で行っているため、オフライン環境でも動作します。

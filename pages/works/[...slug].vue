@@ -5,6 +5,7 @@ const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
 });
+
 if (!data.value) {
   useSeoMeta({
     title: 'Not Founded - newt239.dev',
@@ -34,6 +35,28 @@ if (!data.value) {
     twitterData2: data.value.tech.join(", "),
   });
 }
+
+const imageList = computed(() => {
+  if (!data.value) return [];
+  if (data.value.images && data.value.images.length > 0) {
+    return data.value.images;
+  }
+  return [{ src: data.value.thumbnail, alt: data.value.alt }];
+});
+
+const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
+
+const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
+
+function openLightbox(index: number) {
+  lightboxIndex.value = index;
+  lightboxOpen.value = true;
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false;
+}
 </script>
 
 <template>
@@ -42,38 +65,37 @@ if (!data.value) {
       <div class="category-name" lang="en">Works</div>
       <div class="work">
         <template v-if="data">
-          <div class="about-work">
-            <div class="intro">
-              <h1 :style="`view-transition-name: ${data.path!.split('/')[2]}-name;`">{{ data.title }}</h1>
-              <div class="summary">
-                <table>
-                  <tbody>
-                    <tr v-if="data.github">
-                      <th>GitHub</th>
-                      <td>
-                        <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Period</th>
-                      <td>{{ data.period }}</td>
-                    </tr>
-                    <tr>
-                      <th>Tech Stack</th>
-                      <td>{{ data.tech.join(", ") }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="thumbnail-wrapper">
-              <NuxtImg class="thumbnail" :src="`/images/${data.thumbnail}`" :alt="data.alt"
-                :style="`view-transition-name: ${data.path!.split('/')[2]}-img;`" />
-            </div>
+          <ImageCarousel
+            :images="imageList"
+            :work-slug="workSlug"
+            @open-lightbox="openLightbox"
+          />
+          <div class="work-header">
+            <h1 :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
           </div>
+          <dl class="work-meta">
+            <template v-if="data.github">
+              <dt>GitHub</dt>
+              <dd>
+                <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
+              </dd>
+            </template>
+            <dt>Period</dt>
+            <dd>{{ data.period }}</dd>
+            <dt>Tech Stack</dt>
+            <dd class="tech-tags">
+              <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
+            </dd>
+          </dl>
           <div class="content">
             <ContentRenderer :value="data" />
           </div>
+          <ImageLightbox
+            :images="imageList"
+            :initial-index="lightboxIndex"
+            :open="lightboxOpen"
+            @close="closeLightbox"
+          />
         </template>
         <template v-else>
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
@@ -96,93 +118,77 @@ if (!data.value) {
   }
 
   .work {
-    border: 2px solid rgb(var(--color-text));
-    border-radius: 1rem;
-
     a,
     p code {
       word-break: break-all;
     }
 
-    .about-work {
-      display: flex;
-      justify-content: space-between;
+    .work-header {
+      margin-top: 1.5rem;
 
-      >.intro {
-        >h1 {
-          margin: 0.5rem;
-          padding: 0.5rem 1.5rem;
-          border-radius: calc(1rem - 2px);
-        }
+      > h1 {
+        margin: 0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+      }
+    }
 
-        .summary {
-          table {
-            border-spacing: 0 0.5rem;
+    .work-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1.5rem;
+      margin: 1rem 0 0;
+      padding: 0;
 
-            th,
-            td {
-              padding: 0 1rem;
-            }
-
-            th {
-              border-right: 1px rgb(var(--color-text)) solid;
-            }
-          }
-        }
+      dt {
+        font-weight: 700;
+        color: rgb(var(--color-text-secondary));
+        font-size: 0.875rem;
+        line-height: 2;
       }
 
-      .thumbnail-wrapper {
-        width: 50%;
-        margin: .5rem;
-
-        >.thumbnail {
-          width: 100%;
-          object-fit: cover;
-          border-radius: calc(1rem - 2px);
-          aspect-ratio: 16 / 9;
-        }
+      dd {
+        margin: 0;
+        line-height: 2;
       }
 
-      @media (max-width: 768px) {
-        flex-direction: column-reverse;
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+        align-items: center;
+      }
 
-        .thumbnail-wrapper {
-          width: calc(100% - 1rem);
-        }
-
-        .intro {
-          margin: 0 auto;
-          text-align: center;
-
-          th {
-            text-align: end;
-          }
-
-          td {
-            text-align: start;
-          }
-        }
+      .tech-tag {
+        display: inline-block;
+        padding: 0.125rem 0.625rem;
+        border-radius: 9999px;
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        background: rgb(var(--color-text-tertiary) / 0.35);
+        color: rgb(var(--color-text));
       }
     }
 
     .content {
+      padding-top: 1.5rem;
       padding-bottom: 1rem;
 
       p {
-        margin: 1rem;
+        margin: 1rem 0;
       }
 
       ul {
-        margin: 0.5rem 1.5rem;
+        margin: 0.5rem 0 0.5rem 1.5rem;
       }
 
-      li>ul {
+      li > ul {
         margin-left: 0;
       }
 
       h2 {
         display: inline-block;
-        padding: 1rem 1rem 0;
+        padding: 1rem 0 0;
         letter-spacing: 0;
         margin: 0;
         font-size: 1.5rem;
@@ -190,7 +196,7 @@ if (!data.value) {
       }
 
       h3 {
-        padding-left: 1rem;
+        padding-left: 0;
       }
 
       h2,
@@ -203,7 +209,7 @@ if (!data.value) {
       }
 
       table {
-        margin: 0 1rem;
+        margin: 0;
         border-spacing: 0 0.5rem;
 
         th,
@@ -237,7 +243,7 @@ if (!data.value) {
         text-align: center;
 
         img {
-          max-width: calc(100% - 1rem);
+          max-width: 100%;
           max-height: 50vh;
           border-radius: 0.5rem;
         }
