@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "compress-images": "bun run scripts/compress-images.ts"
+    "compress": "bun run scripts/compress-images.ts"
   },
   "dependencies": {
     "@nuxt/content": "3.11.2",

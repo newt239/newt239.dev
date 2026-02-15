@@ -22,12 +22,12 @@ if (!data.value) {
     ogDescription: data.value.description,
     twitterDescription: data.value.description,
     ogImage: {
-      url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: data.value.alt,
+      url: `https://newt239.dev/images/${data.value.images[0].src}`,
+      alt: data.value.images[0].alt,
     },
     twitterImage: {
-      url: `https://newt239.dev/images/${data.value.thumbnail}`,
-      alt: data.value.alt,
+      url: `https://newt239.dev/images/${data.value.images[0].src}`,
+      alt: data.value.images[0].alt,
     },
     twitterLabel1: "Period",
     twitterData1: data.value.period,
@@ -37,11 +37,8 @@ if (!data.value) {
 }
 
 const imageList = computed(() => {
-  if (!data.value) return [];
-  if (data.value.images && data.value.images.length > 0) {
-    return data.value.images;
-  }
-  return [{ src: data.value.thumbnail, alt: data.value.alt }];
+  if (!data.value?.images?.length) return [];
+  return data.value.images;
 });
 
 const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');

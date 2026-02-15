@@ -7,7 +7,7 @@ import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = join(__dirname, "..", "public", "images");
-const MAX_WIDTH = 1000;
+const MAX_WIDTH = 2000;
 
 const TARGET_EXTENSIONS = new Set(
   [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif"].map((e) =>
