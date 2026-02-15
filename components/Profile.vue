@@ -92,11 +92,22 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
-    background-image: linear-gradient(
-      135deg,
-      rgb(var(--bg-accent)) 0%,
-      rgb(var(--text)) 100%
-    );
+    background-image: radial-gradient(
+        ellipse at 10% 0%,
+        rgb(var(--bg-accent) / 0.7) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgb(var(--bg-warm) / 0.5) 0%,
+        transparent 40%
+      ),
+      linear-gradient(
+        135deg,
+        rgb(var(--text)) 0%,
+        rgb(var(--text-muted)) 50%,
+        rgb(var(--text)) 100%
+      );
     color: rgb(var(--bg));
     border-radius: 0.75rem;
     transition: all 0.2s;

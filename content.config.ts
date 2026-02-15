@@ -8,7 +8,7 @@ export default defineContentConfig({
       schema: z.object({
         tech: z.array(z.string()),
         period: z.string(),
-        github: z.string(),
+        github: z.string().optional(),
         order: z.number().optional(),
         images: z.array(
           z.object({

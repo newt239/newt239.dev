@@ -61,10 +61,11 @@ footer {
 
   .sitemap-section {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 1.5rem;
 
     h3 {
+      padding: 0;
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -82,6 +83,11 @@ footer {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem 1.5rem;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
     }
 
     a {
