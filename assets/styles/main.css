@@ -134,7 +134,7 @@ ul {
 
 .sub {
   font-size: 50%;
-  color: rgb(var(--text-secondary));
+  color: rgb(var(--text-muted));
 }
 
 @media (prefers-reduced-motion: reduce) {

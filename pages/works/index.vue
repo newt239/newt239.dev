@@ -14,6 +14,11 @@ const router = useRouter();
 const sortAsc = ref(route.query.dir === "asc");
 const featuredOnly = ref(route.query.featured === "1");
 
+watch(() => route.query, (query) => {
+  sortAsc.value = query.dir === "asc";
+  featuredOnly.value = query.featured === "1";
+});
+
 function updateQuery() {
   const query: Record<string, string> = {};
   if (sortAsc.value) query.dir = "asc";

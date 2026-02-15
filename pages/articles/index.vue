@@ -38,6 +38,17 @@ function parseSitesFromQuery(): Set<SiteName> {
 const selectedSites = ref<Set<SiteName>>(parseSitesFromQuery());
 const sortAsc = ref(route.query.dir === "asc");
 
+watch(() => route.query, (query) => {
+  sortAsc.value = query.dir === "asc";
+  const raw = query.sites;
+  if (!raw) {
+    selectedSites.value = new Set();
+  } else {
+    const arr = (typeof raw === "string" ? raw : raw[0] || "").split(",").filter(Boolean);
+    selectedSites.value = new Set(arr as SiteName[]);
+  }
+});
+
 function updateQuery() {
   const query: Record<string, string> = {};
   if (selectedSites.value.size > 0) query.sites = [...selectedSites.value].join(",");

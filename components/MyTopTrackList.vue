@@ -25,6 +25,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
         :key="track.name"
         :href="track.link"
         target="_blank"
+        rel="noopener noreferrer"
         class="track-card"
       >
         <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />

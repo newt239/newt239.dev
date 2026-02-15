@@ -8,8 +8,8 @@ const { data } = await useAsyncData(route.path, () => {
 
 if (!data.value) {
   useSeoMeta({
-    title: 'Not Founded - newt239.dev',
-    ogTitle: 'Not Founded - newt239.dev',
+    title: 'Not Found - newt239.dev',
+    ogTitle: 'Not Found - newt239.dev',
     description: 'コンテンツが見つかりませんでした',
     ogDescription: 'コンテンツが見つかりませんでした',
   });
@@ -73,7 +73,7 @@ function closeLightbox() {
               <template v-if="data.github">
                 <dt>GitHub</dt>
                 <dd>
-                  <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
+                  <a :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
                 </dd>
               </template>
               <dt>Period</dt>

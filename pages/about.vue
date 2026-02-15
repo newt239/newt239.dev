@@ -37,7 +37,7 @@ useHead({
                 Discordサーバー
                 <ul>
                   <li>
-                    <a href="https://discord.gg/rct5sx6rbZ" target="_blank">https://discord.gg/rct5sx6rbZ</a>
+                    <a href="https://discord.gg/rct5sx6rbZ" target="_blank" rel="noopener noreferrer">https://discord.gg/rct5sx6rbZ</a>
                   </li>
                 </ul>
               </li>
@@ -103,11 +103,11 @@ useHead({
         <section class="about-section">
           <h3>リンク集</h3>
           <div class="section-body link-list">
-            <a href="https://bento.me/newt" target="_blank" class="link-card">
+            <a href="https://bento.me/newt" target="_blank" rel="noopener noreferrer" class="link-card">
               Bento
               <IconChevronRight :size="16" />
             </a>
-            <a href="https://annict.com/@newt" target="_blank" class="link-card">
+            <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
               Annict
               <IconChevronRight :size="16" />
             </a>

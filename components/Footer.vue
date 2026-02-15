@@ -20,13 +20,13 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
           <h3>Links</h3>
           <ul>
             <li>
-              <a href="https://twitter.com/newt239" target="_blank">
+              <a href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
                 <IconBrandTwitter :size="18" />
                 Twitter
               </a>
             </li>
             <li>
-              <a href="https://github.com/newt239" target="_blank">
+              <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
                 <IconBrandGithub :size="18" />
                 GitHub
               </a>

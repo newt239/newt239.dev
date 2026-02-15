@@ -27,7 +27,7 @@ const getSiteName = (url: string) => {
 </script>
 
 <template>
-  <a :href="`${props.url}`" target="_blank" class="article-card">
+  <a :href="`${props.url}`" target="_blank" rel="noopener noreferrer" class="article-card">
     <div class="article-card-body">
       <h4 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h4>
     </div>

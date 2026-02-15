@@ -17,10 +17,19 @@ const hasMultiple = computed(() => props.images.length > 1);
 let touchStartX = 0;
 let touchDeltaX = 0;
 
+const prefersReducedMotion = ref(false);
+
+onMounted(() => {
+  prefersReducedMotion.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+});
+
 function goTo(index: number) {
   if (isTransitioning.value) return;
   isTransitioning.value = true;
   currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
+  if (prefersReducedMotion.value) {
+    isTransitioning.value = false;
+  }
 }
 
 function prev() {

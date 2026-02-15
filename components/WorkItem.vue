@@ -14,7 +14,7 @@ const thumbnail = computed(() => props.work.images[0]);
 
 <template>
   <NuxtLink :to="`/works/${slug}`" class="work-card">
-    <NuxtImg class="work-card-thumbnail" :src="`images/${thumbnail?.src}`" :alt="thumbnail?.alt"
+    <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" :alt="thumbnail?.alt"
       :style="`view-transition-name: ${slug}-img;`" />
     <div class="work-card-body">
       <h3 :style="`view-transition-name: ${slug}-name;`">{{ props.work.title }}</h3>
