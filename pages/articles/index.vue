@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconSortAscending, IconSortDescending } from "@tabler/icons-vue";
+import { IconCheck, IconSortAscending, IconSortDescending } from "@tabler/icons-vue";
 import { articleList } from "~/libs/articles";
 
 useSeoMeta({
@@ -109,12 +109,13 @@ const filteredArticles = computed(() => {
               :class="{ active: selectedSites.has(site) }"
               @click="toggleSite(site)"
             >
-              {{ site }}
+              <IconCheck v-if="selectedSites.has(site)" :size="16" class="filter-chip-icon" aria-hidden />
+              <span>{{ site }}</span>
+            </button>
+            <button v-if="selectedSites.size > 0" class="filter-clear" @click="clearFilter">
+              クリア
             </button>
           </div>
-          <button v-if="selectedSites.size > 0" class="filter-clear" @click="clearFilter">
-            クリア
-          </button>
         </div>
         <div class="sort-section">
           <span class="sort-label">日付</span>
@@ -151,32 +152,35 @@ const filteredArticles = computed(() => {
   .list-controls {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
     padding-bottom: 1rem;
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       flex-direction: column;
+      align-items: stretch;
     }
   }
 
   .filter-section {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
     min-width: 0;
   }
 
   .filter-chips {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.375rem;
     min-width: 0;
   }
 
   .filter-chip {
-    font-size: 0.8125rem;
-    padding: 0.25rem 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     border: 1.5px solid rgb(var(--text-faint));
     background: transparent;
@@ -200,10 +204,15 @@ const filteredArticles = computed(() => {
       color: rgb(var(--bg));
       border-color: rgb(var(--text));
     }
+
+    .filter-chip-icon {
+      flex-shrink: 0;
+    }
   }
 
   .filter-clear {
-    font-size: 0.8125rem;
+    font-family: inherit;
+    font-size: 0.875rem;
     padding: 0.25rem 0.625rem;
     border: none;
     background: none;

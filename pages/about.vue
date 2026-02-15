@@ -108,7 +108,7 @@ useHead({
               <IconChevronRight :size="16" />
             </a>
             <a href="https://mixi.social/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
-              mixi
+              mixi2
               <IconChevronRight :size="16" />
             </a>
             <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
@@ -152,8 +152,6 @@ useHead({
     }
 
     .hero-info {
-      width: 100%;
-
       h2 {
         padding: 0 0 0.5rem;
       }
@@ -179,6 +177,9 @@ useHead({
       }
 
       @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
 
         .basic-info {
@@ -251,7 +252,7 @@ useHead({
       color: rgb(var(--text));
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.15s;
+      transition: background 0.15s, color 0.15s;
 
       &:not(:last-child) {
         border-bottom: 1px solid rgb(var(--border));
@@ -259,6 +260,13 @@ useHead({
 
       @media (hover: hover) {
         &:hover {
+          background: rgb(var(--surface));
+          color: rgb(var(--accent));
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
           background: rgb(var(--surface));
         }
       }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconSortAscending, IconSortDescending } from "@tabler/icons-vue";
+import { IconCheck, IconSortAscending, IconSortDescending } from "@tabler/icons-vue";
 
 const works = await queryCollection('works').order("period", "DESC").all();
 
@@ -65,7 +65,8 @@ const sortedWorks = computed(() => {
             :class="{ active: featuredOnly }"
             @click="toggleFeatured"
           >
-            おすすめ
+            <IconCheck v-if="featuredOnly" :size="16" class="filter-chip-icon" aria-hidden />
+            <span>おすすめ</span>
           </button>
         </div>
         <div class="sort-section">
@@ -110,6 +111,10 @@ const sortedWorks = computed(() => {
   }
 
   .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: inherit;
     font-size: 0.875rem;
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
@@ -134,6 +139,10 @@ const sortedWorks = computed(() => {
       background: rgb(var(--text));
       color: rgb(var(--bg));
       border-color: rgb(var(--text));
+    }
+
+    .filter-chip-icon {
+      flex-shrink: 0;
     }
   }
 
