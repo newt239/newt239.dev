@@ -11,6 +11,18 @@ const generateTheme = async () => {
     promptModel.value = "fairy tale";
   }
   isGenerating.value = true;
+  const requiredVariables = [
+    { name: "--text", description: "Text color", defaultValue: "48 42 37" },
+    { name: "--text-muted", description: "Muted text color", defaultValue: "110 100 90" },
+    { name: "--text-faint", description: "Faint text color", defaultValue: "175 168 158" },
+    { name: "--bg", description: "Background color", defaultValue: "255 248 240" },
+    { name: "--bg-accent", description: "Accent background color", defaultValue: "216 226 240" },
+    { name: "--bg-warm", description: "Warm background color", defaultValue: "240 220 196" },
+    { name: "--accent", description: "Primary accent color", defaultValue: "74 136 224" },
+    { name: "--accent-dark", description: "Dark accent color", defaultValue: "26 72 120" },
+    { name: "--highlight", description: "Highlight / emphasis color", defaultValue: "162 132 32" },
+  ];
+
   const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
     method: "POST",
     headers: {
@@ -18,6 +30,7 @@ const generateTheme = async () => {
     },
     body: JSON.stringify({
       prompt: promptModel.value,
+      requiredVariables,
     }),
   });
   const data = await res.json();
