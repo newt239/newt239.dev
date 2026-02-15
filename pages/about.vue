@@ -103,8 +103,12 @@ useHead({
         <section class="about-section">
           <h3>リンク集</h3>
           <div class="section-body link-list">
-            <a href="https://bento.me/newt" target="_blank" rel="noopener noreferrer" class="link-card">
-              Bento
+            <a href="https://newt239.hatenablog.com/" target="_blank" rel="noopener noreferrer" class="link-card">
+              はてなブログ
+              <IconChevronRight :size="16" />
+            </a>
+            <a href="https://mixi.social/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
+              mixi2
               <IconChevronRight :size="16" />
             </a>
             <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
@@ -132,7 +136,7 @@ useHead({
 
     @media screen and (max-width: 600px) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .profile-icon {
@@ -169,6 +173,19 @@ useHead({
         dd {
           margin: 0;
           line-height: 1.5;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .basic-info {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
         }
       }
     }
@@ -235,7 +252,7 @@ useHead({
       color: rgb(var(--text));
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.15s;
+      transition: background 0.15s, color 0.15s;
 
       &:not(:last-child) {
         border-bottom: 1px solid rgb(var(--border));
@@ -243,6 +260,13 @@ useHead({
 
       @media (hover: hover) {
         &:hover {
+          background: rgb(var(--surface));
+          color: rgb(var(--accent));
+        }
+      }
+
+      @media (hover: none) {
+        &:active {
           background: rgb(var(--surface));
         }
       }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
+import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
 </script>
 
 <template>
@@ -20,9 +20,9 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
           <h3>Links</h3>
           <ul>
             <li>
-              <a href="https://twitter.com/newt239" target="_blank" rel="noopener noreferrer">
-                <IconBrandTwitter :size="18" />
-                Twitter
+              <a href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
+                <IconBrandX :size="18" />
+                X
               </a>
             </li>
             <li>
@@ -111,7 +111,7 @@ footer {
 
   .footer-bottom {
     margin-top: 1.5rem;
-    text-align: right;
+    text-align: left;
   }
 
   .copyright {

@@ -55,6 +55,7 @@ const thumbnail = computed(() => props.work.images[0]);
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
+  border-radius: 0.75rem 0.75rem 0 0;
   -webkit-touch-callout: none;
   pointer-events: none;
 }
