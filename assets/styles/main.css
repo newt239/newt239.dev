@@ -9,6 +9,12 @@
   --accent: 74 136 224;
   --accent-dark: 26 72 120;
   --highlight: 162 132 32;
+  --surface: 246 240 232;
+  --surface-hover: 236 230 222;
+  --border: 240 234 228;
+  /* アクセシビリティ用（テーマ生成対象外） */
+  --focus-ring: 255 0 0;
+  --focus-bg: 255 255 0;
 }
 
 * {
@@ -24,10 +30,10 @@
 
 a, button {
   &:focus-visible{
-    color: red!important;
-    background-color: yellow!important;
+    color: rgb(var(--focus-ring))!important;
+    background-color: rgb(var(--focus-bg))!important;
     background-image: none!important;
-    outline: 2px solid red;
+    outline: 2px solid rgb(var(--focus-ring));
     outline-offset: 2px;
   }
 }

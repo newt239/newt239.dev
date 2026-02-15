@@ -195,7 +195,7 @@ useHead({
     }
 
     .section-body {
-      background: rgb(0 0 0 / 0.035);
+      background: rgb(var(--surface));
       border-radius: 0.75rem;
       padding: 1rem 1.5rem;
 
@@ -238,12 +238,12 @@ useHead({
       transition: background 0.15s;
 
       &:not(:last-child) {
-        border-bottom: 1px solid rgb(0 0 0 / 0.06);
+        border-bottom: 1px solid rgb(var(--border));
       }
 
       @media (hover: hover) {
         &:hover {
-          background: rgb(0 0 0 / 0.04);
+          background: rgb(var(--surface));
         }
       }
 

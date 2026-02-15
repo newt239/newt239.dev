@@ -28,7 +28,7 @@ header {
   color: rgb(var(--text));
   backdrop-filter: blur(8px);
   border-style: solid;
-  border-color: rgb(0 0 0 / 0.08);
+  border-color: rgb(var(--border));
   border-width: 0px 0px 1px;
 
   a {

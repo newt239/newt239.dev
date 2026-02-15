@@ -30,7 +30,7 @@ const thumbnail = computed(() => props.work.images[0]);
   color: rgb(var(--text));
   border-radius: 0.75rem;
   overflow: hidden;
-  background: rgb(0 0 0 / 0.035);
+  background: rgb(var(--surface));
   transition: background 0.2s;
 
   @media (prefers-reduced-motion: reduce) {
@@ -39,13 +39,13 @@ const thumbnail = computed(() => props.work.images[0]);
 
   @media (hover: hover) {
     &:hover {
-      background: rgb(0 0 0 / 0.08);
+      background: rgb(var(--surface-hover));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background: rgb(0 0 0 / 0.08);
+      background: rgb(var(--surface-hover));
     }
   }
 }

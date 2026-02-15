@@ -89,7 +89,7 @@ useHead({
     }
 
     .section-body {
-      background: rgb(0 0 0 / 0.035);
+      background: rgb(var(--surface));
       border-radius: 0.75rem;
       padding: 1rem 1.5rem;
 

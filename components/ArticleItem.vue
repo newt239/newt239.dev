@@ -52,20 +52,20 @@ const getSiteName = (url: string) => {
   grid-row: span 2;
   gap: 0;
   color: rgb(var(--text));
-  background: rgb(0 0 0 / 0.035);
+  background: rgb(var(--surface));
   border-radius: 0.75rem;
   overflow: hidden;
   transition: background 0.2s;
 
   @media (hover: hover) {
     &:hover {
-      background: rgb(0 0 0 / 0.08);
+      background: rgb(var(--surface-hover));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background: rgb(0 0 0 / 0.08);
+      background: rgb(var(--surface-hover));
     }
   }
 

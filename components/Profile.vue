@@ -190,7 +190,7 @@ const profile: string[] = [
 
     .sns-card {
       color: rgb(var(--text));
-      background: rgb(0 0 0 / 0.035);
+      background: rgb(var(--surface));
       border: none;
       border-radius: 0.75rem;
       padding: 0.6rem 1rem;
@@ -206,14 +206,14 @@ const profile: string[] = [
 
       @media (hover: hover) {
         &:hover {
-          background: rgb(0 0 0 / 0.08);
+          background: rgb(var(--surface-hover));
           text-decoration: none;
         }
       }
 
       @media (hover: none) {
         &:active {
-          background: rgb(0 0 0 / 0.08);
+          background: rgb(var(--surface-hover));
         }
       }
     }

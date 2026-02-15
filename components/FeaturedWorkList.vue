@@ -47,19 +47,19 @@ const works = await queryCollection("works")
     height: 100%;
     padding: 1rem 0;
     border-radius: 0.75rem;
-    background: rgb(0 0 0 / 0.035);
+    background: rgb(var(--surface));
     color: rgb(var(--text));
     transition: background 0.2s;
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(0 0 0 / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(0 0 0 / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
 

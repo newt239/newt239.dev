@@ -158,7 +158,7 @@ const items: YearSection[] = [
 }
 
 .year-items {
-  background: rgb(0 0 0 / 0.035);
+  background: rgb(var(--surface));
   border-radius: 0.75rem;
   overflow: hidden;
 }
@@ -173,7 +173,7 @@ const items: YearSection[] = [
   transition: background 0.15s;
 
   &:not(:last-child) {
-    border-bottom: 1px solid rgb(0 0 0 / 0.06);
+    border-bottom: 1px solid rgb(var(--border));
   }
 
   &.has-link {
@@ -181,7 +181,7 @@ const items: YearSection[] = [
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(0 0 0 / 0.04);
+        background: rgb(var(--surface));
 
         .item-title {
           color: rgb(var(--accent));
@@ -191,7 +191,7 @@ const items: YearSection[] = [
 
     @media (hover: none) {
       &:active {
-        background: rgb(0 0 0 / 0.04);
+        background: rgb(var(--surface));
       }
     }
   }

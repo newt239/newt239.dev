@@ -83,6 +83,7 @@ const sortedWorks = computed(() => {
       <div v-else class="card-grid">
         <WorkItem v-for="work in sortedWorks" :key="work.id" :work="work" />
       </div>
+      <BackToTop />
     </div>
   </main>
 </template>
@@ -162,7 +163,7 @@ const sortedWorks = computed(() => {
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--text) / 0.08);
+        background: rgb(var(--surface-hover));
       }
     }
   }
@@ -183,5 +184,6 @@ const sortedWorks = computed(() => {
       text-decoration: none;
     }
   }
+
 }
 </style>

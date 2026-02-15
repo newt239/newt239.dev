@@ -43,8 +43,6 @@ import { IconBrandTwitter, IconBrandGithub } from "@tabler/icons-vue";
 
 <style>
 footer {
-  margin-top: 4rem;
-
   .footer-inner {
     max-width: 1280px;
     margin: 0 auto;
