@@ -7,7 +7,6 @@ type TrackListProp = {
   thumbnail: string;
   preview: string | null;
   duration: number;
-  popularity: number;
   link: string;
 };
 
@@ -34,7 +33,6 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
           <p class="track-artists">{{ track.artists.join(", ") }}</p>
           <div class="track-meta">
             <span>{{ dayjs(track.duration).format("m:ss") }}</span>
-            <span>Popularity {{ track.popularity }}</span>
           </div>
         </div>
       </a>
@@ -92,7 +90,8 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     flex-direction: column;
     gap: 0.125rem;
     min-width: 0;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .track-name {

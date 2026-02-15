@@ -66,7 +66,7 @@ useHead({
   line-height: 1.8;
 
   > h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
   }
 

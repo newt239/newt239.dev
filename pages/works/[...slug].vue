@@ -176,6 +176,23 @@ function closeLightbox() {
           text-decoration: underline;
           text-decoration-style: dashed;
           text-underline-offset: 0.25rem;
+          transition: all 0.2s;
+
+          @media (hover: hover) {
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+
+          @media (hover: none) {
+            &:active {
+              opacity: 0.5;
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            transition: none;
+          }
         }
       }
 
@@ -192,7 +209,7 @@ function closeLightbox() {
         border-radius: 9999px;
         font-size: 0.875rem;
         line-height: 1.5;
-        background: rgb(var(--text-faint) / 0.35);
+        background: rgb(var(--text-faint) / 0.2);
         color: rgb(var(--text));
       }
     }
@@ -201,16 +218,17 @@ function closeLightbox() {
       padding-top: 1.5rem;
       padding-bottom: 1rem;
 
+      @media (max-width: 768px) {
+        padding-top: 0;
+      }
+
       p {
         margin: 1rem 0;
       }
 
       ul {
-        margin: 0.5rem 0 0.5rem 1.5rem;
-      }
-
-      li > ul {
-        margin-left: 0;
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
       }
 
       h2 {

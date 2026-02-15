@@ -103,8 +103,12 @@ useHead({
         <section class="about-section">
           <h3>リンク集</h3>
           <div class="section-body link-list">
-            <a href="https://bento.me/newt" target="_blank" rel="noopener noreferrer" class="link-card">
-              Bento
+            <a href="https://newt239.hatenablog.com/" target="_blank" rel="noopener noreferrer" class="link-card">
+              はてなブログ
+              <IconChevronRight :size="16" />
+            </a>
+            <a href="https://mixi.social/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
+              mixi
               <IconChevronRight :size="16" />
             </a>
             <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
@@ -132,7 +136,7 @@ useHead({
 
     @media screen and (max-width: 600px) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .profile-icon {
@@ -148,6 +152,8 @@ useHead({
     }
 
     .hero-info {
+      width: 100%;
+
       h2 {
         padding: 0 0 0.5rem;
       }
@@ -169,6 +175,16 @@ useHead({
         dd {
           margin: 0;
           line-height: 1.5;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        text-align: center;
+
+        .basic-info {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
         }
       }
     }
