@@ -32,10 +32,10 @@ const works = await queryCollection("works")
   .card-grid {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
     a {
-      color: rgb(var(--color-text));
+      color: rgb(var(--text));
       text-decoration: none;
     }
   }
@@ -46,21 +46,20 @@ const works = await queryCollection("works")
     align-items: center;
     height: 100%;
     padding: 1rem 0;
-    border-radius: 0.5rem;
-    border: 2px solid rgb(var(--color-text));
-    color: rgb(var(--color-text));
-    background-color: rgb(var(--color-back));
-    transition: all 0.2s;
+    border-radius: 0.75rem;
+    background: rgb(0 0 0 / 0.035);
+    color: rgb(var(--text));
+    transition: background 0.2s;
 
     @media (hover: hover) {
       &:hover {
-        scale: 1.05;
+        background: rgb(0 0 0 / 0.08);
       }
     }
 
     @media (hover: none) {
       &:active {
-        scale: 1.05;
+        background: rgb(0 0 0 / 0.08);
       }
     }
 

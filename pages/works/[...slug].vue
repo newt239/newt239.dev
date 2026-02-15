@@ -62,31 +62,32 @@ function closeLightbox() {
 <template>
   <main>
     <div class="container each-work-page">
-      <div class="category-name" lang="en">Works</div>
       <div class="work">
         <template v-if="data">
-          <ImageCarousel
-            :images="imageList"
-            :work-slug="workSlug"
-            @open-lightbox="openLightbox"
-          />
-          <div class="work-header">
-            <h1 :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
-          </div>
-          <dl class="work-meta">
-            <template v-if="data.github">
-              <dt>GitHub</dt>
-              <dd>
-                <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
+          <div class="work-hero">
+            <ImageCarousel
+              :images="imageList"
+              :work-slug="workSlug"
+              @open-lightbox="openLightbox"
+            />
+            <div class="work-sidebar">
+              <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
+              <dl class="work-meta">
+              <template v-if="data.github">
+                <dt>GitHub</dt>
+                <dd>
+                  <a :href="`https://github.com/${data.github}`" target="_blank">{{ data.github }}</a>
+                </dd>
+              </template>
+              <dt>Period</dt>
+              <dd>{{ data.period }}</dd>
+              <dt>Tech Stack</dt>
+              <dd class="tech-tags">
+                <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
-            </template>
-            <dt>Period</dt>
-            <dd>{{ data.period }}</dd>
-            <dt>Tech Stack</dt>
-            <dd class="tech-tags">
-              <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
-            </dd>
-          </dl>
+            </dl>
+            </div>
+          </div>
           <div class="content">
             <ContentRenderer :value="data" />
           </div>
@@ -113,43 +114,78 @@ function closeLightbox() {
 
 <style>
 .each-work-page {
-  .category-name {
-    view-transition-name: work-category-name;
-  }
-
   .work {
     a,
     p code {
       word-break: break-all;
     }
 
-    .work-header {
-      margin-top: 1.5rem;
+    .work-hero {
+      display: flex;
+      gap: 2rem;
+      align-items: start;
 
-      > h1 {
-        margin: 0;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+      > .carousel {
+        flex: 1;
+        min-width: 0;
+      }
+
+      > .work-sidebar {
+        flex-shrink: 0;
+        width: 280px;
+
+        .work-title {
+          display: block;
+          font-size: 1.75rem;
+          font-weight: 800;
+          padding: 0;
+          margin: 0 0 0.75rem;
+          background: none;
+          color: rgb(var(--text));
+        }
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+
+        > .work-sidebar {
+          width: 100%;
+          order: -1;
+        }
       }
     }
 
     .work-meta {
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.5rem 1.5rem;
-      margin: 1rem 0 0;
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      margin: 0;
       padding: 0;
 
       dt {
         font-weight: 700;
-        color: rgb(var(--color-text-secondary));
+        color: rgb(var(--text-muted));
         font-size: 0.875rem;
-        line-height: 2;
+        letter-spacing: 0.05em;
+        line-height: 1.5;
+        margin-top: 0.75rem;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
       }
 
       dd {
         margin: 0;
-        line-height: 2;
+        line-height: 1.6;
+
+        a {
+          color: rgb(var(--accent));
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          text-underline-offset: 0.25rem;
+        }
       }
 
       .tech-tags {
@@ -163,10 +199,10 @@ function closeLightbox() {
         display: inline-block;
         padding: 0.125rem 0.625rem;
         border-radius: 9999px;
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
         line-height: 1.5;
-        background: rgb(var(--color-text-tertiary) / 0.35);
-        color: rgb(var(--color-text));
+        background: rgb(var(--text-faint) / 0.35);
+        color: rgb(var(--text));
       }
     }
 
@@ -191,8 +227,8 @@ function closeLightbox() {
         padding: 1rem 0 0;
         letter-spacing: 0;
         margin: 0;
-        font-size: 1.5rem;
-        border-bottom: rgb(var(--color-text)) 1px solid;
+        font-size: 1.75rem;
+        border-bottom: rgb(var(--text)) 1px solid;
       }
 
       h3 {
@@ -204,7 +240,7 @@ function closeLightbox() {
       h4,
       h5 {
         a {
-          color: rgb(var(--color-text));
+          color: rgb(var(--text));
         }
       }
 
@@ -219,14 +255,14 @@ function closeLightbox() {
         }
 
         th {
-          border-bottom: 1px rgb(var(--color-text)) solid;
+          border-bottom: 1px rgb(var(--text)) solid;
         }
       }
 
       code,
       pre {
         padding: 0.2rem;
-        background-color: rgb(var(--color-text-tertiary));
+        background-color: rgb(var(--text-faint));
         cursor: text;
       }
 
@@ -265,7 +301,7 @@ function closeLightbox() {
       padding: 0.5rem 1rem;
       border: none;
       font-size: 1rem;
-      color: rgb(var(--color-text));
+      color: rgb(var(--text));
       background-color: transparent;
       cursor: pointer;
       transition: all 0.2s;

@@ -104,23 +104,27 @@ function onTouchEnd() {
       </div>
     </div>
     <template v-if="hasMultiple">
-      <button class="carousel-btn carousel-btn-prev" aria-label="前の画像" @click="prev">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-      </button>
-      <button class="carousel-btn carousel-btn-next" aria-label="次の画像" @click="next">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-      </button>
-      <div class="carousel-dots" role="tablist" aria-label="スライド選択">
-        <button
-          v-for="(_, index) in images"
-          :key="index"
-          class="carousel-dot"
-          :class="{ active: index === currentIndex }"
-          role="tab"
-          :aria-selected="index === currentIndex"
-          :aria-label="`スライド ${index + 1}`"
-          @click="goTo(index)"
-        />
+      <div class="carousel-controls">
+        <button class="carousel-nav-btn" aria-label="前の画像" @click="prev">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+        </button>
+        <div class="carousel-pages" role="tablist" aria-label="スライド選択">
+          <button
+            v-for="(_, index) in images"
+            :key="index"
+            class="carousel-page-btn"
+            :class="{ active: index === currentIndex }"
+            role="tab"
+            :aria-selected="index === currentIndex"
+            :aria-label="`スライド ${index + 1}`"
+            @click="goTo(index)"
+          >
+            {{ index + 1 }}
+          </button>
+        </div>
+        <button class="carousel-nav-btn" aria-label="次の画像" @click="next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+        </button>
       </div>
     </template>
   </div>
@@ -128,23 +132,26 @@ function onTouchEnd() {
 
 <style scoped>
 .carousel {
-  position: relative;
   outline: none;
 
   &:focus-visible {
-    outline: 2px solid rgb(var(--color-link));
+    outline: 2px solid rgb(var(--accent));
     outline-offset: 4px;
     border-radius: 0.75rem;
   }
 }
 
 .carousel-viewport {
+  position: relative;
   overflow: hidden;
   border-radius: 0.75rem;
+  aspect-ratio: 16 / 9;
+  width: 100%;
 }
 
 .carousel-track {
   display: flex;
+  height: 100%;
   transition: transform 0.4s ease;
 
   @media (prefers-reduced-motion: reduce) {
@@ -154,33 +161,42 @@ function onTouchEnd() {
 
 .carousel-slide {
   min-width: 100%;
+  height: 100%;
   flex-shrink: 0;
 }
 
 .carousel-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   object-fit: cover;
   display: block;
   cursor: pointer;
 }
 
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+.carousel-controls {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+}
+
+.carousel-nav-btn,
+.carousel-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(var(--text-faint));
+  background: transparent;
+  color: rgb(var(--text));
   cursor: pointer;
-  transition: background 0.2s;
-  z-index: 1;
+  flex-shrink: 0;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.2s;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -188,42 +204,21 @@ function onTouchEnd() {
 
   @media (hover: hover) {
     &:hover {
-      background: rgba(0, 0, 0, 0.6);
+      border-color: rgb(var(--text));
     }
   }
 }
 
-.carousel-btn-prev {
-  left: 0.75rem;
-}
-
-.carousel-btn-next {
-  right: 0.75rem;
-}
-
-.carousel-dots {
+.carousel-pages {
   display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 0 0;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid rgb(var(--color-text));
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &.active {
-    background: rgb(var(--color-text));
-  }
+.carousel-page-btn.active {
+  background: rgb(var(--text));
+  color: rgb(var(--bg));
+  border-color: rgb(var(--text));
+  font-weight: 700;
 }
 </style>

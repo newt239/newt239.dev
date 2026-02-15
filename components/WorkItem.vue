@@ -8,29 +8,29 @@ export type WorkItemProps = {
   };
 };
 const props = defineProps<WorkItemProps>();
+const slug = computed(() => props.work.path.split('/')[2]);
 </script>
 
 <template>
-  <NuxtLink :to="`/works/${props.work.path.split('/')[2]}`" class="card">
-    <NuxtImg class="card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
-      :style="`view-transition-name: ${props.work.path.split('/')[2]}-img;`" />
-    <div class="card-body">
-      <h3 :style="`view-transition-name: ${props.work.path.split('/')[2]}-name;`">{{ props.work.title }}</h3>
-      <p>
-        {{ props.work.description }}
-      </p>
+  <NuxtLink :to="`/works/${slug}`" class="work-card">
+    <NuxtImg class="work-card-thumbnail" :src="`images/${props.work.thumbnail}`" :alt="`${props.work.title}のサムネイル画像`"
+      :style="`view-transition-name: ${slug}-img;`" />
+    <div class="work-card-body">
+      <h3 :style="`view-transition-name: ${slug}-name;`">{{ props.work.title }}</h3>
+      <p class="work-card-description">{{ props.work.description }}</p>
     </div>
   </NuxtLink>
 </template>
 
 <style scoped>
-.card {
+.work-card {
   display: flex;
   flex-direction: column;
-  color: rgb(var(--color-text));
-  border: 2px solid rgb(var(--color-text));
-  border-radius: 0.5rem;
-  transition: all 0.2s;
+  color: rgb(var(--text));
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: rgb(0 0 0 / 0.035);
+  transition: background 0.2s;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -38,48 +38,55 @@ const props = defineProps<WorkItemProps>();
 
   @media (hover: hover) {
     &:hover {
-      scale: 1.05;
+      background: rgb(0 0 0 / 0.08);
     }
   }
 
   @media (hover: none) {
     &:active {
-      scale: 1.05;
-    }
-  }
-
-  .card-thumbnail {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: calc(0.5rem - 2px) calc(0.5rem - 2px) 0 0;
-    -webkit-touch-callout: none;
-    pointer-events: none;
-  }
-
-  .card-body {
-    padding: 0.5rem 1rem 1rem 1rem;
-
-    h3 {
-      margin: 0;
-      padding: 0;
-      font-size: 1.5rem;
-      line-height: 2.3rem;
-      color: rgb(var(--color-text));
-      white-space: nowrap;
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    p {
-      margin: 0;
-      color: rgb(var(--color-text));
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
+      background: rgb(0 0 0 / 0.08);
     }
   }
 }
+
+.work-card-thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.work-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.75rem 1rem 1rem;
+  flex: 1;
+
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: rgb(var(--text));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.work-card-description {
+  margin: 0;
+  color: rgb(var(--text-muted));
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  flex: 1;
+}
+
 </style>

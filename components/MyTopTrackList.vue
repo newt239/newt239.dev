@@ -19,112 +19,110 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
 <template>
   <div v-show="trackList && trackList.length !== 0" class="my-top-track-list">
     <h2>My Top Tracks</h2>
-    <div class="musics">
-      <div v-for="track in trackList?.slice(0, 12)" :key="track.name" class="track">
-        <NuxtImg loading="lazy" class="thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />
-        <div class="detail">
-          <div class="info">
-            <a :href="track.link" target="_blank" class="name underline">
-              {{ track.name }}
-            </a>
-            <div class="sub-info">
-              <div class="artists">
-                {{ track.artists.join(", ") }}
-              </div>
-              <div>
-                Duration /
-                {{ dayjs(track.duration).format("m:ss") }}
-              </div>
-              <div>Popularity / {{ track.popularity }}</div>
-            </div>
+    <div class="track-grid">
+      <a
+        v-for="track in trackList?.slice(0, 12)"
+        :key="track.name"
+        :href="track.link"
+        target="_blank"
+        class="track-card"
+      >
+        <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />
+        <div class="track-body">
+          <h4 class="track-name">{{ track.name }}</h4>
+          <p class="track-artists">{{ track.artists.join(", ") }}</p>
+          <div class="track-meta">
+            <span>{{ dayjs(track.duration).format("m:ss") }}</span>
+            <span>Popularity {{ track.popularity }}</span>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
 
 <style>
-.musics {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.my-top-track-list {
+  .track-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 
-  .track {
+  .track-card {
     display: flex;
-    flex-grow: 1;
-    align-items: flex-start;
-    width: max(30%, 300px);
-    gap: 0.5rem;
-    border-radius: 1rem;
-    transition: all 0.5s;
-
-    .thumbnail {
-      width: min(150px, 50%);
-      flex-grow: 1;
-      aspect-ratio: 1 / 1;
-      border-radius: 1rem;
-      user-select: none;
-      pointer-events: none;
-    }
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background: rgb(0 0 0 / 0.035);
+    color: rgb(var(--text));
+    text-decoration: none;
+    transition: background 0.2s;
 
     @media (hover: hover) {
-      &:hover .preview-button {
-        opacity: 1;
+      &:hover {
+        background: rgb(0 0 0 / 0.08);
       }
     }
 
     @media (hover: none) {
-      &:active .preview-button {
-        opacity: 1;
+      &:active {
+        background: rgb(0 0 0 / 0.08);
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
     }
+  }
 
-    .track-preview {
-      cursor: pointer;
-    }
+  .track-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    flex-shrink: 0;
+    user-select: none;
+    pointer-events: none;
+  }
 
-    .detail {
-      width: min(150px, 50%);
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+  .track-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+    justify-content: center;
+  }
 
-      .info {
-        max-height: 80%;
-        overflow: hidden;
+  .track-name {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
 
-        .name {
-          font-size: 1.2rem;
-          line-height: 1.5rem;
-          font-weight: 800;
-          cursor: pointer;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
-        }
+  .track-artists {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgb(var(--text-muted));
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
 
-        .sub-info {
-          padding-top: 0.3rem;
-          font-size: 0.7rem;
-          line-height: 0.7rem;
-
-          .artists {
-            margin-bottom: 0.5rem;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
-          }
-        }
-      }
-    }
+  .track-meta {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    color: rgb(var(--text-faint));
+    line-height: 1.4;
   }
 }
 </style>

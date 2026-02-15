@@ -1,5 +1,18 @@
 <script setup lang="ts">
-const items = [
+type TimelineItem = {
+  term: string;
+  title: string;
+  description?: string;
+  src: string | null;
+};
+
+type YearSection = {
+  year: number;
+  grade: string | null;
+  items: TimelineItem[];
+};
+
+const items: YearSection[] = [
   {
     year: 2025,
     grade: "大学2年",
@@ -90,233 +103,134 @@ const items = [
 <template>
   <div class="timeline">
     <h2 class="category-title" lang="en">Timeline</h2>
-    <div v-for="year in items" :key="year.year" class="year-section">
-      <div class="year-container">
-        <div class="year-text">{{ year.year }}</div>
-        <div class="indicator">
-          <div class="indicator-dot" />
+    <div class="timeline-body">
+      <div v-for="year in items" :key="year.year" class="year-section">
+        <div class="year-header">
+          <span class="year-text">{{ year.year }}</span>
+          <span v-if="year.grade" class="year-grade">{{ year.grade }}</span>
         </div>
-        <div class="post-count">{{ year.grade }}</div>
+        <div class="year-items">
+          <component
+            :is="item.src ? 'a' : 'div'"
+            v-for="item in year.items"
+            :key="item.title"
+            :href="item.src || undefined"
+            :target="item.src ? '_blank' : undefined"
+            :rel="item.src ? 'noopener noreferrer' : undefined"
+            class="timeline-item"
+            :class="{ 'has-link': !!item.src }"
+          >
+            <span class="item-term">{{ item.term }}</span>
+            <div class="item-content">
+              <span class="item-title">{{ item.title }}</span>
+              <p v-if="item.description" class="item-description">{{ item.description }}</p>
+            </div>
+          </component>
+        </div>
       </div>
-      <template v-for="item in year.items">
-        <a
-          v-if="item.src"
-          :key="item.src"
-          :href="item.src"
-          class="post-item"
-          target="_blank"
-        >
-          <div class="post-container">
-            <div class="term-text">{{ item.term }}</div>
-            <div class="dash-line-container">
-              <div class="dash-line" />
-            </div>
-            <div class="title-text">{{ item.title }}</div>
-          </div>
-        </a>
-        <div v-else :key="item.title" class="post-item">
-          <div class="post-container no-link">
-            <div class="term-text">{{ item.term }}</div>
-            <div class="dash-line-container">
-              <div class="dash-line" />
-            </div>
-            <div class="title-text">{{ item.title }}</div>
-          </div>
-        </div>
-      </template>
     </div>
   </div>
 </template>
 
 <style scoped>
-.year-section {
-  margin-bottom: 1rem;
-  margin: 0 auto;
+.timeline-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.year-container {
+.year-header {
   display: flex;
-  align-items: center;
-  height: 3.75rem;
-  width: 100%;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0 0 0.5rem;
 }
 
 .year-text {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #4a4a4a;
-  text-align: right;
-  width: 20%;
-  min-width: 6rem;
-  transition: color 0.3s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: rgb(var(--text));
 }
 
-.indicator {
-  width: 10%;
-  min-width: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 0;
-  background-color: rgb(var(--color-back));
-  z-index: 10;
-}
-
-.indicator-dot {
-  outline-color: rgb(var(--color-link));
-  outline-style: solid;
-  outline-offset: -2px;
-  height: 0.75rem;
-  width: 0.75rem;
-  border-radius: 9999px;
-}
-
-.post-count {
-  text-align: left;
-  color: rgb(var(--color-text));
-  width: min(30rem, 70%);
-  transition: color 0.3s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-}
-
-.post-item {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 3.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.2s;
-  border-radius: 0.5rem;
-
-  @media screen and (min-width: 500px) {
-    height: 2.5rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-}
-
-.post-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  height: 100%;
-
-  &.no-link {
-    cursor: default;
-    text-decoration: none;
-  }
-}
-
-.term-text {
+.year-grade {
   font-size: 0.875rem;
-  line-height: 0.875rem;
-  color: rgb(var(--color-text));
-  text-align: right;
-  width: 20%;
-  min-width: 6rem;
-  transition: color 0.2s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  color: rgb(var(--text-muted));
 }
 
-.dash-line-container {
+.year-items {
+  background: rgb(0 0 0 / 0.035);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.timeline-item {
   display: flex;
-  align-items: center;
-  width: 10%;
-  min-width: 4rem;
-  height: 100%;
-  position: relative;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  color: rgb(var(--text));
+  text-decoration: none;
+  transition: background 0.15s;
 
-  &:before {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    left: calc(50% - 1px);
-    top: -50%;
-    height: 100%;
-    width: 10%;
-    border-width: 0 0 0 2px;
-    border-style: dashed;
-    border-color: rgb(var(--color-text-tertiary));
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.2s;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgb(0 0 0 / 0.06);
+  }
 
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
+  &.has-link {
+    cursor: pointer;
+
+    @media (hover: hover) {
+      &:hover {
+        background: rgb(0 0 0 / 0.04);
+
+        .item-title {
+          color: rgb(var(--accent));
+        }
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        background: rgb(0 0 0 / 0.04);
+      }
     }
   }
-}
-
-.dash-line {
-  background-color: rgb(var(--color-text-secondary));
-  outline-color: rgb(var(--color-back));
-  outline-style: solid;
-  outline-width: 4px;
-  height: 4px;
-  width: 4px;
-  margin: 0 auto;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  z-index: 10;
-}
-
-.title-text {
-  font-weight: bold;
-  font-size: 0.7rem;
-  line-height: 0.7rem;
-  color: rgb(var(--color-text));
-  text-align: left;
-  width: min(30rem, 70%);
-  transition: all 0.2s ease;
-
-  @media screen and (min-width: 360px) {
-    font-size: 1rem;
-    line-height: 1rem;
-  }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 }
 
-.src-text {
-  width: calc(100% - 40rem);
-  text-align: end;
-  color: rgb(var(--color-text-secondary));
+.item-term {
+  font-size: 0.875rem;
+  color: rgb(var(--text-muted));
+  white-space: nowrap;
+  min-width: 5rem;
+  flex-shrink: 0;
 }
 
-.post-item[href^="http"]:hover .title-text {
-  color: rgb(var(--color-link));
-  transform: translateX(4px);
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
-.post-item[href^="http"]:hover .dash-line {
-  background-color: rgb(var(--color-link));
-  height: 20px;
+.item-title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.15s;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
-.post-item[href^="http"]:hover .term-text,
-.post-item[href^="http"]:hover .post-count,
-.post-item[href^="http"]:hover .src-text {
-  color: rgb(var(--color-link));
+.item-description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgb(var(--text-muted));
 }
 </style>

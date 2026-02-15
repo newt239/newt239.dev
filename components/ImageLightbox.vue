@@ -207,7 +207,7 @@ function onBackdropClick(e: MouseEvent) {
   left: 50%;
   transform: translateX(-50%);
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
 }
 

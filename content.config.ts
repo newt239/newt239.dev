@@ -11,8 +11,7 @@ export default defineContentConfig({
         tech: z.array(z.string()),
         period: z.string(),
         github: z.string(),
-        featured: z.boolean(),
-        order: z.number(),
+        order: z.number().optional(),
         images: z
           .array(
             z.object({
