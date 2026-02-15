@@ -4,6 +4,47 @@ import { IconChevronRight } from "@tabler/icons-vue";
 useHead({
   title: "わたしについて - newt239.dev",
 });
+
+const contacts = [
+  { label: "メール", items: [{ href: "mailto:contact@newt239.dev", text: "contact@newt239.dev" }] },
+  {
+    label: "Discordサーバー",
+    items: [{ href: "https://discord.gg/rct5sx6rbZ", text: "https://discord.gg/rct5sx6rbZ" }],
+  },
+] as const;
+
+const interests = [
+  { category: "Webフロントエンド", items: ["Web 標準化", "Web API"] },
+  { category: "UI/UX, デザイン", items: ["フォント"] },
+] as const;
+
+const hobbies = [
+  {
+    title: "好きなアニメ",
+    items: [
+      "響け！ユーフォニアム",
+      "色づく世界の明日から",
+      "リコリス・リコイル",
+      "アオのハコ",
+      "やはり俺の青春ラブコメはまちがっている。",
+      "Charlotte",
+    ],
+  },
+  {
+    title: "好きなアーティスト",
+    items: ["DECO*27", "*Luna", "Orangestar", "HoneyWorks", "Mrs. GREEN APPLE"],
+  },
+  {
+    title: "好きな書体",
+    items: ["LINE Seed JP", "ユールカ", "新ゴ", "筑紫アンティークゴシック"],
+  },
+] as const;
+
+const links = [
+  { href: "https://newt239.hatenablog.com/", label: "はてなブログ" },
+  { href: "https://mixi.social/@newt", label: "mixi2" },
+  { href: "https://annict.com/@newt", label: "Annict" },
+] as const;
 </script>
 
 <template>
@@ -27,17 +68,17 @@ useHead({
           <h3>コンタクト</h3>
           <div class="section-body">
             <ul>
-              <li>
-                メール
+              <li v-for="contact in contacts" :key="contact.label">
+                {{ contact.label }}
                 <ul>
-                  <li><a href="mailto:contact@newt239.dev">contact@newt239.dev</a></li>
-                </ul>
-              </li>
-              <li>
-                Discordサーバー
-                <ul>
-                  <li>
-                    <a href="https://discord.gg/rct5sx6rbZ" target="_blank" rel="noopener noreferrer">https://discord.gg/rct5sx6rbZ</a>
+                  <li v-for="item in contact.items" :key="item.text">
+                    <a
+                      :href="item.href"
+                      :target="item.href.startsWith('http') ? '_blank' : undefined"
+                      :rel="item.href.startsWith('http') ? 'noopener noreferrer' : undefined"
+                    >
+                      {{ item.text }}
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -49,15 +90,10 @@ useHead({
           <h3>興味・関心</h3>
           <div class="section-body">
             <ul>
-              <li>Webフロントエンド
+              <li v-for="interest in interests" :key="interest.category">
+                {{ interest.category }}
                 <ul>
-                  <li>Web 標準化</li>
-                  <li>Web API</li>
-                </ul>
-              </li>
-              <li>UI/UX, デザイン
-                <ul>
-                  <li>フォント</li>
+                  <li v-for="item in interest.items" :key="item">{{ item }}</li>
                 </ul>
               </li>
             </ul>
@@ -67,34 +103,10 @@ useHead({
         <section class="about-section">
           <h3>趣味</h3>
           <div class="section-body hobbies">
-            <div>
-              <h4>好きなアニメ</h4>
+            <div v-for="hobby in hobbies" :key="hobby.title">
+              <h4>{{ hobby.title }}</h4>
               <ul>
-                <li>アオのハコ</li>
-                <li>響け！ユーフォニアム</li>
-                <li>色づく世界の明日から</li>
-                <li>リコリス・リコイル</li>
-                <li>やはり俺の青春ラブコメはまちがっている。</li>
-                <li>Charlotte</li>
-              </ul>
-            </div>
-            <div>
-              <h4>好きなアーティスト</h4>
-              <ul>
-                <li>*Luna</li>
-                <li>DECO*27</li>
-                <li>Orangestar</li>
-                <li>HoneyWorks</li>
-                <li>Mrs. GREEN APPLE</li>
-              </ul>
-            </div>
-            <div>
-              <h4>好きな書体</h4>
-              <ul>
-                <li>LINE Seed JP</li>
-                <li>ユールカ</li>
-                <li>新ゴ</li>
-                <li>筑紫アンティークゴシック</li>
+                <li v-for="item in hobby.items" :key="item">{{ item }}</li>
               </ul>
             </div>
           </div>
@@ -103,16 +115,15 @@ useHead({
         <section class="about-section">
           <h3>リンク集</h3>
           <div class="section-body link-list">
-            <a href="https://newt239.hatenablog.com/" target="_blank" rel="noopener noreferrer" class="link-card">
-              はてなブログ
-              <IconChevronRight :size="16" />
-            </a>
-            <a href="https://mixi.social/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
-              mixi2
-              <IconChevronRight :size="16" />
-            </a>
-            <a href="https://annict.com/@newt" target="_blank" rel="noopener noreferrer" class="link-card">
-              Annict
+            <a
+              v-for="link in links"
+              :key="link.href"
+              :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-card"
+            >
+              {{ link.label }}
               <IconChevronRight :size="16" />
             </a>
           </div>
