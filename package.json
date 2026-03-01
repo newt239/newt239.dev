@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@nuxt/content": "3.12.0",
-    "@nuxt/eslint": "1.15.1",
+    "@nuxt/eslint": "1.15.2",
     "@nuxt/image": "2.0.0",
     "@tabler/icons-vue": "3.37.1",
     "better-sqlite3": "12.6.2",
