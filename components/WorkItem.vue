@@ -6,6 +6,7 @@ export type WorkItemProps = {
     images: { src: string; alt: string }[];
     description: string;
   };
+  priority?: boolean;
 };
 const props = defineProps<WorkItemProps>();
 const slug = computed(() => props.work.path.split('/')[2]);
@@ -15,7 +16,8 @@ const thumbnail = computed(() => props.work.images[0]);
 <template>
   <NuxtLink :to="`/works/${slug}`" class="work-card">
     <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" :alt="thumbnail?.alt"
-      :style="`view-transition-name: ${slug}-img;`" />
+      :style="`view-transition-name: ${slug}-img;`" :loading="priority ? 'eager' : 'lazy'"
+      :fetchpriority="priority ? 'high' : undefined" sizes="sm:100vw md:50vw lg:400px" />
     <div class="work-card-body">
       <h3 :style="`view-transition-name: ${slug}-name;`">{{ props.work.title }}</h3>
       <p class="work-card-description">{{ props.work.description }}</p>

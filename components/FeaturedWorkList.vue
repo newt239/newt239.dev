@@ -12,7 +12,7 @@ const works = await queryCollection("works")
   <div v-show="works && works.length !== 0" class="work-list">
     <h2 class="category-title" lang="en">Works</h2>
     <div class="card-grid">
-      <WorkItem v-for="work in works" :key="work.path" :work="work" />
+      <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
       <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る
