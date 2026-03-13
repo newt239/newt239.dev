@@ -8,3 +8,10 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      timezone: "Asia/Tokyo"
+      time: "12:00"
+    target-branch: "main"
