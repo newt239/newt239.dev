@@ -33,7 +33,7 @@ const getSiteName = (url: string) => {
     </div>
     <div class="article-card-footer">
       <div class="site-info">
-        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.png" alt="" width="16" height="16" />
+        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.webp" alt="" width="16" height="16" />
         <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16" height="16" />
         <NuxtImg v-else-if="props.url.startsWith('https://newt239.hatenablog.com/')" src="/hatena.webp" alt=""
           width="16" height="16" />

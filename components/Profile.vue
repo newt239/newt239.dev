@@ -67,7 +67,7 @@ const profile: string[] = [
       >
         <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" alt="" aria-hidden="true" class="sns-icon" />
+        <img src="/qiita.webp" alt="" aria-hidden="true" class="sns-icon" />
       </a>
     </div>
   </div>
