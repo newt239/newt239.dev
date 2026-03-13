@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       script: [
         {
           src: "https://use.typekit.net/ylu0yhm.js",
+          async: true,
         },
       ],
     },
