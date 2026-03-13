@@ -109,7 +109,7 @@ const filteredArticles = computed(() => {
               :class="{ active: selectedSites.has(site) }"
               @click="toggleSite(site)"
             >
-              <IconCheck v-if="selectedSites.has(site)" :size="16" class="filter-chip-icon" aria-hidden />
+              <IconCheck v-if="selectedSites.has(site)" :size="16" class="filter-chip-icon" aria-hidden="true" />
               <span>{{ site }}</span>
             </button>
             <button v-if="selectedSites.size > 0" class="filter-clear" @click="clearFilter">

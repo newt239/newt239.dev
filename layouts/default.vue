@@ -1,13 +1,3 @@
-<script setup>
-onMounted(() => {
-  try {
-    Typekit.load({ async: true });
-  } catch (e) {
-    console.log(e);
-  }
-});
-</script>
-
 <template>
   <div>
     <Header />

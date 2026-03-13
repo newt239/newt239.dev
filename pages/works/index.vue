@@ -65,7 +65,7 @@ const sortedWorks = computed(() => {
             :class="{ active: featuredOnly }"
             @click="toggleFeatured"
           >
-            <IconCheck v-if="featuredOnly" :size="16" class="filter-chip-icon" aria-hidden />
+            <IconCheck v-if="featuredOnly" :size="16" class="filter-chip-icon" aria-hidden="true" />
             <span>おすすめ</span>
           </button>
         </div>

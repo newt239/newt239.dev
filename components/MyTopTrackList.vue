@@ -29,7 +29,7 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
       >
         <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />
         <div class="track-body">
-          <h4 class="track-name">{{ track.name }}</h4>
+          <h3 class="track-name">{{ track.name }}</h3>
           <p class="track-artists">{{ track.artists.join(", ") }}</p>
           <div class="track-meta">
             <span>{{ dayjs(track.duration).format("m:ss") }}</span>

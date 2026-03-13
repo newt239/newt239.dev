@@ -25,7 +25,7 @@ const profile: string[] = [
       </div>
       <div class="more-detail-button">
         わたしについて
-        <IconChevronRight :size="16" aria-hidden />
+        <IconChevronRight :size="16" aria-hidden="true" />
       </div>
     </NuxtLink>
     <div class="sns-links">
@@ -37,7 +37,7 @@ const profile: string[] = [
       >
         <div class="sns-name">X</div>
         <div>@newt239</div>
-        <IconBrandX aria-hidden />
+        <IconBrandX aria-hidden="true" />
       </a>
       <a
         class="sns-card"
@@ -47,7 +47,7 @@ const profile: string[] = [
       >
         <div class="sns-name">GitHub</div>
         <div>@newt239</div>
-        <IconBrandGithub aria-hidden />
+        <IconBrandGithub aria-hidden="true" />
       </a>
       <a
         class="sns-card"
@@ -57,7 +57,7 @@ const profile: string[] = [
       >
         <div class="sns-name">Zenn</div>
         <div>@newt_st21</div>
-        <img src="/zenn.png" aria-hidden class="sns-icon" />
+        <img src="/zenn.png" alt="" aria-hidden="true" class="sns-icon" />
       </a>
       <a
         class="sns-card"
@@ -67,7 +67,7 @@ const profile: string[] = [
       >
         <div class="sns-name">Qiita</div>
         <div>@newt239</div>
-        <img src="/qiita.png" aria-hidden class="sns-icon" />
+        <img src="/qiita.webp" alt="" aria-hidden="true" class="sns-icon" />
       </a>
     </div>
   </div>
