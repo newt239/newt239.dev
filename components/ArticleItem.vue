@@ -29,7 +29,7 @@ const getSiteName = (url: string) => {
 <template>
   <a :href="`${props.url}`" target="_blank" rel="noopener noreferrer" class="article-card">
     <div class="article-card-body">
-      <h4 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h4>
+      <h3 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h3>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
@@ -88,7 +88,7 @@ const getSiteName = (url: string) => {
 .article-card-body {
   padding: 1rem 1rem 0.5rem;
 
-  h4 {
+  h3 {
     margin: 0;
     padding: 0;
     font-size: 1rem;
