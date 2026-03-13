@@ -16,7 +16,7 @@ const works = await queryCollection("works")
       <NuxtLink to="works" class="see-all-works">
         <span>
           すべての作品を見る
-          <IconChevronRight aria-hidden />
+          <IconChevronRight aria-hidden="true" />
         </span>
       </NuxtLink>
     </div>

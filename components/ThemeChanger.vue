@@ -87,7 +87,7 @@ const handleBackdropClick = (event: MouseEvent) => {
     class="modal-open-button"
     @click="onModalOpen"
   >
-    <IconSparkles aria-hidden />
+    <IconSparkles aria-hidden="true" />
   </button>
   <dialog ref="modalRef" :aria-busy="isGenerating">
     <div class="modal-content">
@@ -110,7 +110,7 @@ const handleBackdropClick = (event: MouseEvent) => {
             v-if="isGenerating === false"
             aria-label="Generating..."
           />
-          <IconLoader2 v-else aria-hidden />
+          <IconLoader2 v-else aria-hidden="true" />
           Generate
         </button>
       </div>

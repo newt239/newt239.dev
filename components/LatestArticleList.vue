@@ -20,7 +20,7 @@ const articles = articleList.slice(0, 5);
       <NuxtLink to="/articles" class="see-all-articles">
         <span>
           すべての記事を見る
-          <IconChevronRight aria-hidden />
+          <IconChevronRight aria-hidden="true" />
         </span>
       </NuxtLink>
     </div>
