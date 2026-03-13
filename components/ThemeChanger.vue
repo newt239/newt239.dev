@@ -108,7 +108,7 @@ const handleBackdropClick = (event: MouseEvent) => {
         >
           <IconSparkles
             v-if="isGenerating === false"
-            aria-label="Generating..."
+            aria-hidden="true"
           />
           <IconLoader2 v-else aria-hidden="true" />
           Generate
