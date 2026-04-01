@@ -1,6 +1,6 @@
 ---
 title: GingaUI
-order: 3
+order: 1
 github: newt239/ginga-ui
 period: 2024.08 -
 tech:

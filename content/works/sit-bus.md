@@ -1,6 +1,5 @@
 ---
 title: SIT Bus
-order: 5
 github: newt239/sit-bus
 period: 2024.04
 tech:
