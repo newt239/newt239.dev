@@ -1,6 +1,6 @@
 ---
 title: Gateway
-order: 1
+order: 4
 github: newt239/gateway-front
 period: 2021.12 - 2022.09
 tech:
