@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         { property: "twitter:creator", content: "@newt239" },
         { property: "twitter:domain", content: "newt239.dev" },
       ],
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
+      link: [{ rel: "icon", type: "image/webp", href: "/icon.webp" }],
       script: [
         {
           src: "https://use.typekit.net/ylu0yhm.js",
