@@ -14,7 +14,7 @@ const contacts = [
 ] as const;
 
 const interests = [
-  { category: "Webフロントエンド", items: ["Web 標準化", "Web API"] },
+  { category: "Webフロントエンド", items: ["Webアクセシビリティ", "Web 標準化", "Web API"] },
   { category: "UI/UX, デザイン", items: ["フォント"] },
 ] as const;
 
@@ -26,7 +26,7 @@ const hobbies = [
       "色づく世界の明日から",
       "リコリス・リコイル",
       "アオのハコ",
-      "やはり俺の青春ラブコメはまちがっている。",
+      "正反対な君と僕",
       "Charlotte",
     ],
   },
@@ -58,7 +58,7 @@ const links = [
             <dt>誕生日</dt>
             <dd>2005年11月2日</dd>
             <dt>所属</dt>
-            <dd>芝浦工業大学 2年<br>デザイン工学部 デザイン工学科<br>ロボティクス・情報デザイン系</dd>
+            <dd>芝浦工業大学 3年<br>デザイン工学部 デザイン工学科<br>ロボティクス・情報デザイン系</dd>
           </dl>
         </div>
       </div>
