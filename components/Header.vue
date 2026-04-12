@@ -63,7 +63,9 @@ header {
 
       img {
         height: 2.5rem;
-        border-radius: 36% 64% 53% 47% / 41% 71% 29% 59%;
+        width: 2.5rem;
+        object-fit: cover;
+        border-radius: 50%;
       }
 
       span {
