@@ -2,7 +2,7 @@
   <header>
     <NuxtLink to="/">
       <div class="logo">
-        <img src="/icon.webp" alt="" width="40" height="40" />
+        <img src="/icon.png" alt="" width="40" height="40" />
         <span>newt239.dev</span>
       </div>
     </NuxtLink>
@@ -63,9 +63,8 @@ header {
 
       img {
         height: 2.5rem;
-        width: 2.5rem;
-        object-fit: cover;
-        border-radius: 50%;
+        width: auto;
+        display: block;
       }
 
       span {
