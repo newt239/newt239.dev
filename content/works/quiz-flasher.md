@@ -8,13 +8,13 @@ images:
     alt: モバイル UI を 3 画面並列にキャプチャした Web アプリ「Quiz Flasher」のダークテーマ画面。左端はホーム画面で、「このサイトは何？」「プリセット」「その他のツール」「このWebアプリについて」という見出しが並ぶ。中央はクイズ出題画面で、画面上からシート IDとシート名、「次の問題」のボタン、問題文、橙色による正解文、回答履歴のテーブルが並ぶ。右端は「スプレッドシートのidから検索」画面で、URL入力欄と検索結果として抽出されたシート名一蘭があり、それぞれリンクテキストとして表示されている。
 ---
 
-問題データを入れた Google スプレッドシートのファイルから、ランダムに問題を出題する Web アプリです。すべてのシートから出題させたり、特定のシートの特定の問題のみで出題させることもできます。自分が JavaScript を初めて使って作った作品です。バックエンド的に使うのももちろんですが、モーダルウィンドウなどデザイン面で利用したのもこれが初でした。
+問題データを入れたGoogleスプレッドシートのファイルから、ランダムに問題を出題するWebアプリです。すべてのシートから出題させたり、特定のシートの特定の問題のみで出題させることもできます。自分がJavaScriptを初めて使って作った作品です。バックエンド的に使うのももちろんですが、モーダルウィンドウなどデザイン面で利用したのもこれが初でした。
 
 <!--more-->
 
 ## API
 
-クイズ出題の部分は API 化してあるので仕様を載せておきます。メソッドは全て GET です。メンテナンスはしていないためずっと使える保証はないです。なお LINE bot の方はこの API を利用しています。
+クイズ出題の部分はAPI化してあるので仕様を載せておきます。メソッドは全てGETです。メンテナンスはしていないためずっと使える保証はないです。なおLINE botの方はこのAPIを利用しています。
 
 ### Base URL
 
@@ -33,7 +33,9 @@ images:
 
 #### Request: `GET`
 
-`https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec?t=show&p=1lnZuqxrFkku0qcfhe_ugUcH05qh7If1jV_g67WzlgH0&s=0`
+```
+https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec?t=show&p=1lnZuqxrFkku0qcfhe_ugUcH05qh7If1jV_g67WzlgH0&s=0
+```
 
 #### Response
 

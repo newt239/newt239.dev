@@ -18,4 +18,4 @@ images:
 
 新しい履修登録システムの導入に合わせ、旧時間割検索システムを置き換える形で、開発を行いました。大学の関係部署と連携しながら、デザインや機能実装を学生視点で一から開発しています。
 
-- <a href="https://timetbl.sic.shibaura-it.ac.jp/" target="_blank">芝浦工業大学 時間割検索システム</a>
+- <a href="https://timetbl.sic.shibaura-it.ac.jp/" target="_blank">芝浦工業大学時間割検索システム</a>
