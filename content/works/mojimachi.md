@@ -15,7 +15,7 @@ images:
 
 <!--more-->
 
-前身となった[Local Font Emulator](./local-font-emulator)は、デスクトップの Google Chrome でしか利用することができない等、制約の多い Web アプリでした。
+前身となった[Local Font Emulator](./local-font-emulator)は、デスクトップのGoogle Chromeでしか利用することができない等、制約の多いWebアプリでした。
 
 そこで、様々な環境で利用できるようデスクトップアプリケーションを開発しました。
 
@@ -23,4 +23,4 @@ images:
 
 ## インストール
 
-GitHub の<a href="https://github.com/newt239/mojimachi/releases" target="_blank">Releases</a>ページからインストーラーをダウンロードできます。
+GitHubの<a href="https://github.com/newt239/mojimachi/releases" target="_blank">Releases</a>ページからインストーラーをダウンロードできます。

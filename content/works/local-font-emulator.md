@@ -10,9 +10,9 @@ images:
     alt: 黄色の角丸ブロックをレンガ状に配置し、太字黒文字で 「Local Font Emulator」と記載。右中段のブロックに「newt239 / local-font-emulator」のリポジトリ名が小さく入ったビジュアルバナー。
 ---
 
-ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができる Web アプリです。
+ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができるWebアプリです。
 
-※ ブラウザの <a href="https://developer.mozilla.org/en-US/docs/Web/API/Local_Font_Access_API" target="_blank">`Local Font Access API`</a> を利用しているため、デスクトップ版の Google Chrome でのみ利用できます。
+※ ブラウザの <a href="https://developer.mozilla.org/en-US/docs/Web/API/Local_Font_Access_API" target="_blank">`Local Font Access API`</a> を利用しているため、デスクトップ版のGoogle Chromeでのみ利用できます。
 
 ## リンク
 
@@ -22,4 +22,4 @@ images:
 
 和文フォントフィルターを搭載しています。
 
-ウェブブラウザにはフォントのフォールバック機能が搭載されているため、フォントに該当の文字が存在しない場合代替のフォントが表示されています。Local Font Emulator では CSS の`font-family`プロパティで、2 つ目のフォントに`Tofu`を設定することで、文字が存在しなかった場合に豆腐文字が表示されるようにしています。
+ウェブブラウザにはフォントのフォールバック機能が搭載されているため、フォントに該当の文字が存在しない場合代替のフォントが表示されています。Local Font EmulatorではCSSの`font-family`プロパティで、2つ目のフォントに`Tofu`を設定することで、文字が存在しなかった場合に豆腐文字が表示されるようにしています。
