@@ -1,4 +1,5 @@
 import { defineCollection, defineContentConfig, z } from "@nuxt/content";
+import { defineSitemapSchema } from "@nuxtjs/sitemap/content";
 
 export default defineContentConfig({
   collections: {
@@ -16,6 +17,7 @@ export default defineContentConfig({
             alt: z.string(),
           })
         ).min(1),
+        sitemap: defineSitemapSchema(),
       }),
     }),
   },
