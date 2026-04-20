@@ -1,7 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
+  modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
+  site: {
+    url: "https://newt239.dev",
+    name: "newt239.dev",
+  },
   css: ["@/assets/styles/main.css"],
   app: {
     head: {

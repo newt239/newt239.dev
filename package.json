@@ -28,6 +28,7 @@
     "vue-router": "5.0.4"
   },
   "devDependencies": {
+    "@nuxtjs/sitemap": "8.0.13",
     "@types/node": "25.5.0",
     "sharp": "0.34.5",
     "textlint": "15.5.4",
