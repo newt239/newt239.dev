@@ -23,6 +23,13 @@ logs
 .env.*
 !.env.example
 
+# Wrangler
 wrangler.toml
 .wrangler/
+
+# AI
+.claude/settings.local.json
+.claude/last-session.json
+.claude/scheduled_tasks.lock
 .serena/
+.playwright-mcp/
