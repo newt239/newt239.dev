@@ -8,6 +8,10 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -15,3 +19,7 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
