@@ -12,11 +12,10 @@
   --surface: 246 240 232;
   --surface-hover: 236 230 222;
   --border: 240 234 228;
-  /* アクセシビリティ用（テーマ生成対象外） */
   --focus-ring: 255 0 0;
   --focus-bg: 255 255 0;
-  /* 共通トランジション。prefers-reduced-motion 時は末尾で none に上書きする */
   --transition: all 0.2s;
+  --hover-opacity: 0.8;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -149,8 +148,6 @@ a {
 
 .underline, p a, li a, table a {
   color: rgb(var(--accent));
-  text-decoration: none;
-  color: rgb(var(--accent));
   text-decoration: underline;
   text-underline-offset: 0.25rem;
   text-decoration-style: dashed;
@@ -158,13 +155,15 @@ a {
 
   @media (hover: hover) {
     &:hover {
-  opacity: 0.5;
+      opacity: var(--hover-opacity);
+      text-decoration-color: transparent;
     }
   }
 
   @media (hover: none) {
     &:active {
-  opacity: 0.5;
+      opacity: var(--hover-opacity);
+      text-decoration-color: transparent;
     }
   }
 }

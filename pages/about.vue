@@ -260,8 +260,10 @@ const links = [
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 1.5rem;
-      color: rgb(var(--text));
-      text-decoration: none;
+      color: rgb(var(--accent));
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      text-decoration-style: dashed;
       font-weight: 600;
       transition: var(--transition);
 
@@ -272,7 +274,8 @@ const links = [
       @media (hover: hover) {
         &:hover {
           background: rgb(var(--surface));
-          color: rgb(var(--accent));
+          opacity: var(--hover-opacity);
+          text-decoration-color: transparent;
         }
       }
 

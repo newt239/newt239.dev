@@ -53,7 +53,7 @@ const items: YearSection[] = [
       {
         term: "9月",
         title: "LayerX サマーインターン",
-        src: "https://layerx.co.jp/",
+        src: "https://x.com/newt239/status/1834594518324457782",
       },
       {
         term: "7月 - 現在",
@@ -78,7 +78,7 @@ const items: YearSection[] = [
       {
         term: "3月",
         title: "栄東高等学校 卒業",
-        src: "https://x.com/newt239/status/1766442681688088755",
+        src: null,
       },
     ],
   },
@@ -170,12 +170,20 @@ const items: YearSection[] = [
   &.has-link {
     cursor: pointer;
 
+    .item-title {
+      color: rgb(var(--accent));
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      text-decoration-style: dashed;
+    }
+
     @media (hover: hover) {
       &:hover {
         background: rgb(var(--surface));
 
         .item-title {
-          color: rgb(var(--accent));
+          opacity: var(--hover-opacity);
+          text-decoration-color: transparent;
         }
       }
     }
