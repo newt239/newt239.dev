@@ -208,8 +208,13 @@ function onTouchEnd() {
   transition: var(--transition);
 
   @media (hover: hover) {
-    &:hover {
+    &:not(.active):hover {
+      background: rgb(var(--surface-hover));
       border-color: rgb(var(--text));
+    }
+
+    &.active:hover {
+      opacity: var(--hover-opacity);
     }
   }
 }
