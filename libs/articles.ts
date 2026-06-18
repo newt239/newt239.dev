@@ -8,7 +8,7 @@ export const articleList: ArticleProp[] = [
   {
     title: "MIXIのインターンに参加しました",
     url: "https://newt239.hatenablog.com/entry/2026/06/18/185837",
-    date: "2025/06/18"
+    date: "2026/06/18"
   },
   {
     title: "2025年のふりかえり",
