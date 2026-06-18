@@ -110,11 +110,7 @@ const profile: string[] = [
       );
     color: rgb(var(--bg));
     border-radius: 0.75rem;
-    transition: all 0.2s;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
@@ -163,14 +159,10 @@ const profile: string[] = [
     border: 1px solid rgb(var(--bg));
     border-radius: 9999px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition);
     font-size: 0.9375rem;
     font-weight: 600;
     color: rgb(var(--bg));
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
   }
 
   .sns-links {
@@ -191,29 +183,25 @@ const profile: string[] = [
     .sns-card {
       color: rgb(var(--text));
       background: rgb(var(--surface));
-      border: none;
+      border: 2px solid transparent;
       border-radius: 0.75rem;
       padding: 0.6rem 1rem;
-      transition: background 0.2s;
+      transition: var(--transition);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       font-weight: 800;
 
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-
       @media (hover: hover) {
         &:hover {
-          background: rgb(var(--surface-hover));
+          border-color: rgb(var(--text));
           text-decoration: none;
         }
       }
 
       @media (hover: none) {
         &:active {
-          background: rgb(var(--surface-hover));
+          border-color: rgb(var(--text));
         }
       }
     }

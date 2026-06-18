@@ -95,16 +95,12 @@ footer {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: color 0.2s;
+      transition: var(--transition);
 
       @media (hover: hover) {
         &:hover {
           color: rgb(var(--accent));
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
       }
     }
   }

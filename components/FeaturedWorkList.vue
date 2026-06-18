@@ -46,25 +46,22 @@ const works = await queryCollection("works")
     align-items: center;
     height: 100%;
     padding: 1rem 0;
+    border: 2px solid transparent;
     border-radius: 0.75rem;
     background: rgb(var(--surface));
     color: rgb(var(--text));
-    transition: background 0.2s;
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
     }
   }
 }

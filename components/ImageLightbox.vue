@@ -304,11 +304,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
@@ -331,11 +327,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
@@ -388,11 +380,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover:not(:disabled) {

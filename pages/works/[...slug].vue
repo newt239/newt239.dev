@@ -176,7 +176,7 @@ function closeLightbox() {
           text-decoration: underline;
           text-decoration-style: dashed;
           text-underline-offset: 0.25rem;
-          transition: all 0.2s;
+          transition: var(--transition);
 
           @media (hover: hover) {
             &:hover {
@@ -188,10 +188,6 @@ function closeLightbox() {
             &:active {
               opacity: 0.5;
             }
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            transition: none;
           }
         }
       }

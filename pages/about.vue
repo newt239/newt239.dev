@@ -263,7 +263,7 @@ const links = [
       color: rgb(var(--text));
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.15s, color 0.15s;
+      transition: var(--transition);
 
       &:not(:last-child) {
         border-bottom: 1px solid rgb(var(--border));
@@ -280,10 +280,6 @@ const links = [
         &:active {
           background: rgb(var(--surface));
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
       }
     }
   }

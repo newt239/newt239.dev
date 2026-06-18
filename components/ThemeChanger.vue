@@ -125,10 +125,10 @@ const handleBackdropClick = (event: MouseEvent) => {
   height: 2.5rem;
   color: rgb(var(--text));
   background-color: rgb(var(--surface));
-  border: 1.5px solid rgb(var(--border));
+  border: 2px solid transparent;
   border-radius: 0.625rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,21 +138,16 @@ const handleBackdropClick = (event: MouseEvent) => {
     height: 1.25rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
   @media (hover: hover) {
     &:hover {
-      background-color: rgb(var(--surface-hover));
-      border-color: rgb(var(--accent));
-      color: rgb(var(--accent));
+      border-color: rgb(var(--text));
+      color: rgb(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background-color: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
   }
 }
@@ -259,7 +254,7 @@ dialog {
   border: 1px solid rgb(var(--text));
   border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
 
   &:hover {
     color: rgb(var(--text));

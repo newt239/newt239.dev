@@ -53,24 +53,21 @@ const getSiteName = (url: string) => {
   gap: 0;
   color: rgb(var(--text));
   background: rgb(var(--surface));
+  border: 2px solid transparent;
   border-radius: 0.75rem;
   overflow: hidden;
-  transition: background 0.2s;
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      background: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
   }
 }
 

@@ -30,24 +30,21 @@ const thumbnail = computed(() => props.work.images[0]);
   display: flex;
   flex-direction: column;
   color: rgb(var(--text));
+  border: 2px solid transparent;
   border-radius: 0.75rem;
   overflow: hidden;
   background: rgb(var(--surface));
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      background: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
   }
 }

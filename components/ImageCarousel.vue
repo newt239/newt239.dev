@@ -205,11 +205,7 @@ function onTouchEnd() {
   flex-shrink: 0;
   font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
-  transition: border-color 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {

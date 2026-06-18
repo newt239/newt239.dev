@@ -159,7 +159,7 @@ const items: YearSection[] = [
   padding: 0.75rem 1.25rem;
   color: rgb(var(--text));
   text-decoration: none;
-  transition: background 0.15s;
+  transition: var(--transition);
 
   &:not(:last-child) {
     border-bottom: 1px solid rgb(var(--border));
@@ -185,9 +185,6 @@ const items: YearSection[] = [
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 }
 
 .item-term {
@@ -209,11 +206,7 @@ const items: YearSection[] = [
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.5;
-  transition: color 0.15s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 }
 
 .item-description {

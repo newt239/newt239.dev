@@ -186,12 +186,8 @@ const filteredArticles = computed(() => {
     background: transparent;
     color: rgb(var(--text));
     cursor: pointer;
-    transition: all 0.15s;
+    transition: var(--transition);
     white-space: nowrap;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
 
     @media (hover: hover) {
       &:hover {
