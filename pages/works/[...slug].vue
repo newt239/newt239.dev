@@ -205,6 +205,15 @@ function closeLightbox() {
       ul {
         margin: 0.5rem 0;
         padding-left: 1.5rem;
+
+        ul {
+          margin: 0;
+        }
+      }
+
+      li {
+        line-height: 1.6;
+        margin: 0.25rem 0;
       }
 
       h2 {
