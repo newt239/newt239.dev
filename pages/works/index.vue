@@ -56,7 +56,7 @@ const sortedWorks = computed(() => {
 <template>
   <main>
     <div class="container work-list-page">
-      <h2 class="category-name" lang="en">Works</h2>
+      <h2 v-colorful-heading class="category-name" lang="en">Works</h2>
 
       <div class="list-controls">
         <div class="filter-section">

@@ -97,7 +97,7 @@ const filteredArticles = computed(() => {
 <template>
   <main>
     <div class="container article-list-page">
-      <h2 class="category-name" lang="en">Articles</h2>
+      <h2 v-colorful-heading class="category-name" lang="en">Articles</h2>
 
       <div class="list-controls">
         <div class="filter-section">

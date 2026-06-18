@@ -83,11 +83,45 @@ h1 {
 
 h2,
 .category-name {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 800;
   padding: 1rem 0 0.5rem;
   margin: 0px;
   width: fit-content;
+}
+
+.colorful-heading__char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .colorful-heading:not(.is-visible),
+  .colorful-heading:not(.is-visible) .colorful-heading__char {
+    opacity: 0;
+  }
+}
+
+.colorful-heading.is-visible .colorful-heading__char {
+  animation: heading-color-wave 0.7s ease both;
+  animation-delay: calc(var(--char-index, 0) * 0.045s);
+}
+
+@keyframes heading-color-wave {
+  0% {
+    opacity: 0;
+    color: rgb(var(--accent));
+  }
+  40% {
+    opacity: 1;
+    color: rgb(var(--highlight));
+  }
+  70% {
+    color: rgb(var(--accent-dark));
+  }
+  100% {
+    opacity: 1;
+    color: inherit;
+  }
 }
 
 h3 {
@@ -100,6 +134,13 @@ h4 {
   padding: 1rem 1rem 0;
   margin: 0;
   font-size: 1.125rem;
+}
+
+@media (max-width: 600px) {
+  h2,
+  .category-name {
+    font-size: 2rem;
+  }
 }
 
 a {

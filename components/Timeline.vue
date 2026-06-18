@@ -97,11 +97,11 @@ const items: YearSection[] = [
 
 <template>
   <div class="timeline">
-    <h2 class="category-title" lang="en">Timeline</h2>
+    <h2 v-colorful-heading class="category-title" lang="en">Timeline</h2>
     <div class="timeline-body">
       <div v-for="year in items" :key="year.year" class="year-section">
         <div class="year-header">
-          <span class="year-text">{{ year.year }}</span>
+          <h3 class="year-text">{{ year.year }}</h3>
         </div>
         <div class="year-items">
           <component
@@ -144,6 +144,8 @@ const items: YearSection[] = [
   font-size: 1.75rem;
   font-weight: 800;
   color: rgb(var(--text));
+  padding: 0;
+  margin: 0;
 }
 
 .year-items {

@@ -10,7 +10,7 @@ const works = await queryCollection("works")
 
 <template>
   <div v-show="works && works.length !== 0" class="work-list">
-    <h2 class="category-title" lang="en">Works</h2>
+    <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
       <NuxtLink to="works" class="see-all-works">

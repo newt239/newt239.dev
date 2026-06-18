@@ -25,6 +25,12 @@ export default defineNuxtConfig({
         { property: "twitter:domain", content: "newt239.dev" },
       ],
       link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
+      noscript: [
+        {
+          innerHTML: "<style>.colorful-heading{opacity:1!important}</style>",
+          tagPosition: "head",
+        },
+      ],
       script: [
         {
           src: "https://use.typekit.net/ylu0yhm.js",

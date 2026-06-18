@@ -53,7 +53,7 @@ const links = [
       <div class="about-hero">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
         <div class="hero-info">
-          <h2>newt <span class="sub">@newt239</span></h2>
+          <h2 v-colorful-heading>newt <span class="sub">@newt239</span></h2>
           <dl class="basic-info">
             <dt>誕生日</dt>
             <dd>2005年11月2日</dd>

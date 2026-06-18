@@ -7,7 +7,7 @@ useHead({
 <template>
   <main>
     <div class="container privacy-page">
-      <h2>プライバシーポリシー</h2>
+      <h2 v-colorful-heading>プライバシーポリシー</h2>
       <p class="privacy-intro">newt239.dev（以下、「当サイト」といいます）では、ユーザーの皆様の個人情報の取扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
 
       <div class="privacy-sections">
