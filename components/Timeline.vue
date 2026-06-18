@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconExternalLink } from "@tabler/icons-vue";
+
 type TimelineItem = {
   term: string;
   title: string;
@@ -116,7 +118,7 @@ const items: YearSection[] = [
           >
             <span class="item-term">{{ item.term }}</span>
             <div class="item-content">
-              <span class="item-title">{{ item.title }}</span>
+              <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" :size="14" class="external-icon" /></span>
               <p v-if="item.description" class="item-description">{{ item.description }}</p>
             </div>
           </component>
@@ -217,6 +219,13 @@ const items: YearSection[] = [
   font-size: 1rem;
   line-height: 1.5;
   transition: var(--transition);
+
+  .external-icon {
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.15em;
+    margin-left: 0.2em;
+  }
 }
 
 .item-description {

@@ -89,22 +89,10 @@ footer {
     }
 
     a {
-      color: rgb(var(--accent));
-      text-decoration: underline;
-      text-underline-offset: 0.25rem;
-      text-decoration-style: dashed;
       font-size: 0.875rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: var(--transition);
-
-      @media (hover: hover) {
-        &:hover {
-          opacity: var(--hover-opacity);
-          text-decoration-color: transparent;
-        }
-      }
     }
   }
 

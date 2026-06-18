@@ -109,19 +109,6 @@ useHead({
       li {
         margin-bottom: 0.25rem;
       }
-
-      a {
-        color: rgb(var(--accent));
-        text-decoration: underline;
-        text-decoration-style: dashed;
-        text-underline-offset: 0.25rem;
-
-        @media (hover: hover) {
-          &:hover {
-            opacity: 0.7;
-          }
-        }
-      }
     }
   }
 

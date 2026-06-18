@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconChevronRight } from "@tabler/icons-vue";
+import { IconExternalLink } from "@tabler/icons-vue";
 
 useHead({
   title: "わたしについて - newt239.dev",
@@ -124,7 +124,7 @@ const links = [
               class="link-card"
             >
               {{ link.label }}
-              <IconChevronRight :size="16" />
+              <IconExternalLink :size="16" class="external-icon" />
             </a>
           </div>
         </section>
@@ -257,9 +257,14 @@ const links = [
 
     .link-card {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 0.2rem;
       padding: 0.75rem 1.5rem;
+
+      .external-icon {
+        width: 1em;
+        height: 1em;
+      }
       color: rgb(var(--accent));
       text-decoration: underline;
       text-underline-offset: 0.25rem;

@@ -72,7 +72,7 @@ function closeLightbox() {
               <template v-if="data.github">
                 <dt>GitHub</dt>
                 <dd>
-                  <a :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
+                  <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
                 </dd>
               </template>
               <dt>Period</dt>
@@ -170,26 +170,6 @@ function closeLightbox() {
       dd {
         margin: 0;
         line-height: 1.6;
-
-        a {
-          color: rgb(var(--accent));
-          text-decoration: underline;
-          text-decoration-style: dashed;
-          text-underline-offset: 0.25rem;
-          transition: var(--transition);
-
-          @media (hover: hover) {
-            &:hover {
-              opacity: 0.5;
-            }
-          }
-
-          @media (hover: none) {
-            &:active {
-              opacity: 0.5;
-            }
-          }
-        }
       }
 
       .tech-tags {
