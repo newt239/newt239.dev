@@ -182,10 +182,10 @@ function closeLightbox() {
       .tech-tag {
         display: inline-block;
         padding: 0.125rem 0.625rem;
-        border-radius: 9999px;
-        font-size: 0.875rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
         line-height: 1.5;
-        background: rgb(var(--text-faint) / 0.2);
+        background: rgb(var(--surface));
         color: rgb(var(--text));
       }
     }
