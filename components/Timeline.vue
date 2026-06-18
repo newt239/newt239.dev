@@ -8,14 +8,22 @@ type TimelineItem = {
 
 type YearSection = {
   year: number;
-  grade: string | null;
   items: TimelineItem[];
 };
 
 const items: YearSection[] = [
   {
+    year: 2026,
+    items: [
+      {
+        term: "5月 - 6月",
+        title: "MIXI 就業型インターン",
+        src: "https://x.com/newt239/status/2066833159283724290",
+      }
+    ],
+  },
+  {
     year: 2025,
-    grade: "大学2年",
     items: [
       {
         term: "9月",
@@ -23,35 +31,29 @@ const items: YearSection[] = [
         src: "https://x.com/newt239/status/1966481283690770887",
       },
       {
+        term: "4月 - 3月",
+        title: "芝浦工業大学 学術情報センター 開発アルバイト",
+        src: null,
+      },
+      {
         term: "4月",
         title: "応用情報技術者試験 合格",
         src: "https://x.com/newt239/status/1940620995062268213",
+      },
+      {
+        term: "3月",
+        title: "サイバーエージェント 就業型インターン",
+        src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
       },
     ],
   },
   {
     year: 2024,
-    grade: "大学1年",
     items: [
-      {
-        term: "3月",
-        title: "サイバーエージェント 長期就業型インターン",
-        src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
-      },
       {
         term: "9月",
         title: "LayerX サマーインターン",
         src: "https://layerx.co.jp/",
-      },
-      {
-        term: "8月",
-        title: "MIXI git challenge #14",
-        src: "https://x.com/newt239/status/1827302836448989582",
-      },
-      {
-        term: "8月",
-        title: "技育CAMP vol.11 「みちくさ」 (努力賞)",
-        src: "https://x.com/newt239/status/1820045439695196344",
       },
       {
         term: "7月 - 現在",
@@ -72,7 +74,6 @@ const items: YearSection[] = [
   },
   {
     year: 2023,
-    grade: "高校3年",
     items: [
       {
         term: "3月",
@@ -83,7 +84,6 @@ const items: YearSection[] = [
   },
   {
     year: 2022,
-    grade: "高校2年",
     items: [
       {
         term: "4月",
@@ -91,12 +91,7 @@ const items: YearSection[] = [
         src: "https://x.com/newt239/status/1511657961013215232",
       },
     ],
-  },
-  {
-    year: 2005,
-    grade: null,
-    items: [{ term: "11月2日", title: "誕生", src: null }],
-  },
+  }
 ];
 </script>
 
@@ -107,7 +102,6 @@ const items: YearSection[] = [
       <div v-for="year in items" :key="year.year" class="year-section">
         <div class="year-header">
           <span class="year-text">{{ year.year }}</span>
-          <span v-if="year.grade" class="year-grade">{{ year.grade }}</span>
         </div>
         <div class="year-items">
           <component
@@ -150,11 +144,6 @@ const items: YearSection[] = [
   font-size: 1.75rem;
   font-weight: 800;
   color: rgb(var(--text));
-}
-
-.year-grade {
-  font-size: 0.875rem;
-  color: rgb(var(--text-muted));
 }
 
 .year-items {
