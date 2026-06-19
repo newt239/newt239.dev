@@ -10,7 +10,7 @@ type TrackListProp = {
   link: string;
 };
 
-const { data: trackList } = await useFetch<TrackListProp[]>(
+const { data: trackList } = useLazyFetch<TrackListProp[]>(
   "https://api.newt239.dev/spotify/my-top-tracks"
 );
 </script>

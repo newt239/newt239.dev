@@ -2,10 +2,12 @@
 import { IconChevronRight } from "@tabler/icons-vue";
 import WorkItem from "~/components/WorkItem.vue";
 
-const works = await queryCollection("works")
-  .where("order", "IS NOT NULL")
-  .order("order", "ASC")
-  .all();
+const { data: works } = useLazyAsyncData("featured-works", () =>
+  queryCollection("works")
+    .where("order", "IS NOT NULL")
+    .order("order", "ASC")
+    .all()
+);
 </script>
 
 <template>
