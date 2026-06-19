@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr:*)",
+      "Bash(ls:*)",
+      "Bash(gh repo:*)",
+      "Bash(bun run:*)",
+      "Bash(gh issue *)"
+    ]
+  }
+}
