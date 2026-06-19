@@ -8,7 +8,7 @@ const articles = articleList.slice(0, 5);
 
 <template>
   <div class="latest-article-list">
-    <h2 class="category-title" lang="en">Articles</h2>
+    <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
     <div class="article-grid">
       <ArticleItem
         v-for="article in articles"
@@ -46,25 +46,22 @@ const articles = articleList.slice(0, 5);
     align-items: center;
     height: 100%;
     padding: 1rem 0;
+    border: 2px solid transparent;
     border-radius: 0.75rem;
     background: rgb(var(--surface));
     color: rgb(var(--text));
-    transition: background 0.2s;
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
     }
   }
 }

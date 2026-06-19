@@ -103,6 +103,7 @@ const handleBackdropClick = (event: MouseEvent) => {
         />
         <button
           class="theme-change-button"
+          :class="{ 'is-generating': isGenerating }"
           :disabled="isGenerating"
           @click="generateTheme"
         >
@@ -125,10 +126,10 @@ const handleBackdropClick = (event: MouseEvent) => {
   height: 2.5rem;
   color: rgb(var(--text));
   background-color: rgb(var(--surface));
-  border: 1.5px solid rgb(var(--border));
+  border: 2px solid transparent;
   border-radius: 0.625rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,21 +139,16 @@ const handleBackdropClick = (event: MouseEvent) => {
     height: 1.25rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
   @media (hover: hover) {
     &:hover {
-      background-color: rgb(var(--surface-hover));
-      border-color: rgb(var(--accent));
-      color: rgb(var(--accent));
+      border-color: rgb(var(--text));
+      color: rgb(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      background-color: rgb(var(--surface-hover));
+      border-color: rgb(var(--text));
     }
   }
 }
@@ -259,11 +255,51 @@ dialog {
   border: 1px solid rgb(var(--text));
   border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition);
 
   &:hover {
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
+  }
+
+  &.is-generating {
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--theme-beam-angle),
+      transparent 0%,
+      rgb(var(--accent)) 8%,
+      rgb(var(--highlight)) 16%,
+      transparent 28%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  &.is-generating::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &.is-generating::before {
+      animation: theme-generating-beam 1.2s linear infinite;
+    }
   }
 
   .tabler-icon-sparkles,
@@ -274,6 +310,18 @@ dialog {
 
   .tabler-icon-loader-2 {
     animation: spin 1s linear infinite;
+  }
+}
+
+@property --theme-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes theme-generating-beam {
+  to {
+    --theme-beam-angle: 360deg;
   }
 }
 

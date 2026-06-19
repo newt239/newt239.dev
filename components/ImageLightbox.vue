@@ -304,11 +304,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
@@ -331,11 +327,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
@@ -388,11 +380,7 @@ function onPointerUp() {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover:not(:disabled) {
@@ -410,8 +398,9 @@ function onPointerUp() {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;
-  min-width: 3rem;
+  min-width: 3.5rem;
   text-align: center;
+  white-space: nowrap;
 }
 
 .lightbox-enter-active,

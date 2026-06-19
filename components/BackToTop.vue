@@ -26,25 +26,20 @@ import { IconChevronLeft } from "@tabler/icons-vue";
     padding: 0.75rem 1.5rem;
     color: rgb(var(--text));
     background-color: rgb(var(--surface));
-    border: 1.5px solid rgb(var(--border));
+    border: 2px solid transparent;
     border-radius: 0.625rem;
-    transition: all 0.2s;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
-        background-color: rgb(var(--surface-hover));
-        border-color: rgb(var(--accent));
-        color: rgb(var(--accent));
+        border-color: rgb(var(--text));
+        color: rgb(var(--text));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background-color: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
     }
   }

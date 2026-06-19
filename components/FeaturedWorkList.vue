@@ -2,15 +2,17 @@
 import { IconChevronRight } from "@tabler/icons-vue";
 import WorkItem from "~/components/WorkItem.vue";
 
-const works = await queryCollection("works")
-  .where("order", "IS NOT NULL")
-  .order("order", "ASC")
-  .all();
+const { data: works } = useLazyAsyncData("featured-works", () =>
+  queryCollection("works")
+    .where("order", "IS NOT NULL")
+    .order("order", "ASC")
+    .all()
+);
 </script>
 
 <template>
   <div v-show="works && works.length !== 0" class="work-list">
-    <h2 class="category-title" lang="en">Works</h2>
+    <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
       <NuxtLink to="works" class="see-all-works">
@@ -46,25 +48,22 @@ const works = await queryCollection("works")
     align-items: center;
     height: 100%;
     padding: 1rem 0;
+    border: 2px solid transparent;
     border-radius: 0.75rem;
     background: rgb(var(--surface));
     color: rgb(var(--text));
-    transition: background 0.2s;
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
     }
   }
 }

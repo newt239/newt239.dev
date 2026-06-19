@@ -12,9 +12,16 @@
   --surface: 246 240 232;
   --surface-hover: 236 230 222;
   --border: 240 234 228;
-  /* アクセシビリティ用（テーマ生成対象外） */
   --focus-ring: 255 0 0;
   --focus-bg: 255 255 0;
+  --transition: all 0.2s;
+  --hover-opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition: none;
+  }
 }
 
 * {
@@ -75,11 +82,45 @@ h1 {
 
 h2,
 .category-name {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 800;
   padding: 1rem 0 0.5rem;
   margin: 0px;
   width: fit-content;
+}
+
+.colorful-heading__char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .colorful-heading:not(.is-visible),
+  .colorful-heading:not(.is-visible) .colorful-heading__char {
+    opacity: 0;
+  }
+}
+
+.colorful-heading.is-visible .colorful-heading__char {
+  animation: heading-color-wave 0.7s ease both;
+  animation-delay: calc(var(--char-index, 0) * 0.045s);
+}
+
+@keyframes heading-color-wave {
+  0% {
+    opacity: 0;
+    color: rgb(var(--accent));
+  }
+  40% {
+    opacity: 1;
+    color: rgb(var(--highlight));
+  }
+  70% {
+    color: rgb(var(--accent-dark));
+  }
+  100% {
+    opacity: 1;
+    color: inherit;
+  }
 }
 
 h3 {
@@ -94,34 +135,54 @@ h4 {
   font-size: 1.125rem;
 }
 
+@media (max-width: 600px) {
+  h2,
+  .category-name {
+    font-size: 2rem;
+  }
+}
+
 a {
   text-decoration: none;
 }
 
 .underline, p a, li a, table a {
   color: rgb(var(--accent));
-  text-decoration: none;
-  color: rgb(var(--accent));
   text-decoration: underline;
   text-underline-offset: 0.25rem;
   text-decoration-style: dashed;
-  transition: all 0.2s;
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-  opacity: 0.5;
+      opacity: var(--hover-opacity);
+      text-decoration-color: transparent;
     }
   }
 
   @media (hover: none) {
     &:active {
-  opacity: 0.5;
+      opacity: var(--hover-opacity);
+      text-decoration-color: transparent;
     }
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+.underline[href^="http"]:not([href*="newt239.dev"]):not(:has(svg))::after,
+:is(p, li, table) a[href^="http"]:not([href*="newt239.dev"]):not(:has(svg))::after {
+  content: "";
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  margin-left: 0.15em;
+  vertical-align: -0.1em;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 ul {

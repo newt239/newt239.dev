@@ -10,14 +10,14 @@ type TrackListProp = {
   link: string;
 };
 
-const { data: trackList } = await useFetch<TrackListProp[]>(
+const { data: trackList } = useLazyFetch<TrackListProp[]>(
   "https://api.newt239.dev/spotify/my-top-tracks"
 );
 </script>
 
 <template>
   <div v-show="trackList && trackList.length !== 0" class="my-top-track-list">
-    <h2>My Top Tracks</h2>
+    <h2 v-colorful-heading>My Top Tracks</h2>
     <div class="track-grid">
       <a
         v-for="track in trackList?.slice(0, 12)"
@@ -52,26 +52,23 @@ const { data: trackList } = await useFetch<TrackListProp[]>(
     display: flex;
     gap: 0.75rem;
     padding: 0.75rem;
+    border: 2px solid transparent;
     border-radius: 0.75rem;
     background: rgb(var(--surface));
     color: rgb(var(--text));
     text-decoration: none;
-    transition: background 0.2s;
+    transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
     }
 
     @media (hover: none) {
       &:active {
-        background: rgb(var(--surface-hover));
+        border-color: rgb(var(--text));
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
     }
   }
 

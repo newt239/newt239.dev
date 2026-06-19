@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { IconCheck, IconSortAscending, IconSortDescending } from "@tabler/icons-vue";
 import { articleList } from "~/libs/articles";
 
 useSeoMeta({
@@ -67,13 +66,9 @@ function toggleSite(site: SiteName) {
   updateQuery();
 }
 
-function clearFilter() {
-  selectedSites.value = new Set();
-  updateQuery();
-}
-
-function toggleSort() {
-  sortAsc.value = !sortAsc.value;
+function setSort(asc: boolean) {
+  if (sortAsc.value === asc) return;
+  sortAsc.value = asc;
   updateQuery();
 }
 
@@ -97,34 +92,24 @@ const filteredArticles = computed(() => {
 <template>
   <main>
     <div class="container article-list-page">
-      <h2 class="category-name" lang="en">Articles</h2>
+      <h2 v-colorful-heading class="category-name" lang="en">Articles</h2>
 
-      <div class="list-controls">
-        <div class="filter-section">
-          <div class="filter-chips">
-            <button
-              v-for="site in allSites"
-              :key="site"
-              class="filter-chip"
-              :class="{ active: selectedSites.has(site) }"
-              @click="toggleSite(site)"
-            >
-              <IconCheck v-if="selectedSites.has(site)" :size="16" class="filter-chip-icon" aria-hidden="true" />
-              <span>{{ site }}</span>
-            </button>
-            <button v-if="selectedSites.size > 0" class="filter-clear" @click="clearFilter">
-              クリア
-            </button>
-          </div>
-        </div>
-        <div class="sort-section">
-          <span class="sort-label">日付</span>
-          <button class="sort-direction" :aria-label="sortAsc ? '古い順' : '新しい順'" @click="toggleSort">
-            <IconSortAscending v-if="sortAsc" :size="18" />
-            <IconSortDescending v-else :size="18" />
-          </button>
-        </div>
-      </div>
+      <ListControlBar
+        filter-label="サイト"
+        filter-label-id="articles-filter-label"
+        sort-label-id="articles-sort-label"
+        :sort-asc="sortAsc"
+        @update:sort-asc="setSort"
+      >
+        <FilterChip
+          v-for="site in allSites"
+          :key="site"
+          :active="selectedSites.has(site)"
+          @click="toggleSite(site)"
+        >
+          {{ site }}
+        </FilterChip>
+      </ListControlBar>
 
       <div v-if="filteredArticles.length === 0" class="empty-state">
         該当する記事が見つかりませんでした。
@@ -147,116 +132,6 @@ const filteredArticles = computed(() => {
 .article-list-page {
   .category-name {
     view-transition-name: article-category-name;
-  }
-
-  .list-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    padding-bottom: 1rem;
-
-    @media (max-width: 600px) {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
-
-  .filter-section {
-    min-width: 0;
-  }
-
-  .filter-chips {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.375rem;
-    min-width: 0;
-  }
-
-  .filter-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-family: inherit;
-    font-size: 0.875rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    border: 1.5px solid rgb(var(--text-faint));
-    background: transparent;
-    color: rgb(var(--text));
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
-
-    &.active {
-      background: rgb(var(--text));
-      color: rgb(var(--bg));
-      border-color: rgb(var(--text));
-    }
-
-    .filter-chip-icon {
-      flex-shrink: 0;
-    }
-  }
-
-  .filter-clear {
-    font-family: inherit;
-    font-size: 0.875rem;
-    padding: 0.25rem 0.625rem;
-    border: none;
-    background: none;
-    color: rgb(var(--accent));
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-
-    @media (hover: hover) {
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
-
-  .sort-section {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  .sort-label {
-    font-size: 0.875rem;
-    color: rgb(var(--text-muted));
-  }
-
-  .sort-direction {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border: none;
-    background: none;
-    color: rgb(var(--text));
-    cursor: pointer;
-    border-radius: 0.375rem;
-
-    @media (hover: hover) {
-      &:hover {
-        background: rgb(var(--surface-hover));
-      }
-    }
   }
 
   .empty-state {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconExternalLink } from "@tabler/icons-vue";
+
 type TimelineItem = {
   term: string;
   title: string;
@@ -53,7 +55,7 @@ const items: YearSection[] = [
       {
         term: "9月",
         title: "LayerX サマーインターン",
-        src: "https://layerx.co.jp/",
+        src: "https://x.com/newt239/status/1834594518324457782",
       },
       {
         term: "7月 - 現在",
@@ -78,7 +80,7 @@ const items: YearSection[] = [
       {
         term: "3月",
         title: "栄東高等学校 卒業",
-        src: "https://x.com/newt239/status/1766442681688088755",
+        src: null,
       },
     ],
   },
@@ -97,11 +99,11 @@ const items: YearSection[] = [
 
 <template>
   <div class="timeline">
-    <h2 class="category-title" lang="en">Timeline</h2>
+    <h2 v-colorful-heading class="category-title" lang="en">Timeline</h2>
     <div class="timeline-body">
       <div v-for="year in items" :key="year.year" class="year-section">
         <div class="year-header">
-          <span class="year-text">{{ year.year }}</span>
+          <h3 class="year-text">{{ year.year }}</h3>
         </div>
         <div class="year-items">
           <component
@@ -116,7 +118,7 @@ const items: YearSection[] = [
           >
             <span class="item-term">{{ item.term }}</span>
             <div class="item-content">
-              <span class="item-title">{{ item.title }}</span>
+              <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" :size="14" class="external-icon" /></span>
               <p v-if="item.description" class="item-description">{{ item.description }}</p>
             </div>
           </component>
@@ -144,6 +146,8 @@ const items: YearSection[] = [
   font-size: 1.75rem;
   font-weight: 800;
   color: rgb(var(--text));
+  padding: 0;
+  margin: 0;
 }
 
 .year-items {
@@ -159,7 +163,7 @@ const items: YearSection[] = [
   padding: 0.75rem 1.25rem;
   color: rgb(var(--text));
   text-decoration: none;
-  transition: background 0.15s;
+  transition: var(--transition);
 
   &:not(:last-child) {
     border-bottom: 1px solid rgb(var(--border));
@@ -168,12 +172,20 @@ const items: YearSection[] = [
   &.has-link {
     cursor: pointer;
 
+    .item-title {
+      color: rgb(var(--accent));
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      text-decoration-style: dashed;
+    }
+
     @media (hover: hover) {
       &:hover {
         background: rgb(var(--surface));
 
         .item-title {
-          color: rgb(var(--accent));
+          opacity: var(--hover-opacity);
+          text-decoration-color: transparent;
         }
       }
     }
@@ -185,9 +197,6 @@ const items: YearSection[] = [
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 }
 
 .item-term {
@@ -209,10 +218,13 @@ const items: YearSection[] = [
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.5;
-  transition: color 0.15s;
+  transition: var(--transition);
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  .external-icon {
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.15em;
+    margin-left: 0.2em;
   }
 }
 

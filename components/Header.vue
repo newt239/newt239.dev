@@ -43,7 +43,7 @@ header {
       display: flex;
       align-items: center;
       gap: min(3vh, 3vw);
-      transition: all 0.2s;
+      transition: var(--transition);
 
       @media (hover: hover) {
         &:hover {
@@ -55,10 +55,6 @@ header {
         &:active {
           opacity: 0.5;
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
       }
 
       img {

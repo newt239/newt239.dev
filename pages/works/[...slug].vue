@@ -72,7 +72,7 @@ function closeLightbox() {
               <template v-if="data.github">
                 <dt>GitHub</dt>
                 <dd>
-                  <a :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
+                  <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
                 </dd>
               </template>
               <dt>Period</dt>
@@ -170,30 +170,6 @@ function closeLightbox() {
       dd {
         margin: 0;
         line-height: 1.6;
-
-        a {
-          color: rgb(var(--accent));
-          text-decoration: underline;
-          text-decoration-style: dashed;
-          text-underline-offset: 0.25rem;
-          transition: all 0.2s;
-
-          @media (hover: hover) {
-            &:hover {
-              opacity: 0.5;
-            }
-          }
-
-          @media (hover: none) {
-            &:active {
-              opacity: 0.5;
-            }
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            transition: none;
-          }
-        }
       }
 
       .tech-tags {
@@ -206,10 +182,10 @@ function closeLightbox() {
       .tech-tag {
         display: inline-block;
         padding: 0.125rem 0.625rem;
-        border-radius: 9999px;
-        font-size: 0.875rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
         line-height: 1.5;
-        background: rgb(var(--text-faint) / 0.2);
+        background: rgb(var(--surface));
         color: rgb(var(--text));
       }
     }
@@ -229,6 +205,15 @@ function closeLightbox() {
       ul {
         margin: 0.5rem 0;
         padding-left: 1.5rem;
+
+        ul {
+          margin: 0;
+        }
+      }
+
+      li {
+        line-height: 1.6;
+        margin: 0.25rem 0;
       }
 
       h2 {

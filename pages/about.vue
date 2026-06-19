@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconChevronRight } from "@tabler/icons-vue";
+import { IconExternalLink } from "@tabler/icons-vue";
 
 useHead({
   title: "わたしについて - newt239.dev",
@@ -53,7 +53,7 @@ const links = [
       <div class="about-hero">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
         <div class="hero-info">
-          <h2>newt <span class="sub">@newt239</span></h2>
+          <h2 v-colorful-heading>newt <span class="sub">@newt239</span></h2>
           <dl class="basic-info">
             <dt>誕生日</dt>
             <dd>2005年11月2日</dd>
@@ -124,7 +124,7 @@ const links = [
               class="link-card"
             >
               {{ link.label }}
-              <IconChevronRight :size="16" />
+              <IconExternalLink :size="16" class="external-icon" />
             </a>
           </div>
         </section>
@@ -257,13 +257,20 @@ const links = [
 
     .link-card {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 0.2rem;
       padding: 0.75rem 1.5rem;
-      color: rgb(var(--text));
-      text-decoration: none;
+
+      .external-icon {
+        width: 1em;
+        height: 1em;
+      }
+      color: rgb(var(--accent));
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      text-decoration-style: dashed;
       font-weight: 600;
-      transition: background 0.15s, color 0.15s;
+      transition: var(--transition);
 
       &:not(:last-child) {
         border-bottom: 1px solid rgb(var(--border));
@@ -272,7 +279,8 @@ const links = [
       @media (hover: hover) {
         &:hover {
           background: rgb(var(--surface));
-          color: rgb(var(--accent));
+          opacity: var(--hover-opacity);
+          text-decoration-color: transparent;
         }
       }
 
@@ -280,10 +288,6 @@ const links = [
         &:active {
           background: rgb(var(--surface));
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
       }
     }
   }

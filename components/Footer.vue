@@ -89,23 +89,10 @@ footer {
     }
 
     a {
-      color: rgb(var(--text));
-      text-decoration: none;
       font-size: 0.875rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: color 0.2s;
-
-      @media (hover: hover) {
-        &:hover {
-          color: rgb(var(--accent));
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
     }
   }
 
