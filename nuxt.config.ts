@@ -46,6 +46,12 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
   },
 
+  content: {
+    experimental: {
+      sqliteConnector: "native",
+    },
+  },
+
   image: {
     domains: ["i.scdn.co"],
   },
