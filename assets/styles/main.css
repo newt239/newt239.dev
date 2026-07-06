@@ -18,6 +18,23 @@
   --hover-opacity: 0.8;
 }
 
+@media (display-mode: standalone) {
+  @supports (color: rgb(from AccentColor r g b)) {
+    :root {
+      --accent: from oklch(from AccentColor clamp(0.45, l, 0.62) clamp(0.08, c, 0.25) h) r g b;
+      --accent-dark: from oklch(from AccentColor calc(l * 0.55) c h) r g b;
+      --highlight: from oklch(from AccentColor clamp(0.5, l, 0.6) clamp(0.1, c, 0.2) calc(h + 120)) r g b;
+      --bg-accent: from color-mix(in oklch, AccentColor 22%, rgb(255 248 240)) r g b;
+
+      --bg: from color-mix(in oklch, AccentColor 6%, rgb(255 248 240)) r g b;
+      --bg-warm: from color-mix(in oklch, AccentColor 12%, rgb(240 220 196)) r g b;
+      --surface: from color-mix(in oklch, AccentColor 10%, rgb(246 240 232)) r g b;
+      --surface-hover: from color-mix(in oklch, AccentColor 14%, rgb(236 230 222)) r g b;
+      --border: from color-mix(in oklch, AccentColor 12%, rgb(240 234 228)) r g b;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
