@@ -11,7 +11,7 @@
     "dev": "nuxt dev",
     "generate": "bun --bun nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "bun --bun nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:text": "textlint \"content/**/*.md\" \"README.md\"",
