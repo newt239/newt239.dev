@@ -1,0 +1,19 @@
+{
+  "name": "newt239.dev",
+  "short_name": "newt239.dev",
+  "description": "newt239 のポートフォリオサイト",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0099ff",
+  "background_color": "#fff8f0",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "1000x1000",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

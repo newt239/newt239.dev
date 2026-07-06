@@ -24,7 +24,10 @@ export default defineNuxtConfig({
         { property: "twitter:creator", content: "@newt239" },
         { property: "twitter:domain", content: "newt239.dev" },
       ],
-      link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
+      link: [
+        { rel: "icon", type: "image/png", href: "/icon.png" },
+        { rel: "manifest", href: "/manifest.webmanifest" },
+      ],
       noscript: [
         {
           innerHTML: "<style>.colorful-heading{opacity:1!important}</style>",
