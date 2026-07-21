@@ -8,6 +8,10 @@ interface Props {
 }
 const props = defineProps<Props>();
 
+const transitionName = computed(
+  () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}-title`
+);
+
 const getSiteName = (url: string) => {
   switch (true) {
     case url.startsWith("https://qiita.com/"):
@@ -29,7 +33,7 @@ const getSiteName = (url: string) => {
 <template>
   <a :href="`${props.url}`" target="_blank" rel="noopener noreferrer" class="article-card">
     <div class="article-card-body">
-      <h3 :style="`view-transition-name: ${props.url.split('https://')[1]?.replaceAll('/', '-')}-title;`">{{ props.title }}</h3>
+      <h3 :style="`view-transition-name: ${transitionName};`">{{ props.title }}</h3>
     </div>
     <div class="article-card-footer">
       <div class="site-info">

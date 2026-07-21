@@ -15,6 +15,7 @@
   --focus-ring: 255 0 0;
   --focus-bg: 255 255 0;
   --transition: all 0.2s;
+  --view-transition-duration: 0.4s;
   --hover-opacity: 0.8;
 }
 
@@ -219,6 +220,13 @@ ul {
 .sub {
   font-size: 50%;
   color: rgb(var(--text-muted));
+}
+
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: var(--view-transition-duration);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
