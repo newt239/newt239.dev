@@ -2,7 +2,7 @@
 import { IconChevronRight } from "@tabler/icons-vue";
 import WorkItem from "~/components/WorkItem.vue";
 
-const { data: works } = useLazyAsyncData("featured-works", () =>
+const { data: works } = await useAsyncData("featured-works", () =>
   queryCollection("works")
     .where("order", "IS NOT NULL")
     .order("order", "ASC")
