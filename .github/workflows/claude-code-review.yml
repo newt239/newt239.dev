@@ -41,8 +41,11 @@ jobs:
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }} --comment'
           # agent モードでは --allowedTools を明示しないと inline comment MCP サーバーが
           # インストールされず gh コマンドも拒否されるため、コメントが投稿されない
+          # code-review プラグインはレビュー不要と判断した場合に何も投稿せず終了するため、
+          # スキップ時・指摘ゼロ時も必ず結論をコメント投稿するよう system prompt で指示する
           claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*)"
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git blame:*)"
+            --append-system-prompt "レビューをスキップする場合(自明な変更・自動PRなどの判断を含む)や指摘が1件もない場合でも、必ず gh pr comment でその結論と理由をPRに投稿してから終了すること。Claude Codeが生成したPRもレビュー対象とすること。"
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
