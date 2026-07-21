@@ -33,9 +33,7 @@ jobs:
 
       - name: Run Claude Code Review
         id: claude-review
-        # @v1 (b76a077, CLI 2.1.216) が起動直後にクラッシュするため、動作実績のある SHA に固定
-        # 参考: https://github.com/anthropics/claude-code-action/issues/914 と同一シグネチャ
-        uses: anthropics/claude-code-action@558b1d6cab4085c7753fe402c10bef0fbb92ac7a # v1 (CLI 2.1.201)
+        uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           show_full_output: true
