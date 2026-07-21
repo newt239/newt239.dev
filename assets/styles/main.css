@@ -16,6 +16,7 @@
   --focus-bg: 255 255 0;
   --transition: all 0.2s;
   --view-transition-duration: 0.4s;
+  --view-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --hover-opacity: 0.8;
 }
 
@@ -226,7 +227,7 @@ ul {
 ::view-transition-old(*),
 ::view-transition-new(*) {
   animation-duration: var(--view-transition-duration);
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-timing-function: var(--view-transition-easing);
 }
 
 @media (prefers-reduced-motion: reduce) {

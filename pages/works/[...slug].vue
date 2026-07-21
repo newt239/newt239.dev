@@ -44,14 +44,63 @@ const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
 
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
+const morphIndex = ref<number | null>(null);
+const carouselRef = ref<{ snapTo: (index: number) => void } | null>(null);
 
-function openLightbox(index: number) {
-  lightboxIndex.value = index;
-  lightboxOpen.value = true;
+type LightboxViewTransition = {
+  ready: Promise<void>;
+  finished: Promise<void>;
+  updateCallbackDone: Promise<void>;
+};
+
+function getStartViewTransition() {
+  if (typeof document === "undefined") return null;
+  const doc = document as Document & {
+    startViewTransition?: (update: () => Promise<void>) => LightboxViewTransition;
+  };
+  return doc.startViewTransition?.bind(doc) ?? null;
 }
 
-function closeLightbox() {
-  lightboxOpen.value = false;
+async function openLightbox(index: number) {
+  lightboxIndex.value = index;
+  const startViewTransition = getStartViewTransition();
+  if (!startViewTransition) {
+    lightboxOpen.value = true;
+    return;
+  }
+  morphIndex.value = index;
+  await nextTick();
+  const transition = startViewTransition(async () => {
+    lightboxOpen.value = true;
+    morphIndex.value = null;
+    await nextTick();
+  });
+  try {
+    await Promise.allSettled([transition.ready, transition.finished]);
+    await transition.updateCallbackDone;
+  } finally {
+    morphIndex.value = null;
+  }
+}
+
+async function closeLightbox(index: number) {
+  const startViewTransition = getStartViewTransition();
+  if (!startViewTransition) {
+    lightboxOpen.value = false;
+    return;
+  }
+  carouselRef.value?.snapTo(index);
+  const transition = startViewTransition(async () => {
+    lightboxOpen.value = false;
+    morphIndex.value = index;
+    await nextTick();
+  });
+  try {
+    await Promise.allSettled([transition.ready, transition.finished]);
+    await transition.updateCallbackDone;
+  } finally {
+    morphIndex.value = null;
+  }
 }
 </script>
 
@@ -62,8 +111,10 @@ function closeLightbox() {
         <template v-if="data">
           <div class="work-hero">
             <ImageCarousel
+              ref="carouselRef"
               :images="imageList"
               :work-slug="workSlug"
+              :morph-index="morphIndex"
               @open-lightbox="openLightbox"
             />
             <div class="work-sidebar">
