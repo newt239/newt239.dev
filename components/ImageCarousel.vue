@@ -2,6 +2,7 @@
 const props = defineProps<{
   images: { src: string; alt: string }[];
   workSlug: string;
+  morphIndex?: number | null;
 }>();
 
 const emit = defineEmits<{
@@ -11,6 +12,7 @@ const emit = defineEmits<{
 const currentIndex = ref(0);
 const trackRef = ref<HTMLElement | null>(null);
 const isTransitioning = ref(false);
+const isSnapping = ref(false);
 
 const hasMultiple = computed(() => props.images.length > 1);
 
@@ -42,6 +44,28 @@ function next() {
 
 function onTransitionEnd() {
   isTransitioning.value = false;
+}
+
+function snapTo(index: number) {
+  isSnapping.value = true;
+  currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      isSnapping.value = false;
+    });
+  });
+}
+
+defineExpose({ snapTo });
+
+function imageStyle(index: number) {
+  if (props.morphIndex === index) {
+    return "view-transition-name: lightbox-img;";
+  }
+  if (index === 0) {
+    return `view-transition-name: ${props.workSlug}-img;`;
+  }
+  return undefined;
 }
 
 function onKeydown(e: KeyboardEvent) {
@@ -88,6 +112,7 @@ function onTouchEnd() {
       <div
         ref="trackRef"
         class="carousel-track"
+        :class="{ 'no-transition': isSnapping }"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
         @transitionend="onTransitionEnd"
         @touchstart.passive="onTouchStart"
@@ -106,7 +131,7 @@ function onTouchEnd() {
             :src="`/images/${image.src}`"
             :alt="image.alt"
             class="carousel-image"
-            :style="index === 0 ? `view-transition-name: ${workSlug}-img;` : undefined"
+            :style="imageStyle(index)"
             @click="emit('open-lightbox', index)"
           />
         </div>
@@ -166,6 +191,10 @@ function onTouchEnd() {
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
+
+  &.no-transition {
+    transition: none;
+  }
 }
 
 .carousel-slide {
@@ -203,6 +232,7 @@ function onTouchEnd() {
   color: rgb(var(--text));
   cursor: pointer;
   flex-shrink: 0;
+  font-family: inherit;
   font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
   transition: var(--transition);

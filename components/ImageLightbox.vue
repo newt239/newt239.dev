@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  close: [];
+  close: [index: number];
 }>();
 
 const MIN_SCALE = 1;
@@ -27,6 +27,11 @@ let dragStartTranslateY = 0;
 let didDrag = false;
 
 const hasMultiple = computed(() => props.images.length > 1);
+const supportsViewTransition = ref(false);
+
+onMounted(() => {
+  supportsViewTransition.value = "startViewTransition" in document;
+});
 const canZoomIn = computed(() => scale.value < MAX_SCALE);
 const canZoomOut = computed(() => scale.value > MIN_SCALE);
 const canReset = computed(() => scale.value !== 1);
@@ -86,7 +91,7 @@ function zoomOut() {
 }
 
 function close() {
-  emit("close");
+  emit("close", currentIndex.value);
 }
 
 function prev() {
@@ -165,7 +170,7 @@ function onPointerUp() {
 
 <template>
   <Teleport to="body">
-    <Transition name="lightbox">
+    <Transition name="lightbox" :css="!supportsViewTransition">
       <div
         v-if="open"
         ref="dialogRef"
@@ -187,7 +192,7 @@ function onPointerUp() {
             :alt="images[currentIndex].alt"
             class="lightbox-image"
             :class="{ 'is-dragging': isDragging }"
-            :style="{ transform: imageTransform }"
+            :style="{ transform: imageTransform, viewTransitionName: 'lightbox-img' }"
             draggable="false"
             @pointerdown="onPointerDown"
             @pointermove="onPointerMove"
@@ -251,6 +256,7 @@ function onPointerUp() {
   position: fixed;
   inset: 0;
   z-index: 1000;
+  view-transition-name: lightbox-overlay;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
