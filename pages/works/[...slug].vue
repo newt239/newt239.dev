@@ -92,6 +92,7 @@ async function closeLightbox(index: number) {
     return;
   }
   carouselRef.value?.snapTo(index);
+  await nextTick();
   document.documentElement.dataset.viewTransition = "lightbox-close";
   const transition = startViewTransition(async () => {
     lightboxOpen.value = false;
