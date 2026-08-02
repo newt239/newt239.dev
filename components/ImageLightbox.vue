@@ -361,12 +361,15 @@ function onPointerUp() {
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: max-content;
+  max-width: calc(100% - 2rem);
 }
 
 .lightbox-counter {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .lightbox-zoom-controls {
