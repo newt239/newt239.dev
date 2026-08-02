@@ -38,6 +38,6 @@
     "textlint-rule-preset-ai-writing": "1.1.0",
     "textlint-rule-preset-japanese": "10.0.4",
     "textlint-rule-preset-jtf-style": "3.0.3",
-    "typescript": "7.0.2"
+    "typescript": "6.0.3"
   }
 }

@@ -8,6 +8,10 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+    # typescript-eslint の peer が typescript <6.1.0 のため、7 系に上げると ESLint がクラッシュする
+    ignore:
+      - dependency-name: "typescript"
+        versions: [">=7.0.0"]
     groups:
       npm-dependencies:
         patterns:
