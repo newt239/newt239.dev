@@ -29,6 +29,23 @@ let didDrag = false;
 const hasMultiple = computed(() => props.images.length > 1);
 const supportsViewTransition = ref(false);
 
+const img = useImage();
+useHead({
+  link: computed(() => {
+    if (!props.open || !hasMultiple.value) return [];
+    const total = props.images.length;
+    const neighbors = [...new Set([
+      (currentIndex.value + 1) % total,
+      (currentIndex.value - 1 + total) % total,
+    ])].filter((index) => index !== currentIndex.value);
+    return neighbors.map((index) => ({
+      rel: "prefetch",
+      as: "image",
+      href: img(`/images/${props.images[index].src}`),
+    }));
+  }),
+});
+
 onMounted(() => {
   supportsViewTransition.value = "startViewTransition" in document;
 });
