@@ -13,7 +13,10 @@ export type ThemeVariable = {
 export type ThemeFont = {
   family: string;
   query: string;
+  note: string;
 };
+
+export const defaultFontFamily = "fot-udkakugo-large-pr6n";
 
 export type ThemeGenerationResponse =
   | {
@@ -24,43 +27,91 @@ export type ThemeGenerationResponse =
   | { type: "error" | "limited"; error: unknown };
 
 export const themeFonts: ThemeFont[] = [
-  { family: "Noto Sans JP", query: "Noto+Sans+JP:wght@400;700" },
-  { family: "Zen Kaku Gothic New", query: "Zen+Kaku+Gothic+New:wght@400;700" },
-  { family: "Zen Kaku Gothic Antique", query: "Zen+Kaku+Gothic+Antique:wght@400;700" },
-  { family: "Zen Maru Gothic", query: "Zen+Maru+Gothic:wght@400;700" },
-  { family: "M PLUS Rounded 1c", query: "M+PLUS+Rounded+1c:wght@400;700" },
-  { family: "M PLUS 1p", query: "M+PLUS+1p:wght@400;700" },
-  { family: "BIZ UDGothic", query: "BIZ+UDGothic:wght@400;700" },
-  { family: "IBM Plex Sans JP", query: "IBM+Plex+Sans+JP:wght@400;700" },
-  { family: "Murecho", query: "Murecho:wght@400;700" },
-  { family: "Kiwi Maru", query: "Kiwi+Maru:wght@400;500" },
-  { family: "Kosugi Maru", query: "Kosugi+Maru" },
-  { family: "Sawarabi Gothic", query: "Sawarabi+Gothic" },
-  { family: "Noto Serif JP", query: "Noto+Serif+JP:wght@400;700" },
-  { family: "Shippori Mincho", query: "Shippori+Mincho:wght@400;700" },
-  { family: "Shippori Mincho B1", query: "Shippori+Mincho+B1:wght@400;700" },
-  { family: "Zen Old Mincho", query: "Zen+Old+Mincho:wght@400;700" },
-  { family: "BIZ UDMincho", query: "BIZ+UDMincho:wght@400;700" },
-  { family: "Sawarabi Mincho", query: "Sawarabi+Mincho" },
-  { family: "Hina Mincho", query: "Hina+Mincho" },
-  { family: "New Tegomin", query: "New+Tegomin" },
-  { family: "Klee One", query: "Klee+One:wght@400;600" },
-  { family: "Zen Antique", query: "Zen+Antique" },
-  { family: "Zen Kurenaido", query: "Zen+Kurenaido" },
-  { family: "Kaisei Decol", query: "Kaisei+Decol:wght@400;700" },
-  { family: "Dela Gothic One", query: "Dela+Gothic+One" },
-  { family: "RocknRoll One", query: "RocknRoll+One" },
-  { family: "Reggae One", query: "Reggae+One" },
-  { family: "Rampart One", query: "Rampart+One" },
-  { family: "Train One", query: "Train+One" },
-  { family: "Potta One", query: "Potta+One" },
-  { family: "Mochiy Pop One", query: "Mochiy+Pop+One" },
-  { family: "Hachi Maru Pop", query: "Hachi+Maru+Pop" },
-  { family: "Yusei Magic", query: "Yusei+Magic" },
-  { family: "Yomogi", query: "Yomogi" },
-  { family: "Yuji Syuku", query: "Yuji+Syuku" },
-  { family: "Stick", query: "Stick" },
-  { family: "DotGothic16", query: "DotGothic16" },
+  {
+    family: "Noto Sans JP",
+    query: "Noto+Sans+JP:wght@400;700",
+    note: "a neutral modern gothic with even strokes, the default face of corporate sites, documentation and news media",
+  },
+  {
+    family: "Zen Kaku Gothic New",
+    query: "Zen+Kaku+Gothic+New:wght@400;700",
+    note: "a calm and well-balanced gothic, common on brand sites, portfolios and design studios",
+  },
+  {
+    family: "BIZ UDGothic",
+    query: "BIZ+UDGothic:wght@400;700",
+    note: "a universal-design gothic built for plain legibility, used by government, education and business systems",
+  },
+  {
+    family: "Murecho",
+    query: "Murecho:wght@400;700",
+    note: "a low-contrast contemporary gothic, common on startup landing pages and developer tools",
+  },
+  {
+    family: "M PLUS Rounded 1c",
+    query: "M+PLUS+Rounded+1c:wght@400;700",
+    note: "a rounded gothic that feels friendly and approachable, common on consumer apps and casual services",
+  },
+  {
+    family: "Zen Maru Gothic",
+    query: "Zen+Maru+Gothic:wght@400;700",
+    note: "a soft rounded gothic with a gentle feel, used by childcare, medical and lifestyle sites",
+  },
+  {
+    family: "Noto Serif JP",
+    query: "Noto+Serif+JP:wght@400;700",
+    note: "a standard mincho made for long reading, used by articles, blogs and publishing sites",
+  },
+  {
+    family: "Shippori Mincho",
+    query: "Shippori+Mincho:wght@400;700",
+    note: "a slightly retro mincho with warmth, used by books, literary sites and traditional confectioners",
+  },
+  {
+    family: "Zen Old Mincho",
+    query: "Zen+Old+Mincho:wght@400;700",
+    note: "a classical and dignified mincho, used by ryokan, museums and long-established brands",
+  },
+  {
+    family: "Hina Mincho",
+    query: "Hina+Mincho",
+    note: "an extremely thin and delicate mincho, used by fashion, cosmetics and gallery sites",
+  },
+  {
+    family: "Klee One",
+    query: "Klee+One:wght@400;600",
+    note: "a textbook-style face with a handwritten pen feel, used by education, essays and personal diaries",
+  },
+  {
+    family: "Dela Gothic One",
+    query: "Dela+Gothic+One",
+    note: "an extremely heavy display face with blunt impact, used by event posters and music sites",
+  },
+  {
+    family: "Rampart One",
+    query: "Rampart+One",
+    note: "a three-dimensional playful display face, used by festivals and campaign pages",
+  },
+  {
+    family: "Yuji Syuku",
+    query: "Yuji+Syuku",
+    note: "a brush-written calligraphy face, used by calligraphy, traditional Japanese crafts and sake brands",
+  },
+  {
+    family: "Yusei Magic",
+    query: "Yusei+Magic",
+    note: "a thick handwritten marker face, used by flyers, hand-lettered POP signage and casual campaigns",
+  },
+  {
+    family: "Hachi Maru Pop",
+    query: "Hachi+Maru+Pop",
+    note: "a round handwritten pop face, used by cute and youth-oriented sites",
+  },
+  {
+    family: "DotGothic16",
+    query: "DotGothic16",
+    note: "a bitmap dot face, used by retro games and 8-bit themed sites",
+  },
 ];
 
 export const themeVariables: ThemeVariable[] = [
@@ -165,11 +216,14 @@ export const themeVariables: ThemeVariable[] = [
   },
   {
     name: "--font-family",
-    description:
-      "Japanese typeface used across the whole site. Pick the one whose personality matches the theme: gothic faces feel modern and neutral, rounded faces feel soft and friendly, mincho faces feel classic and literary, and the display faces are loud and decorative.",
-    defaultValue: "fot-udkakugo-large-pr6n",
+    description: [
+      "Japanese typeface used across the whole site. Pick the one whose impression matches the theme, using the notes below.",
+      `"${defaultFontFamily}" is the site's own neutral gothic that is already in use — choose it when the theme does not call for a distinctive typeface and changing the lettering would add nothing.`,
+      ...themeFonts.map((font) => `"${font.family}" is ${font.note}.`),
+    ].join(" "),
+    defaultValue: defaultFontFamily,
     kind: "enum",
-    allowedValues: themeFonts.map((font) => font.family),
+    allowedValues: [defaultFontFamily, ...themeFonts.map((font) => font.family)],
   },
   {
     name: "--transition-duration",
@@ -198,9 +252,10 @@ export const themeVariables: ThemeVariable[] = [
 
 const motionVariables = new Set(["--transition-duration", "--transition-easing"]);
 
-function applyThemeFont(family: string) {
+const applyThemeFont = (family: string) => {
   const font = themeFonts.find((themeFont) => themeFont.family === family);
   if (!font) {
+    document.documentElement.style.removeProperty("--font-family");
     return;
   }
   let link = document.head.querySelector<HTMLLinkElement>("link[data-theme-font]");
@@ -219,9 +274,9 @@ function applyThemeFont(family: string) {
   }
   link.href = `https://fonts.googleapis.com/css2?family=${font.query}&display=swap`;
   document.documentElement.style.setProperty("--font-family", `"${font.family}"`);
-}
+};
 
-export function applyTheme(variables: { name: string; value: string }[]) {
+export const applyTheme = (variables: { name: string; value: string }[]) => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   for (const { name, value } of variables) {
     if (prefersReducedMotion && motionVariables.has(name)) {
@@ -233,4 +288,4 @@ export function applyTheme(variables: { name: string; value: string }[]) {
     }
     document.documentElement.style.setProperty(name, value);
   }
-}
+};
