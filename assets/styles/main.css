@@ -230,6 +230,14 @@ ul {
   animation-timing-function: var(--view-transition-easing);
 }
 
+::view-transition-group(lightbox-overlay) {
+  z-index: 1;
+}
+
+::view-transition-group(lightbox-img) {
+  z-index: 2;
+}
+
 html[data-view-transition="lightbox-open"]::view-transition-old(lightbox-img) {
   object-fit: cover;
 }
