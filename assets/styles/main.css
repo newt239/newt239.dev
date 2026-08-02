@@ -230,6 +230,46 @@ ul {
   animation-timing-function: var(--view-transition-easing);
 }
 
+html[data-view-transition] .lightbox-image {
+  transition: none;
+}
+
+::view-transition-group(lightbox-overlay) {
+  z-index: 1;
+}
+
+::view-transition-group(lightbox-img) {
+  z-index: 2;
+}
+
+html[data-view-transition="lightbox-open"]::view-transition-old(lightbox-img) {
+  object-fit: cover;
+}
+
+html[data-view-transition="lightbox-open"]::view-transition-new(lightbox-img) {
+  object-fit: contain;
+}
+
+html[data-view-transition="lightbox-close"]::view-transition-old(lightbox-img) {
+  object-fit: contain;
+}
+
+html[data-view-transition="lightbox-close"]::view-transition-new(lightbox-img) {
+  object-fit: cover;
+}
+
+::view-transition-old(.work-thumb) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 0;
+}
+
+::view-transition-new(.work-thumb) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),

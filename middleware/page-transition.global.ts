@@ -1,11 +1,11 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (import.meta.server || !document.startViewTransition) {
+  if (import.meta.server) {
     return;
   }
 
-  // Disable built-in Vue transitions
-  to.meta.pageTransition = false;
-  to.meta.layoutTransition = false;
+  if (!document.startViewTransition) {
+    to.meta.pageTransition = { name: "page", mode: "out-in" };
+  }
 
   useSeoMeta({
     title: "newt239.dev",

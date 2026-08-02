@@ -29,6 +29,23 @@ let didDrag = false;
 const hasMultiple = computed(() => props.images.length > 1);
 const supportsViewTransition = ref(false);
 
+const img = useImage();
+useHead({
+  link: computed(() => {
+    if (!props.open || !hasMultiple.value) return [];
+    const total = props.images.length;
+    const neighbors = [...new Set([
+      (currentIndex.value + 1) % total,
+      (currentIndex.value - 1 + total) % total,
+    ])].filter((index) => index !== currentIndex.value);
+    return neighbors.map((index) => ({
+      rel: "prefetch",
+      as: "image",
+      href: img(`/images/${props.images[index].src}`),
+    }));
+  }),
+});
+
 onMounted(() => {
   supportsViewTransition.value = "startViewTransition" in document;
 });
@@ -38,9 +55,12 @@ const canReset = computed(() => scale.value !== 1);
 const scalePercent = computed(() => `${Math.round(scale.value * 100)}%`);
 const isPanned = computed(() => scale.value > MIN_SCALE);
 
-const imageTransform = computed(
-  () => `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`
-);
+const imageTransform = computed(() => {
+  if (scale.value === 1 && translateX.value === 0 && translateY.value === 0) {
+    return undefined;
+  }
+  return `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`;
+});
 
 watch(
   () => props.initialIndex,
@@ -358,12 +378,15 @@ function onPointerUp() {
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: max-content;
+  max-width: calc(100% - 2rem);
 }
 
 .lightbox-counter {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .lightbox-zoom-controls {

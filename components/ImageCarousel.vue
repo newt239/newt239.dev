@@ -16,6 +16,16 @@ const isSnapping = ref(false);
 
 const hasMultiple = computed(() => props.images.length > 1);
 
+// ライトボックスはカルーセルより大きい variant を読むため、表示中の 1 枚だけ先に取得しておく
+const img = useImage();
+useHead({
+  link: computed(() => {
+    const image = props.images[currentIndex.value];
+    if (!image) return [];
+    return [{ rel: "prefetch", as: "image", href: img(`/images/${image.src}`) }];
+  }),
+});
+
 let touchStartX = 0;
 let touchDeltaX = 0;
 
@@ -60,9 +70,10 @@ defineExpose({ snapTo });
 
 function imageStyle(index: number) {
   if (props.morphIndex === index) {
-    return "view-transition-name: lightbox-img;";
+    return "view-transition-name: lightbox-img; view-transition-class: none;";
   }
-  if (index === 0) {
+  // 名前が付いた要素はビューポートの overflow クリップから外れるため、表示中のスライドにのみ付ける
+  if (index === 0 && currentIndex.value === 0) {
     return `view-transition-name: ${props.workSlug}-img;`;
   }
   return undefined;
@@ -131,6 +142,7 @@ function onTouchEnd() {
             :src="`/images/${image.src}`"
             :alt="image.alt"
             class="carousel-image"
+            sizes="sm:100vw md:50vw lg:400px"
             :style="imageStyle(index)"
             @click="emit('open-lightbox', index)"
           />
@@ -204,11 +216,13 @@ function onTouchEnd() {
 }
 
 .carousel-image {
+  view-transition-class: work-thumb;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   cursor: pointer;
+  border-radius: 0.75rem;
 }
 
 .carousel-controls {

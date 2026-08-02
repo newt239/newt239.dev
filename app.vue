@@ -12,7 +12,6 @@
   }
 }
 
-/* Vue transitions are disabled when View Transitions API is available (see middleware/disable-vue-transitions.global.ts) */
 @supports not (view-transition-name: none) {
   .page-enter-active,
   .page-leave-active {
