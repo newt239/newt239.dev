@@ -70,6 +70,7 @@ async function openLightbox(index: number) {
   }
   morphIndex.value = index;
   await nextTick();
+  document.documentElement.dataset.viewTransition = "lightbox-open";
   const transition = startViewTransition(async () => {
     lightboxOpen.value = true;
     morphIndex.value = null;
@@ -80,6 +81,7 @@ async function openLightbox(index: number) {
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
+    delete document.documentElement.dataset.viewTransition;
   }
 }
 
@@ -90,6 +92,7 @@ async function closeLightbox(index: number) {
     return;
   }
   carouselRef.value?.snapTo(index);
+  document.documentElement.dataset.viewTransition = "lightbox-close";
   const transition = startViewTransition(async () => {
     lightboxOpen.value = false;
     morphIndex.value = index;
@@ -100,6 +103,7 @@ async function closeLightbox(index: number) {
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
+    delete document.documentElement.dataset.viewTransition;
   }
 }
 </script>
