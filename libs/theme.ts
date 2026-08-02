@@ -6,6 +6,8 @@ export type ThemeVariable = {
   allowedValues?: string[];
   min?: number;
   max?: number;
+  contrastAgainst?: string;
+  minContrast?: number;
 };
 
 export type ThemeFont = {
@@ -66,16 +68,22 @@ export const themeVariables: ThemeVariable[] = [
     name: "--text",
     description: "Main text color. Must contrast well against --bg and --surface.",
     defaultValue: "48 42 37",
+    contrastAgainst: "--bg",
+    minContrast: 4.5,
   },
   {
     name: "--text-muted",
     description: "Secondary text color. Must be readable on --bg and --surface.",
     defaultValue: "110 100 90",
+    contrastAgainst: "--bg",
+    minContrast: 4.5,
   },
   {
     name: "--text-faint",
     description: "Tertiary text color. Must be slightly visible on --bg and --surface.",
     defaultValue: "122 114 104",
+    contrastAgainst: "--bg",
+    minContrast: 3,
   },
   {
     name: "--bg",
@@ -97,16 +105,22 @@ export const themeVariables: ThemeVariable[] = [
     name: "--accent",
     description: "Primary accent color for links. Must stand out on --bg and --surface.",
     defaultValue: "74 136 224",
+    contrastAgainst: "--bg",
+    minContrast: 4.5,
   },
   {
     name: "--accent-dark",
     description: "Dark accent color. Must contrast against --bg.",
     defaultValue: "26 72 120",
+    contrastAgainst: "--bg",
+    minContrast: 3,
   },
   {
     name: "--highlight",
     description: "Highlight/emphasis color. Must differ from --accent and stand out on --bg.",
     defaultValue: "162 132 32",
+    contrastAgainst: "--bg",
+    minContrast: 3,
   },
   {
     name: "--surface",
