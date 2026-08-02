@@ -205,6 +205,7 @@ function onTouchEnd() {
 }
 
 .carousel-image {
+  view-transition-class: work-thumb;
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -50,6 +50,7 @@ const thumbnail = computed(() => props.work.images[0]);
 }
 
 .work-card-thumbnail {
+  view-transition-class: work-thumb;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;

@@ -230,6 +230,18 @@ ul {
   animation-timing-function: var(--view-transition-easing);
 }
 
+::view-transition-old(.work-thumb) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 0;
+}
+
+::view-transition-new(.work-thumb) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
