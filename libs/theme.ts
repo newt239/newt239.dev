@@ -12,8 +12,8 @@ export type ThemeVariable = {
 
 export type ThemeFont = {
   family: string;
-  query: string;
   note: string;
+  query?: string;
 };
 
 export const defaultFontFamily = "fot-udkakugo-large-pr6n";
@@ -27,6 +27,10 @@ export type ThemeGenerationResponse =
   | { type: "error" | "limited"; error: unknown };
 
 export const themeFonts: ThemeFont[] = [
+  {
+    family: defaultFontFamily,
+    note: "FOT-UD角ゴ_ラージ Pr6N, a large-face universal-design gothic from Adobe Fonts with wide apertures and a crisp contemporary silhouette, used by transit signage, public wayfinding and product interfaces, and the right pick whenever the theme calls for clarity, neutrality or an engineered modern feel",
+  },
   {
     family: "Noto Sans JP",
     query: "Noto+Sans+JP:wght@400;700",
@@ -217,13 +221,12 @@ export const themeVariables: ThemeVariable[] = [
   {
     name: "--font-family",
     description: [
-      "Japanese typeface used across the whole site. Pick the one whose impression matches the theme, using the notes below.",
-      `"${defaultFontFamily}" is the site's own neutral gothic that is already in use — choose it when the theme does not call for a distinctive typeface and changing the lettering would add nothing.`,
+      "Japanese typeface used across the whole site. Every candidate below is a deliberate design choice, so pick the one whose impression matches the theme rather than defaulting to any of them.",
       ...themeFonts.map((font) => `"${font.family}" is ${font.note}.`),
     ].join(" "),
     defaultValue: defaultFontFamily,
     kind: "enum",
-    allowedValues: [defaultFontFamily, ...themeFonts.map((font) => font.family)],
+    allowedValues: themeFonts.map((font) => font.family),
   },
   {
     name: "--transition-duration",
@@ -254,7 +257,7 @@ const motionVariables = new Set(["--transition-duration", "--transition-easing"]
 
 const applyThemeFont = (family: string) => {
   const font = themeFonts.find((themeFont) => themeFont.family === family);
-  if (!font) {
+  if (!font?.query) {
     document.documentElement.style.removeProperty("--font-family");
     return;
   }
