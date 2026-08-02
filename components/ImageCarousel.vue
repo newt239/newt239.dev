@@ -60,7 +60,7 @@ defineExpose({ snapTo });
 
 function imageStyle(index: number) {
   if (props.morphIndex === index) {
-    return "view-transition-name: lightbox-img;";
+    return "view-transition-name: lightbox-img; view-transition-class: none;";
   }
   if (index === 0) {
     return `view-transition-name: ${props.workSlug}-img;`;

@@ -1,3 +1,10 @@
+import { readdirSync } from "node:fs";
+
+// ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
+const originalImageRoutes = readdirSync("public/images").map(
+  (file) => `/_ipx/_/images/${file}`
+);
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -47,6 +54,9 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    prerender: {
+      routes: originalImageRoutes,
+    },
   },
 
   content: {
