@@ -210,6 +210,7 @@ function onTouchEnd() {
   object-fit: cover;
   display: block;
   cursor: pointer;
+  border-radius: 0.75rem;
 }
 
 .carousel-controls {
