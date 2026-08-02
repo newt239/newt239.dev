@@ -29,7 +29,7 @@ header {
   backdrop-filter: blur(8px);
   border-style: solid;
   border-color: rgb(var(--border));
-  border-width: 0px 0px 1px;
+  border-width: 0 0 var(--border-width-hairline);
 
   a {
     display: flex;
@@ -37,7 +37,7 @@ header {
     align-items: center;
     flex-grow: 1;
     color: rgb(var(--text));
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
 
     .logo {
       display: flex;

@@ -126,8 +126,8 @@ const handleBackdropClick = (event: MouseEvent) => {
   height: 2.5rem;
   color: rgb(var(--text));
   background-color: rgb(var(--surface));
-  border: 2px solid transparent;
-  border-radius: 0.625rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -166,10 +166,10 @@ dialog {
     left: 50%;
     padding: 2rem;
     width: min(90%, 600px);
-    border-radius: 1rem;
+    border-radius: var(--radius-lg);
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
-    border: 2px solid rgb(var(--bg-accent) / 0.8);
+    border: var(--border-width) solid rgb(var(--bg-accent) / 0.8);
     z-index: 1000;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
@@ -235,8 +235,8 @@ dialog {
   padding-left: 1rem;
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
-  border: 1px solid rgb(var(--text));
-  border-radius: 2rem;
+  border: var(--border-width) solid rgb(var(--text));
+  border-radius: var(--radius-pill);
 }
 
 .theme-change-button {
@@ -252,8 +252,8 @@ dialog {
   padding: 0 1rem;
   background-color: rgb(var(--text));
   color: rgb(var(--bg));
-  border: 1px solid rgb(var(--text));
-  border-radius: 2rem;
+  border: var(--border-width) solid rgb(var(--text));
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: var(--transition);
 

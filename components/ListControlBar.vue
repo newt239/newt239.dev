@@ -41,8 +41,8 @@ const emit = defineEmits<{
   max-width: 100%;
   margin: 0 0 1.5rem auto;
   padding: 0.5rem 0.75rem;
-  border: 2px solid rgb(var(--surface));
-  border-radius: 0.75rem;
+  border: var(--border-width) solid rgb(var(--surface));
+  border-radius: var(--radius-md);
 
   @media (max-width: 600px) {
     display: grid;
@@ -91,7 +91,7 @@ const emit = defineEmits<{
 
 .control-divider {
   align-self: stretch;
-  border-left: 2px solid rgb(var(--surface));
+  border-left: var(--border-width) solid rgb(var(--surface));
   flex-shrink: 0;
 
   @media (max-width: 600px) {
@@ -99,7 +99,7 @@ const emit = defineEmits<{
     align-self: auto;
     width: 100%;
     border-left: none;
-    border-top: 2px solid rgb(var(--surface));
+    border-top: var(--border-width) solid rgb(var(--surface));
   }
 }
 </style>

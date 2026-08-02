@@ -301,7 +301,7 @@ function onPointerUp() {
   max-width: 100%;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   transition: transform 0.2s ease;
   user-select: none;
   touch-action: none;
@@ -323,7 +323,8 @@ function onPointerUp() {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
+  corner-shape: round;
   width: 44px;
   height: 44px;
   display: flex;
@@ -346,7 +347,8 @@ function onPointerUp() {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
+  corner-shape: round;
   width: 48px;
   height: 48px;
   display: flex;
@@ -394,7 +396,7 @@ function onPointerUp() {
   align-items: center;
   gap: 0.25rem;
   background: rgba(255, 255, 255, 0.12);
-  border-radius: 1.5rem;
+  border-radius: var(--radius-xl);
   padding: 0.25rem;
 }
 
@@ -402,7 +404,8 @@ function onPointerUp() {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
+  corner-shape: round;
   width: 36px;
   height: 36px;
   display: flex;

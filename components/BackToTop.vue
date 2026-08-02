@@ -26,8 +26,8 @@ import { IconChevronLeft } from "@tabler/icons-vue";
     padding: 0.75rem 1.5rem;
     color: rgb(var(--text));
     background-color: rgb(var(--surface));
-    border: 2px solid transparent;
-    border-radius: 0.625rem;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-sm);
     transition: var(--transition);
 
     @media (hover: hover) {

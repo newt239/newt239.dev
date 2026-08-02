@@ -57,8 +57,8 @@ const getSiteName = (url: string) => {
   gap: 0;
   color: rgb(var(--text));
   background: rgb(var(--surface));
-  border: 2px solid transparent;
-  border-radius: 0.75rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: var(--transition);
 

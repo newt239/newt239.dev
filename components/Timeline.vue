@@ -152,7 +152,7 @@ const items: YearSection[] = [
 
 .year-items {
   background: rgb(var(--surface));
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
@@ -166,7 +166,7 @@ const items: YearSection[] = [
   transition: var(--transition);
 
   &:not(:last-child) {
-    border-bottom: 1px solid rgb(var(--border));
+    border-bottom: var(--border-width-hairline) solid rgb(var(--border));
   }
 
   &.has-link {
