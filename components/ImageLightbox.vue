@@ -38,9 +38,12 @@ const canReset = computed(() => scale.value !== 1);
 const scalePercent = computed(() => `${Math.round(scale.value * 100)}%`);
 const isPanned = computed(() => scale.value > MIN_SCALE);
 
-const imageTransform = computed(
-  () => `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`
-);
+const imageTransform = computed(() => {
+  if (scale.value === 1 && translateX.value === 0 && translateY.value === 0) {
+    return undefined;
+  }
+  return `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`;
+});
 
 watch(
   () => props.initialIndex,

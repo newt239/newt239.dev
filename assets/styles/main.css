@@ -230,6 +230,10 @@ ul {
   animation-timing-function: var(--view-transition-easing);
 }
 
+html[data-view-transition] .lightbox-image {
+  transition: none;
+}
+
 ::view-transition-group(lightbox-overlay) {
   z-index: 1;
 }
