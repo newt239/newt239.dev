@@ -6,9 +6,11 @@ export type ThemeVariable = {
   allowedValues?: string[];
   min?: number;
   max?: number;
-  contrastAgainst?: string;
-  minContrast?: number;
 };
+
+export type ThemeConstraint =
+  | { type: "contrast"; foreground: string; background: string; min: number }
+  | { type: "similar"; a: string; b: string; max: number };
 
 export type ThemeFont = {
   family: string;
@@ -123,22 +125,16 @@ export const themeVariables: ThemeVariable[] = [
     name: "--text",
     description: "Main text color. Must contrast well against --bg and --surface.",
     defaultValue: "48 42 37",
-    contrastAgainst: "--bg",
-    minContrast: 4.5,
   },
   {
     name: "--text-muted",
     description: "Secondary text color. Must be readable on --bg and --surface.",
     defaultValue: "110 100 90",
-    contrastAgainst: "--bg",
-    minContrast: 4.5,
   },
   {
     name: "--text-faint",
     description: "Tertiary text color. Must be slightly visible on --bg and --surface.",
     defaultValue: "122 114 104",
-    contrastAgainst: "--bg",
-    minContrast: 3,
   },
   {
     name: "--bg",
@@ -160,22 +156,16 @@ export const themeVariables: ThemeVariable[] = [
     name: "--accent",
     description: "Primary accent color for links. Must stand out on --bg and --surface.",
     defaultValue: "74 136 224",
-    contrastAgainst: "--bg",
-    minContrast: 4.5,
   },
   {
     name: "--accent-dark",
     description: "Dark accent color. Must contrast against --bg.",
     defaultValue: "26 72 120",
-    contrastAgainst: "--bg",
-    minContrast: 3,
   },
   {
     name: "--highlight",
     description: "Highlight/emphasis color. Must differ from --accent and stand out on --bg.",
     defaultValue: "162 132 32",
-    contrastAgainst: "--bg",
-    minContrast: 3,
   },
   {
     name: "--surface",
@@ -251,6 +241,22 @@ export const themeVariables: ThemeVariable[] = [
       "steps(4, end)",
     ],
   },
+];
+
+export const themeConstraints: ThemeConstraint[] = [
+  { type: "similar", a: "--surface", b: "--bg", max: 1.5 },
+  { type: "similar", a: "--surface-hover", b: "--surface", max: 1.6 },
+  { type: "similar", a: "--border", b: "--bg", max: 2.5 },
+  { type: "contrast", foreground: "--text", background: "--bg", min: 4.5 },
+  { type: "contrast", foreground: "--text", background: "--surface", min: 4.5 },
+  { type: "contrast", foreground: "--text-muted", background: "--bg", min: 4.5 },
+  { type: "contrast", foreground: "--text-muted", background: "--surface", min: 4.5 },
+  { type: "contrast", foreground: "--text-faint", background: "--bg", min: 3 },
+  { type: "contrast", foreground: "--text-faint", background: "--surface", min: 3 },
+  { type: "contrast", foreground: "--accent", background: "--bg", min: 4.5 },
+  { type: "contrast", foreground: "--accent", background: "--surface", min: 4.5 },
+  { type: "contrast", foreground: "--accent-dark", background: "--bg", min: 3 },
+  { type: "contrast", foreground: "--highlight", background: "--bg", min: 3 },
 ];
 
 const motionVariables = new Set(["--transition-duration", "--transition-easing"]);

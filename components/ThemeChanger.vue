@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
 
-import { applyTheme, themeVariables } from "~/libs/theme";
+import { applyTheme, themeConstraints, themeVariables } from "~/libs/theme";
 
 import type { ThemeGenerationResponse } from "~/libs/theme";
 
@@ -26,6 +26,7 @@ const generateTheme = async () => {
       body: JSON.stringify({
         prompt: promptModel.value,
         requiredVariables: themeVariables,
+        constraints: themeConstraints,
       }),
     });
     const content: ThemeGenerationResponse = await res.json();
