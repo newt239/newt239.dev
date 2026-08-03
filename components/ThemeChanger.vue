@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
 
+import { applyTheme, themeConstraints, themeVariables } from "~/libs/theme";
+
+import type { ThemeGenerationResponse } from "~/libs/theme";
+
+const fallbackMessage = "Something went wrong. Please try another word.";
+
 const isGenerating = ref(false);
 const promptModel = defineModel<string>();
 const modalRef = ref();
@@ -11,51 +17,33 @@ const generateTheme = async () => {
     promptModel.value = "fairy tale";
   }
   isGenerating.value = true;
-  const requiredVariables = [
-    { name: "--text", description: "Main text color. Must contrast well against --bg and --surface.", defaultValue: "48 42 37" },
-    { name: "--text-muted", description: "Secondary text color. Must be readable on --bg and --surface.", defaultValue: "110 100 90" },
-    { name: "--text-faint", description: "Tertiary text color. Must be slightly visible on --bg and --surface.", defaultValue: "175 168 158" },
-    { name: "--bg", description: "Page background color. Must contrast well against --text.", defaultValue: "255 248 240" },
-    { name: "--bg-accent", description: "Accent background for tags/badges. Must contrast against --text placed on it.", defaultValue: "216 226 240" },
-    { name: "--bg-warm", description: "Warm background for highlighted sections. Must contrast against --text placed on it.", defaultValue: "240 220 196" },
-    { name: "--accent", description: "Primary accent color for links. Must stand out on --bg and --surface.", defaultValue: "74 136 224" },
-    { name: "--accent-dark", description: "Dark accent color. Must contrast against --bg.", defaultValue: "26 72 120" },
-    { name: "--highlight", description: "Highlight/emphasis color. Must differ from --accent and stand out on --bg.", defaultValue: "162 132 32" },
-    { name: "--surface", description: "Card/section background. Should be close to --bg but visibly distinct. --text-muted must be readable on it.", defaultValue: "246 240 232" },
-    { name: "--surface-hover", description: "Hover state background. Should be noticeably darker/lighter than --surface.", defaultValue: "236 230 222" },
-    { name: "--border", description: "Subtle border color. Must be visible against --bg and --surface.", defaultValue: "240 234 228" },
-  ];
-
-  const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      prompt: promptModel.value,
-      requiredVariables,
-    }),
-  });
-  const content = await res.json();
-  const r = document.documentElement;
-  if (r && content) {
-    if (content.type === "success") {
-      if (content.variables.length === 0) {
-        isGenerating.value = false;
-        responseMessage.value =
-          "Something went wrong. Please try another word.";
-      } else {
-        content.variables.forEach((v: { name: string; value: string }) => {
-          r.style.setProperty(`${v.name}`, v.value);
-        });
-        onModalClose();
-      }
-    } else {
-      isGenerating.value = false;
-      responseMessage.value = content.message;
+  try {
+    const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: promptModel.value,
+        requiredVariables: themeVariables,
+        constraints: themeConstraints,
+      }),
+    });
+    const content: ThemeGenerationResponse = await res.json();
+    if (content.type !== "success") {
+      responseMessage.value =
+        typeof content.error === "string" ? content.error : fallbackMessage;
+      return;
     }
+    if (content.variables.length === 0) {
+      responseMessage.value = fallbackMessage;
+      return;
+    }
+    applyTheme(content.variables);
+    onModalClose();
+  } finally {
+    isGenerating.value = false;
   }
-  return;
 };
 const onModalOpen = () => {
   modalRef.value.showModal();
