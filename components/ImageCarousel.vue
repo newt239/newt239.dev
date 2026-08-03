@@ -11,7 +11,6 @@ const emit = defineEmits<{
 
 const currentIndex = ref(0);
 const trackRef = ref<HTMLElement | null>(null);
-const isTransitioning = ref(false);
 const isSnapping = ref(false);
 
 const hasMultiple = computed(() => props.images.length > 1);
@@ -29,19 +28,8 @@ useHead({
 let touchStartX = 0;
 let touchDeltaX = 0;
 
-const prefersReducedMotion = ref(false);
-
-onMounted(() => {
-  prefersReducedMotion.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-});
-
 function goTo(index: number) {
-  if (isTransitioning.value) return;
-  isTransitioning.value = true;
   currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
-  if (prefersReducedMotion.value) {
-    isTransitioning.value = false;
-  }
 }
 
 function prev() {
@@ -50,10 +38,6 @@ function prev() {
 
 function next() {
   goTo(currentIndex.value + 1);
-}
-
-function onTransitionEnd() {
-  isTransitioning.value = false;
 }
 
 function snapTo(index: number) {
@@ -125,7 +109,6 @@ function onTouchEnd() {
         class="carousel-track"
         :class="{ 'no-transition': isSnapping }"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
-        @transitionend="onTransitionEnd"
         @touchstart.passive="onTouchStart"
         @touchmove.passive="onTouchMove"
         @touchend="onTouchEnd"
