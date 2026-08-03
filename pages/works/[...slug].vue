@@ -238,7 +238,7 @@ async function closeLightbox(index: number) {
       .tech-tag {
         display: inline-block;
         padding: 0.125rem 0.625rem;
-        border-radius: 0.25rem;
+        border-radius: var(--radius-xs);
         font-size: 1rem;
         line-height: 1.5;
         background: rgb(var(--surface));
@@ -278,7 +278,7 @@ async function closeLightbox(index: number) {
         letter-spacing: 0;
         margin: 0;
         font-size: 1.25rem;
-        border-bottom: rgb(var(--text)) 1px solid;
+        border-bottom: rgb(var(--text)) var(--border-width-hairline) solid;
       }
 
       h3 {
@@ -306,7 +306,7 @@ async function closeLightbox(index: number) {
         }
 
         th {
-          border-bottom: 1px rgb(var(--text)) solid;
+          border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
         }
       }
 
@@ -332,7 +332,7 @@ async function closeLightbox(index: number) {
         img {
           max-width: 100%;
           max-height: 50vh;
-          border-radius: 0.5rem;
+          border-radius: var(--radius-sm);
         }
       }
     }

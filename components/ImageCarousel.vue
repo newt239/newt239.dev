@@ -183,14 +183,14 @@ function onTouchEnd() {
   &:focus-visible {
     outline: 2px solid rgb(var(--accent));
     outline-offset: 4px;
-    border-radius: 0.75rem;
+    border-radius: var(--radius-md);
   }
 }
 
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   aspect-ratio: 16 / 9;
   width: 100%;
 }
@@ -222,7 +222,7 @@ function onTouchEnd() {
   object-fit: cover;
   display: block;
   cursor: pointer;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
 }
 
 .carousel-controls {
@@ -240,8 +240,9 @@ function onTouchEnd() {
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  border-radius: 50%;
-  border: 1.5px solid rgb(var(--text-faint));
+  border-radius: var(--radius-round);
+  corner-shape: round;
+  border: var(--border-width) solid rgb(var(--text-faint));
   background: transparent;
   color: rgb(var(--text));
   cursor: pointer;

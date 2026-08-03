@@ -54,7 +54,7 @@ footer {
     flex-direction: column;
     gap: 1.25rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgb(var(--text-muted) / 0.15);
+    border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 0.15);
   }
 
   .sitemap-section {

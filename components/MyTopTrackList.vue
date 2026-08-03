@@ -52,8 +52,8 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     display: flex;
     gap: 0.75rem;
     padding: 0.75rem;
-    border: 2px solid transparent;
-    border-radius: 0.75rem;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
     background: rgb(var(--surface));
     color: rgb(var(--text));
     text-decoration: none;
@@ -75,7 +75,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
   .track-thumbnail {
     width: 80px;
     height: 80px;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     object-fit: cover;
     flex-shrink: 0;
     user-select: none;

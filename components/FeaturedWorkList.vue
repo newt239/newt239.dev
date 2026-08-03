@@ -48,8 +48,8 @@ const { data: works } = await useAsyncData("featured-works", () =>
     align-items: center;
     height: 100%;
     padding: 1rem 0;
-    border: 2px solid transparent;
-    border-radius: 0.75rem;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
     background: rgb(var(--surface));
     color: rgb(var(--text));
     transition: var(--transition);

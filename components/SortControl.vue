@@ -43,7 +43,7 @@ function setSort(asc: boolean) {
 .sort-segmented {
   display: inline-flex;
   background: rgb(var(--surface));
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 

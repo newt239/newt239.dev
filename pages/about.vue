@@ -153,7 +153,8 @@ const links = [
     .profile-icon {
       width: 160px;
       height: 160px;
-      border-radius: 50%;
+      border-radius: var(--radius-round);
+      corner-shape: round;
       object-fit: cover;
       flex-shrink: 0;
 
@@ -224,7 +225,7 @@ const links = [
 
     .section-body {
       background: rgb(var(--surface));
-      border-radius: 0.75rem;
+      border-radius: var(--radius-md);
       padding: 1rem 1.5rem;
 
       ul {
@@ -273,7 +274,7 @@ const links = [
       transition: var(--transition);
 
       &:not(:last-child) {
-        border-bottom: 1px solid rgb(var(--border));
+        border-bottom: var(--border-width-hairline) solid rgb(var(--border));
       }
 
       @media (hover: hover) {

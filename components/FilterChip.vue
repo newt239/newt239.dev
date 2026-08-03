@@ -22,7 +22,7 @@ defineProps<{
   font-family: inherit;
   font-size: 0.875rem;
   padding: 0 0.875rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   border: none;
   background: rgb(var(--surface));
   color: rgb(var(--text));

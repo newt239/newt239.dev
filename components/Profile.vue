@@ -109,7 +109,7 @@ const profile: string[] = [
         rgb(var(--text)) 100%
       );
     color: rgb(var(--bg));
-    border-radius: 0.75rem;
+    border-radius: var(--radius-md);
     transition: var(--transition);
 
     @media (hover: hover) {
@@ -156,8 +156,8 @@ const profile: string[] = [
     bottom: 1rem;
     right: 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid rgb(var(--bg));
-    border-radius: 9999px;
+    border: var(--border-width) solid rgb(var(--bg));
+    border-radius: var(--radius-pill);
     cursor: pointer;
     transition: var(--transition);
     font-size: 0.9375rem;
@@ -183,8 +183,8 @@ const profile: string[] = [
     .sns-card {
       color: rgb(var(--text));
       background: rgb(var(--surface));
-      border: 2px solid transparent;
-      border-radius: 0.75rem;
+      border: var(--border-width) solid transparent;
+      border-radius: var(--radius-md);
       padding: 0.6rem 1rem;
       transition: var(--transition);
       display: flex;

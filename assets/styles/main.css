@@ -14,10 +14,25 @@
   --border: 240 234 228;
   --focus-ring: 255 0 0;
   --focus-bg: 255 255 0;
-  --transition: all 0.2s;
-  --view-transition-duration: 0.4s;
-  --view-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-duration: 0.2s;
+  --transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition: all var(--transition-duration) var(--transition-easing);
+  --view-transition-duration: calc(var(--transition-duration) * 2);
+  --view-transition-easing: var(--transition-easing);
   --hover-opacity: 0.8;
+  --radius-scale: 1;
+  --radius-xs: calc(0.25rem * var(--radius-scale));
+  --radius-sm: calc(0.5rem * var(--radius-scale));
+  --radius-md: calc(0.75rem * var(--radius-scale));
+  --radius-lg: calc(1rem * var(--radius-scale));
+  --radius-xl: calc(1.5rem * var(--radius-scale));
+  --radius-pill: calc(2rem * var(--radius-scale));
+  --radius-round: 50%;
+  --border-width: 2px;
+  --border-width-hairline: 1px;
+  --corner-shape: round;
+  --font-family: fot-udkakugo-large-pr6n;
+  --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", -apple-system, sans-serif;
 }
 
 @media (display-mode: standalone) {
@@ -54,6 +69,12 @@
   }
 }
 
+@supports (corner-shape: bevel) {
+  * {
+    corner-shape: var(--corner-shape);
+  }
+}
+
 a, button {
   &:focus-visible{
     color: rgb(var(--focus-ring))!important;
@@ -77,13 +98,7 @@ body {
   background-color: rgb(var(--bg));
   font-size: 16px;
   line-height: 1.6;
-  font-family:
-    fot-udkakugo-large-pr6n,
-    "line-seed-jp",
-    "biz-udp-gothic",
-    "noto-sans-jp",
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-family), var(--font-fallback);
   cursor: default;
   scrollbar-gutter: stable;
 }
