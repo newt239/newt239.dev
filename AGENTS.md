@@ -91,7 +91,7 @@ bun run lint:fix
 `components/` 内のコンポーネント:
 
 - `Header.vue` / `Footer.vue` - レイアウトコンポーネント
-- `Profile.vue` / `Timeline.vue` - About ページのセクション
+- `Profile.vue` / `Timeline.vue` / `Certifications.vue` - トップページのセクション
 - `ArticleItem.vue` / `LatestArticleList.vue` - 記事表示
 - `WorkItem.vue` / `FeaturedWorkList.vue` - 作品表示
 - `MyTopTrackList.vue` - Spotify 連携

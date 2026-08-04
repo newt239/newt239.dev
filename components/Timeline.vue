@@ -38,11 +38,6 @@ const items: YearSection[] = [
         src: null,
       },
       {
-        term: "4月",
-        title: "応用情報技術者試験 合格",
-        src: "https://x.com/newt239/status/1940620995062268213",
-      },
-      {
         term: "3月",
         title: "サイバーエージェント 就業型インターン",
         src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
@@ -81,16 +76,6 @@ const items: YearSection[] = [
         term: "3月",
         title: "栄東高等学校 卒業",
         src: null,
-      },
-    ],
-  },
-  {
-    year: 2022,
-    items: [
-      {
-        term: "4月",
-        title: "基本情報技術者試験 合格",
-        src: "https://x.com/newt239/status/1511657961013215232",
       },
     ],
   }
