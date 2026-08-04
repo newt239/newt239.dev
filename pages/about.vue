@@ -44,6 +44,7 @@ const links = [
   { href: "https://newt239.hatenablog.com/", label: "はてなブログ" },
   { href: "https://mixi.social/@newt", label: "mixi2" },
   { href: "https://annict.com/@newt", label: "Annict" },
+  { href: "https://www.linkedin.com/in/newt239/", label: "LinkedIn" },
 ] as const;
 </script>
 
