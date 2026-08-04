@@ -19,6 +19,9 @@ useHead({
       <Timeline />
     </div>
     <div class="container">
+      <Certifications />
+    </div>
+    <div class="container">
       <MyTopTrackList />
     </div>
   </main>
