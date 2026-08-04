@@ -278,6 +278,11 @@ const links = [
         border-bottom: var(--border-width-hairline) solid rgb(var(--border));
       }
 
+      /* 親の .link-list が overflow: hidden なので外側に描くとリングが完全に隠れる */
+      &:focus-visible {
+        outline-offset: -2px;
+      }
+
       @media (hover: hover) {
         &:hover {
           background: rgb(var(--surface));
