@@ -13,11 +13,11 @@ export default defineNuxtRouteMiddleware((to) => {
     description: "newt239's portfolio site",
     ogDescription: "newt239's portfolio site",
     ogImage: {
-      url: "https://newt239.dev/og-image.webp",
+      url: "https://newt239.dev/og-image-2026.webp",
       alt: "newt239.devのイメージ画像",
     },
     twitterImage: {
-      url: "https://newt239.dev/og-image.webp",
+      url: "https://newt239.dev/og-image-2026.webp",
       alt: "newt239.devのイメージ画像",
     },
   });

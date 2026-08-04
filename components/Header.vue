@@ -1,35 +1,43 @@
 <template>
   <header>
-    <NuxtLink to="/">
-      <div class="logo">
-        <img src="/icon.png" alt="" width="40" height="40" />
-        <span>newt239.dev</span>
-      </div>
-    </NuxtLink>
-    <ThemeChanger />
+    <div class="header-inner">
+      <NuxtLink to="/">
+        <div class="logo">
+          <img src="/icon.png" alt="" width="40" height="40" />
+          <span>newt239.dev</span>
+        </div>
+      </NuxtLink>
+      <ThemeChanger />
+    </div>
   </header>
 </template>
 
 <style>
 header {
   background-image: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 1rem;
   position: sticky;
   z-index: 100;
   width: 100%;
   top: 0;
   left: auto;
   right: 0px;
-  padding: 0.75rem max(1rem, (100vw - 1280px) / 2);
+  padding: 0.75rem 0;
   color: rgb(var(--text));
   backdrop-filter: blur(8px);
   border-style: solid;
   border-color: rgb(var(--border));
   border-width: 0 0 var(--border-width-hairline);
+
+  .header-inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1rem;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding-inline: var(--container-padding-inline);
+  }
 
   a {
     display: flex;
