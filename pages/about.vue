@@ -44,6 +44,7 @@ const links = [
   { href: "https://newt239.hatenablog.com/", label: "はてなブログ" },
   { href: "https://mixi.social/@newt", label: "mixi2" },
   { href: "https://annict.com/@newt", label: "Annict" },
+  { href: "https://www.linkedin.com/in/newt239/", label: "LinkedIn" },
 ] as const;
 </script>
 
@@ -275,6 +276,11 @@ const links = [
 
       &:not(:last-child) {
         border-bottom: var(--border-width-hairline) solid rgb(var(--border));
+      }
+
+      /* 親の .link-list が overflow: hidden なので外側に描くとリングが完全に隠れる */
+      &:focus-visible {
+        outline-offset: -2px;
       }
 
       @media (hover: hover) {

@@ -62,6 +62,11 @@ function setSort(asc: boolean) {
   transition: var(--transition);
   white-space: nowrap;
 
+  /* 親の .sort-segmented が overflow: hidden なので外側に描くとリングが隠れる */
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+
   @media (hover: hover) {
     &:not(.active):hover {
       background: rgb(var(--surface-hover));

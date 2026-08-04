@@ -9,7 +9,7 @@ const certifications: Certification[] = [
   { year: 2026, month: 7, title: "色彩検定 2級" },
   { year: 2025, month: 7, title: "色彩検定 UC級" },
   { year: 2025, month: 4, title: "応用情報技術者試験" },
-  { year: 2025, month: 3, title: "普通自動車第一種運転免許 取得" },
+  { year: 2025, month: 3, title: "普通自動車第一種運転免許" },
   { year: 2022, month: 4, title: "基本情報技術者試験" },
 ];
 </script>

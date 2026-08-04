@@ -44,9 +44,9 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
 <style>
 footer {
   .footer-inner {
-    max-width: 1280px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 2.5rem 2rem 2rem;
+    padding: 2.5rem var(--container-padding-inline) 2rem;
   }
 
   .footer-sitemap {

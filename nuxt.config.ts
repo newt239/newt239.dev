@@ -23,7 +23,7 @@ export default defineNuxtConfig({
         { name: "theme-color", content: "#0099ff" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239.dev" },
-        { property: "og:image", content: "https://newt239.dev/og-image.webp" },
+        { property: "og:image", content: "https://newt239.dev/og-image-2026.webp" },
         { property: "og:url", content: "https://newt239.dev" },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },

@@ -2,7 +2,8 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 type TimelineItem = {
-  term: string;
+  start: string;
+  end?: string | "present";
   title: string;
   description?: string;
   src: string | null;
@@ -18,7 +19,8 @@ const items: YearSection[] = [
     year: 2026,
     items: [
       {
-        term: "5月 - 6月",
+        start: "2026-05",
+        end: "2026-06",
         title: "MIXI 就業型インターン",
         src: "https://x.com/newt239/status/2066833159283724290",
       }
@@ -28,17 +30,18 @@ const items: YearSection[] = [
     year: 2025,
     items: [
       {
-        term: "9月",
+        start: "2025-09",
         title: "SmartHR サマーインターン",
         src: "https://x.com/newt239/status/1966481283690770887",
       },
       {
-        term: "4月 - 3月",
+        start: "2025-04",
+        end: "2026-03",
         title: "芝浦工業大学 学術情報センター 開発アルバイト",
         src: null,
       },
       {
-        term: "3月",
+        start: "2025-03",
         title: "サイバーエージェント 就業型インターン",
         src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
       },
@@ -48,22 +51,24 @@ const items: YearSection[] = [
     year: 2024,
     items: [
       {
-        term: "9月",
+        start: "2024-09",
         title: "LayerX サマーインターン",
         src: "https://x.com/newt239/status/1834594518324457782",
       },
       {
-        term: "7月 - 現在",
+        start: "2024-07",
+        end: "present",
         title: "CA Tech lounge 会員 (Webフロントエンド)",
         src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/",
       },
       {
-        term: "6月 - 3月",
+        start: "2024-06",
+        end: "2025-03",
         title: "SecHack365'24 開発駆動コース 仲山ゼミ",
         src: "https://sechack365.nict.go.jp/",
       },
       {
-        term: "4月",
+        start: "2024-04",
         title: "芝浦工業大学 デザイン工学部 入学",
         src: "https://www.shibaura-it.ac.jp/",
       },
@@ -73,7 +78,7 @@ const items: YearSection[] = [
     year: 2023,
     items: [
       {
-        term: "3月",
+        start: "2023-03",
         title: "栄東高等学校 卒業",
         src: null,
       },
@@ -88,7 +93,7 @@ const items: YearSection[] = [
     <div class="timeline-body">
       <div v-for="year in items" :key="year.year" class="year-section">
         <div class="year-header">
-          <h3 class="year-text">{{ year.year }}</h3>
+          <h3 class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
         </div>
         <div class="year-items">
           <component
@@ -101,7 +106,9 @@ const items: YearSection[] = [
             class="timeline-item"
             :class="{ 'has-link': !!item.src }"
           >
-            <span class="item-term">{{ item.term }}</span>
+            <span class="item-term">
+              <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'"> - 現在</template><template v-else-if="item.end"> - <time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
+            </span>
             <div class="item-content">
               <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" :size="14" class="external-icon" /></span>
               <p v-if="item.description" class="item-description">{{ item.description }}</p>
@@ -156,6 +163,11 @@ const items: YearSection[] = [
 
   &.has-link {
     cursor: pointer;
+
+    /* 親の .year-items が overflow: hidden なので外側に描くとリングが完全に隠れる */
+    &:focus-visible {
+      outline-offset: -2px;
+    }
 
     .item-title {
       color: rgb(var(--accent));

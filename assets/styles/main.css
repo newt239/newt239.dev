@@ -12,8 +12,7 @@
   --surface: 246 240 232;
   --surface-hover: 236 230 222;
   --border: 240 234 228;
-  --focus-ring: 255 0 0;
-  --focus-bg: 255 255 0;
+  --focus-ring: 0 95 204;
   --transition-duration: 0.2s;
   --transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --transition: all var(--transition-duration) var(--transition-easing);
@@ -30,6 +29,8 @@
   --radius-round: 50%;
   --border-width: 2px;
   --border-width-hairline: 1px;
+  --container-max-width: 1280px;
+  --container-padding-inline: 1rem;
   --corner-shape: round;
   --font-family: fot-udkakugo-large-pr6n;
   --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", -apple-system, sans-serif;
@@ -77,9 +78,6 @@
 
 a, button {
   &:focus-visible{
-    color: rgb(var(--focus-ring))!important;
-    background-color: rgb(var(--focus-bg))!important;
-    background-image: none!important;
     outline: 2px solid rgb(var(--focus-ring));
     outline-offset: 2px;
   }
@@ -224,9 +222,9 @@ ul {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--container-padding-inline);
 }
 
 .tabler-icon {

@@ -27,7 +27,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
         rel="noopener noreferrer"
         class="track-card"
       >
-        <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" :alt="`${track.name}のアルバムアート`" />
+        <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" alt="" />
         <div class="track-body">
           <h3 class="track-name">{{ track.name }}</h3>
           <p class="track-artists">{{ track.artists.join(", ") }}</p>
