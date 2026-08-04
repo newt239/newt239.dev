@@ -164,6 +164,11 @@ const items: YearSection[] = [
   &.has-link {
     cursor: pointer;
 
+    /* 親の .year-items が overflow: hidden なので外側に描くとリングが完全に隠れる */
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+
     .item-title {
       color: rgb(var(--accent));
       text-decoration: underline;
