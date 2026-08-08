@@ -294,7 +294,7 @@ async function closeLightbox(index: number) {
         color: rgb(var(--text-muted));
         font-size: 0.875rem;
         letter-spacing: 0.05em;
-        line-height: 1.5;
+        line-height: var(--line-height-tight);
         margin-top: 0.75rem;
 
         &:first-of-type {
@@ -304,7 +304,7 @@ async function closeLightbox(index: number) {
 
       dd {
         margin: 0;
-        line-height: 1.6;
+        line-height: var(--line-height-tight);
       }
 
       .tech-tags {
@@ -319,7 +319,7 @@ async function closeLightbox(index: number) {
         padding: 0.125rem 0.625rem;
         border-radius: var(--radius-xs);
         font-size: 1rem;
-        line-height: 1.5;
+        line-height: var(--line-height-tight);
         background: rgb(var(--surface));
         color: rgb(var(--text));
       }
@@ -347,7 +347,7 @@ async function closeLightbox(index: number) {
       }
 
       li {
-        line-height: 1.6;
+        line-height: var(--line-height-body);
         margin: 0.25rem 0;
       }
 
@@ -492,12 +492,12 @@ async function closeLightbox(index: number) {
   .work-nav-label {
     font-size: 0.8125rem;
     color: rgb(var(--text-muted));
-    line-height: 1.5;
+    line-height: var(--line-height-tight);
   }
 
   .work-nav-title {
     font-weight: 700;
-    line-height: 1.5;
+    line-height: var(--line-height-tight);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

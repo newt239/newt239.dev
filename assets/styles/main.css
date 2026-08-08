@@ -29,6 +29,9 @@
   --radius-round: 50%;
   --border-width: 2px;
   --border-width-hairline: 1px;
+  --line-height-heading: 1.3;
+  --line-height-tight: 1.5;
+  --line-height-body: 1.8;
   --container-max-width: 1280px;
   --container-padding-inline: 1rem;
   --corner-shape: round;
@@ -95,7 +98,7 @@ body {
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
   font-size: 16px;
-  line-height: 1.6;
+  line-height: var(--line-height-body);
   font-family: var(--font-family), var(--font-fallback);
   cursor: default;
   scrollbar-gutter: stable;
@@ -107,7 +110,7 @@ h1 {
   display: inline-block;
   font-size: 2.5rem;
   font-weight: 800;
-  line-height: 3rem;
+  line-height: var(--line-height-heading);
   padding: 1rem 0 0;
   margin: 0px;
 }
@@ -116,6 +119,7 @@ h2,
 .category-name {
   font-size: 2.5rem;
   font-weight: 800;
+  line-height: var(--line-height-heading);
   padding: 1rem 0 0.5rem;
   margin: 0px;
   width: fit-content;
@@ -157,6 +161,7 @@ h2,
 
 h3 {
   font-size: 1.5rem;
+  line-height: var(--line-height-heading);
   padding: 1rem 1rem 0;
   margin: 0px;
 }
@@ -165,6 +170,7 @@ h4 {
   padding: 1rem 1rem 0;
   margin: 0;
   font-size: 1.125rem;
+  line-height: var(--line-height-heading);
 }
 
 @media (max-width: 600px) {

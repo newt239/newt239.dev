@@ -201,7 +201,7 @@ dialog {
 
 .modal-description {
   font-size: 1.25rem;
-  line-height: 1.75rem;
+  line-height: var(--line-height-tight);
   margin: 0 0 1.5rem;
   text-align: center;
   text-wrap: balance;
@@ -320,7 +320,6 @@ dialog {
 
   .modal-description {
     font-size: 1.125rem;
-    line-height: 1.5rem;
   }
 
   .theme-change-form {

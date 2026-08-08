@@ -55,6 +55,6 @@ const certifications: Certification[] = [
 .item-title {
   font-weight: 600;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: var(--line-height-tight);
 }
 </style>
