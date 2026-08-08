@@ -1,9 +1,24 @@
 <script lang="ts" setup>
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-vue";
 
 const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
 });
+
+const { data: worksOrder } = await useAsyncData("works-order", () =>
+  queryCollection("works").order("period", "DESC").select("path", "title").all()
+);
+
+const currentIndex = computed(() =>
+  worksOrder.value?.findIndex((work) => work.path === route.path) ?? -1
+);
+const previousWork = computed(() =>
+  currentIndex.value > 0 ? worksOrder.value?.[currentIndex.value - 1] : undefined
+);
+const nextWork = computed(() =>
+  currentIndex.value === -1 ? undefined : worksOrder.value?.[currentIndex.value + 1]
+);
 
 if (!data.value) {
   useSeoMeta({
@@ -154,6 +169,32 @@ async function closeLightbox(index: number) {
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
         </template>
       </div>
+      <nav v-if="previousWork || nextWork" class="work-nav" aria-label="作品ナビゲーション">
+        <NuxtLink
+          v-if="previousWork"
+          :to="previousWork.path"
+          rel="prev"
+          class="work-nav-link is-previous"
+        >
+          <IconChevronLeft :size="20" aria-hidden="true" />
+          <span class="work-nav-body">
+            <span class="work-nav-label">新しい作品</span>
+            <span class="work-nav-title">{{ previousWork.title }}</span>
+          </span>
+        </NuxtLink>
+        <NuxtLink
+          v-if="nextWork"
+          :to="nextWork.path"
+          rel="next"
+          class="work-nav-link is-next"
+        >
+          <span class="work-nav-body">
+            <span class="work-nav-label">古い作品</span>
+            <span class="work-nav-title">{{ nextWork.title }}</span>
+          </span>
+          <IconChevronRight :size="20" aria-hidden="true" />
+        </NuxtLink>
+      </nav>
       <BackToTop />
     </div>
   </main>
@@ -343,5 +384,73 @@ async function closeLightbox(index: number) {
     }
   }
 
+  .work-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .work-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    color: rgb(var(--text));
+    background-color: rgb(var(--surface));
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    &.is-next {
+      grid-column: 2;
+      justify-content: flex-end;
+      text-align: right;
+
+      @media (max-width: 768px) {
+        grid-column: 1;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgb(var(--text));
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        border-color: rgb(var(--text));
+      }
+    }
+  }
+
+  .work-nav-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .work-nav-label {
+    font-size: 0.8125rem;
+    color: rgb(var(--text-muted));
+    line-height: 1.5;
+  }
+
+  .work-nav-title {
+    font-weight: 700;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 </style>
