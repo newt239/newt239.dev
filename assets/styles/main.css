@@ -1,5 +1,99 @@
+@property --radius-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --border-width {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2px;
+}
+
+/* standalone では色に AccentColor 由来のトークン列を代入するため、型を付けると無効値になる。登録を避けて補間を諦める */
+@media not (display-mode: standalone) {
+  @property --text {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 48 42 37;
+  }
+
+  @property --text-muted {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 110 100 90;
+  }
+
+  @property --text-faint {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 122 114 104;
+  }
+
+  @property --bg {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 255 248 240;
+  }
+
+  @property --bg-accent {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 216 226 240;
+  }
+
+  @property --bg-warm {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 240 220 196;
+  }
+
+  @property --accent {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 74 136 224;
+  }
+
+  @property --accent-dark {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 26 72 120;
+  }
+
+  @property --highlight {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 162 132 32;
+  }
+
+  @property --surface {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 246 240 232;
+  }
+
+  @property --surface-hover {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 236 230 222;
+  }
+
+  @property --border {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 240 234 228;
+  }
+
+  @property --focus-ring {
+    syntax: "<number>+";
+    inherits: true;
+    initial-value: 0 95 204;
+  }
+}
+
 :root {
   color-scheme: light;
+  interpolate-size: allow-keywords;
   --text: 48 42 37;
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;
@@ -34,9 +128,18 @@
   --line-height-body: 1.8;
   --container-max-width: 1280px;
   --container-padding-inline: 1rem;
+  --list-header-row-gap: 0.75rem;
   --corner-shape: round;
   --font-family: fot-udkakugo-large-pr6n;
   --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", -apple-system, sans-serif;
+  --theme-transition-duration: 0.6s;
+  --theme-transition-easing: ease;
+  --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
+  transition-property:
+    --text, --text-muted, --text-faint, --bg, --bg-accent, --bg-warm, --accent, --accent-dark,
+    --highlight, --surface, --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
+  transition-duration: var(--theme-transition-duration);
+  transition-timing-function: var(--theme-transition-easing);
 }
 
 @media (display-mode: standalone) {
@@ -59,6 +162,7 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
+    transition: none;
   }
 }
 
@@ -93,6 +197,14 @@ html {
   font-feature-settings: "palt";
 }
 
+/* palt が指定されていると text-spacing-trim の used value が none になるため、対応環境では palt を外す */
+@supports (text-spacing-trim: trim-start) {
+  html {
+    font-feature-settings: normal;
+    text-spacing-trim: trim-start;
+  }
+}
+
 body {
   margin: 0;
   color: rgb(var(--text));
@@ -123,6 +235,16 @@ h2,
   padding: 1rem 0 0.5rem;
   margin: 0px;
   width: fit-content;
+}
+
+/* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
+@supports (text-box-trim: trim-both) {
+  h2,
+  .category-name {
+    text-box: trim-both text text;
+    padding-block:
+      calc(1rem + var(--heading-half-leading)) calc(0.5rem + var(--heading-half-leading));
+  }
 }
 
 .colorful-heading__char {
@@ -249,7 +371,7 @@ ul {
   animation-timing-function: var(--view-transition-easing);
 }
 
-html[data-view-transition] .lightbox-image {
+:root:active-view-transition .lightbox-image {
   transition: none;
 }
 
@@ -261,20 +383,25 @@ html[data-view-transition] .lightbox-image {
   z-index: 2;
 }
 
-html[data-view-transition="lightbox-open"]::view-transition-old(lightbox-img) {
+:root:active-view-transition-type(lightbox-open)::view-transition-old(lightbox-img) {
   object-fit: cover;
 }
 
-html[data-view-transition="lightbox-open"]::view-transition-new(lightbox-img) {
+:root:active-view-transition-type(lightbox-open)::view-transition-new(lightbox-img) {
   object-fit: contain;
 }
 
-html[data-view-transition="lightbox-close"]::view-transition-old(lightbox-img) {
+:root:active-view-transition-type(lightbox-close)::view-transition-old(lightbox-img) {
   object-fit: contain;
 }
 
-html[data-view-transition="lightbox-close"]::view-transition-new(lightbox-img) {
+:root:active-view-transition-type(lightbox-close)::view-transition-new(lightbox-img) {
   object-fit: cover;
+}
+
+/* カードの移動アニメーションは一覧の絞り込み時のみ。ページ遷移では従来どおりルートごとクロスフェードさせる */
+:root:not(:active-view-transition-type(list-filter))::view-transition-group(.list-card) {
+  animation: none;
 }
 
 ::view-transition-old(.work-thumb) {

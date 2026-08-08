@@ -46,36 +46,34 @@ const apply = async () => {
       <span>フィルター</span>
     </button>
 
-    <Transition name="list-controls-panel">
-      <div v-show="isOpen" :id="panelId" class="list-controls-panel">
-        <div class="control-row">
-          <span :id="filterLabelId" class="control-label">{{ filterLabel }}</span>
-          <div class="filter-chips" role="group" :aria-labelledby="filterLabelId">
-            <slot />
-          </div>
-        </div>
-        <div class="control-divider" aria-hidden="true" />
-        <div class="control-row sort-row">
-          <span :id="sortLabelId" class="control-label">並び替え</span>
-          <SortControl
-            :sort-asc="sortAsc"
-            :label-id="sortLabelId"
-            @update:sort-asc="emit('update:sortAsc', $event)"
-          />
-        </div>
-        <div class="control-actions">
-          <button
-            type="button"
-            class="control-button primary"
-            :disabled="!dirty"
-            @click="apply"
-          >
-            <IconFilterCheck :size="16" aria-hidden="true" />
-            <span>適用する</span>
-          </button>
+    <div :id="panelId" class="list-controls-panel" :class="{ 'is-open': isOpen }">
+      <div class="control-row">
+        <span :id="filterLabelId" class="control-label">{{ filterLabel }}</span>
+        <div class="filter-chips" role="group" :aria-labelledby="filterLabelId">
+          <slot />
         </div>
       </div>
-    </Transition>
+      <div class="control-divider" aria-hidden="true" />
+      <div class="control-row sort-row">
+        <span :id="sortLabelId" class="control-label">並び替え</span>
+        <SortControl
+          :sort-asc="sortAsc"
+          :label-id="sortLabelId"
+          @update:sort-asc="emit('update:sortAsc', $event)"
+        />
+      </div>
+      <div class="control-actions">
+        <button
+          type="button"
+          class="control-button primary"
+          :disabled="!dirty"
+          @click="apply"
+        >
+          <IconFilterCheck :size="16" aria-hidden="true" />
+          <span>適用する</span>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -120,9 +118,35 @@ const apply = async () => {
   gap: 1.25rem;
   flex-wrap: wrap;
   max-width: 100%;
-  padding: 0.5rem 0.75rem;
+  padding-inline: 0.75rem;
   border: var(--border-width) solid rgb(var(--surface));
   border-radius: var(--radius-md);
+  overflow: hidden;
+  visibility: hidden;
+  height: 0;
+  margin-block-start: 0;
+  padding-block: 0;
+  border-block-width: 0;
+  opacity: 0;
+  translate: 0 -0.25rem;
+  transition:
+    height var(--transition-duration) var(--transition-easing),
+    margin-block-start var(--transition-duration) var(--transition-easing),
+    padding-block var(--transition-duration) var(--transition-easing),
+    border-block-width var(--transition-duration) var(--transition-easing),
+    opacity var(--transition-duration) var(--transition-easing),
+    translate var(--transition-duration) var(--transition-easing),
+    visibility var(--transition-duration);
+
+  &.is-open {
+    visibility: visible;
+    height: auto;
+    margin-block-start: var(--list-header-row-gap);
+    padding-block: 0.5rem;
+    border-block-width: var(--border-width);
+    opacity: 1;
+    translate: 0 0;
+  }
 
   @media (max-width: 600px) {
     display: grid;
@@ -132,17 +156,10 @@ const apply = async () => {
     justify-self: stretch;
     align-items: center;
   }
-}
 
-.list-controls-panel-enter-active,
-.list-controls-panel-leave-active {
-  transition: var(--transition);
-}
-
-.list-controls-panel-enter-from,
-.list-controls-panel-leave-to {
-  opacity: 0;
-  translate: 0 -0.25rem;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 .control-row {
