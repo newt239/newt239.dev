@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import { IconSparkles, IconLoader2 } from "@tabler/icons-vue";
+import { IconSparkles, IconLoader2, IconX } from "@tabler/icons-vue";
 
 import { applyTheme, themeConstraints, themeVariables } from "~/libs/theme";
 
 import type { ThemeGenerationResponse } from "~/libs/theme";
 
+const defaultMessage = "Caution: All prompts are recorded.";
 const fallbackMessage = "Something went wrong. Please try another word.";
 
+const dialogId = useId();
 const isGenerating = ref(false);
 const promptModel = defineModel<string>();
-const modalRef = ref();
-const responseMessage = ref("Caution: All prompts are recorded.");
+const modalRef = ref<HTMLDialogElement>();
+const responseMessage = ref(defaultMessage);
 
 const generateTheme = async () => {
   if (!promptModel.value) {
@@ -40,45 +42,49 @@ const generateTheme = async () => {
       return;
     }
     applyTheme(content.variables);
-    onModalClose();
+    modalRef.value?.close();
   } finally {
     isGenerating.value = false;
   }
 };
-const onModalOpen = () => {
-  modalRef.value.showModal();
-  document.addEventListener("click", handleBackdropClick);
-};
-const onModalClose = () => {
-  modalRef.value.close();
+const onDialogClose = () => {
   isGenerating.value = false;
-  responseMessage.value = "Caution: All prompts are recorded.";
-  document.removeEventListener("click", handleBackdropClick);
+  responseMessage.value = defaultMessage;
 };
 const onKeyDown = (event: KeyboardEvent) => {
   if (event.key === "Enter" && !event.isComposing) {
     generateTheme();
   }
 };
-const handleBackdropClick = (event: MouseEvent) => {
-  if (event.target instanceof HTMLDialogElement) {
-    onModalClose();
-  }
-};
 </script>
 
 <template>
   <button
-    ref="openButtonRef"
     type="button"
     aria-label="テーマ変更"
     class="modal-open-button"
-    @click="onModalOpen"
+    command="show-modal"
+    :commandfor="dialogId"
   >
     <IconSparkles aria-hidden="true" />
   </button>
-  <dialog ref="modalRef" :aria-busy="isGenerating">
+  <dialog
+    :id="dialogId"
+    ref="modalRef"
+    closedby="any"
+    :aria-busy="isGenerating"
+    @close="onDialogClose"
+  >
     <div class="modal-content">
+      <button
+        type="button"
+        class="modal-close-button"
+        aria-label="閉じる"
+        command="close"
+        :commandfor="dialogId"
+      >
+        <IconX aria-hidden="true" />
+      </button>
       <p class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
         <input
@@ -199,10 +205,45 @@ dialog {
   }
 }
 
+.modal-close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: rgb(var(--text));
+  background: none;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgb(var(--text));
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      border-color: rgb(var(--text));
+    }
+  }
+}
+
 .modal-description {
   font-size: 1.25rem;
   line-height: var(--line-height-tight);
   margin: 0 0 1.5rem;
+  padding-inline: 2rem;
   text-align: center;
   text-wrap: balance;
 }

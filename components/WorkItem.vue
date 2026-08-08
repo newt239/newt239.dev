@@ -14,7 +14,7 @@ const thumbnail = computed(() => props.work.images[0]);
 </script>
 
 <template>
-  <NuxtLink :to="`/works/${slug}`" class="work-card">
+  <NuxtLink :to="`/works/${slug}`" class="work-card" :style="`view-transition-name: ${slug}-card;`">
     <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" :alt="thumbnail?.alt"
       :style="`view-transition-name: ${slug}-img;`" :loading="priority ? 'eager' : undefined"
       :fetchpriority="priority ? 'high' : undefined" sizes="sm:100vw md:50vw lg:400px" />
@@ -27,6 +27,7 @@ const thumbnail = computed(() => props.work.images[0]);
 
 <style scoped>
 .work-card {
+  view-transition-class: list-card;
   display: flex;
   flex-direction: column;
   color: rgb(var(--text));

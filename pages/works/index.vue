@@ -61,13 +61,22 @@ watch(() => route.query, (query) => {
   draftFeaturedOnly.value = featuredOnly.value;
 }, { immediate: true });
 
-const applyControls = () => {
-  sortAsc.value = draftSortAsc.value;
-  featuredOnly.value = draftFeaturedOnly.value;
-  const query: Record<string, string> = {};
-  if (sortAsc.value) query.dir = "asc";
-  if (featuredOnly.value) query.featured = "1";
-  router.replace({ query });
+const applyControls = async () => {
+  const update = async () => {
+    sortAsc.value = draftSortAsc.value;
+    featuredOnly.value = draftFeaturedOnly.value;
+    const query: Record<string, string> = {};
+    if (sortAsc.value) query.dir = "asc";
+    if (featuredOnly.value) query.featured = "1";
+    await router.replace({ query });
+    await nextTick();
+  };
+  if (!("startViewTransition" in document)) {
+    await update();
+    return;
+  }
+  const transition = document.startViewTransition({ types: ["list-filter"], update });
+  await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
 };
 
 const sortedWorks = computed(() => {
@@ -132,7 +141,6 @@ const sortedWorks = computed(() => {
     grid-template-columns: 1fr auto;
     align-items: center;
     column-gap: 1rem;
-    row-gap: 0.75rem;
     margin-bottom: 1.5rem;
   }
 

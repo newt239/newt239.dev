@@ -95,66 +95,52 @@ const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
 const carouselRef = ref<{ snapTo: (index: number) => void } | null>(null);
 
-type LightboxViewTransition = {
-  ready: Promise<void>;
-  finished: Promise<void>;
-  updateCallbackDone: Promise<void>;
-};
-
-function getStartViewTransition() {
-  if (typeof document === "undefined") return null;
-  const doc = document as Document & {
-    startViewTransition?: (update: () => Promise<void>) => LightboxViewTransition;
-  };
-  return doc.startViewTransition?.bind(doc) ?? null;
-}
-
-async function openLightbox(index: number) {
+const openLightbox = async (index: number) => {
   lightboxIndex.value = index;
-  const startViewTransition = getStartViewTransition();
-  if (!startViewTransition) {
+  if (!("startViewTransition" in document)) {
     lightboxOpen.value = true;
     return;
   }
   morphIndex.value = index;
   await nextTick();
-  document.documentElement.dataset.viewTransition = "lightbox-open";
-  const transition = startViewTransition(async () => {
-    lightboxOpen.value = true;
-    morphIndex.value = null;
-    await nextTick();
+  const transition = document.startViewTransition({
+    types: ["lightbox-open"],
+    update: async () => {
+      lightboxOpen.value = true;
+      morphIndex.value = null;
+      await nextTick();
+    },
   });
   try {
     await Promise.allSettled([transition.ready, transition.finished]);
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
-    delete document.documentElement.dataset.viewTransition;
   }
-}
+};
 
-async function closeLightbox(index: number) {
-  const startViewTransition = getStartViewTransition();
-  if (!startViewTransition) {
+const closeLightbox = async (index: number) => {
+  if (!("startViewTransition" in document)) {
     lightboxOpen.value = false;
     return;
   }
   carouselRef.value?.snapTo(index);
   await nextTick();
-  document.documentElement.dataset.viewTransition = "lightbox-close";
-  const transition = startViewTransition(async () => {
-    lightboxOpen.value = false;
-    morphIndex.value = index;
-    await nextTick();
+  const transition = document.startViewTransition({
+    types: ["lightbox-close"],
+    update: async () => {
+      lightboxOpen.value = false;
+      morphIndex.value = index;
+      await nextTick();
+    },
   });
   try {
     await Promise.allSettled([transition.ready, transition.finished]);
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
-    delete document.documentElement.dataset.viewTransition;
   }
-}
+};
 </script>
 
 <template>
@@ -322,6 +308,11 @@ async function closeLightbox(index: number) {
         line-height: var(--line-height-tight);
         background: rgb(var(--surface));
         color: rgb(var(--text));
+
+        @supports (text-box-trim: trim-both) {
+          text-box: trim-both text text;
+          padding-block: 0.375rem;
+        }
       }
     }
 

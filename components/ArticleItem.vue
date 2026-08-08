@@ -8,8 +8,8 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const transitionName = computed(
-  () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}-title`
+const transitionKey = computed(
+  () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}`
 );
 
 const getSiteName = (url: string) => {
@@ -31,9 +31,15 @@ const getSiteName = (url: string) => {
 </script>
 
 <template>
-  <a :href="`${props.url}`" target="_blank" rel="noopener noreferrer" class="article-card">
+  <a
+    :href="`${props.url}`"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="article-card"
+    :style="`view-transition-name: ${transitionKey}-card;`"
+  >
     <div class="article-card-body">
-      <h3 :style="`view-transition-name: ${transitionName};`">{{ props.title }}</h3>
+      <h3 :style="`view-transition-name: ${transitionKey}-title;`">{{ props.title }}</h3>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
@@ -51,6 +57,7 @@ const getSiteName = (url: string) => {
 
 <style scoped>
 .article-card {
+  view-transition-class: list-card;
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 2;

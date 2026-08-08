@@ -88,13 +88,22 @@ watch(() => route.query, (query) => {
   draftSelectedSites.value = new Set(selectedSites.value);
 }, { immediate: true });
 
-const applyControls = () => {
-  sortAsc.value = draftSortAsc.value;
-  selectedSites.value = new Set(draftSelectedSites.value);
-  const query: Record<string, string> = {};
-  if (selectedSites.value.size > 0) query.sites = [...selectedSites.value].join(",");
-  if (sortAsc.value) query.dir = "asc";
-  router.replace({ query });
+const applyControls = async () => {
+  const update = async () => {
+    sortAsc.value = draftSortAsc.value;
+    selectedSites.value = new Set(draftSelectedSites.value);
+    const query: Record<string, string> = {};
+    if (selectedSites.value.size > 0) query.sites = [...selectedSites.value].join(",");
+    if (sortAsc.value) query.dir = "asc";
+    await router.replace({ query });
+    await nextTick();
+  };
+  if (!("startViewTransition" in document)) {
+    await update();
+    return;
+  }
+  const transition = document.startViewTransition({ types: ["list-filter"], update });
+  await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
 };
 
 const toggleDraftSite = (site: SiteName) => {
@@ -183,7 +192,6 @@ const filteredArticles = computed(() => {
     grid-template-columns: 1fr auto;
     align-items: center;
     column-gap: 1rem;
-    row-gap: 0.75rem;
     margin-bottom: 1.5rem;
   }
 
