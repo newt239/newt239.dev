@@ -5,6 +5,8 @@ import { personId } from "~/libs/person";
 useSeoMeta({
   title: "記事一覧 - newt239.dev",
   ogTitle: "記事一覧 - newt239.dev",
+  ogImage: "https://newt239.dev/og/articles.png",
+  twitterImage: "https://newt239.dev/og/articles.png",
 });
 
 useHead({

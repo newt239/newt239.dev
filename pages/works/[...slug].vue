@@ -37,14 +37,8 @@ if (!data.value) {
     description: data.value.description,
     ogDescription: data.value.description,
     twitterDescription: data.value.description,
-    ogImage: {
-      url: `https://newt239.dev/images/${data.value.images[0].src}`,
-      alt: data.value.images[0].alt,
-    },
-    twitterImage: {
-      url: `https://newt239.dev/images/${data.value.images[0].src}`,
-      alt: data.value.images[0].alt,
-    },
+    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
+    twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
     twitterLabel1: "Period",
     twitterData1: data.value.period,
     twitterLabel2: "Tech Stack",

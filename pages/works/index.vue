@@ -4,6 +4,8 @@ const works = await queryCollection('works').order("period", "DESC").all();
 useSeoMeta({
   title: "作品一覧 - newt239.dev",
   ogTitle: "作品一覧 - newt239.dev",
+  ogImage: "https://newt239.dev/og/works.png",
+  twitterImage: "https://newt239.dev/og/works.png",
 });
 
 useHead({

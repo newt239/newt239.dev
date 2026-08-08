@@ -3,6 +3,11 @@ import { IconExternalLink } from "@tabler/icons-vue";
 
 import { person } from "~/libs/person";
 
+useSeoMeta({
+  ogImage: "https://newt239.dev/og/about.png",
+  twitterImage: "https://newt239.dev/og/about.png",
+});
+
 useHead({
   title: "わたしについて - newt239.dev",
   script: [
