@@ -6,6 +6,44 @@ useSeoMeta({
   ogTitle: "作品一覧 - newt239.dev",
 });
 
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": "https://newt239.dev/works#webpage",
+        name: "作品一覧 - newt239.dev",
+        url: "https://newt239.dev/works",
+        inLanguage: "ja",
+        isPartOf: { "@id": "https://newt239.dev/#website" },
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: works.length,
+          itemListElement: works.map((work, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: work.title,
+            url: `https://newt239.dev${work.path}`,
+          })),
+        },
+      },
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 2, name: "作品一覧" },
+        ],
+      },
+    },
+  ],
+});
+
 const route = useRoute();
 const router = useRouter();
 

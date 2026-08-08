@@ -1,8 +1,25 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
+import { person } from "~/libs/person";
+
 useHead({
   title: "わたしについて - newt239.dev",
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "@id": "https://newt239.dev/about#webpage",
+        name: "わたしについて - newt239.dev",
+        url: "https://newt239.dev/about",
+        inLanguage: "ja",
+        isPartOf: { "@id": "https://newt239.dev/#website" },
+        mainEntity: person,
+      },
+    },
+  ],
 });
 
 const contacts = [

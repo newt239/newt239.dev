@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-vue";
 
+import { personId } from "~/libs/person";
+
 const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
@@ -47,6 +49,43 @@ if (!data.value) {
     twitterData1: data.value.period,
     twitterLabel2: "Tech Stack",
     twitterData2: data.value.tech.join(", "),
+  });
+
+  const work = data.value;
+  useHead({
+    script: [
+      {
+        type: "application/ld+json",
+        innerHTML: {
+          "@context": "https://schema.org",
+          "@type": "SoftwareSourceCode",
+          "@id": `https://newt239.dev${work.path}#work`,
+          name: work.title,
+          description: work.description,
+          url: `https://newt239.dev${work.path}`,
+          image: `https://newt239.dev/images/${work.images[0].src}`,
+          datePublished: work.period.split(" ")[0].replaceAll(".", "-"),
+          keywords: work.tech,
+          inLanguage: "ja",
+          author: { "@id": personId },
+          ...(work.github
+            ? { codeRepository: `https://github.com/${work.github}` }
+            : {}),
+        },
+      },
+      {
+        type: "application/ld+json",
+        innerHTML: {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+            { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
+            { "@type": "ListItem", position: 3, name: work.title },
+          ],
+        },
+      },
+    ],
   });
 }
 

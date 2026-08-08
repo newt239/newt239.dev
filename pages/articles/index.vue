@@ -1,9 +1,54 @@
 <script setup lang="ts">
 import { articleList } from "~/libs/articles";
+import { personId } from "~/libs/person";
 
 useSeoMeta({
   title: "記事一覧 - newt239.dev",
   ogTitle: "記事一覧 - newt239.dev",
+});
+
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": "https://newt239.dev/articles#webpage",
+        name: "記事一覧 - newt239.dev",
+        url: "https://newt239.dev/articles",
+        inLanguage: "ja",
+        isPartOf: { "@id": "https://newt239.dev/#website" },
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: articleList.length,
+          itemListElement: articleList.map((article, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "BlogPosting",
+              headline: article.title,
+              url: article.url,
+              datePublished: article.date.replaceAll("/", "-"),
+              inLanguage: "ja",
+              author: { "@id": personId },
+            },
+          })),
+        },
+      },
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 2, name: "記事一覧" },
+        ],
+      },
+    },
+  ],
 });
 
 type SiteName = "Qiita" | "Zenn" | "はてな" | "CyberAgent" | "その他";
