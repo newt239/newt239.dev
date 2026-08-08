@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { existsSync } from "node:fs";
 import { readdir, readFile, mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, dirname } from "node:path";
@@ -51,17 +52,17 @@ const formatPeriod = (period: string) =>
     .join("〜");
 
 const loadFonts = async () => {
-  const [regular, bold] = await Promise.all(
-    [FONT_FILES.regular, FONT_FILES.bold].map(async (path) => {
-      const buffer = await readFile(path).catch(() => null);
-      if (!buffer) {
-        throw new Error(
-          `フォントが見つかりません: ${path}\nAdobe Fonts で FOT-UD角ゴ_ラージ Pr6N を同期してから実行してください。`
-        );
-      }
-      return buffer;
-    })
-  );
+  for (const path of Object.values(FONT_FILES)) {
+    if (!existsSync(path)) {
+      throw new Error(
+        `フォントが見つかりません: ${path}\nAdobe Fonts で FOT-UD角ゴ_ラージ Pr6N を同期してから実行してください。`
+      );
+    }
+  }
+  const [regular, bold] = await Promise.all([
+    readFile(FONT_FILES.regular),
+    readFile(FONT_FILES.bold),
+  ]);
   return [
     { name: "UDKakugo", data: regular, weight: 400 as const, style: "normal" as const },
     { name: "UDKakugo", data: bold, weight: 700 as const, style: "normal" as const },
@@ -236,7 +237,7 @@ const main = async () => {
     ["about", "わたしについて"],
     ["works", "作品一覧"],
     ["articles", "記事一覧"],
-  ]) {
+  ] as const) {
     await render(defaultNode(title, icon), fonts, join(OUTPUT_DIR, `${name}.png`));
   }
 
@@ -251,8 +252,12 @@ const main = async () => {
     const { title, period, images } = parse(frontmatter, {
       schema: "failsafe",
     }) as WorkFrontmatter;
+    const [thumbnail] = images;
+    if (!thumbnail) {
+      throw new Error(`images が空です: ${file}`);
+    }
     const screenshot = await toDataUri(
-      await sharp(join(IMAGES_DIR, images[0].src))
+      await sharp(join(IMAGES_DIR, thumbnail.src))
         .resize(WIDTH, SHOT_HEIGHT, { fit: "cover", position: "top" })
         .png()
         .toBuffer()
