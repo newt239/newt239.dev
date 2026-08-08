@@ -64,7 +64,7 @@ useHead({
     color: rgb(var(--text));
     width: auto;
     padding: 1rem 0 0.5rem;
-    line-height: 1.3;
+    line-height: var(--line-height-heading);
 
     @media screen and (max-width: 600px) {
       font-size: 2rem;

@@ -207,7 +207,7 @@ const links = [
 
         dd {
           margin: 0;
-          line-height: 1.5;
+          line-height: var(--line-height-tight);
         }
       }
 
@@ -257,7 +257,7 @@ const links = [
       }
 
       li {
-        line-height: 1.8;
+        line-height: var(--line-height-body);
       }
     }
 

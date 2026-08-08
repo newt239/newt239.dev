@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-
 type TrackListProp = {
   name: string;
   artists: string[];
@@ -31,9 +29,6 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
         <div class="track-body">
           <h3 class="track-name">{{ track.name }}</h3>
           <p class="track-artists">{{ track.artists.join(", ") }}</p>
-          <div class="track-meta">
-            <span>{{ dayjs(track.duration).format("m:ss") }}</span>
-          </div>
         </div>
       </a>
     </div>
@@ -96,7 +91,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     padding: 0;
     font-size: 1rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: var(--line-height-tight);
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -107,19 +102,11 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     margin: 0;
     font-size: 0.875rem;
     color: rgb(var(--text-muted));
-    line-height: 1.4;
+    line-height: var(--line-height-tight);
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
-  }
-
-  .track-meta {
-    display: flex;
-    gap: 0.75rem;
-    font-size: 0.8125rem;
-    color: rgb(var(--text-faint));
-    line-height: 1.4;
   }
 }
 </style>

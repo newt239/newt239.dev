@@ -55,13 +55,13 @@ useHead({
 
 type SiteName = "Qiita" | "Zenn" | "はてな" | "CyberAgent" | "その他";
 
-function getSiteKey(url: string): SiteName {
+const getSiteKey = (url: string): SiteName => {
   if (url.startsWith("https://qiita.com/")) return "Qiita";
   if (url.startsWith("https://zenn.dev/")) return "Zenn";
   if (url.startsWith("https://newt239.hatenablog.com/")) return "はてな";
   if (url.startsWith("https://developers.cyberagent.co.jp/")) return "CyberAgent";
   return "その他";
-}
+};
 
 const allSites = computed(() => {
   const siteSet = new Set<SiteName>();
@@ -74,50 +74,44 @@ const allSites = computed(() => {
 const route = useRoute();
 const router = useRouter();
 
-function parseSitesFromQuery(): Set<SiteName> {
-  const raw = route.query.sites;
-  if (!raw) return new Set();
-  const arr = (typeof raw === "string" ? raw : raw[0] || "").split(",").filter(Boolean);
-  return new Set(arr as SiteName[]);
-}
-
-const selectedSites = ref<Set<SiteName>>(parseSitesFromQuery());
-const sortAsc = ref(route.query.dir === "asc");
+const selectedSites = ref<Set<SiteName>>(new Set());
+const sortAsc = ref(false);
+const draftSelectedSites = ref<Set<SiteName>>(new Set());
+const draftSortAsc = ref(false);
 
 watch(() => route.query, (query) => {
   sortAsc.value = query.dir === "asc";
   const raw = query.sites;
-  if (!raw) {
-    selectedSites.value = new Set();
-  } else {
-    const arr = (typeof raw === "string" ? raw : raw[0] || "").split(",").filter(Boolean);
-    selectedSites.value = new Set(arr as SiteName[]);
-  }
-});
+  const sites = (typeof raw === "string" ? raw : "").split(",").filter(Boolean);
+  selectedSites.value = new Set(sites as SiteName[]);
+  draftSortAsc.value = sortAsc.value;
+  draftSelectedSites.value = new Set(selectedSites.value);
+}, { immediate: true });
 
-function updateQuery() {
+const applyControls = () => {
+  sortAsc.value = draftSortAsc.value;
+  selectedSites.value = new Set(draftSelectedSites.value);
   const query: Record<string, string> = {};
   if (selectedSites.value.size > 0) query.sites = [...selectedSites.value].join(",");
   if (sortAsc.value) query.dir = "asc";
   router.replace({ query });
-}
+};
 
-function toggleSite(site: SiteName) {
-  const next = new Set(selectedSites.value);
+const toggleDraftSite = (site: SiteName) => {
+  const next = new Set(draftSelectedSites.value);
   if (next.has(site)) {
     next.delete(site);
   } else {
     next.add(site);
   }
-  selectedSites.value = next;
-  updateQuery();
-}
+  draftSelectedSites.value = next;
+};
 
-function setSort(asc: boolean) {
-  if (sortAsc.value === asc) return;
-  sortAsc.value = asc;
-  updateQuery();
-}
+const draftDirty = computed(() =>
+  draftSortAsc.value !== sortAsc.value
+  || draftSelectedSites.value.size !== selectedSites.value.size
+  || [...draftSelectedSites.value].some((site) => !selectedSites.value.has(site))
+);
 
 const filteredArticles = computed(() => {
   let result = [...articleList];
@@ -139,24 +133,27 @@ const filteredArticles = computed(() => {
 <template>
   <main>
     <div class="container article-list-page">
-      <h2 v-colorful-heading class="category-name" lang="en">Articles</h2>
+      <div class="list-header">
+        <h2 v-colorful-heading class="category-name" lang="en">Articles</h2>
 
-      <ListControlBar
-        filter-label="サイト"
-        filter-label-id="articles-filter-label"
-        sort-label-id="articles-sort-label"
-        :sort-asc="sortAsc"
-        @update:sort-asc="setSort"
-      >
-        <FilterChip
-          v-for="site in allSites"
-          :key="site"
-          :active="selectedSites.has(site)"
-          @click="toggleSite(site)"
+        <ListControlBar
+          filter-label="サイト"
+          :sort-asc="draftSortAsc"
+          :has-conditions="selectedSites.size > 0 || sortAsc"
+          :dirty="draftDirty"
+          @update:sort-asc="draftSortAsc = $event"
+          @apply="applyControls"
         >
-          {{ site }}
-        </FilterChip>
-      </ListControlBar>
+          <FilterChip
+            v-for="site in allSites"
+            :key="site"
+            :active="draftSelectedSites.has(site)"
+            @click="toggleDraftSite(site)"
+          >
+            {{ site }}
+          </FilterChip>
+        </ListControlBar>
+      </div>
 
       <div v-if="filteredArticles.length === 0" class="empty-state">
         該当する記事が見つかりませんでした。
@@ -179,6 +176,15 @@ const filteredArticles = computed(() => {
 .article-list-page {
   .category-name {
     view-transition-name: article-category-name;
+  }
+
+  .list-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .empty-state {

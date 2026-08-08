@@ -214,7 +214,7 @@ const items: YearSection[] = [
 .item-title {
   font-weight: 600;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: var(--line-height-tight);
   transition: var(--transition);
 
   .external-icon {
@@ -228,7 +228,7 @@ const items: YearSection[] = [
 .item-description {
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: var(--line-height-tight);
   color: rgb(var(--text-muted));
 }
 </style>

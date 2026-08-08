@@ -143,7 +143,7 @@ const profile: string[] = [
     margin: 3vh 3vh 5rem;
 
     ul {
-      line-height: 1.5;
+      line-height: var(--line-height-body);
       margin: 0;
     }
   }

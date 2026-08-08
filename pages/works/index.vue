@@ -49,31 +49,26 @@ useHead({
 const route = useRoute();
 const router = useRouter();
 
-const sortAsc = ref(route.query.dir === "asc");
-const featuredOnly = ref(route.query.featured === "1");
+const sortAsc = ref(false);
+const featuredOnly = ref(false);
+const draftSortAsc = ref(false);
+const draftFeaturedOnly = ref(false);
 
 watch(() => route.query, (query) => {
   sortAsc.value = query.dir === "asc";
   featuredOnly.value = query.featured === "1";
-});
+  draftSortAsc.value = sortAsc.value;
+  draftFeaturedOnly.value = featuredOnly.value;
+}, { immediate: true });
 
-function updateQuery() {
+const applyControls = () => {
+  sortAsc.value = draftSortAsc.value;
+  featuredOnly.value = draftFeaturedOnly.value;
   const query: Record<string, string> = {};
   if (sortAsc.value) query.dir = "asc";
   if (featuredOnly.value) query.featured = "1";
   router.replace({ query });
-}
-
-function setSort(asc: boolean) {
-  if (sortAsc.value === asc) return;
-  sortAsc.value = asc;
-  updateQuery();
-}
-
-function toggleFeatured() {
-  featuredOnly.value = !featuredOnly.value;
-  updateQuery();
-}
+};
 
 const sortedWorks = computed(() => {
   let result = [...works];
@@ -95,19 +90,25 @@ const sortedWorks = computed(() => {
 <template>
   <main>
     <div class="container work-list-page">
-      <h2 v-colorful-heading class="category-name" lang="en">Works</h2>
+      <div class="list-header">
+        <h2 v-colorful-heading class="category-name" lang="en">Works</h2>
 
-      <ListControlBar
-        filter-label="絞り込み"
-        filter-label-id="works-filter-label"
-        sort-label-id="works-sort-label"
-        :sort-asc="sortAsc"
-        @update:sort-asc="setSort"
-      >
-        <FilterChip :active="featuredOnly" @click="toggleFeatured">
-          おすすめ
-        </FilterChip>
-      </ListControlBar>
+        <ListControlBar
+          filter-label="絞り込み"
+          :sort-asc="draftSortAsc"
+          :has-conditions="featuredOnly || sortAsc"
+          :dirty="draftFeaturedOnly !== featuredOnly || draftSortAsc !== sortAsc"
+          @update:sort-asc="draftSortAsc = $event"
+          @apply="applyControls"
+        >
+          <FilterChip
+            :active="draftFeaturedOnly"
+            @click="draftFeaturedOnly = !draftFeaturedOnly"
+          >
+            おすすめ
+          </FilterChip>
+        </ListControlBar>
+      </div>
 
       <div v-if="sortedWorks.length === 0" class="empty-state">
         該当する作品が見つかりませんでした。
@@ -124,6 +125,15 @@ const sortedWorks = computed(() => {
 .work-list-page {
   .category-name {
     view-transition-name: work-category-name;
+  }
+
+  .list-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .empty-state {
