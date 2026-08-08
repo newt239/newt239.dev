@@ -49,6 +49,9 @@ bun run lint
 
 # リントと自動修正
 bun run lint:fix
+
+# OG 画像の生成（作品の追加・タイトル・期間・画像を変更したら実行する）
+bun run og
 ```
 
 ## アーキテクチャ
@@ -59,6 +62,8 @@ bun run lint:fix
 - 作品は `content/works/` 内に frontmatter メタデータ付きの Markdown ファイルとして保存
 - [content.config.ts](content.config.ts) でコンテンツスキーマが定義されており、以下のフィールドが必須:
  - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`
+- OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) が `public/og/` へ生成する。CI ではなくローカルで `bun run og` を実行し、生成物ごとコミットして push する
+- 生成にはローカルの `~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` を使う。Adobe Fonts で同期していない環境ではスクリプトが失敗する
 - 記事は [libs/articles.ts](libs/articles.ts) でハードコードされたリストとして管理され、外部ブログ（Zenn、Qiita、はてなブログ）へのリンクを保持
 
 ### ルーティングとページ構成

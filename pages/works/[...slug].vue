@@ -1,9 +1,26 @@
 <script lang="ts" setup>
+import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
+
+import { personId } from "~/libs/person";
 
 const route = useRoute();
 const { data } = await useAsyncData(route.path, () => {
   return queryCollection('works').path(route.path).first()
 });
+
+const { data: worksOrder } = await useAsyncData("works-order", () =>
+  queryCollection("works").order("period", "DESC").select("path", "title").all()
+);
+
+const currentIndex = computed(() =>
+  worksOrder.value?.findIndex((work) => work.path === route.path) ?? -1
+);
+const previousWork = computed(() =>
+  currentIndex.value > 0 ? worksOrder.value?.[currentIndex.value - 1] : undefined
+);
+const nextWork = computed(() =>
+  currentIndex.value === -1 ? undefined : worksOrder.value?.[currentIndex.value + 1]
+);
 
 if (!data.value) {
   useSeoMeta({
@@ -20,18 +37,49 @@ if (!data.value) {
     description: data.value.description,
     ogDescription: data.value.description,
     twitterDescription: data.value.description,
-    ogImage: {
-      url: `https://newt239.dev/images/${data.value.images[0].src}`,
-      alt: data.value.images[0].alt,
-    },
-    twitterImage: {
-      url: `https://newt239.dev/images/${data.value.images[0].src}`,
-      alt: data.value.images[0].alt,
-    },
+    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
+    twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
     twitterLabel1: "Period",
     twitterData1: data.value.period,
     twitterLabel2: "Tech Stack",
     twitterData2: data.value.tech.join(", "),
+  });
+
+  const work = data.value;
+  useHead({
+    script: [
+      {
+        type: "application/ld+json",
+        innerHTML: {
+          "@context": "https://schema.org",
+          "@type": "SoftwareSourceCode",
+          "@id": `https://newt239.dev${work.path}#work`,
+          name: work.title,
+          description: work.description,
+          url: `https://newt239.dev${work.path}`,
+          image: `https://newt239.dev/images/${work.images[0].src}`,
+          datePublished: work.period.split(" ")[0].replaceAll(".", "-"),
+          keywords: work.tech,
+          inLanguage: "ja",
+          author: { "@id": personId },
+          ...(work.github
+            ? { codeRepository: `https://github.com/${work.github}` }
+            : {}),
+        },
+      },
+      {
+        type: "application/ld+json",
+        innerHTML: {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+            { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
+            { "@type": "ListItem", position: 3, name: work.title },
+          ],
+        },
+      },
+    ],
   });
 }
 
@@ -154,7 +202,38 @@ async function closeLightbox(index: number) {
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
         </template>
       </div>
-      <BackToTop />
+      <nav class="work-nav" aria-label="作品ナビゲーション">
+        <NuxtLink
+          v-if="previousWork"
+          :to="previousWork.path"
+          rel="prev"
+          :aria-label="`前の作品: ${previousWork.title}`"
+          class="work-nav-link is-previous"
+        >
+          <IconChevronLeft :size="20" aria-hidden="true" />
+          <span class="work-nav-body">
+            <span class="work-nav-label">前の作品</span>
+            <span class="work-nav-title">{{ previousWork.title }}</span>
+          </span>
+        </NuxtLink>
+        <NuxtLink to="/works" class="work-nav-link is-all">
+          <IconLayoutGrid :size="20" aria-hidden="true" />
+          すべての作品
+        </NuxtLink>
+        <NuxtLink
+          v-if="nextWork"
+          :to="nextWork.path"
+          rel="next"
+          :aria-label="`次の作品: ${nextWork.title}`"
+          class="work-nav-link is-next"
+        >
+          <span class="work-nav-body">
+            <span class="work-nav-label">次の作品</span>
+            <span class="work-nav-title">{{ nextWork.title }}</span>
+          </span>
+          <IconChevronRight :size="20" aria-hidden="true" />
+        </NuxtLink>
+      </nav>
     </div>
   </main>
 </template>
@@ -343,5 +422,85 @@ async function closeLightbox(index: number) {
     }
   }
 
+  .work-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 2rem 0 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: auto 1fr auto;
+      gap: 0.5rem;
+    }
+  }
+
+  .work-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    color: rgb(var(--text));
+    background-color: rgb(var(--surface));
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    &.is-all {
+      grid-column: 2;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    &.is-next {
+      grid-column: 3;
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.75rem;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgb(var(--text));
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        border-color: rgb(var(--text));
+      }
+    }
+  }
+
+  .work-nav-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .work-nav-label {
+    font-size: 0.8125rem;
+    color: rgb(var(--text-muted));
+    line-height: 1.5;
+  }
+
+  .work-nav-title {
+    font-weight: 700;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 </style>
