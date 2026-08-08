@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-vue";
+import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
 
 import { personId } from "~/libs/person";
 
@@ -208,33 +208,38 @@ async function closeLightbox(index: number) {
           <p class="not-founded">お探しの作品は見つかりませんでした。</p>
         </template>
       </div>
-      <nav v-if="previousWork || nextWork" class="work-nav" aria-label="作品ナビゲーション">
+      <nav class="work-nav" aria-label="作品ナビゲーション">
         <NuxtLink
           v-if="previousWork"
           :to="previousWork.path"
           rel="prev"
+          :aria-label="`前の作品: ${previousWork.title}`"
           class="work-nav-link is-previous"
         >
           <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="work-nav-body">
-            <span class="work-nav-label">新しい作品</span>
+            <span class="work-nav-label">前の作品</span>
             <span class="work-nav-title">{{ previousWork.title }}</span>
           </span>
+        </NuxtLink>
+        <NuxtLink to="/works" class="work-nav-link is-all">
+          <IconLayoutGrid :size="20" aria-hidden="true" />
+          すべての作品
         </NuxtLink>
         <NuxtLink
           v-if="nextWork"
           :to="nextWork.path"
           rel="next"
+          :aria-label="`次の作品: ${nextWork.title}`"
           class="work-nav-link is-next"
         >
           <span class="work-nav-body">
-            <span class="work-nav-label">古い作品</span>
+            <span class="work-nav-label">次の作品</span>
             <span class="work-nav-title">{{ nextWork.title }}</span>
           </span>
           <IconChevronRight :size="20" aria-hidden="true" />
         </NuxtLink>
       </nav>
-      <BackToTop />
     </div>
   </main>
 </template>
@@ -425,12 +430,14 @@ async function closeLightbox(index: number) {
 
   .work-nav {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
     gap: 1rem;
-    padding-top: 1.5rem;
+    padding: 2rem 0 1rem;
 
     @media (max-width: 768px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.5rem;
     }
   }
 
@@ -442,21 +449,27 @@ async function closeLightbox(index: number) {
     color: rgb(var(--text));
     background-color: rgb(var(--surface));
     border: var(--border-width) solid transparent;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     transition: var(--transition);
 
     svg {
       flex-shrink: 0;
     }
 
-    &.is-next {
+    &.is-all {
       grid-column: 2;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    &.is-next {
+      grid-column: 3;
       justify-content: flex-end;
       text-align: right;
+    }
 
-      @media (max-width: 768px) {
-        grid-column: 1;
-      }
+    @media (max-width: 768px) {
+      padding: 0.75rem;
     }
 
     @media (hover: hover) {
@@ -476,6 +489,10 @@ async function closeLightbox(index: number) {
     display: flex;
     flex-direction: column;
     min-width: 0;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .work-nav-label {
