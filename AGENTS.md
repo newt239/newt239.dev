@@ -27,7 +27,7 @@
 
 ## プロジェクト概要
 
-Nuxt 3 で構築された個人のポートフォリオサイトです。日本語話者向けに設計されており（lang: "ja"）、Cloudflare Pages にデプロイされています。
+Nuxt 4 で構築された個人のポートフォリオサイトです。日本語話者向けに設計されており（lang: "ja"）、Cloudflare Pages にデプロイされています。
 
 ## 開発コマンド
 
@@ -89,7 +89,7 @@ bun run og
 - **View Transitions**: [nuxt.config.ts](nuxt.config.ts) の `experimental.viewTransition` で有効化
 - **ページトランジション**: [app.vue](app.vue) でブラー + 不透明度のカスタムトランジション
 - **アナリティクス**: [plugins/vue-gtag.client.ts](plugins/vue-gtag.client.ts) で vue-gtag-next を使用した Google Analytics
-- **Adobe Fonts**: [layouts/default.vue](layouts/default.vue) で Typekit を読み込み
+- **Adobe Fonts**: [nuxt.config.ts](nuxt.config.ts) の `app.head.script` で Typekit を読み込み
 
 ### コンポーネント構成
 
@@ -105,7 +105,7 @@ bun run og
 ### デプロイ
 
 - Cloudflare Pages（SSG モード）向けに設定
-- [wrangler.toml](wrangler.toml) で Cloudflare D1 データベースバインディング
+- [.github/workflows/cloudflare-pages.yml](.github/workflows/cloudflare-pages.yml) が週次 cron（毎週月曜 0 時）で `bun run generate` してから `wrangler pages deploy dist` する。main への push では走らない
 - `nitro.compressPublicAssets` でアセット圧縮を有効化
 
 ## 言語とコードレビューの方針
