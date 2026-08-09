@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         {
           src: "https://use.typekit.net/ylu0yhm.js",
           defer: true,
-          onload: "try{Typekit.load({async:true})}catch(e){}",
+          onload: "Typekit.load({async:true})",
         },
       ],
     },
