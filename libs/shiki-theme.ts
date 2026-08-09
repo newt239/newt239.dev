@@ -1,17 +1,17 @@
 export const shikiTheme = {
   name: "newt239-tokens",
-  type: "light",
+  type: "light" as const,
   colors: {
     "editor.foreground": "var(--code-text)",
     "editor.background": "var(--code-bg)",
   },
-  tokenColors: [
+  settings: [
     {
       scope: ["comment", "punctuation.definition.comment"],
       settings: { foreground: "var(--code-comment)", fontStyle: "italic" },
     },
     {
-      scope: ["string", "constant.other.symbol", "meta.embedded.assembly"],
+      scope: ["string", "constant.other.symbol"],
       settings: { foreground: "var(--code-string)" },
     },
     {

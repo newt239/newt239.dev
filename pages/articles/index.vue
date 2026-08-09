@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { articleList } from "~/libs/articles";
 import { personId } from "~/libs/person";
+
+const { data: articles } = await useAsyncData("articles", () =>
+  queryCollection("articles").order("date", "DESC").all()
+);
+const articleList = articles.value ?? [];
 
 useSeoMeta({
   title: "記事一覧 - newt239.dev",
@@ -31,7 +35,7 @@ useHead({
               "@type": "BlogPosting",
               headline: article.title,
               url: article.url,
-              datePublished: article.date.replaceAll("/", "-"),
+              datePublished: article.date,
               inLanguage: "ja",
               author: { "@id": personId },
             },

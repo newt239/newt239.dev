@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
-import { articleList } from "~/libs/articles";
 import ArticleItem from "./ArticleItem.vue";
 
-const articles = articleList.slice(0, 5);
+const { data: articles } = await useAsyncData("latest-articles", () =>
+  queryCollection("articles").order("date", "DESC").limit(5).all()
+);
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const articles = articleList.slice(0, 5);
     <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
     <div class="article-grid">
       <ArticleItem
-        v-for="article in articles"
+        v-for="article in articles ?? []"
         :key="article.url"
         :title="article.title"
         :url="article.url"

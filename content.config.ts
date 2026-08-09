@@ -20,5 +20,33 @@ export default defineContentConfig({
         sitemap: defineSitemapSchema(),
       }),
     }),
+    articles: defineCollection({
+      source: "articles/**",
+      type: "data",
+      schema: z.object({
+        title: z.string(),
+        url: z.string(),
+        date: z.string(),
+      }),
+    }),
+    timeline: defineCollection({
+      source: "timeline/**",
+      type: "data",
+      schema: z.object({
+        start: z.string(),
+        end: z.string().nullable(),
+        title: z.string(),
+        description: z.string().nullable(),
+        src: z.string().nullable(),
+      }),
+    }),
+    certifications: defineCollection({
+      source: "certifications/**",
+      type: "data",
+      schema: z.object({
+        date: z.string(),
+        title: z.string(),
+      }),
+    }),
   },
 });
