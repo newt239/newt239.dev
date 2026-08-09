@@ -5,6 +5,9 @@ const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
 );
 
+const siteDescription =
+  "Webフロントエンドとタイポグラフィが好きな newt のポートフォリオサイトです。制作した作品や執筆した記事、これまでの経歴をまとめています。";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -19,17 +22,22 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "ja",
       },
+      title: "newt239.dev",
       meta: [
         { name: "theme-color", content: "#0099ff" },
+        { name: "description", content: siteDescription },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239.dev" },
+        { property: "og:title", content: "newt239.dev" },
+        { property: "og:description", content: siteDescription },
         { property: "og:image", content: "https://newt239.dev/og-image-2026.webp" },
-        { property: "og:url", content: "https://newt239.dev" },
+        { property: "og:image:alt", content: "newt239.dev" },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },
         { property: "twitter:site", content: "@newt239" },
         { property: "twitter:creator", content: "@newt239" },
         { property: "twitter:domain", content: "newt239.dev" },
+        { property: "twitter:image", content: "https://newt239.dev/og-image-2026.webp" },
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/icon.png" },
