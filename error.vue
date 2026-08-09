@@ -15,8 +15,10 @@ const description = computed(() =>
     : "しばらく時間をおいてからもう一度お試しください。"
 );
 
-useHead({
+useSeoMeta({
   title: `${heading.value} - newt239.dev`,
+  ogTitle: `${heading.value} - newt239.dev`,
+  robots: "noindex",
 });
 </script>
 

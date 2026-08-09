@@ -1,6 +1,7 @@
 <script setup lang="ts">
-useHead({
+useSeoMeta({
   title: "プライバシーポリシー - newt239.dev",
+  ogTitle: "プライバシーポリシー - newt239.dev",
 });
 </script>
 

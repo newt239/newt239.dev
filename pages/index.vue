@@ -2,7 +2,6 @@
 import { personId } from "~/libs/person";
 
 useHead({
-  title: "newt239.dev",
   script: [
     {
       type: "application/ld+json",
