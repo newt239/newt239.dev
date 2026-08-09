@@ -1,5 +1,7 @@
 import { readdirSync } from "node:fs";
 
+import { shikiTheme } from "./libs/shiki-theme";
+
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
 const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
@@ -63,6 +65,13 @@ export default defineNuxtConfig({
   },
 
   content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: { default: shikiTheme },
+        },
+      },
+    },
     experimental: {
       sqliteConnector: "native",
     },

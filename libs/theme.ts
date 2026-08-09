@@ -256,7 +256,9 @@ export const themeConstraints: ThemeConstraint[] = [
   { type: "contrast", foreground: "--accent", background: "--bg", min: 4.5 },
   { type: "contrast", foreground: "--accent", background: "--surface", min: 4.5 },
   { type: "contrast", foreground: "--accent-dark", background: "--bg", min: 3 },
+  { type: "contrast", foreground: "--accent-dark", background: "--surface", min: 3 },
   { type: "contrast", foreground: "--highlight", background: "--bg", min: 3 },
+  { type: "contrast", foreground: "--highlight", background: "--surface", min: 3 },
 ];
 
 const motionVariables = new Set(["--transition-duration", "--transition-easing"]);
