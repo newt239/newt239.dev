@@ -31,7 +31,7 @@ useHead({
               "@type": "BlogPosting",
               headline: article.title,
               url: article.url,
-              datePublished: article.date.replaceAll("/", "-"),
+              datePublished: article.date,
               inLanguage: "ja",
               author: { "@id": personId },
             },

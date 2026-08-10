@@ -4,12 +4,13 @@ import { IconExternalLink } from "@tabler/icons-vue";
 import { person } from "~/libs/person";
 
 useSeoMeta({
+  title: "わたしについて - newt239.dev",
+  ogTitle: "わたしについて - newt239.dev",
   ogImage: "https://newt239.dev/og/about.png",
   twitterImage: "https://newt239.dev/og/about.png",
 });
 
 useHead({
-  title: "わたしについて - newt239.dev",
   script: [
     {
       type: "application/ld+json",

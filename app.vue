@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+const route = useRoute();
+
+useHead({
+  link: [{ rel: "canonical", href: () => `https://newt239.dev${route.path}` }],
+});
+
+useSeoMeta({
+  ogUrl: () => `https://newt239.dev${route.path}`,
+});
+</script>
+
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator class="loading-indicator" />

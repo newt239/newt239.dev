@@ -50,7 +50,7 @@ const getSiteName = (url: string) => {
         <IconBook2 v-else :size="16" />
         <span class="site-name">{{ getSiteName(props.url) }}</span>
       </div>
-      <time class="article-date">{{ props.date }}</time>
+      <time class="article-date" :datetime="props.date">{{ props.date.replaceAll("-", "/") }}</time>
     </div>
   </a>
 </template>

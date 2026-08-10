@@ -1,5 +1,7 @@
 import { readdirSync } from "node:fs";
 
+import { shikiTheme } from "./libs/shiki-theme";
+
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
 const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
@@ -19,17 +21,20 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "ja",
       },
+      title: "newt239.dev",
       meta: [
         { name: "theme-color", content: "#0099ff" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239.dev" },
+        { property: "og:title", content: "newt239.dev" },
         { property: "og:image", content: "https://newt239.dev/og-image-2026.webp" },
-        { property: "og:url", content: "https://newt239.dev" },
+        { property: "og:image:alt", content: "newt239.dev" },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },
         { property: "twitter:site", content: "@newt239" },
         { property: "twitter:creator", content: "@newt239" },
         { property: "twitter:domain", content: "newt239.dev" },
+        { property: "twitter:image", content: "https://newt239.dev/og-image-2026.webp" },
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/icon.png" },
@@ -45,7 +50,7 @@ export default defineNuxtConfig({
         {
           src: "https://use.typekit.net/ylu0yhm.js",
           defer: true,
-          onload: "try{Typekit.load({async:true})}catch(e){}",
+          onload: "Typekit.load({async:true})",
         },
       ],
     },
@@ -60,6 +65,13 @@ export default defineNuxtConfig({
   },
 
   content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: { default: shikiTheme },
+        },
+      },
+    },
     experimental: {
       sqliteConnector: "native",
     },

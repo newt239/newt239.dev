@@ -3,7 +3,7 @@ import { IconChevronRight } from "@tabler/icons-vue";
 import { articleList } from "~/libs/articles";
 import ArticleItem from "./ArticleItem.vue";
 
-const articles = articleList.slice(0, 5);
+const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
 </script>
 
 <template>

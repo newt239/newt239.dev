@@ -1,97 +1,30 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-type TimelineItem = {
-  start: string;
-  end?: string | "present";
-  title: string;
-  description?: string;
-  src: string | null;
-};
+import { timeline } from "~/libs/timeline";
 
-type YearSection = {
-  year: number;
-  items: TimelineItem[];
-};
+import type { TimelineItem } from "~/libs/timeline";
 
-const items: YearSection[] = [
-  {
-    year: 2026,
-    items: [
-      {
-        start: "2026-05",
-        end: "2026-06",
-        title: "MIXI 就業型インターン",
-        src: "https://x.com/newt239/status/2066833159283724290",
-      }
-    ],
-  },
-  {
-    year: 2025,
-    items: [
-      {
-        start: "2025-09",
-        title: "SmartHR サマーインターン",
-        src: "https://x.com/newt239/status/1966481283690770887",
-      },
-      {
-        start: "2025-04",
-        end: "2026-03",
-        title: "芝浦工業大学 学術情報センター 開発アルバイト",
-        src: null,
-      },
-      {
-        start: "2025-03",
-        title: "サイバーエージェント 就業型インターン",
-        src: "https://www.cyberagent.co.jp/careers/students/event/detail/id=28227",
-      },
-    ],
-  },
-  {
-    year: 2024,
-    items: [
-      {
-        start: "2024-09",
-        title: "LayerX サマーインターン",
-        src: "https://x.com/newt239/status/1834594518324457782",
-      },
-      {
-        start: "2024-07",
-        end: "present",
-        title: "CA Tech lounge 会員 (Webフロントエンド)",
-        src: "https://www.cyberagent.co.jp/careers/special/students/tech_lounge/",
-      },
-      {
-        start: "2024-06",
-        end: "2025-03",
-        title: "SecHack365'24 開発駆動コース 仲山ゼミ",
-        src: "https://sechack365.nict.go.jp/",
-      },
-      {
-        start: "2024-04",
-        title: "芝浦工業大学 デザイン工学部 入学",
-        src: "https://www.shibaura-it.ac.jp/",
-      },
-    ],
-  },
-  {
-    year: 2023,
-    items: [
-      {
-        start: "2023-03",
-        title: "栄東高等学校 卒業",
-        src: null,
-      },
-    ],
+const years = computed(() => {
+  const grouped = new Map<number, TimelineItem[]>();
+  for (const item of [...timeline].sort((a, b) => b.start.localeCompare(a.start))) {
+    const year = Number(item.start.slice(0, 4));
+    const yearItems = grouped.get(year);
+    if (yearItems) {
+      yearItems.push(item);
+    } else {
+      grouped.set(year, [item]);
+    }
   }
-];
+  return [...grouped].map(([year, yearItems]) => ({ year, items: yearItems }));
+});
 </script>
 
 <template>
   <div class="timeline">
     <h2 v-colorful-heading class="category-title" lang="en">Timeline</h2>
     <div class="timeline-body">
-      <div v-for="year in items" :key="year.year" class="year-section">
+      <div v-for="year in years" :key="year.year" class="year-section">
         <div class="year-header">
           <h3 class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
         </div>

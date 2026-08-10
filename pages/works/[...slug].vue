@@ -227,8 +227,7 @@ const closeLightbox = async (index: number) => {
 <style>
 .each-work-page {
   .work {
-    a,
-    p code {
+    a {
       word-break: break-all;
     }
 
@@ -380,20 +379,37 @@ const closeLightbox = async (index: number) => {
         }
       }
 
-      code,
-      pre {
-        padding: 0.2rem;
-        background-color: rgb(var(--text-faint));
-        cursor: text;
-      }
-
       code {
         margin: 0;
+        padding: 0.1em 0.35em;
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+        color: var(--code-text);
+        background-color: var(--code-bg);
+        border: var(--border-width-hairline) solid rgb(var(--border));
+        border-radius: var(--radius-xs);
+        cursor: text;
       }
 
       pre {
         margin: 0.5rem 0;
-        overflow-x: auto;
+        padding: 1rem;
+        line-height: var(--line-height-tight);
+        color: var(--code-text);
+        background-color: var(--code-bg);
+        border: var(--border-width-hairline) solid rgb(var(--border));
+        border-radius: var(--radius-sm);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        cursor: text;
+
+        code {
+          padding: 0;
+          font-size: inherit;
+          background: none;
+          border: 0;
+          border-radius: 0;
+        }
       }
 
       p:has(img) {
