@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-const { data: items } = await useAsyncData("timeline", async () => {
-  const doc = await queryCollection("timeline").first();
-  return [...(doc?.items ?? [])].sort((a, b) => b.start.localeCompare(a.start));
-});
+import { timeline } from "~/libs/timeline";
+
+import type { TimelineItem } from "~/libs/timeline";
 
 const years = computed(() => {
-  const grouped = new Map<number, typeof items.value>();
-  for (const item of items.value ?? []) {
+  const grouped = new Map<number, TimelineItem[]>();
+  for (const item of [...timeline].sort((a, b) => b.start.localeCompare(a.start))) {
     const year = Number(item.start.slice(0, 4));
     const yearItems = grouped.get(year);
     if (yearItems) {

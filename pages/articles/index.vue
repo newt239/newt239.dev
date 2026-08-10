@@ -1,10 +1,6 @@
 <script setup lang="ts">
+import { articleList } from "~/libs/articles";
 import { personId } from "~/libs/person";
-
-const { data: articles } = await useAsyncData("articles", () =>
-  queryCollection("articles").first()
-);
-const articleList = articles.value?.items ?? [];
 
 useSeoMeta({
   title: "記事一覧 - newt239.dev",

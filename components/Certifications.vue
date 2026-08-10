@@ -1,15 +1,14 @@
 <script setup lang="ts">
-const { data: certifications } = await useAsyncData("certifications", async () => {
-  const doc = await queryCollection("certifications").first();
-  return [...(doc?.items ?? [])].sort((a, b) => b.date.localeCompare(a.date));
-});
+import { certifications } from "~/libs/certifications";
+
+const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCompare(a.date));
 </script>
 
 <template>
   <div class="certifications">
     <h2 v-colorful-heading class="category-title" lang="en">Certifications</h2>
     <div class="certification-list">
-      <div v-for="item in certifications ?? []" :key="item.title" class="certification-item">
+      <div v-for="item in sortedCertifications" :key="item.title" class="certification-item">
         <time :datetime="item.date" class="item-term">{{ item.date.slice(0, 4) }}年{{ Number(item.date.slice(5)) }}月</time>
         <span class="item-title">{{ item.title }}</span>
       </div>

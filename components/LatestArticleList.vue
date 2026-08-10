@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
+import { articleList } from "~/libs/articles";
 import ArticleItem from "./ArticleItem.vue";
 
-const { data: articles } = await useAsyncData("latest-articles", async () => {
-  const doc = await queryCollection("articles").first();
-  return [...(doc?.items ?? [])].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
-});
+const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
 </script>
 
 <template>
@@ -13,7 +11,7 @@ const { data: articles } = await useAsyncData("latest-articles", async () => {
     <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
     <div class="article-grid">
       <ArticleItem
-        v-for="article in articles ?? []"
+        v-for="article in articles"
         :key="article.url"
         :title="article.title"
         :url="article.url"
