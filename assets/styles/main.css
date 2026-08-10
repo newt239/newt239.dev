@@ -51,7 +51,7 @@
   @property --accent {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 74 136 224;
+    initial-value: 36 107 209;
   }
 
   @property --accent-dark {
@@ -100,7 +100,7 @@
   --bg: 255 248 240;
   --bg-accent: 216 226 240;
   --bg-warm: 240 220 196;
-  --accent: 74 136 224;
+  --accent: 36 107 209;
   --accent-dark: 26 72 120;
   --highlight: 162 132 32;
   --surface: 246 240 232;
@@ -135,11 +135,8 @@
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
   --code-text: rgb(var(--text));
   --code-bg: rgb(var(--surface));
-  --code-comment: rgb(var(--text-faint));
-  --code-string: rgb(var(--highlight));
-  --code-property: rgb(var(--accent));
-  --code-keyword: rgb(var(--accent-dark));
-  --code-punctuation: rgb(var(--text-muted));
+  --code-accent: rgb(var(--accent-dark));
+  --code-subtle: rgb(var(--text-muted));
   --theme-transition-duration: 0.6s;
   --theme-transition-easing: ease;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);

@@ -8,21 +8,11 @@ export const shikiTheme = {
   settings: [
     {
       scope: ["comment", "punctuation.definition.comment"],
-      settings: { foreground: "var(--code-comment)", fontStyle: "italic" },
+      settings: { foreground: "var(--code-subtle)", fontStyle: "italic" },
     },
     {
-      scope: ["string", "constant.other.symbol"],
-      settings: { foreground: "var(--code-string)" },
-    },
-    {
-      scope: [
-        "support.type.property-name",
-        "variable.other.property",
-        "entity.name.function",
-        "entity.name.tag",
-        "support.function",
-      ],
-      settings: { foreground: "var(--code-property)" },
+      scope: ["punctuation", "meta.brace"],
+      settings: { foreground: "var(--code-subtle)" },
     },
     {
       scope: [
@@ -32,12 +22,13 @@ export const shikiTheme = {
         "constant.numeric",
         "support.type",
         "entity.name.type",
+        "support.type.property-name",
+        "variable.other.property",
+        "entity.name.function",
+        "entity.name.tag",
+        "support.function",
       ],
-      settings: { foreground: "var(--code-keyword)" },
-    },
-    {
-      scope: ["punctuation", "meta.brace"],
-      settings: { foreground: "var(--code-punctuation)" },
+      settings: { foreground: "var(--code-accent)" },
     },
   ],
 };
