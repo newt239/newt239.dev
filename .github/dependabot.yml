@@ -8,6 +8,8 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+    cooldown:
+      default-days: 7
     # typescript-eslint の peer が typescript <6.1.0 のため、7 系に上げると ESLint がクラッシュする
     ignore:
       - dependency-name: "typescript"
@@ -23,6 +25,8 @@ updates:
       timezone: "Asia/Tokyo"
       time: "12:00"
     target-branch: "main"
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
         patterns:
