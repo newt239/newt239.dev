@@ -1,0 +1,46 @@
+name: Quality
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+      - name: Restore bun cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          restore-keys: bun-${{ runner.os }}-
+      - name: Setup dependencies
+        run: |
+          if [ -n "$CHROMEWEBDRIVER" ]; then
+            export CHROMEDRIVER_FILEPATH="$CHROMEWEBDRIVER/chromedriver"
+          fi
+          bun install
+      - name: Generate
+        run: bun run generate
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12.6.2
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+      - name: Run axe
+        run: |
+          bun run serve:static &
+          curl --retry 30 --retry-all-errors --retry-delay 1 -sf -o /dev/null http://localhost:3100/
+          bun run a11y
