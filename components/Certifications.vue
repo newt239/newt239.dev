@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { data: certifications } = await useAsyncData("certifications", () =>
-  queryCollection("certifications").order("date", "DESC").all()
-);
+const { data: certifications } = await useAsyncData("certifications", async () => {
+  const doc = await queryCollection("certifications").first();
+  return [...(doc?.items ?? [])].sort((a, b) => b.date.localeCompare(a.date));
+});
 </script>
 
 <template>

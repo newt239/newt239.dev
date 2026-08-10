@@ -2,9 +2,10 @@
 import { IconChevronRight } from "@tabler/icons-vue";
 import ArticleItem from "./ArticleItem.vue";
 
-const { data: articles } = await useAsyncData("latest-articles", () =>
-  queryCollection("articles").order("date", "DESC").limit(5).all()
-);
+const { data: articles } = await useAsyncData("latest-articles", async () => {
+  const doc = await queryCollection("articles").first();
+  return [...(doc?.items ?? [])].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+});
 </script>
 
 <template>

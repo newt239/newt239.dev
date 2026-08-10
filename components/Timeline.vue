@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-const { data: items } = await useAsyncData("timeline", () =>
-  queryCollection("timeline").order("start", "DESC").all()
-);
+const { data: items } = await useAsyncData("timeline", async () => {
+  const doc = await queryCollection("timeline").first();
+  return [...(doc?.items ?? [])].sort((a, b) => b.start.localeCompare(a.start));
+});
 
 const years = computed(() => {
   const grouped = new Map<number, typeof items.value>();

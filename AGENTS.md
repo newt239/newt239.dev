@@ -78,12 +78,12 @@ bun run a11y
  - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) が `public/og/` へ生成する。CI ではなくローカルで `bun run og` を実行し、生成物ごとコミットして push する
 - 生成にはローカルの `~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` を使う。Adobe Fonts で同期していない環境ではスクリプトが失敗する
-- 作品以外のデータも Nuxt Content の data コレクションで管理する。1 アイテム 1 ファイルの YAML とし、日付は `YYYY-MM-DD` または `YYYY-MM` の文字列で持つ
-  - `content/articles/` - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
-  - `content/timeline/` - 経歴。年ごとのグルーピングは [Timeline.vue](components/Timeline.vue) の computed で行う
-  - `content/certifications/` - 資格
+- 作品以外のデータも Nuxt Content の data コレクションで管理する。1 コレクション 1 ファイルの YAML とし、日付は `YYYY-MM-DD` または `YYYY-MM` の文字列で持つ
+  - [content/articles.yml](content/articles.yml) - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
+  - [content/timeline.yml](content/timeline.yml) - 経歴。年ごとのグルーピングは [Timeline.vue](components/Timeline.vue) の computed で行う
+  - [content/certifications.yml](content/certifications.yml) - 資格
 - data コレクションには `defineSitemapSchema()` を**付けない**。付けると `@nuxtjs/sitemap` が throw する
-- トップレベルが配列の YAML は Nuxt Content が扱えない。必ず 1 アイテム 1 ファイルにする
+- トップレベルが配列の YAML は Nuxt Content が扱えないため `items:` で包む。`items` は JSON 列になり SQL の `order` や `where` が効かないので、並び替えと絞り込みは取得後に JS 側で行う（作品一覧も同じ方針）
 - コレクションの取得は `useAsyncData` を使う。トップレベル `await queryCollection()` は payload に載らず、ハイドレーション時にクライアントが SQLite WASM とダンプを取得し直す
 
 ### ルーティングとページ構成

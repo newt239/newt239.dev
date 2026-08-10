@@ -2,9 +2,9 @@
 import { personId } from "~/libs/person";
 
 const { data: articles } = await useAsyncData("articles", () =>
-  queryCollection("articles").order("date", "DESC").all()
+  queryCollection("articles").first()
 );
-const articleList = articles.value ?? [];
+const articleList = articles.value?.items ?? [];
 
 useSeoMeta({
   title: "記事一覧 - newt239.dev",
