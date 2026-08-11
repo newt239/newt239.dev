@@ -243,9 +243,10 @@ const closeLightbox = async (index: number) => {
 
       > .work-sidebar {
         flex-shrink: 0;
-        width: 280px;
+        width: 360px;
 
         .work-title {
+          view-transition-class: list-title;
           display: block;
           font-size: 1.75rem;
           font-weight: 800;
@@ -253,6 +254,9 @@ const closeLightbox = async (index: number) => {
           margin: 0 0 0.75rem;
           background: none;
           color: rgb(var(--text));
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 

@@ -81,8 +81,26 @@ export default defineNuxtConfig({
     domains: ["i.scdn.co"],
   },
 
+  vite: {
+    $client: {
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: (id: string) =>
+              id.includes("@nuxtjs/mdc/dist/runtime/components/prose/") ? "prose" : undefined,
+          },
+        },
+      },
+    },
+  },
+
   experimental: {
     viewTransition: true,
+    defaults: {
+      nuxtLink: {
+        prefetchOn: { visibility: true, interaction: true },
+      },
+    },
   },
 
   compatibilityDate: "2024-07-15",

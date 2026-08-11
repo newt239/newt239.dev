@@ -125,7 +125,7 @@ function onTouchEnd() {
             :src="`/images/${image.src}`"
             :alt="image.alt"
             class="carousel-image"
-            sizes="sm:100vw md:50vw lg:400px"
+            sizes="sm:100vw md:50vw lg:900px"
             :style="imageStyle(index)"
             @click="emit('open-lightbox', index)"
           />
