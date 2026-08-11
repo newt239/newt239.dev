@@ -406,17 +406,22 @@ ul {
 
 /* カードの移動アニメーションは一覧の絞り込み時のみ。ページ遷移では従来どおりルートごとクロスフェードさせる */
 :root:not(:active-view-transition-type(list-filter))::view-transition-group(.list-card) {
-  animation: none;
+  animation-name: none;
+}
+
+::view-transition-group(.work-thumb),
+::view-transition-group(.list-title) {
+  z-index: 1;
 }
 
 ::view-transition-old(.work-thumb) {
-  animation: none;
+  animation-name: none;
   mix-blend-mode: normal;
   opacity: 0;
 }
 
 ::view-transition-new(.work-thumb) {
-  animation: none;
+  animation-name: none;
   mix-blend-mode: normal;
   opacity: 1;
 }
@@ -425,6 +430,6 @@ ul {
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
-    animation: none !important;
+    animation-name: none !important;
   }
 }

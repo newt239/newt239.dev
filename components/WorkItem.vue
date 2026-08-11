@@ -69,6 +69,7 @@ const thumbnail = computed(() => props.work.images[0]);
   flex: 1;
 
   h3 {
+    view-transition-class: list-title;
     margin: 0;
     padding: 0;
     font-size: 1.25rem;
