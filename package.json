@@ -19,7 +19,7 @@
     "compress": "bun run scripts/compress-images.ts",
     "og": "bun run scripts/generate-og-images.ts",
     "serve:static": "serve .output/public --listen 3100 --no-port-switching",
-    "a11y": "axe http://localhost:3100/ http://localhost:3100/works/ http://localhost:3100/works/score-watcher/ http://localhost:3100/works/quiz-flasher/ http://localhost:3100/articles/ http://localhost:3100/about/ --tags wcag2a,wcag2aa,wcag21a,wcag21aa --exit"
+    "a11y": "axe http://localhost:3100/ http://localhost:3100/works http://localhost:3100/works/score-watcher http://localhost:3100/works/icondle http://localhost:3100/articles http://localhost:3100/about --tags wcag2a,wcag2aa,wcag21a,wcag21aa --exit"
   },
   "dependencies": {
     "@nuxt/content": "3.15.2",
