@@ -348,11 +348,12 @@ const closeLightbox = async (index: number) => {
 
       h2 {
         display: inline-block;
-        padding: 1rem 0 0;
+        padding: 0.25rem 0.75rem;
         letter-spacing: 0;
-        margin: 0;
+        margin: 1rem 0 0;
         font-size: 1.25rem;
-        border-bottom: rgb(var(--text)) var(--border-width-hairline) solid;
+        color: rgb(var(--bg));
+        background-color: rgb(var(--text));
       }
 
       h3 {
@@ -360,7 +361,10 @@ const closeLightbox = async (index: number) => {
         padding-left: 0;
       }
 
-      h2,
+      h2 a {
+        color: inherit;
+      }
+
       h3,
       h4,
       h5 {
