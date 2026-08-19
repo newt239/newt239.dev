@@ -60,6 +60,7 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     prerender: {
+      autoSubfolderIndex: false,
       routes: originalImageRoutes,
     },
   },

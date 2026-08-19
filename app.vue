@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 const route = useRoute();
+const canonicalPath = computed(() => route.path.replace(/\/+$/, "") || "/");
 
 useHead({
-  link: [{ rel: "canonical", href: () => `https://newt239.dev${route.path}` }],
+  link: [{ rel: "canonical", href: () => `https://newt239.dev${canonicalPath.value}` }],
 });
 
 useSeoMeta({
-  ogUrl: () => `https://newt239.dev${route.path}`,
+  ogUrl: () => `https://newt239.dev${canonicalPath.value}`,
 });
 </script>
 

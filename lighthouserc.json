@@ -4,11 +4,11 @@
       "staticDistDir": ".output/public",
       "url": [
         "http://localhost/index.html",
-        "http://localhost/works/index.html",
-        "http://localhost/works/score-watcher/index.html",
-        "http://localhost/works/quiz-flasher/index.html",
-        "http://localhost/articles/index.html",
-        "http://localhost/about/index.html"
+        "http://localhost/works.html",
+        "http://localhost/works/score-watcher.html",
+        "http://localhost/works/quiz-flasher.html",
+        "http://localhost/articles.html",
+        "http://localhost/about.html"
       ],
       "numberOfRuns": 3
     },

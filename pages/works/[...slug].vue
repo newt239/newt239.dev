@@ -4,8 +4,9 @@ import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons
 import { personId } from "~/libs/person";
 
 const route = useRoute();
-const { data } = await useAsyncData(route.path, () => {
-  return queryCollection('works').path(route.path).first()
+const workPath = route.path.replace(/\/$/, "");
+const { data } = await useAsyncData(workPath, () => {
+  return queryCollection('works').path(workPath).first()
 });
 
 const { data: worksOrder } = await useAsyncData("works-order", () =>
@@ -13,7 +14,7 @@ const { data: worksOrder } = await useAsyncData("works-order", () =>
 );
 
 const currentIndex = computed(() =>
-  worksOrder.value?.findIndex((work) => work.path === route.path) ?? -1
+  worksOrder.value?.findIndex((work) => work.path === workPath) ?? -1
 );
 const previousWork = computed(() =>
   currentIndex.value > 0 ? worksOrder.value?.[currentIndex.value - 1] : undefined
@@ -347,11 +348,12 @@ const closeLightbox = async (index: number) => {
 
       h2 {
         display: inline-block;
-        padding: 1rem 0 0;
+        padding: 0.25rem 0.75rem;
         letter-spacing: 0;
-        margin: 0;
+        margin: 1rem 0 0;
         font-size: 1.25rem;
-        border-bottom: rgb(var(--text)) var(--border-width-hairline) solid;
+        color: rgb(var(--bg));
+        background-color: rgb(var(--text));
       }
 
       h3 {
@@ -359,7 +361,10 @@ const closeLightbox = async (index: number) => {
         padding-left: 0;
       }
 
-      h2,
+      h2 a {
+        color: inherit;
+      }
+
       h3,
       h4,
       h5 {
