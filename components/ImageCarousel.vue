@@ -136,6 +136,7 @@ function onTouchEnd() {
       <div class="carousel-controls">
         <button class="carousel-nav-btn" aria-label="前の画像" @click="prev">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+          <span class="carousel-nav-label">前の画像</span>
         </button>
         <div class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
@@ -152,6 +153,7 @@ function onTouchEnd() {
           </button>
         </div>
         <button class="carousel-nav-btn" aria-label="次の画像" @click="next">
+          <span class="carousel-nav-label">次の画像</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
         </button>
       </div>
@@ -248,6 +250,27 @@ function onTouchEnd() {
     &:not(.active):active {
       border-color: rgb(var(--text));
     }
+  }
+}
+
+.carousel-nav-btn {
+  gap: 0.375rem;
+  padding: 0 0.875rem;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+.carousel-nav-label {
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 
