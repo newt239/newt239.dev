@@ -223,26 +223,30 @@ function onTouchEnd() {
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  border-radius: var(--radius-round);
-  corner-shape: round;
-  border: var(--border-width) solid rgb(var(--text-faint));
-  background: transparent;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid transparent;
+  background: rgb(var(--surface));
   color: rgb(var(--text));
   cursor: pointer;
   flex-shrink: 0;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
   transition: var(--transition);
 
   @media (hover: hover) {
     &:not(.active):hover {
-      background: rgb(var(--surface-hover));
       border-color: rgb(var(--text));
     }
 
     &.active:hover {
       opacity: var(--hover-opacity);
+    }
+  }
+
+  @media (hover: none) {
+    &:not(.active):active {
+      border-color: rgb(var(--text));
     }
   }
 }
