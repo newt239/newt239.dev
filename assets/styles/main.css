@@ -382,12 +382,13 @@ ul {
   transition: none;
 }
 
+/* 実 DOM と同じく、ライトボックスはヘッダーより手前に置く */
 ::view-transition-group(lightbox-overlay) {
-  z-index: 1;
+  z-index: 20;
 }
 
 ::view-transition-group(lightbox-img) {
-  z-index: 2;
+  z-index: 21;
 }
 
 :root:active-view-transition-type(lightbox-open)::view-transition-old(lightbox-img) {
