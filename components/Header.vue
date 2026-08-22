@@ -1,9 +1,64 @@
+<script setup lang="ts">
+const icon = useTemplateRef<HTMLElement>("icon");
+const router = useRouter();
+
+if (import.meta.client) {
+  // 遷移直後は View Transition とスクロール復元を挟むため、角度が動くまで数フレーム待つ
+  const catchUpWindow = 1000;
+  let angleBeforeNavigation = 0;
+  let watching = false;
+
+  const unregisterBefore = router.beforeEach(() => {
+    if (icon.value) {
+      angleBeforeNavigation = Number.parseFloat(getComputedStyle(icon.value).rotate) || 0;
+    }
+  });
+
+  const unregisterAfter = router.afterEach(() => {
+    const target = icon.value;
+    if (!target) return;
+
+    const startAngle = angleBeforeNavigation;
+    const rootStyle = getComputedStyle(document.documentElement);
+    const deadline = performance.now() + catchUpWindow;
+    watching = true;
+
+    const step = () => {
+      if (!watching) return;
+      const difference = startAngle - (Number.parseFloat(getComputedStyle(target).rotate) || 0);
+      // 見た目の角度は 360 度周期なので、最短の向きに回して余計な一回転を避ける
+      const delta = (((difference % 360) + 540) % 360) - 180;
+      if (Math.abs(delta) < 1) {
+        if (performance.now() < deadline) requestAnimationFrame(step);
+        else watching = false;
+        return;
+      }
+      watching = false;
+      target.animate([{ rotate: `${delta}deg` }, { rotate: "0deg" }], {
+        duration:
+          Number.parseFloat(rootStyle.getPropertyValue("--header-icon-catch-up-duration")) * 1000,
+        easing: rootStyle.getPropertyValue("--header-icon-catch-up-easing"),
+        composite: "add",
+      });
+    };
+
+    requestAnimationFrame(step);
+  });
+
+  onUnmounted(() => {
+    watching = false;
+    unregisterBefore();
+    unregisterAfter();
+  });
+}
+</script>
+
 <template>
   <header>
     <div class="header-inner">
       <NuxtLink to="/">
         <div class="logo">
-          <img src="/icon.png" alt="" width="40" height="40" />
+          <img ref="icon" src="/icon.webp" alt="" width="56" height="56" class="logo-icon" />
           <span>newt239.dev</span>
         </div>
       </NuxtLink>
@@ -14,6 +69,7 @@
 
 <style>
 header {
+  view-transition-name: site-header;
   background-image: none;
   position: sticky;
   z-index: 100;
@@ -65,10 +121,21 @@ header {
         }
       }
 
-      img {
-        height: 2.5rem;
-        width: auto;
+      .logo-icon {
+        width: var(--header-icon-size);
+        height: var(--header-icon-size);
+        flex-shrink: 0;
         display: block;
+        border-radius: var(--radius-round);
+        corner-shape: round;
+
+        @supports (animation-timeline: scroll()) {
+          @media (prefers-reduced-motion: no-preference) {
+            animation-name: header-icon-spin;
+            animation-timing-function: var(--header-icon-spin-easing);
+            animation-timeline: scroll(root block);
+          }
+        }
       }
 
       span {
@@ -77,6 +144,12 @@ header {
         font-weight: 800;
       }
     }
+  }
+}
+
+@keyframes header-icon-spin {
+  to {
+    rotate: var(--header-icon-spin-turns);
   }
 }
 </style>
