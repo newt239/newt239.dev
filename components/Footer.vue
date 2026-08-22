@@ -40,7 +40,8 @@ footer {
   .footer-inner {
     max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 2.5rem var(--container-padding-inline) 2rem;
+    padding: 2.5rem var(--container-padding-inline) 2rem
+      calc(var(--container-padding-inline) + 0.5rem);
   }
 
   .footer-sitemap {
