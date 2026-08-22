@@ -1,7 +1,8 @@
 <template>
   <div>
+    <a class="skip-link" href="#main-content">本文へスキップ</a>
     <Header />
-    <div class="wrapper">
+    <div id="main-content" tabindex="-1" class="wrapper">
       <slot />
     </div>
     <Footer />
@@ -13,5 +14,27 @@
   margin: 0 auto;
   width: 100%;
   min-height: 100vh;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 200;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: rgb(var(--text));
+  background-color: rgb(var(--bg));
+  border: var(--border-width) solid rgb(var(--text));
+  border-radius: var(--radius-sm);
+  translate: 0 -200%;
+  transition: var(--transition);
+}
+
+.skip-link:focus {
+  translate: 0 0;
 }
 </style>

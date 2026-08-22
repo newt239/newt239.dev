@@ -42,18 +42,6 @@
     initial-value: 255 248 240;
   }
 
-  @property --bg-accent {
-    syntax: "<number>+";
-    inherits: true;
-    initial-value: 216 226 240;
-  }
-
-  @property --bg-warm {
-    syntax: "<number>+";
-    inherits: true;
-    initial-value: 240 220 196;
-  }
-
   @property --accent {
     syntax: "<number>+";
     inherits: true;
@@ -106,8 +94,6 @@
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;
   --bg: 255 248 240;
-  --bg-accent: 216 226 240;
-  --bg-warm: 240 220 196;
   --accent: 36 107 209;
   --accent-dark: 26 72 120;
   --highlight: 162 132 32;
@@ -153,14 +139,19 @@
   --theme-transition-duration: 0.6s;
   --theme-transition-easing: ease;
   --header-icon-size: clamp(28px, 10vw, 56px);
+  --wordmark-font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
+  --header-height: calc(
+    max(var(--header-icon-size), var(--wordmark-font-size) * var(--line-height-body)) + 1.5rem +
+      var(--border-width-hairline)
+  );
   --header-icon-catch-up-duration: 0.4s;
   --header-icon-catch-up-easing: var(--transition-easing);
   --header-icon-spin-turns: 1turn;
   --header-icon-spin-easing: linear;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
   transition-property:
-    --text, --text-muted, --text-faint, --bg, --bg-accent, --bg-warm, --accent, --accent-dark,
-    --highlight, --surface, --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
+    --text, --text-muted, --text-faint, --bg, --accent, --accent-dark, --highlight, --surface,
+    --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
   transition-duration: var(--theme-transition-duration);
   transition-timing-function: var(--theme-transition-easing);
 }
@@ -171,10 +162,7 @@
       --accent: from oklch(from AccentColor clamp(0.45, l, 0.62) clamp(0.08, c, 0.25) h) r g b;
       --accent-dark: from oklch(from AccentColor calc(l * 0.55) c h) r g b;
       --highlight: from oklch(from AccentColor clamp(0.5, l, 0.6) clamp(0.1, c, 0.2) calc(h + 120)) r g b;
-      --bg-accent: from color-mix(in oklch, AccentColor 22%, rgb(255 248 240)) r g b;
-
       --bg: from color-mix(in oklch, AccentColor 6%, rgb(255 248 240)) r g b;
-      --bg-warm: from color-mix(in oklch, AccentColor 12%, rgb(240 220 196)) r g b;
       --surface: from color-mix(in oklch, AccentColor 10%, rgb(246 240 232)) r g b;
       --surface-hover: from color-mix(in oklch, AccentColor 14%, rgb(236 230 222)) r g b;
       --border: from color-mix(in oklch, AccentColor 12%, rgb(240 234 228)) r g b;
@@ -216,6 +204,7 @@ a, button, input {
 html {
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
+  scroll-padding-top: var(--header-height);
 }
 
 /* palt が指定されていると text-spacing-trim の used value が none になるため、対応環境では palt を外す */
@@ -262,7 +251,7 @@ h2,
 
 /* opacity のアニメーションは合成レイヤーに載り、ヘッダーの backdrop-filter がこの文字をぼかせなくなる */
 @media (prefers-reduced-motion: no-preference) {
-  .colorful-heading:not(.is-visible) {
+  .colorful-heading:not(.is-visible) .colorful-heading__char {
     color: transparent;
   }
 }
@@ -321,14 +310,12 @@ a {
   @media (hover: hover) {
     &:hover {
       opacity: var(--hover-opacity);
-      text-decoration-color: transparent;
     }
   }
 
   @media (hover: none) {
     &:active {
       opacity: var(--hover-opacity);
-      text-decoration-color: transparent;
     }
   }
 }

@@ -5,7 +5,7 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
 <template>
   <footer>
     <div class="footer-inner">
-      <div class="footer-sitemap">
+      <nav class="footer-sitemap" aria-label="サイトマップ">
         <ul>
           <li><NuxtLink to="/">ホーム</NuxtLink></li>
           <li><NuxtLink to="/about">わたしについて</NuxtLink></li>
@@ -27,7 +27,7 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
             </a>
           </li>
         </ul>
-      </div>
+      </nav>
       <div class="footer-bottom">
         <div class="copyright">&copy; newt 2026</div>
       </div>

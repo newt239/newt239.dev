@@ -70,7 +70,7 @@ if (import.meta.client) {
 <style>
 header {
   view-transition-name: site-header;
-  background-image: none;
+  background-color: rgb(var(--bg) / 0.72);
   position: sticky;
   z-index: 100;
   width: 100%;
@@ -79,7 +79,7 @@ header {
   right: 0px;
   padding: 0.75rem 0;
   color: rgb(var(--text));
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px) saturate(1.4);
   border-style: solid;
   border-color: rgb(var(--border));
   border-width: 0 0 var(--border-width-hairline);
@@ -144,7 +144,7 @@ header {
       .wordmark {
         margin: 0;
         min-width: 0;
-        font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
+        font-size: var(--wordmark-font-size);
         font-weight: 800;
       }
 
@@ -162,6 +162,12 @@ header {
         }
       }
     }
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  header {
+    background-color: rgb(var(--bg));
   }
 }
 
