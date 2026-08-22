@@ -120,7 +120,7 @@ function onTouchEnd() {
   <div
     class="carousel"
     role="region"
-    aria-roledescription="carousel"
+    aria-roledescription="カルーセル"
     aria-label="作品画像"
     @keydown="onKeydown"
   >
@@ -141,7 +141,7 @@ function onTouchEnd() {
           class="carousel-slide"
           :role="hasMultiple ? 'tabpanel' : 'group'"
           :inert="index !== currentIndex"
-          :aria-roledescription="hasMultiple ? 'slide' : undefined"
+          :aria-roledescription="hasMultiple ? 'スライド' : undefined"
           :aria-label="hasMultiple ? `${index + 1} / ${images.length}` : undefined"
         >
           <button
