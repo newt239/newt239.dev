@@ -27,6 +27,7 @@ let dragStartTranslateY = 0;
 let didDrag = false;
 
 const hasMultiple = computed(() => props.images.length > 1);
+const currentImage = computed(() => props.images[currentIndex.value]);
 const supportsViewTransition = ref(false);
 
 const img = useImage();
@@ -38,11 +39,11 @@ useHead({
       (currentIndex.value + 1) % total,
       (currentIndex.value - 1 + total) % total,
     ])].filter((index) => index !== currentIndex.value);
-    return neighbors.map((index) => ({
-      rel: "prefetch",
-      as: "image",
-      href: img(`/images/${props.images[index].src}`),
-    }));
+    return neighbors.flatMap((index) => {
+      const image = props.images[index];
+      if (!image) return [];
+      return [{ rel: "prefetch", as: "image", href: img(`/images/${image.src}`) }];
+    });
   }),
 });
 
@@ -208,8 +209,9 @@ function onPointerUp() {
           :aria-roledescription="isPanned ? 'ドラッグで画像を移動できます' : undefined"
         >
           <NuxtImg
-            :src="`/images/${images[currentIndex].src}`"
-            :alt="images[currentIndex].alt"
+            v-if="currentImage"
+            :src="`/images/${currentImage.src}`"
+            :alt="currentImage.alt"
             class="lightbox-image"
             :class="{ 'is-dragging': isDragging }"
             :style="{ transform: imageTransform, viewTransitionName: 'lightbox-img' }"

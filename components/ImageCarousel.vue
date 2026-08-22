@@ -74,12 +74,16 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 function onTouchStart(e: TouchEvent) {
-  touchStartX = e.touches[0].clientX;
+  const touch = e.touches[0];
+  if (!touch) return;
+  touchStartX = touch.clientX;
   touchDeltaX = 0;
 }
 
 function onTouchMove(e: TouchEvent) {
-  touchDeltaX = e.touches[0].clientX - touchStartX;
+  const touch = e.touches[0];
+  if (!touch) return;
+  touchDeltaX = touch.clientX - touchStartX;
 }
 
 function onTouchEnd() {
