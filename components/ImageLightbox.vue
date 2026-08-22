@@ -356,9 +356,10 @@ function onPointerUp() {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem 1.5rem;
   padding-bottom: 1.5rem;
   max-width: calc(100% - 1rem);
   min-width: 0;
