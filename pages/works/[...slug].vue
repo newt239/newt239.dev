@@ -209,9 +209,9 @@ const closeLightbox = async (index: number) => {
             <span class="work-nav-title">{{ previousWork.title }}</span>
           </span>
         </NuxtLink>
-        <NuxtLink to="/works" class="work-nav-link is-all">
+        <NuxtLink to="/works" class="work-nav-link is-all" aria-label="すべての作品">
           <IconLayoutGrid :size="20" aria-hidden="true" />
-          すべての作品
+          <span class="work-nav-all-label">すべての作品</span>
         </NuxtLink>
         <NuxtLink
           v-if="nextWork"
@@ -494,6 +494,16 @@ const closeLightbox = async (index: number) => {
       &.is-all {
         white-space: normal;
         text-align: center;
+      }
+    }
+
+    @media (max-width: 20rem) {
+      &.is-all {
+        justify-content: center;
+      }
+
+      .work-nav-all-label {
+        display: none;
       }
     }
 
