@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
 
+import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
 
 const route = useRoute();
@@ -40,9 +41,9 @@ if (!data.value) {
     twitterDescription: data.value.description,
     ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
     twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-    twitterLabel1: "Period",
-    twitterData1: data.value.period,
-    twitterLabel2: "Tech Stack",
+    twitterLabel1: "期間",
+    twitterData1: formatPeriod(data.value.period),
+    twitterLabel2: "技術構成",
     twitterData2: data.value.tech.join(", "),
   });
 
@@ -179,9 +180,9 @@ const closeLightbox = async (index: number) => {
                   <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
                 </dd>
               </template>
-              <dt>Period</dt>
-              <dd>{{ data.period }}</dd>
-              <dt>Tech Stack</dt>
+              <dt>期間</dt>
+              <dd>{{ formatPeriod(data.period) }}</dd>
+              <dt>技術構成</dt>
               <dd class="tech-tags">
                 <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
