@@ -42,7 +42,7 @@ export default defineNuxtConfig({
       ],
       noscript: [
         {
-          innerHTML: "<style>.colorful-heading{opacity:1!important}</style>",
+          innerHTML: "<style>.colorful-heading{color:inherit!important}</style>",
           tagPosition: "head",
         },
       ],

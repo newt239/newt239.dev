@@ -74,12 +74,16 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 function onTouchStart(e: TouchEvent) {
-  touchStartX = e.touches[0].clientX;
+  const touch = e.touches[0];
+  if (!touch) return;
+  touchStartX = touch.clientX;
   touchDeltaX = 0;
 }
 
 function onTouchMove(e: TouchEvent) {
-  touchDeltaX = e.touches[0].clientX - touchStartX;
+  const touch = e.touches[0];
+  if (!touch) return;
+  touchDeltaX = touch.clientX - touchStartX;
 }
 
 function onTouchEnd() {
@@ -195,9 +199,8 @@ function onTouchEnd() {
 }
 
 .carousel-slide {
-  min-width: 100%;
+  flex: 0 0 100%;
   height: 100%;
-  flex-shrink: 0;
 }
 
 .carousel-image {

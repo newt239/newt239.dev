@@ -75,10 +75,11 @@ const onKeyDown = (event: KeyboardEvent) => {
     :aria-busy="isGenerating"
     @close="onDialogClose"
   >
-    <div class="modal-content">
+    <div class="modal-content" lang="en">
       <button
         type="button"
         class="modal-close-button"
+        lang="ja"
         aria-label="閉じる"
         command="close"
         :commandfor="dialogId"
