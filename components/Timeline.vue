@@ -79,14 +79,23 @@ const years = computed(() => {
   background: rgb(var(--surface));
   border-radius: var(--radius-md);
   overflow: hidden;
+  container-type: inline-size;
 }
 
+/* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
 .timeline-item {
   display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
   gap: 1rem;
   padding: 0.75rem 1.25rem;
+
+  @container (max-width: 16em) {
+    & {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+    }
+  }
   color: rgb(var(--text));
   text-decoration: none;
   transition: var(--transition);
@@ -146,6 +155,7 @@ const years = computed(() => {
 }
 
 .item-title {
+  overflow-wrap: anywhere;
   font-weight: 600;
   font-size: 1rem;
   line-height: var(--line-height-tight);
