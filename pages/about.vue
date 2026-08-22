@@ -169,7 +169,7 @@ const links = [
     gap: 2rem;
     padding: 2rem 0;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 37.5em) {
       flex-direction: column;
       align-items: center;
     }
@@ -182,7 +182,7 @@ const links = [
       object-fit: cover;
       flex-shrink: 0;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 37.5em) {
         align-self: center;
       }
     }
@@ -212,7 +212,7 @@ const links = [
         }
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 37.5em) {
         display: flex;
         flex-direction: column;
         align-items: center;

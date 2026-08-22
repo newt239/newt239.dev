@@ -148,7 +148,7 @@ const apply = async () => {
     translate: 0 0;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.5em) {
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.5rem;
@@ -168,7 +168,7 @@ const apply = async () => {
   gap: 0.5rem;
   min-width: 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.5em) {
     display: grid;
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
@@ -190,7 +190,7 @@ const apply = async () => {
   min-width: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
   .sort-row :deep(.sort-segmented) {
     justify-self: start;
   }
@@ -201,7 +201,7 @@ const apply = async () => {
   border-left: var(--border-width) solid rgb(var(--surface));
   flex-shrink: 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.5em) {
     grid-column: 1 / -1;
     align-self: auto;
     width: 100%;
@@ -215,7 +215,7 @@ const apply = async () => {
   align-items: center;
   gap: 0.375rem;
 
-  @media (max-width: 600px) {
+  @media (max-width: 37.5em) {
     grid-column: 1 / -1;
     justify-content: flex-end;
   }

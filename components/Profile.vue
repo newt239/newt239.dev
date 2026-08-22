@@ -81,7 +81,7 @@ const profile: string[] = [
   width: 100%;
   gap: 1rem;
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 43.75em) {
     flex-direction: column;
   }
 
@@ -134,7 +134,7 @@ const profile: string[] = [
       padding: 0 0 1rem;
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 43.75em) {
       width: 100%;
     }
   }
@@ -173,7 +173,7 @@ const profile: string[] = [
     width: 30%;
     font-size: 1rem;
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 43.75em) {
       width: 100%;
       display: grid;
       gap: 0.75rem;

@@ -355,7 +355,7 @@ dialog {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5em) {
   .modal-content {
     padding: 1rem;
   }

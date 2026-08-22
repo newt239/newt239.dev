@@ -264,7 +264,7 @@ const closeLightbox = async (index: number) => {
         }
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 48em) {
         flex-direction: column;
         gap: 1rem;
 
@@ -327,7 +327,7 @@ const closeLightbox = async (index: number) => {
       padding-top: 1.5rem;
       padding-bottom: 1rem;
 
-      @media (max-width: 768px) {
+      @media (max-width: 48em) {
         padding-top: 0;
       }
 
@@ -450,7 +450,7 @@ const closeLightbox = async (index: number) => {
     gap: 1rem;
     padding: 2rem 0 1rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 48em) {
       grid-template-columns: auto 1fr auto;
       gap: 0.5rem;
     }
@@ -483,7 +483,7 @@ const closeLightbox = async (index: number) => {
       text-align: right;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 48em) {
       padding: 0.75rem;
     }
 
@@ -505,7 +505,7 @@ const closeLightbox = async (index: number) => {
     flex-direction: column;
     min-width: 0;
 
-    @media (max-width: 768px) {
+    @media (max-width: 48em) {
       display: none;
     }
   }
