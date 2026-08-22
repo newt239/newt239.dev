@@ -328,14 +328,12 @@ a {
   @media (hover: hover) {
     &:hover {
       opacity: var(--hover-opacity);
-      text-decoration-color: transparent;
     }
   }
 
   @media (hover: none) {
     &:active {
       opacity: var(--hover-opacity);
-      text-decoration-color: transparent;
     }
   }
 }
