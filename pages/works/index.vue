@@ -132,6 +132,8 @@ const sortedWorks = computed(() => {
 
 <style>
 .work-list-page {
+  container-type: inline-size;
+
   .category-name {
     view-transition-name: work-category-name;
   }
@@ -142,6 +144,12 @@ const sortedWorks = computed(() => {
     align-items: center;
     column-gap: 1rem;
     margin-bottom: 1.5rem;
+
+    @container (max-width: 16em) {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      row-gap: var(--list-header-row-gap);
+    }
   }
 
   .empty-state {

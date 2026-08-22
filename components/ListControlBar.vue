@@ -155,6 +155,13 @@ const apply = async () => {
     row-gap: 0.75rem;
     justify-self: stretch;
     align-items: center;
+
+    @container (max-width: 16em) {
+      & {
+        grid-template-columns: 1fr;
+        row-gap: 0.5rem;
+      }
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
