@@ -130,8 +130,8 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
 
   svg {
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: 20px;
+    height: 20px;
   }
 
   @media (hover: hover) {
@@ -223,8 +223,8 @@ dialog {
   transition: var(--transition);
 
   svg {
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: 20px;
+    height: 20px;
   }
 
   @media (hover: hover) {
@@ -355,7 +355,7 @@ dialog {
   }
 }
 
-@media screen and (max-width: 37.5em) {
+@media screen and (max-width: 37.5rem) {
   .modal-content {
     padding: 1rem;
   }

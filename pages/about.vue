@@ -169,7 +169,7 @@ const links = [
     gap: 2rem;
     padding: 2rem 0;
 
-    @media screen and (max-width: 37.5em) {
+    @media screen and (max-width: 37.5rem) {
       flex-direction: column;
       align-items: center;
     }
@@ -182,7 +182,7 @@ const links = [
       object-fit: cover;
       flex-shrink: 0;
 
-      @media screen and (max-width: 37.5em) {
+      @media screen and (max-width: 37.5rem) {
         align-self: center;
       }
     }
@@ -212,7 +212,7 @@ const links = [
         }
       }
 
-      @media screen and (max-width: 37.5em) {
+      @media screen and (max-width: 37.5rem) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -265,7 +265,7 @@ const links = [
 
     .hobbies {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width-sm), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
       gap: 1rem;
 
       > div {

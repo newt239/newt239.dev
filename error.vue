@@ -51,7 +51,7 @@ useSeoMeta({
 
   .status-code {
     margin: 0;
-    font-size: var(--font-size-hero);
+    font-size: clamp(64px, 2rem + 5vw, 6rem);
     font-weight: 800;
     line-height: 1;
     color: rgb(var(--text-faint));

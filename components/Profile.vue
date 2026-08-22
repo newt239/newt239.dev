@@ -81,7 +81,7 @@ const profile: string[] = [
   width: 100%;
   gap: 1rem;
 
-  @media screen and (max-width: 43.75em) {
+  @media screen and (max-width: 43.75rem) {
     flex-direction: column;
   }
 
@@ -134,7 +134,7 @@ const profile: string[] = [
       padding: 0 0 1rem;
     }
 
-    @media screen and (max-width: 43.75em) {
+    @media screen and (max-width: 43.75rem) {
       width: 100%;
     }
   }
@@ -173,11 +173,11 @@ const profile: string[] = [
     width: 30%;
     font-size: 1rem;
 
-    @media screen and (max-width: 43.75em) {
+    @media screen and (max-width: 43.75rem) {
       width: 100%;
       display: grid;
       gap: 0.75rem;
-      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width-sm), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
     }
 
     .sns-card {
