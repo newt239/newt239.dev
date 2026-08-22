@@ -164,6 +164,10 @@ const filteredArticles = computed(() => {
         </ListControlBar>
       </div>
 
+      <p class="visually-hidden" role="status">
+        {{ sortAsc ? "古い順" : "新しい順" }}で{{ filteredArticles.length }}件表示しています
+      </p>
+
       <div v-if="filteredArticles.length === 0" class="empty-state">
         該当する記事が見つかりませんでした。
       </div>

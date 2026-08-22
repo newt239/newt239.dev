@@ -119,6 +119,10 @@ const sortedWorks = computed(() => {
         </ListControlBar>
       </div>
 
+      <p class="visually-hidden" role="status">
+        {{ sortAsc ? "古い順" : "新しい順" }}で{{ sortedWorks.length }}件表示しています
+      </p>
+
       <div v-if="sortedWorks.length === 0" class="empty-state">
         該当する作品が見つかりませんでした。
       </div>
