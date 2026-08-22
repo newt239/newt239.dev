@@ -166,8 +166,11 @@ function onTouchEnd() {
 </template>
 
 <style scoped>
+/* インラインサイズ封じ込めで内容から幅を取れなくなるため、親が縦並びのときのために幅を明示する */
 .carousel {
   outline: none;
+  width: 100%;
+  container-type: inline-size;
 
   &:focus-visible {
     outline: 2px solid rgb(var(--focus-ring));
@@ -286,6 +289,12 @@ function onTouchEnd() {
   justify-content: center;
   gap: 0.25rem;
   min-width: 0;
+
+  @container (max-width: 30em) {
+    & {
+      display: none;
+    }
+  }
 }
 
 .carousel-page-btn.active {
