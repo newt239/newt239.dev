@@ -83,10 +83,6 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
     font-size: 1.25rem;
     line-height: var(--line-height-tight);
     color: rgb(var(--text));
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
     overflow-wrap: anywhere;
   }
 }
