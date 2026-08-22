@@ -11,10 +11,12 @@ export type WorkItemProps = {
 const props = defineProps<WorkItemProps>();
 const slug = computed(() => props.work.path.split('/')[2]);
 const thumbnail = computed(() => props.work.images[0]);
+const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
 </script>
 
 <template>
-  <NuxtLink :to="`/works/${slug}`" class="work-card" :style="`view-transition-name: ${slug}-card;`">
+  <NuxtLink :to="`/works/${slug}`" class="work-card" :class="{ 'is-transitioning': slug === activeWorkSlug }"
+    :style="`view-transition-name: ${slug}-card;`">
     <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" :alt="thumbnail?.alt"
       :style="`view-transition-name: ${slug}-img;`" :loading="priority ? 'eager' : undefined"
       :fetchpriority="priority ? 'high' : undefined" sizes="sm:100vw md:50vw lg:400px" />
@@ -78,6 +80,18 @@ const thumbnail = computed(() => props.work.images[0]);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.work-card.is-transitioning {
+  view-transition-class: list-card active-card;
+
+  .work-card-thumbnail {
+    view-transition-class: work-thumb active-thumb;
+  }
+
+  h3 {
+    view-transition-class: list-title active-title;
   }
 }
 

@@ -416,6 +416,16 @@ ul {
   z-index: 1;
 }
 
+/* 遷移しているカードだけを、動かない他のカードより前面に出す。カードの中の重なりは上の段と同じ順序を保つ */
+::view-transition-group(.active-card) {
+  z-index: 2;
+}
+
+::view-transition-group(.active-thumb),
+::view-transition-group(.active-title) {
+  z-index: 3;
+}
+
 ::view-transition-old(.work-thumb) {
   animation-name: none;
   mix-blend-mode: normal;

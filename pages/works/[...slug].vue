@@ -91,6 +91,12 @@ const imageList = computed(() => {
 
 const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
 
+// 一覧へ戻る際、この作品のカードだけを他のカードより前面に出すために共有する
+const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
+watchEffect(() => {
+  activeWorkSlug.value = workSlug.value || null;
+});
+
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
