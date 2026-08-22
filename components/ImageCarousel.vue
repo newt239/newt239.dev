@@ -13,6 +13,7 @@ const currentIndex = ref(0);
 const trackRef = ref<HTMLElement | null>(null);
 const pagesRef = ref<HTMLElement | null>(null);
 const isSnapping = ref(false);
+const slideIdBase = useId();
 
 const hasMultiple = computed(() => props.images.length > 1);
 
@@ -135,9 +136,10 @@ function onTouchEnd() {
       >
         <div
           v-for="(image, index) in images"
+          :id="`${slideIdBase}-slide-${index}`"
           :key="index"
           class="carousel-slide"
-          role="group"
+          :role="hasMultiple ? 'tabpanel' : 'group'"
           :inert="index !== currentIndex"
           :aria-roledescription="hasMultiple ? 'slide' : undefined"
           :aria-label="hasMultiple ? `${index + 1} / ${images.length}` : undefined"
@@ -165,7 +167,7 @@ function onTouchEnd() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           <span class="carousel-nav-label">前の画像</span>
         </button>
-        <div ref="pagesRef" class="carousel-pages" role="group" aria-label="スライド選択">
+        <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
             :key="index"
@@ -173,7 +175,9 @@ function onTouchEnd() {
             class="carousel-page-btn"
             :class="{ active: index === currentIndex }"
             :tabindex="index === currentIndex ? 0 : -1"
-            :aria-current="index === currentIndex ? 'true' : undefined"
+            role="tab"
+            :aria-selected="index === currentIndex"
+            :aria-controls="`${slideIdBase}-slide-${index}`"
             :aria-label="`スライド ${index + 1}`"
             @click="goTo(index)"
           >
