@@ -269,7 +269,7 @@ function onTouchEnd() {
     flex-shrink: 0;
   }
 
-  @media (max-width: 48em) {
+  @media (max-width: 48rem) {
     padding: 0;
   }
 }
@@ -277,7 +277,7 @@ function onTouchEnd() {
 .carousel-nav-label {
   white-space: nowrap;
 
-  @media (max-width: 48em) {
+  @media (max-width: 48rem) {
     display: none;
   }
 }
@@ -290,7 +290,7 @@ function onTouchEnd() {
   gap: 0.25rem;
   min-width: 0;
 
-  @container (max-width: 30em) {
+  @container (max-width: 24rem) {
     & {
       display: none;
     }
