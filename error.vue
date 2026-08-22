@@ -58,9 +58,8 @@ useSeoMeta({
   }
 
   .error-heading {
-    background-color: transparent;
-    color: rgb(var(--text));
     width: auto;
+    text-box: normal;
     padding: 1rem 0 0.5rem;
     line-height: var(--line-height-heading);
   }

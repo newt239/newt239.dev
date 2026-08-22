@@ -100,7 +100,7 @@ const sortedWorks = computed(() => {
   <main>
     <div class="container work-list-page">
       <div class="list-header">
-        <h2 v-colorful-heading class="category-name" lang="en">Works</h2>
+        <h1 v-colorful-heading class="category-name" lang="en">Works</h1>
 
         <ListControlBar
           filter-label="絞り込み"
@@ -123,7 +123,7 @@ const sortedWorks = computed(() => {
         該当する作品が見つかりませんでした。
       </div>
       <div v-else class="card-grid">
-        <WorkItem v-for="work in sortedWorks" :key="work.id" :work="work" />
+        <WorkItem v-for="work in sortedWorks" :key="work.id" :work="work" heading-level="h2" />
       </div>
       <BackToTop />
     </div>

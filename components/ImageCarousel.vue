@@ -11,7 +11,9 @@ const emit = defineEmits<{
 
 const currentIndex = ref(0);
 const trackRef = ref<HTMLElement | null>(null);
+const pagesRef = ref<HTMLElement | null>(null);
 const isSnapping = ref(false);
+const slideIdBase = useId();
 
 const hasMultiple = computed(() => props.images.length > 1);
 
@@ -50,7 +52,12 @@ function snapTo(index: number) {
   });
 }
 
-defineExpose({ snapTo });
+function focusCurrentImage() {
+  const buttons = trackRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-image-button");
+  buttons?.[currentIndex.value]?.focus({ preventScroll: true });
+}
+
+defineExpose({ snapTo, focusCurrentImage });
 
 function imageStyle(index: number) {
   if (props.morphIndex === index) {
@@ -64,12 +71,23 @@ function imageStyle(index: number) {
 }
 
 function onKeydown(e: KeyboardEvent) {
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  e.preventDefault();
+  const target = e.target as Node;
+  const fromPages = pagesRef.value?.contains(target) ?? false;
+  const fromTrack = trackRef.value?.contains(target) ?? false;
   if (e.key === "ArrowLeft") {
-    e.preventDefault();
     prev();
-  } else if (e.key === "ArrowRight") {
-    e.preventDefault();
+  } else {
     next();
+  }
+  if (fromPages) {
+    nextTick(() => {
+      const buttons = pagesRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-page-btn");
+      buttons?.[currentIndex.value]?.focus();
+    });
+  } else if (fromTrack) {
+    nextTick(focusCurrentImage);
   }
 }
 
@@ -104,7 +122,6 @@ function onTouchEnd() {
     role="region"
     aria-roledescription="carousel"
     aria-label="作品画像"
-    tabindex="0"
     @keydown="onKeydown"
   >
     <div class="carousel-viewport">
@@ -119,44 +136,55 @@ function onTouchEnd() {
       >
         <div
           v-for="(image, index) in images"
+          :id="`${slideIdBase}-slide-${index}`"
           :key="index"
           class="carousel-slide"
-          role="group"
+          :role="hasMultiple ? 'tabpanel' : 'group'"
+          :inert="index !== currentIndex"
           :aria-roledescription="hasMultiple ? 'slide' : undefined"
           :aria-label="hasMultiple ? `${index + 1} / ${images.length}` : undefined"
         >
-          <NuxtImg
-            :src="`/images/${image.src}`"
-            :alt="image.alt"
-            class="carousel-image"
-            sizes="sm:100vw md:50vw lg:900px"
-            :style="imageStyle(index)"
+          <button
+            type="button"
+            class="carousel-image-button"
             @click="emit('open-lightbox', index)"
-          />
+          >
+            <NuxtImg
+              :src="`/images/${image.src}`"
+              :alt="image.alt"
+              class="carousel-image"
+              sizes="sm:100vw md:50vw lg:900px"
+              :style="imageStyle(index)"
+            />
+            <span class="visually-hidden">（拡大表示）</span>
+          </button>
         </div>
       </div>
     </div>
     <template v-if="hasMultiple">
       <div class="carousel-controls">
-        <button class="carousel-nav-btn" aria-label="前の画像" @click="prev">
+        <button type="button" class="carousel-nav-btn" aria-label="前の画像" @click="prev">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           <span class="carousel-nav-label">前の画像</span>
         </button>
-        <div class="carousel-pages" role="tablist" aria-label="スライド選択">
+        <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
             :key="index"
+            type="button"
             class="carousel-page-btn"
             :class="{ active: index === currentIndex }"
+            :tabindex="index === currentIndex ? 0 : -1"
             role="tab"
             :aria-selected="index === currentIndex"
+            :aria-controls="`${slideIdBase}-slide-${index}`"
             :aria-label="`スライド ${index + 1}`"
             @click="goTo(index)"
           >
             {{ index + 1 }}
           </button>
         </div>
-        <button class="carousel-nav-btn" aria-label="次の画像" @click="next">
+        <button type="button" class="carousel-nav-btn" aria-label="次の画像" @click="next">
           <span class="carousel-nav-label">次の画像</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
         </button>
@@ -168,15 +196,8 @@ function onTouchEnd() {
 <style scoped>
 /* インラインサイズ封じ込めで内容から幅を取れなくなるため、親が縦並びのときのために幅を明示する */
 .carousel {
-  outline: none;
   width: 100%;
   container-type: inline-size;
-
-  &:focus-visible {
-    outline: 2px solid rgb(var(--focus-ring));
-    outline-offset: 4px;
-    border-radius: var(--radius-md);
-  }
 }
 
 .carousel-viewport {
@@ -185,6 +206,11 @@ function onTouchEnd() {
   border-radius: var(--radius-md);
   aspect-ratio: 16 / 9;
   width: 100%;
+
+  &:has(.carousel-image-button:focus-visible) {
+    outline: 2px solid rgb(var(--focus-ring));
+    outline-offset: 2px;
+  }
 }
 
 .carousel-track {
@@ -206,13 +232,26 @@ function onTouchEnd() {
   height: 100%;
 }
 
+.carousel-image-button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
 .carousel-image {
   view-transition-class: work-thumb;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  cursor: pointer;
   border-radius: var(--radius-md);
 }
 

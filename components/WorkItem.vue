@@ -7,6 +7,7 @@ export type WorkItemProps = {
     description: string;
   };
   priority?: boolean;
+  headingLevel?: "h2" | "h3";
 };
 const props = defineProps<WorkItemProps>();
 const slug = computed(() => props.work.path.split('/')[2]);
@@ -21,7 +22,9 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
       :style="`view-transition-name: ${slug}-img;`" :loading="priority ? 'eager' : undefined"
       :fetchpriority="priority ? 'high' : undefined" sizes="sm:100vw md:50vw lg:400px" />
     <div class="work-card-body">
-      <h3 :style="`view-transition-name: ${slug}-name;`">{{ props.work.title }}</h3>
+      <component :is="props.headingLevel ?? 'h3'" :style="`view-transition-name: ${slug}-name;`">
+        {{ props.work.title }}
+      </component>
       <p class="work-card-description">{{ props.work.description }}</p>
     </div>
   </NuxtLink>
@@ -70,17 +73,16 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
   padding: 0.75rem 1rem 1rem;
   flex: 1;
 
-  h3 {
+  :is(h2, h3) {
     view-transition-class: list-title;
+    width: auto;
+    font-weight: 700;
+    text-box: normal;
     margin: 0;
     padding: 0;
     font-size: 1.25rem;
     line-height: var(--line-height-tight);
     color: rgb(var(--text));
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
     overflow-wrap: anywhere;
   }
 }
@@ -92,7 +94,7 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
     view-transition-class: work-thumb active-thumb;
   }
 
-  h3 {
+  :is(h2, h3) {
     view-transition-class: list-title active-title;
   }
 }

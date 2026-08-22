@@ -77,7 +77,7 @@ const links = [
       <div class="about-hero">
         <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
         <div class="hero-info">
-          <h2 v-colorful-heading>newt <span class="sub">@newt239</span></h2>
+          <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
           <dl class="basic-info">
             <dt>誕生日</dt>
             <dd>2005年11月2日</dd>
@@ -89,7 +89,7 @@ const links = [
 
       <div class="about-sections">
         <section class="about-section">
-          <h3>コンタクト</h3>
+          <h2>コンタクト</h2>
           <div class="section-body">
             <ul>
               <li v-for="contact in contacts" :key="contact.label">
@@ -111,7 +111,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h3>興味・関心</h3>
+          <h2>興味・関心</h2>
           <div class="section-body">
             <ul>
               <li v-for="interest in interests" :key="interest.category">
@@ -125,10 +125,10 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h3>趣味</h3>
+          <h2>趣味</h2>
           <div class="section-body hobbies">
             <div v-for="hobby in hobbies" :key="hobby.title">
-              <h4>{{ hobby.title }}</h4>
+              <h3>{{ hobby.title }}</h3>
               <ul>
                 <li v-for="item in hobby.items" :key="item">{{ item }}</li>
               </ul>
@@ -137,7 +137,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h3>リンク集</h3>
+          <h2>リンク集</h2>
           <div class="section-body link-list">
             <a
               v-for="link in links"
@@ -188,7 +188,7 @@ const links = [
     }
 
     .hero-info {
-      h2 {
+      h1 {
         padding: 0 0 0.5rem;
       }
 
@@ -235,13 +235,16 @@ const links = [
   }
 
   .about-section {
-    h3 {
+    h2 {
+      width: auto;
+      font-weight: 700;
+      text-box: normal;
       font-size: 1.5rem;
       padding: 0 0 0.5rem;
       margin: 0;
     }
 
-    h4 {
+    h3 {
       padding: 0;
       margin: 0 0 0.25rem;
       font-size: 1rem;

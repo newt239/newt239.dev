@@ -9,6 +9,8 @@ import satori from "satori";
 import sharp from "sharp";
 import { parse } from "yaml";
 
+import { formatPeriod } from "../libs/period";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
@@ -39,17 +41,6 @@ type WorkFrontmatter = {
   period: string;
   images: { src: string; alt: string }[];
 };
-
-const formatPeriod = (period: string) =>
-  period
-    .split("-")
-    .map((part) => {
-      const trimmed = part.trim();
-      if (trimmed === "") return "";
-      const [year, month] = trimmed.split(".");
-      return month ? `${year}年${Number(month)}月` : `${year}年`;
-    })
-    .join("〜");
 
 const loadFonts = async () => {
   for (const path of Object.values(FONT_FILES)) {

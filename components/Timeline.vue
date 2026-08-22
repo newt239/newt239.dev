@@ -40,7 +40,7 @@ const years = computed(() => {
             :class="{ 'has-link': !!item.src }"
           >
             <span class="item-term">
-              <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'"> - 現在</template><template v-else-if="item.end"> - <time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
+              <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
             </span>
             <div class="item-content">
               <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" :size="14" class="external-icon" /></span>

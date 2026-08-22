@@ -9,6 +9,7 @@ const defaultMessage = "Caution: All prompts are recorded.";
 const fallbackMessage = "Something went wrong. Please try another word.";
 
 const dialogId = useId();
+const descriptionId = useId();
 const isGenerating = ref(false);
 const promptModel = defineModel<string>();
 const modalRef = ref<HTMLDialogElement>();
@@ -72,6 +73,7 @@ const onKeyDown = (event: KeyboardEvent) => {
     :id="dialogId"
     ref="modalRef"
     closedby="any"
+    :aria-labelledby="descriptionId"
     :aria-busy="isGenerating"
     @close="onDialogClose"
   >
@@ -88,13 +90,14 @@ const onKeyDown = (event: KeyboardEvent) => {
           <IconX aria-hidden="true" />
         </button>
       </div>
-      <p class="modal-description">Enter a prompt to generate a new theme.</p>
+      <p :id="descriptionId" class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
         <input
           id="theme-changer-input"
           v-model="promptModel"
           type="text"
           placeholder="fairy tale"
+          :aria-labelledby="descriptionId"
           autofocus
           @keydown.enter="onKeyDown"
         />
@@ -280,6 +283,10 @@ dialog {
   background-color: rgb(var(--bg));
   border: var(--border-width) solid rgb(var(--text));
   border-radius: var(--radius-pill);
+
+  &::placeholder {
+    color: rgb(var(--text-muted));
+  }
 }
 
 .theme-change-button {

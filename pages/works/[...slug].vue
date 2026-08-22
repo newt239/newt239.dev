@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
 
+import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
 
 const route = useRoute();
@@ -40,9 +41,9 @@ if (!data.value) {
     twitterDescription: data.value.description,
     ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
     twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-    twitterLabel1: "Period",
-    twitterData1: data.value.period,
-    twitterLabel2: "Tech Stack",
+    twitterLabel1: "期間",
+    twitterData1: formatPeriod(data.value.period),
+    twitterLabel2: "技術構成",
     twitterData2: data.value.tech.join(", "),
   });
 
@@ -100,7 +101,10 @@ watchEffect(() => {
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
-const carouselRef = ref<{ snapTo: (index: number) => void } | null>(null);
+const carouselRef = ref<{
+  snapTo: (index: number) => void;
+  focusCurrentImage: () => void;
+} | null>(null);
 
 const openLightbox = async (index: number) => {
   lightboxIndex.value = index;
@@ -128,7 +132,10 @@ const openLightbox = async (index: number) => {
 
 const closeLightbox = async (index: number) => {
   if (!("startViewTransition" in document)) {
+    carouselRef.value?.snapTo(index);
     lightboxOpen.value = false;
+    await nextTick();
+    carouselRef.value?.focusCurrentImage();
     return;
   }
   carouselRef.value?.snapTo(index);
@@ -146,6 +153,7 @@ const closeLightbox = async (index: number) => {
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
+    carouselRef.value?.focusCurrentImage();
   }
 };
 </script>
@@ -172,9 +180,9 @@ const closeLightbox = async (index: number) => {
                   <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
                 </dd>
               </template>
-              <dt>Period</dt>
-              <dd>{{ data.period }}</dd>
-              <dt>Tech Stack</dt>
+              <dt>期間</dt>
+              <dd>{{ formatPeriod(data.period) }}</dd>
+              <dt>技術構成</dt>
               <dd class="tech-tags">
                 <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
@@ -255,12 +263,12 @@ const closeLightbox = async (index: number) => {
         .work-title {
           view-transition-class: list-title;
           display: block;
+          width: auto;
+          text-box: normal;
           font-size: var(--font-size-title);
           font-weight: 800;
           padding: 0;
           margin: 0 0 0.75rem;
-          background: none;
-          color: rgb(var(--text));
         }
       }
 

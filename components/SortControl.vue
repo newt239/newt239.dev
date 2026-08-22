@@ -46,7 +46,6 @@ function setSort(asc: boolean) {
   max-width: 100%;
   background: rgb(var(--surface));
   border-radius: var(--radius-sm);
-  overflow: hidden;
 }
 
 .sort-segment {
@@ -64,9 +63,14 @@ function setSort(asc: boolean) {
   transition: var(--transition);
   white-space: nowrap;
 
-  /* 親の .sort-segmented が overflow: hidden なので外側に描くとリングが隠れる */
-  &:focus-visible {
-    outline-offset: -2px;
+  &:first-child {
+    border-start-start-radius: var(--radius-sm);
+    border-end-start-radius: var(--radius-sm);
+  }
+
+  &:last-child {
+    border-start-end-radius: var(--radius-sm);
+    border-end-end-radius: var(--radius-sm);
   }
 
   @media (hover: hover) {
