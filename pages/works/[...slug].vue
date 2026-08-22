@@ -261,9 +261,6 @@ const closeLightbox = async (index: number) => {
           margin: 0 0 0.75rem;
           background: none;
           color: rgb(var(--text));
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
       }
 
