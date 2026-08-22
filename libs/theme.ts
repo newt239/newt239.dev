@@ -142,17 +142,6 @@ export const themeVariables: ThemeVariable[] = [
     defaultValue: "255 248 240",
   },
   {
-    name: "--bg-accent",
-    description: "Accent background for tags/badges. Must contrast against --text placed on it.",
-    defaultValue: "216 226 240",
-  },
-  {
-    name: "--bg-warm",
-    description:
-      "Warm background for highlighted sections. Must contrast against --text placed on it.",
-    defaultValue: "240 220 196",
-  },
-  {
     name: "--accent",
     description: "Primary accent color for links. Must stand out on --bg and --surface.",
     defaultValue: "36 107 209",
