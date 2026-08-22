@@ -11,6 +11,7 @@ const emit = defineEmits<{
 
 const currentIndex = ref(0);
 const trackRef = ref<HTMLElement | null>(null);
+const pagesRef = ref<HTMLElement | null>(null);
 const isSnapping = ref(false);
 
 const hasMultiple = computed(() => props.images.length > 1);
@@ -69,12 +70,23 @@ function imageStyle(index: number) {
 }
 
 function onKeydown(e: KeyboardEvent) {
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  e.preventDefault();
+  const target = e.target as Node;
+  const fromPages = pagesRef.value?.contains(target) ?? false;
+  const fromTrack = trackRef.value?.contains(target) ?? false;
   if (e.key === "ArrowLeft") {
-    e.preventDefault();
     prev();
-  } else if (e.key === "ArrowRight") {
-    e.preventDefault();
+  } else {
     next();
+  }
+  if (fromPages) {
+    nextTick(() => {
+      const buttons = pagesRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-page-btn");
+      buttons?.[currentIndex.value]?.focus();
+    });
+  } else if (fromTrack) {
+    nextTick(focusCurrentImage);
   }
 }
 
@@ -153,13 +165,14 @@ function onTouchEnd() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           <span class="carousel-nav-label">前の画像</span>
         </button>
-        <div class="carousel-pages" role="group" aria-label="スライド選択">
+        <div ref="pagesRef" class="carousel-pages" role="group" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
             :key="index"
             type="button"
             class="carousel-page-btn"
             :class="{ active: index === currentIndex }"
+            :tabindex="index === currentIndex ? 0 : -1"
             :aria-current="index === currentIndex ? 'true' : undefined"
             :aria-label="`スライド ${index + 1}`"
             @click="goTo(index)"
