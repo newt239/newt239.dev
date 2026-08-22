@@ -50,7 +50,12 @@ function snapTo(index: number) {
   });
 }
 
-defineExpose({ snapTo });
+function focusCurrentImage() {
+  const buttons = trackRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-image-button");
+  buttons?.[currentIndex.value]?.focus({ preventScroll: true });
+}
+
+defineExpose({ snapTo, focusCurrentImage });
 
 function imageStyle(index: number) {
   if (props.morphIndex === index) {

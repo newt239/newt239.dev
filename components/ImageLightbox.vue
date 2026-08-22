@@ -14,7 +14,7 @@ const MAX_SCALE = 5;
 const SCALE_STEP = 0.5;
 
 const currentIndex = ref(props.initialIndex);
-const dialogRef = ref<HTMLElement | null>(null);
+const dialogRef = ref<HTMLDialogElement | null>(null);
 const scale = ref(1);
 const translateX = ref(0);
 const translateY = ref(0);
@@ -74,20 +74,14 @@ watch(
   () => props.open,
   (val) => {
     if (val) {
-      document.body.style.overflow = "hidden";
       nextTick(() => {
-        dialogRef.value?.focus();
+        dialogRef.value?.showModal();
       });
     } else {
-      document.body.style.overflow = "";
       resetZoom();
     }
   }
 );
-
-onUnmounted(() => {
-  document.body.style.overflow = "";
-});
 
 function resetZoom() {
   scale.value = 1;
@@ -127,10 +121,7 @@ function next() {
 }
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === "Escape") {
-    e.preventDefault();
-    close();
-  } else if (e.key === "ArrowLeft") {
+  if (e.key === "ArrowLeft") {
     e.preventDefault();
     prev();
   } else if (e.key === "ArrowRight") {
@@ -192,21 +183,18 @@ function onPointerUp() {
 <template>
   <Teleport to="body">
     <Transition name="lightbox" :css="!supportsViewTransition">
-      <div
+      <dialog
         v-if="open"
         ref="dialogRef"
         class="lightbox-overlay"
-        role="dialog"
-        aria-modal="true"
         aria-label="画像拡大表示"
-        tabindex="-1"
+        @cancel.prevent="close"
         @keydown="onKeydown"
         @click="onBackdropClick"
       >
         <div
           class="lightbox-content"
           :class="{ 'is-zoomed': isPanned }"
-          :aria-roledescription="isPanned ? 'ドラッグで画像を移動できます' : undefined"
           @click="onBackdropClick"
         >
           <NuxtImg
@@ -267,7 +255,7 @@ function onPointerUp() {
             </button>
           </div>
         </div>
-      </div>
+      </dialog>
     </Transition>
   </Teleport>
 </template>
@@ -278,6 +266,14 @@ function onPointerUp() {
   inset: 0;
   z-index: 1000;
   view-transition-name: lightbox-overlay;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: inherit;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
@@ -285,6 +281,16 @@ function onPointerUp() {
   justify-content: center;
   overflow: hidden;
   outline: none;
+
+  &::backdrop {
+    background: none;
+  }
+}
+
+.lightbox-close:focus-visible,
+.lightbox-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */

@@ -100,7 +100,10 @@ watchEffect(() => {
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
-const carouselRef = ref<{ snapTo: (index: number) => void } | null>(null);
+const carouselRef = ref<{
+  snapTo: (index: number) => void;
+  focusCurrentImage: () => void;
+} | null>(null);
 
 const openLightbox = async (index: number) => {
   lightboxIndex.value = index;
@@ -128,7 +131,10 @@ const openLightbox = async (index: number) => {
 
 const closeLightbox = async (index: number) => {
   if (!("startViewTransition" in document)) {
+    carouselRef.value?.snapTo(index);
     lightboxOpen.value = false;
+    await nextTick();
+    carouselRef.value?.focusCurrentImage();
     return;
   }
   carouselRef.value?.snapTo(index);
@@ -146,6 +152,7 @@ const closeLightbox = async (index: number) => {
     await transition.updateCallbackDone;
   } finally {
     morphIndex.value = null;
+    carouselRef.value?.focusCurrentImage();
   }
 };
 </script>
