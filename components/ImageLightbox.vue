@@ -215,7 +215,7 @@ function onPointerUp() {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
         </button>
         <div class="lightbox-bottom-bar">
-          <div role="toolbar" aria-label="ズーム操作" class="lightbox-controls">
+          <div role="group" aria-label="ズーム操作" class="lightbox-controls">
             <button
               class="lightbox-btn"
               aria-label="縮小"
@@ -245,11 +245,11 @@ function onPointerUp() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
             </button>
           </div>
-          <div v-if="hasMultiple" class="lightbox-controls">
+          <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
             <button class="lightbox-btn" aria-label="前の画像" @click="prev">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
             </button>
-            <span class="lightbox-counter">{{ currentIndex + 1 }} / {{ images.length }}</span>
+            <span class="lightbox-counter" aria-live="polite">{{ currentIndex + 1 }} / {{ images.length }}</span>
             <button class="lightbox-btn" aria-label="次の画像" @click="next">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
             </button>
