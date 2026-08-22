@@ -272,6 +272,12 @@ function onTouchEnd() {
   @media (max-width: 48rem) {
     padding: 0;
   }
+
+  @container (max-width: 24em) {
+    & {
+      flex: 1 1 0;
+    }
+  }
 }
 
 .carousel-nav-label {
@@ -290,7 +296,7 @@ function onTouchEnd() {
   gap: 0.25rem;
   min-width: 0;
 
-  @container (max-width: 24rem) {
+  @container (max-width: 24em) {
     & {
       display: none;
     }
