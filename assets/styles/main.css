@@ -140,9 +140,9 @@
   --card-min-width-sm: min(12.5rem, 100%);
   --tap-target-size: 44px;
   --icon-size: 20px;
-  --font-size-display: clamp(28px, 1rem + 2.5vw, 2.5rem);
-  --font-size-title: clamp(20px, 0.875rem + 1vw, 1.75rem);
-  --font-size-hero: clamp(48px, 2rem + 5vw, 6rem);
+  --font-size-display: clamp(32px, 1.25rem + 2vw, 2.5rem);
+  --font-size-title: clamp(28px, 1rem + 1vw, 1.75rem);
+  --font-size-hero: clamp(64px, 2rem + 5vw, 6rem);
   --list-header-row-gap: 0.75rem;
   --corner-shape: round;
   --font-family: fot-udkakugo-large-pr6n;
