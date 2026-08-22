@@ -156,7 +156,7 @@ const apply = async () => {
     justify-self: stretch;
     align-items: center;
 
-    @container (max-width: 16rem) {
+    @container (max-width: 16em) {
       & {
         grid-template-columns: 1fr;
         row-gap: 0.5rem;
