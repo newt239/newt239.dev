@@ -92,15 +92,16 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
+    /* 明るい装飾は文字の乗る左上を避け、右側へ寄せてコントラストを確保する */
     background-image: radial-gradient(
-        ellipse at 10% 0%,
-        rgb(var(--bg-accent) / 0.7) 0%,
-        transparent 50%
+        ellipse 48% 80% at 96% 2%,
+        rgb(var(--bg-accent) / 0.28) 0%,
+        transparent 52%
       ),
       radial-gradient(
-        ellipse at 80% 20%,
-        rgb(var(--bg-warm) / 0.5) 0%,
-        transparent 40%
+        ellipse 34% 60% at 84% 98%,
+        rgb(var(--bg-warm) / 0.24) 0%,
+        transparent 50%
       ),
       linear-gradient(
         135deg,
