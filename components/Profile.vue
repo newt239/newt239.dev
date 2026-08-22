@@ -92,22 +92,28 @@ const profile: string[] = [
     justify-content: space-between;
     gap: 1rem;
     width: 70%;
-    /* 明るい装飾は文字の乗る左上を避け、右側へ寄せてコントラストを確保する */
+    background-color: rgb(var(--text));
+    /* --text と --text-muted はどちらも --bg に対し 4.5:1 が保証されるため、その混色も基準を割らない */
     background-image: radial-gradient(
-        ellipse 48% 80% at 96% 2%,
-        rgb(var(--bg-accent) / 0.28) 0%,
-        transparent 52%
+        ellipse 90% 125% at 88% 6%,
+        rgb(var(--text-muted) / 0.95) 0%,
+        rgb(var(--text-muted) / 0.6) 28%,
+        rgb(var(--text-muted) / 0.25) 52%,
+        rgb(var(--text-muted) / 0.07) 68%,
+        rgb(var(--text-muted) / 0) 82%
       ),
       radial-gradient(
-        ellipse 34% 60% at 84% 98%,
-        rgb(var(--bg-warm) / 0.24) 0%,
-        transparent 50%
+        ellipse 75% 105% at 6% 98%,
+        rgb(var(--text-muted) / 0.6) 0%,
+        rgb(var(--text-muted) / 0.3) 34%,
+        rgb(var(--text-muted) / 0.08) 58%,
+        rgb(var(--text-muted) / 0) 76%
       ),
-      linear-gradient(
-        135deg,
-        rgb(var(--text)) 0%,
-        rgb(var(--text-muted)) 50%,
-        rgb(var(--text)) 100%
+      radial-gradient(
+        ellipse 65% 85% at 52% 44%,
+        rgb(var(--text-muted) / 0.32) 0%,
+        rgb(var(--text-muted) / 0.12) 45%,
+        rgb(var(--text-muted) / 0) 74%
       );
     color: rgb(var(--bg));
     border-radius: var(--radius-md);
