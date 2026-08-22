@@ -147,7 +147,7 @@ header {
         font-weight: 800;
       }
 
-      @container (max-width: 14em) {
+      @container (max-width: 14rem) {
         .logo-icon {
           display: none;
         }

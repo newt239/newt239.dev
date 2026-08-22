@@ -196,7 +196,7 @@ const filteredArticles = computed(() => {
     column-gap: 1rem;
     margin-bottom: 1.5rem;
 
-    @container (max-width: 16em) {
+    @container (max-width: 16rem) {
       grid-template-columns: 1fr;
       justify-items: start;
       row-gap: var(--list-header-row-gap);
