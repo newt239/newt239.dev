@@ -199,9 +199,8 @@ function onTouchEnd() {
 }
 
 .carousel-slide {
-  min-width: 100%;
+  flex: 0 0 100%;
   height: 100%;
-  flex-shrink: 0;
 }
 
 .carousel-image {
