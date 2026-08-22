@@ -204,7 +204,6 @@ a, button, input {
 html {
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
-  /* フォーカス移動とページ内リンクの着地点がスティッキーヘッダーの裏に入らないようにする */
   scroll-padding-top: var(--header-height);
 }
 

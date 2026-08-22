@@ -93,7 +93,6 @@ const profile: string[] = [
     gap: 1rem;
     width: 70%;
     background-color: rgb(var(--text));
-    /* --text と --text-muted はどちらも --bg に対し 4.5:1 が保証されるため、その混色も基準を割らない */
     background-image: radial-gradient(
         ellipse 90% 125% at 88% 6%,
         rgb(var(--text-muted) / 0.95) 0%,

@@ -98,7 +98,6 @@ function resetZoom() {
   translateY.value = 0;
 }
 
-// 拡大した画像がビューポートの外へ抜けないよう、はみ出し量の半分までに移動を抑える
 function clampTranslate() {
   const image = imageRef.value?.imgEl;
   const content = contentRef.value;
@@ -374,7 +373,6 @@ function onPointerUp() {
   top: 1rem;
   right: 1rem;
   z-index: 1;
-  /* 拡大した画像が背後に回るため、操作系は画像の明るさに左右されない暗い下地を持たせる */
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   border: none;

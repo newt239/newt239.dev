@@ -70,7 +70,6 @@ if (import.meta.client) {
 <style>
 header {
   view-transition-name: site-header;
-  /* ぼかしだけでは背後が暗いときに輝度の床を作れないため、下地の色を敷く */
   background-color: rgb(var(--bg) / 0.72);
   position: sticky;
   z-index: 100;

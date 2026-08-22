@@ -22,7 +22,6 @@
 
 .skip-link {
   position: fixed;
-  /* ヘッダー（100）より前面に出さないと、現れた瞬間にヘッダーの裏へ入る */
   z-index: 200;
   top: 0.5rem;
   left: 0.5rem;
@@ -35,7 +34,6 @@
   transition: var(--transition);
 }
 
-/* 支援技術によるフォーカス移動でも隠れたままにならないよう :focus で出す */
 .skip-link:focus {
   translate: 0 0;
 }
