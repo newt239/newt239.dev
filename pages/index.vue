@@ -23,6 +23,7 @@ useHead({
 
 <template>
   <main>
+    <h1 class="visually-hidden" lang="en">newt239.dev</h1>
     <div class="container">
       <Profile />
     </div>

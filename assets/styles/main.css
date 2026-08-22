@@ -235,20 +235,7 @@ body {
   cursor: default;
 }
 
-h1 {
-  background-color: rgb(var(--text));
-  color: rgb(var(--bg));
-  display: inline-block;
-  font-size: var(--font-size-display);
-  font-weight: 800;
-  line-height: var(--line-height-heading);
-  padding: 1rem 0 0;
-  margin: 0px;
-  overflow-wrap: anywhere;
-  word-break: auto-phrase;
-  hyphens: auto;
-}
-
+h1,
 h2,
 .category-name {
   font-size: var(--font-size-display);
@@ -264,6 +251,7 @@ h2,
 
 /* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
 @supports (text-box-trim: trim-both) {
+  h1,
   h2,
   .category-name {
     text-box: trim-both text text;
@@ -385,6 +373,9 @@ ul {
   position: absolute;
   width: 1px;
   height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;

@@ -143,7 +143,7 @@ const filteredArticles = computed(() => {
   <main>
     <div class="container article-list-page">
       <div class="list-header">
-        <h2 v-colorful-heading class="category-name" lang="en">Articles</h2>
+        <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
 
         <ListControlBar
           filter-label="サイト"
@@ -174,6 +174,7 @@ const filteredArticles = computed(() => {
           :title="article.title"
           :url="article.url"
           :date="article.date"
+          heading-level="h2"
         />
       </div>
       <BackToTop />

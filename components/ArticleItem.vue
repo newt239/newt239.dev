@@ -5,6 +5,7 @@ interface Props {
   title: string;
   url: string;
   date: string;
+  headingLevel?: "h2" | "h3";
 }
 const props = defineProps<Props>();
 
@@ -39,7 +40,12 @@ const getSiteName = (url: string) => {
     :style="`view-transition-name: ${transitionKey}-card;`"
   >
     <div class="article-card-body">
-      <h3 :style="`view-transition-name: ${transitionKey}-title;`">{{ props.title }}</h3>
+      <component
+        :is="props.headingLevel ?? 'h3'"
+        :style="`view-transition-name: ${transitionKey}-title;`"
+      >
+        {{ props.title }}
+      </component>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
@@ -96,7 +102,10 @@ const getSiteName = (url: string) => {
 .article-card-body {
   padding: 1rem 1rem 0.5rem;
 
-  h3 {
+  :is(h2, h3) {
+    width: auto;
+    font-weight: 700;
+    text-box: normal;
     margin: 0;
     padding: 0;
     font-size: 1rem;
