@@ -165,6 +165,9 @@ dialog {
     left: 50%;
     padding: var(--modal-padding);
     width: min(90%, 600px);
+    max-height: calc(100dvh - var(--modal-padding) * 2);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-radius: var(--radius-lg);
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
