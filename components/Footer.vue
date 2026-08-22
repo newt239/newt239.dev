@@ -6,33 +6,27 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
   <footer>
     <div class="footer-inner">
       <div class="footer-sitemap">
-        <div class="sitemap-section">
-          <h3>Pages</h3>
-          <ul>
-            <li><NuxtLink to="/">ホーム</NuxtLink></li>
-            <li><NuxtLink to="/about">わたしについて</NuxtLink></li>
-            <li><NuxtLink to="/works">作品一覧</NuxtLink></li>
-            <li><NuxtLink to="/articles">記事一覧</NuxtLink></li>
-            <li><NuxtLink to="/privacy">プライバシーポリシー</NuxtLink></li>
-          </ul>
-        </div>
-        <div class="sitemap-section">
-          <h3>Links</h3>
-          <ul>
-            <li>
-              <a href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
-                <IconBrandX :size="18" />
-                X
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
-                <IconBrandGithub :size="18" />
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li><NuxtLink to="/">ホーム</NuxtLink></li>
+          <li><NuxtLink to="/about">わたしについて</NuxtLink></li>
+          <li><NuxtLink to="/works">作品一覧</NuxtLink></li>
+          <li><NuxtLink to="/articles">記事一覧</NuxtLink></li>
+          <li><NuxtLink to="/privacy">プライバシーポリシー</NuxtLink></li>
+        </ul>
+        <ul>
+          <li>
+            <a href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
+              <IconBrandX :size="18" />
+              X
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
+              <IconBrandGithub :size="18" />
+              GitHub
+            </a>
+          </li>
+        </ul>
       </div>
       <div class="footer-bottom">
         <div class="copyright">&copy; newt 2026</div>
@@ -57,43 +51,25 @@ footer {
     border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 0.15);
   }
 
-  .sitemap-section {
+  .footer-sitemap ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .footer-sitemap li {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+  }
 
-    h3 {
-      padding: 0;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgb(var(--text-muted));
-      margin: 0;
-      flex-shrink: 0;
-      width: 3.5rem;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
-    }
-
-    li {
-      display: flex;
-      align-items: center;
-    }
-
-    a {
-      font-size: 0.875rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+  .footer-sitemap a {
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
   .footer-bottom {
