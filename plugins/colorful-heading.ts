@@ -23,6 +23,7 @@ const splitTextNodes = (root: HTMLElement, counter: { index: number }) => {
       }
       const span = document.createElement("span");
       span.className = "colorful-heading__char";
+      span.ariaHidden = "true";
       span.textContent = char;
       span.style.setProperty("--char-index", String(counter.index));
       counter.index += 1;
@@ -37,7 +38,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     mounted(el) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+      const label = el.textContent?.trim() ?? "";
       splitTextNodes(el, { index: 0 });
+      if (label) el.setAttribute("aria-label", label);
       el.classList.add("colorful-heading");
 
       const observer = new IntersectionObserver(
