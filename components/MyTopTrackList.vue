@@ -40,7 +40,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
   .track-grid {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   }
 
   .track-card {

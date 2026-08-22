@@ -255,7 +255,7 @@ const closeLightbox = async (index: number) => {
         .work-title {
           view-transition-class: list-title;
           display: block;
-          font-size: 1.75rem;
+          font-size: var(--font-size-title);
           font-weight: 800;
           padding: 0;
           margin: 0 0 0.75rem;

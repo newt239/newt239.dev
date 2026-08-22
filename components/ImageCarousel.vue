@@ -226,8 +226,8 @@ function onTouchEnd() {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--tap-target-size);
+  min-height: var(--tap-target-size);
   border-radius: var(--radius-sm);
   border: var(--border-width) solid transparent;
   background: rgb(var(--surface));

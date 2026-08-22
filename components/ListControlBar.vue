@@ -86,7 +86,7 @@ const apply = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 44px;
+  min-height: var(--tap-target-size);
   padding: 0 0.875rem;
   font-family: inherit;
   font-size: 0.875rem;
@@ -225,7 +225,7 @@ const apply = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  min-height: 44px;
+  min-height: var(--tap-target-size);
   padding: 0 0.875rem;
   font-family: inherit;
   font-size: 0.875rem;

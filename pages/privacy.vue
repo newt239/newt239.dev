@@ -67,7 +67,7 @@ useSeoMeta({
   line-height: var(--line-height-body);
 
   > h2 {
-    font-size: 2rem;
+    font-size: var(--font-size-title);
     margin-bottom: 0.5rem;
   }
 

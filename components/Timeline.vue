@@ -68,7 +68,7 @@ const years = computed(() => {
 }
 
 .year-text {
-  font-size: 1.75rem;
+  font-size: var(--font-size-title);
   font-weight: 800;
   color: rgb(var(--text));
   padding: 0;

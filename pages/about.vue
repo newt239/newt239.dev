@@ -264,7 +264,7 @@ const links = [
 
     .hobbies {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width-sm), 1fr));
       gap: 1rem;
 
       > div {

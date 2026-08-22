@@ -140,7 +140,7 @@ const profile: string[] = [
   }
 
   .card-content {
-    margin: 3vh 3vh 5rem;
+    margin: 3vh min(3vh, 5vw) 5rem;
 
     ul {
       line-height: var(--line-height-body);
@@ -177,7 +177,7 @@ const profile: string[] = [
       width: 100%;
       display: grid;
       gap: 0.75rem;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width-sm), 1fr));
     }
 
     .sns-card {

@@ -51,14 +51,10 @@ useSeoMeta({
 
   .status-code {
     margin: 0;
-    font-size: 6rem;
+    font-size: var(--font-size-hero);
     font-weight: 800;
     line-height: 1;
     color: rgb(var(--text-faint));
-
-    @media screen and (max-width: 600px) {
-      font-size: 4rem;
-    }
   }
 
   .error-heading {
@@ -67,10 +63,6 @@ useSeoMeta({
     width: auto;
     padding: 1rem 0 0.5rem;
     line-height: var(--line-height-heading);
-
-    @media screen and (max-width: 600px) {
-      font-size: 2rem;
-    }
   }
 
   .error-description {

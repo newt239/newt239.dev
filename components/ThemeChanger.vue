@@ -117,8 +117,8 @@ const onKeyDown = (event: KeyboardEvent) => {
 
 <style scoped>
 .modal-open-button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
   color: rgb(var(--text));
   background-color: rgb(var(--surface));
   border: var(--border-width) solid transparent;
@@ -130,8 +130,8 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: var(--icon-size);
+    height: var(--icon-size);
   }
 
   @media (hover: hover) {
@@ -213,8 +213,8 @@ dialog {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
   color: rgb(var(--text));
   background: none;
   border: var(--border-width) solid transparent;
@@ -223,8 +223,8 @@ dialog {
   transition: var(--transition);
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: var(--icon-size);
+    height: var(--icon-size);
   }
 
   @media (hover: hover) {
@@ -259,7 +259,7 @@ dialog {
 
 #theme-changer-input {
   font-family: unset;
-  font-size: 2rem;
+  font-size: var(--font-size-title);
   width: 100%;
   height: 4rem;
   padding-left: 1rem;
@@ -274,7 +274,7 @@ dialog {
   align-items: center;
   gap: 0.5rem;
   font-family: unset;
-  font-size: 2rem;
+  font-size: var(--font-size-title);
   position: absolute;
   right: 0;
   top: 0;
