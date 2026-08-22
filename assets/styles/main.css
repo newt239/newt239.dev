@@ -269,7 +269,7 @@ h2,
 
 /* opacity のアニメーションは合成レイヤーに載り、ヘッダーの backdrop-filter がこの文字をぼかせなくなる */
 @media (prefers-reduced-motion: no-preference) {
-  .colorful-heading:not(.is-visible) {
+  .colorful-heading:not(.is-visible) .colorful-heading__char {
     color: transparent;
   }
 }
