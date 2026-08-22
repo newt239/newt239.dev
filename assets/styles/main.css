@@ -137,7 +137,8 @@
   --container-max-width: 1280px;
   --container-padding-inline: min(1rem, 4vw);
   --card-min-width: min(17.5rem, 100%);
-  --tap-target-size: 44px;
+  --tap-target-size: clamp(32px, 15vw, 44px);
+  --tap-target-icon-size: calc(var(--tap-target-size) * 0.45);
   --font-size-display: clamp(32px, 1.25rem + 2vw, 2.5rem);
   --font-size-title: clamp(28px, 1rem + 1vw, 1.75rem);
   --list-header-row-gap: 0.75rem;
@@ -151,7 +152,7 @@
   --code-subtle: rgb(var(--text-muted));
   --theme-transition-duration: 0.6s;
   --theme-transition-easing: ease;
-  --header-icon-size: clamp(40px, 10vw, 56px);
+  --header-icon-size: clamp(28px, 10vw, 56px);
   --header-icon-catch-up-duration: 0.4s;
   --header-icon-catch-up-easing: var(--transition-easing);
   --header-icon-spin-turns: 1turn;

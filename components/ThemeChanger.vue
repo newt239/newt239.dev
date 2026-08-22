@@ -130,8 +130,8 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: var(--tap-target-icon-size);
+    height: var(--tap-target-icon-size);
   }
 
   @media (hover: hover) {
@@ -223,8 +223,8 @@ dialog {
   transition: var(--transition);
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: var(--tap-target-icon-size);
+    height: var(--tap-target-icon-size);
   }
 
   @media (hover: hover) {
