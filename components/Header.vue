@@ -70,7 +70,8 @@ if (import.meta.client) {
 <style>
 header {
   view-transition-name: site-header;
-  background-image: none;
+  /* ぼかしだけでは背後が暗いときに輝度の床を作れないため、下地の色を敷く */
+  background-color: rgb(var(--bg) / 0.72);
   position: sticky;
   z-index: 100;
   width: 100%;
@@ -79,7 +80,7 @@ header {
   right: 0px;
   padding: 0.75rem 0;
   color: rgb(var(--text));
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px) saturate(1.4);
   border-style: solid;
   border-color: rgb(var(--border));
   border-width: 0 0 var(--border-width-hairline);
@@ -162,6 +163,12 @@ header {
         }
       }
     }
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  header {
+    background-color: rgb(var(--bg));
   }
 }
 
