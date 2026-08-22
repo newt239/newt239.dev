@@ -216,8 +216,6 @@ a, button {
 }
 
 html {
-  width: 100%;
-  overflow-x: hidden;
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
 }
@@ -237,7 +235,6 @@ body {
   line-height: var(--line-height-body);
   font-family: var(--font-family), var(--font-fallback);
   cursor: default;
-  scrollbar-gutter: stable;
 }
 
 h1 {
