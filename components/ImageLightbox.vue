@@ -12,9 +12,18 @@ const emit = defineEmits<{
 const MIN_SCALE = 1;
 const MAX_SCALE = 5;
 const SCALE_STEP = 0.5;
+const PAN_STEP = 40;
+const PAN_KEYS: Record<string, [number, number]> = {
+  ArrowLeft: [1, 0],
+  ArrowRight: [-1, 0],
+  ArrowUp: [0, 1],
+  ArrowDown: [0, -1],
+};
 
 const currentIndex = ref(props.initialIndex);
 const dialogRef = ref<HTMLDialogElement | null>(null);
+const contentRef = useTemplateRef<HTMLElement>("content");
+const imageRef = useTemplateRef<{ imgEl: HTMLImageElement | null }>("image");
 const scale = ref(1);
 const translateX = ref(0);
 const translateY = ref(0);
@@ -89,6 +98,26 @@ function resetZoom() {
   translateY.value = 0;
 }
 
+// 拡大した画像がビューポートの外へ抜けないよう、はみ出し量の半分までに移動を抑える
+function clampTranslate() {
+  const image = imageRef.value?.imgEl;
+  const content = contentRef.value;
+  if (!image || !content) return;
+  const limitX =
+    Math.max(0, image.offsetWidth * scale.value - content.clientWidth) / 2 / scale.value;
+  const limitY =
+    Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
+  translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
+  translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
+}
+
+function panBy(directionX: number, directionY: number) {
+  if (scale.value <= MIN_SCALE) return;
+  translateX.value += (directionX * PAN_STEP) / scale.value;
+  translateY.value += (directionY * PAN_STEP) / scale.value;
+  clampTranslate();
+}
+
 function zoomIn() {
   if (canZoomIn.value) {
     scale.value = Math.min(scale.value + SCALE_STEP, MAX_SCALE);
@@ -98,10 +127,7 @@ function zoomIn() {
 function zoomOut() {
   if (canZoomOut.value) {
     scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
-    if (scale.value === MIN_SCALE) {
-      translateX.value = 0;
-      translateY.value = 0;
-    }
+    clampTranslate();
   }
 }
 
@@ -121,12 +147,11 @@ function next() {
 }
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowLeft") {
+  const direction = PAN_KEYS[e.key];
+  if (direction) {
+    if (scale.value <= MIN_SCALE) return;
     e.preventDefault();
-    prev();
-  } else if (e.key === "ArrowRight") {
-    e.preventDefault();
-    next();
+    panBy(direction[0], direction[1]);
   } else if (e.key === "+" || e.key === "=") {
     e.preventDefault();
     zoomIn();
@@ -173,6 +198,7 @@ function onPointerMove(e: PointerEvent) {
 
   translateX.value = dragStartTranslateX + dx;
   translateY.value = dragStartTranslateY + dy;
+  clampTranslate();
 }
 
 function onPointerUp() {
@@ -193,12 +219,14 @@ function onPointerUp() {
         @click="onBackdropClick"
       >
         <div
+          ref="content"
           class="lightbox-content"
           :class="{ 'is-zoomed': isPanned }"
           @click="onBackdropClick"
         >
           <NuxtImg
             v-if="currentImage"
+            ref="image"
             :src="`/images/${currentImage.src}`"
             :alt="currentImage.alt"
             class="lightbox-image"
@@ -243,6 +271,20 @@ function onPointerUp() {
               @click="resetZoom"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+            </button>
+          </div>
+          <div v-if="isPanned" role="group" aria-label="画像の移動" class="lightbox-controls">
+            <button class="lightbox-btn" aria-label="左を表示" @click="panBy(1, 0)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+            </button>
+            <button class="lightbox-btn" aria-label="上を表示" @click="panBy(0, 1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+            </button>
+            <button class="lightbox-btn" aria-label="下を表示" @click="panBy(0, -1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+            </button>
+            <button class="lightbox-btn" aria-label="右を表示" @click="panBy(-1, 0)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
             </button>
           </div>
           <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
@@ -332,7 +374,8 @@ function onPointerUp() {
   top: 1rem;
   right: 1rem;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.15);
+  /* 拡大した画像が背後に回るため、操作系は画像の明るさに左右されない暗い下地を持たせる */
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
   border: none;
   border-radius: var(--radius-round);
@@ -347,7 +390,7 @@ function onPointerUp() {
 
   @media (hover: hover) {
     &:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.85);
     }
   }
 }
@@ -380,13 +423,13 @@ function onPointerUp() {
   align-items: center;
   gap: 0.25rem;
   min-width: 0;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.72);
   border-radius: var(--radius-md);
   padding: 0.25rem;
 }
 
 .lightbox-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.14);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
