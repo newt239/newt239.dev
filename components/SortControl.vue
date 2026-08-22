@@ -42,6 +42,8 @@ function setSort(asc: boolean) {
 <style scoped>
 .sort-segmented {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   background: rgb(var(--surface));
   border-radius: var(--radius-sm);
   overflow: hidden;
@@ -51,8 +53,8 @@ function setSort(asc: boolean) {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  min-height: 44px;
-  padding: 0 0.875rem;
+  min-height: var(--tap-target-size);
+  padding: 0 min(0.875rem, 3vw);
   font-family: inherit;
   font-size: 0.875rem;
   border: none;

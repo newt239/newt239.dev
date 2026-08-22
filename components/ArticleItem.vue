@@ -110,9 +110,11 @@ const getSiteName = (url: string) => {
 
 .article-card-footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem 1rem;
+  gap: 0.25rem 0.5rem;
+  padding: 0.5rem min(1rem, 4%) 1rem;
 }
 
 .article-date {

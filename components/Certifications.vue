@@ -21,6 +21,7 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
   background: rgb(var(--surface));
   border-radius: var(--radius-md);
   overflow: hidden;
+  container-type: inline-size;
 }
 
 .certification-item {
@@ -28,6 +29,14 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
   align-items: baseline;
   gap: 1rem;
   padding: 0.75rem 1.25rem;
+
+  @container (max-width: 16rem) {
+    & {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+    }
+  }
 
   &:not(:last-child) {
     border-bottom: var(--border-width-hairline) solid rgb(var(--border));
@@ -38,11 +47,13 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
   font-size: 0.875rem;
   color: rgb(var(--text-muted));
   white-space: nowrap;
-  min-width: 6rem;
+  min-width: min(6rem, 40%);
   flex-shrink: 0;
 }
 
 .item-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-weight: 600;
   font-size: 1rem;
   line-height: var(--line-height-tight);

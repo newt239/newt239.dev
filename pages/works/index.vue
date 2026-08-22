@@ -132,6 +132,8 @@ const sortedWorks = computed(() => {
 
 <style>
 .work-list-page {
+  container-type: inline-size;
+
   .category-name {
     view-transition-name: work-category-name;
   }
@@ -142,6 +144,12 @@ const sortedWorks = computed(() => {
     align-items: center;
     column-gap: 1rem;
     margin-bottom: 1.5rem;
+
+    @container (max-width: 16rem) {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      row-gap: var(--list-header-row-gap);
+    }
   }
 
   .empty-state {
@@ -153,7 +161,7 @@ const sortedWorks = computed(() => {
   .card-grid {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
 
     a {
       color: rgb(var(--text));

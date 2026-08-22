@@ -117,8 +117,8 @@ const onKeyDown = (event: KeyboardEvent) => {
 
 <style scoped>
 .modal-open-button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
   color: rgb(var(--text));
   background-color: rgb(var(--surface));
   border: var(--border-width) solid transparent;
@@ -130,8 +130,8 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 20px;
+    height: 20px;
   }
 
   @media (hover: hover) {
@@ -159,7 +159,7 @@ dialog {
     position: fixed;
     top: 50dvh;
     left: 50%;
-    padding: 2rem;
+    padding: min(2rem, 5vw);
     width: min(90%, 600px);
     border-radius: var(--radius-lg);
     color: rgb(var(--text));
@@ -213,8 +213,8 @@ dialog {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
   color: rgb(var(--text));
   background: none;
   border: var(--border-width) solid transparent;
@@ -223,8 +223,8 @@ dialog {
   transition: var(--transition);
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 20px;
+    height: 20px;
   }
 
   @media (hover: hover) {
@@ -244,7 +244,7 @@ dialog {
   font-size: 1.25rem;
   line-height: var(--line-height-tight);
   margin: 0 0 1.5rem;
-  padding-inline: 2rem;
+  padding-inline: min(2rem, 5%);
   text-align: center;
   text-wrap: balance;
 }
@@ -259,9 +259,9 @@ dialog {
 
 #theme-changer-input {
   font-family: unset;
-  font-size: 2rem;
+  font-size: var(--font-size-title);
   width: 100%;
-  height: 4rem;
+  min-height: 4rem;
   padding-left: 1rem;
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
@@ -274,11 +274,11 @@ dialog {
   align-items: center;
   gap: 0.5rem;
   font-family: unset;
-  font-size: 2rem;
+  font-size: var(--font-size-title);
   position: absolute;
   right: 0;
   top: 0;
-  height: 4rem;
+  min-height: 4rem;
   padding: 0 1rem;
   background-color: rgb(var(--text));
   color: rgb(var(--bg));
@@ -355,7 +355,7 @@ dialog {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5rem) {
   .modal-content {
     padding: 1rem;
   }
@@ -371,13 +371,16 @@ dialog {
 
     #theme-changer-input {
       font-size: 1rem;
-      height: 2.5rem;
+      min-height: 2.5rem;
       padding-left: 0.5rem;
     }
 
     .theme-change-button {
+      position: static;
+      align-self: stretch;
+      justify-content: center;
       font-size: 1rem;
-      height: 2.5rem;
+      min-height: 2.5rem;
       padding: 0 0.5rem;
       gap: 0;
 

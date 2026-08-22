@@ -235,7 +235,7 @@ const closeLightbox = async (index: number) => {
 .each-work-page {
   .work {
     a {
-      word-break: break-all;
+      overflow-wrap: anywhere;
     }
 
     .work-hero {
@@ -255,7 +255,7 @@ const closeLightbox = async (index: number) => {
         .work-title {
           view-transition-class: list-title;
           display: block;
-          font-size: 1.75rem;
+          font-size: var(--font-size-title);
           font-weight: 800;
           padding: 0;
           margin: 0 0 0.75rem;
@@ -264,7 +264,7 @@ const closeLightbox = async (index: number) => {
         }
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 48rem) {
         flex-direction: column;
         gap: 1rem;
 
@@ -326,8 +326,9 @@ const closeLightbox = async (index: number) => {
     .content {
       padding-top: 1.5rem;
       padding-bottom: 1rem;
+      overflow-wrap: anywhere;
 
-      @media (max-width: 768px) {
+      @media (max-width: 48rem) {
         padding-top: 0;
       }
 
@@ -376,14 +377,16 @@ const closeLightbox = async (index: number) => {
         }
       }
 
+      /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
       table {
         margin: 0;
+        overflow-wrap: normal;
         border-spacing: 0 0.5rem;
 
         th,
         td {
           text-align: left;
-          padding: 0 1rem;
+          padding: 0 min(1rem, 3vw);
         }
 
         th {
@@ -393,6 +396,7 @@ const closeLightbox = async (index: number) => {
 
       code {
         margin: 0;
+        overflow-wrap: anywhere;
         padding: 0.1em 0.35em;
         font-family: var(--font-mono);
         font-size: 0.9em;
@@ -448,9 +452,9 @@ const closeLightbox = async (index: number) => {
     gap: 1rem;
     padding: 2rem 0 1rem;
 
-    @media (max-width: 768px) {
-      grid-template-columns: auto 1fr auto;
-      gap: 0.5rem;
+    @media (max-width: 48rem) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: min(0.5rem, 2vw);
     }
   }
 
@@ -458,6 +462,7 @@ const closeLightbox = async (index: number) => {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    min-height: var(--tap-target-size);
     padding: 0.75rem 1.25rem;
     color: rgb(var(--text));
     background-color: rgb(var(--surface));
@@ -481,8 +486,15 @@ const closeLightbox = async (index: number) => {
       text-align: right;
     }
 
-    @media (max-width: 768px) {
-      padding: 0.75rem;
+    @media (max-width: 48rem) {
+      min-width: 0;
+      gap: min(0.5rem, 2vw);
+      padding: min(0.75rem, 3vw);
+
+      &.is-all {
+        white-space: normal;
+        text-align: center;
+      }
     }
 
     @media (hover: hover) {
@@ -503,7 +515,7 @@ const closeLightbox = async (index: number) => {
     flex-direction: column;
     min-width: 0;
 
-    @media (max-width: 768px) {
+    @media (max-width: 48rem) {
       display: none;
     }
   }

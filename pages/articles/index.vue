@@ -183,6 +183,8 @@ const filteredArticles = computed(() => {
 
 <style>
 .article-list-page {
+  container-type: inline-size;
+
   .category-name {
     view-transition-name: article-category-name;
   }
@@ -193,6 +195,12 @@ const filteredArticles = computed(() => {
     align-items: center;
     column-gap: 1rem;
     margin-bottom: 1.5rem;
+
+    @container (max-width: 16rem) {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      row-gap: var(--list-header-row-gap);
+    }
   }
 
   .empty-state {
@@ -204,7 +212,7 @@ const filteredArticles = computed(() => {
   .article-grid {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
     grid-template-rows: auto;
 
     a {

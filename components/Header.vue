@@ -59,7 +59,7 @@ if (import.meta.client) {
       <NuxtLink to="/">
         <div class="logo">
           <img ref="icon" src="/icon.webp" alt="" width="56" height="56" class="logo-icon" />
-          <span>newt239.dev</span>
+          <span class="wordmark">newt239<span class="wordmark-suffix">.dev</span></span>
         </div>
       </NuxtLink>
       <ThemeChanger />
@@ -89,8 +89,9 @@ header {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 1rem;
+    gap: min(1rem, 3vw);
     max-width: var(--container-max-width);
+    container-type: inline-size;
     margin: 0 auto;
     padding-inline: var(--container-padding-inline);
   }
@@ -100,13 +101,15 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
+    min-width: 0;
     color: rgb(var(--text));
     border-radius: var(--radius-sm);
 
     .logo {
       display: flex;
       align-items: center;
-      gap: min(3vh, 3vw);
+      min-width: 0;
+      gap: min(0.75rem, 3vw);
       transition: var(--transition);
 
       @media (hover: hover) {
@@ -138,10 +141,24 @@ header {
         }
       }
 
-      span {
+      .wordmark {
         margin: 0;
-        font-size: 2rem;
+        font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
         font-weight: 800;
+      }
+
+      @container (max-width: 14rem) {
+        .logo-icon {
+          display: none;
+        }
+
+        .wordmark-suffix {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+        }
       }
     }
   }

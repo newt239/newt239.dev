@@ -166,8 +166,11 @@ function onTouchEnd() {
 </template>
 
 <style scoped>
+/* インラインサイズ封じ込めで内容から幅を取れなくなるため、親が縦並びのときのために幅を明示する */
 .carousel {
   outline: none;
+  width: 100%;
+  container-type: inline-size;
 
   &:focus-visible {
     outline: 2px solid rgb(var(--focus-ring));
@@ -215,10 +218,12 @@ function onTouchEnd() {
 
 .carousel-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
   padding-top: 0.75rem;
+  min-width: 0;
 }
 
 .carousel-nav-btn,
@@ -226,8 +231,8 @@ function onTouchEnd() {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--tap-target-size);
+  min-height: var(--tap-target-size);
   border-radius: var(--radius-sm);
   border: var(--border-width) solid transparent;
   background: rgb(var(--surface));
@@ -264,7 +269,7 @@ function onTouchEnd() {
     flex-shrink: 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 48rem) {
     padding: 0;
   }
 }
@@ -272,15 +277,24 @@ function onTouchEnd() {
 .carousel-nav-label {
   white-space: nowrap;
 
-  @media (max-width: 768px) {
+  @media (max-width: 48rem) {
     display: none;
   }
 }
 
 .carousel-pages {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
+  min-width: 0;
+
+  @container (max-width: 24rem) {
+    & {
+      display: none;
+    }
+  }
 }
 
 .carousel-page-btn.active {
