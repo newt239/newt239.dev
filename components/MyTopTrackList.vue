@@ -15,7 +15,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
 
 <template>
   <div v-show="trackList && trackList.length !== 0" class="my-top-track-list">
-    <h2 v-colorful-heading>My Top Tracks</h2>
+    <h2 v-colorful-heading lang="en">My Top Tracks</h2>
     <div class="track-grid">
       <a
         v-for="track in trackList?.slice(0, 12)"

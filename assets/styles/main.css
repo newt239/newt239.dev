@@ -245,6 +245,7 @@ h1 {
   margin: 0px;
   overflow-wrap: anywhere;
   word-break: auto-phrase;
+  hyphens: auto;
 }
 
 h2,
@@ -257,6 +258,7 @@ h2,
   width: fit-content;
   overflow-wrap: anywhere;
   word-break: auto-phrase;
+  hyphens: auto;
 }
 
 /* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
@@ -267,10 +269,6 @@ h2,
     padding-block:
       calc(1rem + var(--heading-half-leading)) calc(0.5rem + var(--heading-half-leading));
   }
-}
-
-.colorful-heading__char {
-  display: inline-block;
 }
 
 /* opacity のアニメーションは合成レイヤーに載り、ヘッダーの backdrop-filter がこの文字をぼかせなくなる */
@@ -307,6 +305,7 @@ h3 {
   margin: 0px;
   overflow-wrap: anywhere;
   word-break: auto-phrase;
+  hyphens: auto;
 }
 
 h4 {
@@ -316,6 +315,7 @@ h4 {
   line-height: var(--line-height-heading);
   overflow-wrap: anywhere;
   word-break: auto-phrase;
+  hyphens: auto;
 }
 
 a {
