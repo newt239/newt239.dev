@@ -330,15 +330,15 @@ function onPointerUp() {
 <style scoped>
 .lightbox-overlay {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto;
   z-index: 1000;
   view-transition-name: lightbox-overlay;
   width: auto;
-  height: auto;
+  height: 100lvh;
   max-width: none;
   max-height: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 calc(100lvh - 100svh);
   border: none;
   color: inherit;
   background: rgba(0, 0, 0, 0.85);
