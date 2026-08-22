@@ -242,49 +242,75 @@ function onPointerUp() {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
         </button>
         <div class="lightbox-bottom-bar">
-          <div role="group" aria-label="ズーム操作" class="lightbox-controls">
-            <button
-              class="lightbox-btn"
-              aria-label="縮小"
-              :aria-disabled="!canZoomOut"
-              :disabled="!canZoomOut"
-              @click="zoomOut"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
-            </button>
-            <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
-            <button
-              class="lightbox-btn"
-              aria-label="拡大"
-              :aria-disabled="!canZoomIn"
-              :disabled="!canZoomIn"
-              @click="zoomIn"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-            </button>
-            <button
-              class="lightbox-btn"
-              aria-label="ズームをリセット"
-              :aria-disabled="!canReset"
-              :disabled="!canReset"
-              @click="resetZoom"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
-            </button>
-          </div>
-          <div v-if="isPanned" role="group" aria-label="画像の移動" class="lightbox-controls">
-            <button class="lightbox-btn" aria-label="左を表示" @click="panBy(1, 0)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            </button>
-            <button class="lightbox-btn" aria-label="上を表示" @click="panBy(0, 1)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
-            </button>
-            <button class="lightbox-btn" aria-label="下を表示" @click="panBy(0, -1)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
-            </button>
-            <button class="lightbox-btn" aria-label="右を表示" @click="panBy(-1, 0)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-            </button>
+          <div class="lightbox-controls">
+            <div role="group" aria-label="ズーム操作" class="lightbox-cluster">
+              <button
+                class="lightbox-btn"
+                aria-label="縮小"
+                :aria-disabled="!canZoomOut"
+                :disabled="!canZoomOut"
+                @click="zoomOut"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              </button>
+              <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
+              <button
+                class="lightbox-btn"
+                aria-label="拡大"
+                :aria-disabled="!canZoomIn"
+                :disabled="!canZoomIn"
+                @click="zoomIn"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              </button>
+              <button
+                class="lightbox-btn"
+                aria-label="ズームをリセット"
+                :aria-disabled="!canReset"
+                :disabled="!canReset"
+                @click="resetZoom"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+              </button>
+            </div>
+            <div role="group" aria-label="画像の移動" class="lightbox-cluster">
+              <button
+                class="lightbox-btn"
+                aria-label="左を表示"
+                :aria-disabled="!isPanned"
+                :disabled="!isPanned"
+                @click="panBy(1, 0)"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+              </button>
+              <button
+                class="lightbox-btn"
+                aria-label="上を表示"
+                :aria-disabled="!isPanned"
+                :disabled="!isPanned"
+                @click="panBy(0, 1)"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+              </button>
+              <button
+                class="lightbox-btn"
+                aria-label="下を表示"
+                :aria-disabled="!isPanned"
+                :disabled="!isPanned"
+                @click="panBy(0, -1)"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+              <button
+                class="lightbox-btn"
+                aria-label="右を表示"
+                :aria-disabled="!isPanned"
+                :disabled="!isPanned"
+                @click="panBy(-1, 0)"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+              </button>
+            </div>
           </div>
           <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
             <button class="lightbox-btn" aria-label="前の画像" @click="prev">
@@ -397,10 +423,9 @@ function onPointerUp() {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 0.75rem 1.5rem;
+  gap: 0.75rem;
   padding-bottom: 1.5rem;
   max-width: calc(100% - 1rem);
   min-width: 0;
@@ -424,6 +449,19 @@ function onPointerUp() {
   background: rgba(0, 0, 0, 0.72);
   border-radius: var(--radius-md);
   padding: 0.25rem;
+}
+
+.lightbox-controls:has(> .lightbox-cluster) {
+  gap: 0.5rem 1.5rem;
+}
+
+.lightbox-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
 .lightbox-btn {
