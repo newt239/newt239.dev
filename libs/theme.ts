@@ -218,29 +218,6 @@ export const themeVariables: ThemeVariable[] = [
     kind: "enum",
     allowedValues: themeFonts.map((font) => font.family),
   },
-  {
-    name: "--transition-duration",
-    description:
-      "How long hover and state transitions take. Short values feel snappy and mechanical, long values feel calm and dreamy.",
-    defaultValue: "0.2s",
-    kind: "enum",
-    allowedValues: ["0.1s", "0.15s", "0.2s", "0.3s", "0.45s", "0.6s"],
-  },
-  {
-    name: "--transition-easing",
-    description:
-      "The easing curve of transitions. linear is mechanical, ease-out is neutral, cubic-bezier(0.22, 1, 0.36, 1) is smooth, cubic-bezier(0.34, 1.56, 0.64, 1) bounces slightly, cubic-bezier(0.68, -0.55, 0.27, 1.55) overshoots strongly and steps(4, end) is choppy and retro.",
-    defaultValue: "cubic-bezier(0.22, 1, 0.36, 1)",
-    kind: "enum",
-    allowedValues: [
-      "linear",
-      "ease-out",
-      "cubic-bezier(0.22, 1, 0.36, 1)",
-      "cubic-bezier(0.34, 1.56, 0.64, 1)",
-      "cubic-bezier(0.68, -0.55, 0.27, 1.55)",
-      "steps(4, end)",
-    ],
-  },
 ];
 
 export const themeConstraints: ThemeConstraint[] = [
@@ -259,8 +236,6 @@ export const themeConstraints: ThemeConstraint[] = [
   { type: "contrast", foreground: "--accent-dark", background: "--surface", min: 4.5 },
   { type: "contrast", foreground: "--highlight", background: "--bg", min: 3 },
 ];
-
-const motionVariables = new Set(["--transition-duration", "--transition-easing"]);
 
 const applyThemeFont = (family: string) => {
   const font = themeFonts.find((themeFont) => themeFont.family === family);
@@ -287,11 +262,7 @@ const applyThemeFont = (family: string) => {
 };
 
 export const applyTheme = (variables: { name: string; value: string }[]) => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   for (const { name, value } of variables) {
-    if (prefersReducedMotion && motionVariables.has(name)) {
-      continue;
-    }
     if (name === "--font-family") {
       applyThemeFont(value);
       continue;
