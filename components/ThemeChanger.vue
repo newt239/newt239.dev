@@ -76,16 +76,18 @@ const onKeyDown = (event: KeyboardEvent) => {
     @close="onDialogClose"
   >
     <div class="modal-content" lang="en">
-      <button
-        type="button"
-        class="modal-close-button"
-        lang="ja"
-        aria-label="閉じる"
-        command="close"
-        :commandfor="dialogId"
-      >
-        <IconX aria-hidden="true" />
-      </button>
+      <div class="modal-header">
+        <button
+          type="button"
+          class="modal-close-button"
+          lang="ja"
+          aria-label="閉じる"
+          command="close"
+          :commandfor="dialogId"
+        >
+          <IconX aria-hidden="true" />
+        </button>
+      </div>
       <p class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
         <input
@@ -130,8 +132,8 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: var(--tap-target-icon-size);
+    height: var(--tap-target-icon-size);
   }
 
   @media (hover: hover) {
@@ -154,17 +156,22 @@ dialog {
   transition-behavior: allow-discrete;
 
   .modal-content {
+    --modal-padding: min(2rem, 5vw);
+
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
     position: fixed;
     top: 50dvh;
     left: 50%;
-    padding: min(2rem, 5vw);
+    padding: var(--modal-padding);
     width: min(90%, 600px);
+    max-height: calc(100dvh - var(--modal-padding) * 2);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-radius: var(--radius-lg);
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
-    border: var(--border-width) solid rgb(var(--bg-accent) / 0.8);
+    border: var(--border-width) solid rgb(var(--border));
     z-index: 1000;
     transition: all 0.3s;
     transition-behavior: allow-discrete;
@@ -206,10 +213,17 @@ dialog {
   }
 }
 
+.modal-header {
+  position: sticky;
+  top: calc(var(--modal-padding) * -1);
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin: calc(var(--modal-padding) * -1) calc(var(--modal-padding) * -1) 0.5rem;
+  background-color: rgb(var(--bg));
+}
+
 .modal-close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,8 +237,8 @@ dialog {
   transition: var(--transition);
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: var(--tap-target-icon-size);
+    height: var(--tap-target-icon-size);
   }
 
   @media (hover: hover) {
@@ -244,7 +258,6 @@ dialog {
   font-size: 1.25rem;
   line-height: var(--line-height-tight);
   margin: 0 0 1.5rem;
-  padding-inline: min(2rem, 5%);
   text-align: center;
   text-wrap: balance;
 }
@@ -338,8 +351,10 @@ dialog {
     height: 2rem;
   }
 
-  .tabler-icon-loader-2 {
-    animation: spin 1s linear infinite;
+  @media (prefers-reduced-motion: no-preference) {
+    .tabler-icon-loader-2 {
+      animation: spin 1s linear infinite;
+    }
   }
 }
 
@@ -356,8 +371,8 @@ dialog {
 }
 
 @media screen and (max-width: 37.5rem) {
-  .modal-content {
-    padding: 1rem;
+  dialog .modal-content {
+    --modal-padding: 1rem;
   }
 
   .modal-description {
@@ -373,10 +388,11 @@ dialog {
       font-size: 1rem;
       min-height: 2.5rem;
       padding-left: 0.5rem;
+      text-align: center;
     }
 
     .theme-change-button {
-      position: static;
+      position: relative;
       align-self: stretch;
       justify-content: center;
       font-size: 1rem;

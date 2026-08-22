@@ -89,7 +89,7 @@ const years = computed(() => {
   gap: 1rem;
   padding: 0.75rem 1.25rem;
 
-  @container (max-width: 16rem) {
+  @container (max-width: 16em) {
     & {
       flex-direction: column;
       align-items: stretch;
