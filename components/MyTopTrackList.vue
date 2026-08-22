@@ -89,6 +89,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
   .track-name {
     margin: 0;
     padding: 0;
+    overflow-wrap: anywhere;
     font-size: 1rem;
     font-weight: 700;
     line-height: var(--line-height-tight);
@@ -100,6 +101,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
 
   .track-artists {
     margin: 0;
+    overflow-wrap: anywhere;
     font-size: 0.875rem;
     color: rgb(var(--text-muted));
     line-height: var(--line-height-tight);

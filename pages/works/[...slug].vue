@@ -326,6 +326,7 @@ const closeLightbox = async (index: number) => {
     .content {
       padding-top: 1.5rem;
       padding-bottom: 1rem;
+      overflow-wrap: anywhere;
 
       @media (max-width: 48em) {
         padding-top: 0;
@@ -376,15 +377,16 @@ const closeLightbox = async (index: number) => {
         }
       }
 
+      /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
       table {
         margin: 0;
+        overflow-wrap: normal;
         border-spacing: 0 0.5rem;
 
         th,
         td {
           text-align: left;
           padding: 0 min(1rem, 3vw);
-          overflow-wrap: anywhere;
         }
 
         th {
@@ -451,8 +453,8 @@ const closeLightbox = async (index: number) => {
     padding: 2rem 0 1rem;
 
     @media (max-width: 48em) {
-      grid-template-columns: auto 1fr auto;
-      gap: 0.5rem;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: min(0.5rem, 2vw);
     }
   }
 
@@ -460,6 +462,7 @@ const closeLightbox = async (index: number) => {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    min-height: var(--tap-target-size);
     padding: 0.75rem 1.25rem;
     color: rgb(var(--text));
     background-color: rgb(var(--surface));
@@ -484,7 +487,14 @@ const closeLightbox = async (index: number) => {
     }
 
     @media (max-width: 48em) {
-      padding: 0.75rem;
+      min-width: 0;
+      gap: min(0.5rem, 2vw);
+      padding: min(0.75rem, 3vw);
+
+      &.is-all {
+        white-space: normal;
+        text-align: center;
+      }
     }
 
     @media (hover: hover) {
