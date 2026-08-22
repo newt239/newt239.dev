@@ -382,7 +382,6 @@ ul {
   transition: none;
 }
 
-/* 実 DOM と同じく、ライトボックスはヘッダーより手前に置く */
 ::view-transition-group(lightbox-overlay) {
   z-index: 20;
 }
@@ -417,7 +416,6 @@ ul {
   z-index: 1;
 }
 
-/* 遷移しているカードだけを、動かない他のカードより前面に出す。カードの中の重なりは上の段と同じ順序を保つ */
 ::view-transition-group(.active-card) {
   z-index: 2;
 }
@@ -440,7 +438,6 @@ ul {
 }
 
 /* ヘッダーは遷移中も居続けるので、ルートのクロスフェードから外して new だけを出す */
-/* 疑似要素ツリーの重なりは z-index だけで決まるため、カード類より確実に上へ置く */
 ::view-transition-group(site-header) {
   z-index: 10;
 }
