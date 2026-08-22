@@ -153,6 +153,11 @@
   --theme-transition-duration: 0.6s;
   --theme-transition-easing: ease;
   --header-icon-size: clamp(28px, 10vw, 56px);
+  --wordmark-font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
+  --header-height: calc(
+    max(var(--header-icon-size), var(--wordmark-font-size) * var(--line-height-body)) + 1.5rem +
+      var(--border-width-hairline)
+  );
   --header-icon-catch-up-duration: 0.4s;
   --header-icon-catch-up-easing: var(--transition-easing);
   --header-icon-spin-turns: 1turn;
@@ -216,6 +221,8 @@ a, button, input {
 html {
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
+  /* フォーカス移動とページ内リンクの着地点がスティッキーヘッダーの裏に入らないようにする */
+  scroll-padding-top: var(--header-height);
 }
 
 /* palt が指定されていると text-spacing-trim の used value が none になるため、対応環境では palt を外す */

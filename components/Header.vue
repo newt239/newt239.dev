@@ -145,7 +145,7 @@ header {
       .wordmark {
         margin: 0;
         min-width: 0;
-        font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
+        font-size: var(--wordmark-font-size);
         font-weight: 800;
       }
 
