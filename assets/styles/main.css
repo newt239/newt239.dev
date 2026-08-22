@@ -1,3 +1,9 @@
+@property --text-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
 @property --radius-scale {
   syntax: "<number>";
   inherits: true;
@@ -94,6 +100,8 @@
 :root {
   color-scheme: light;
   interpolate-size: allow-keywords;
+  --text-scale: env(preferred-text-scale, 1);
+  font-size: calc(100% * var(--text-scale));
   --text: 48 42 37;
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;
@@ -219,7 +227,6 @@ body {
   margin: 0;
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
-  font-size: 16px;
   line-height: var(--line-height-body);
   font-family: var(--font-family), var(--font-fallback);
   cursor: default;

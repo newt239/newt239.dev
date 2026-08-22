@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       title: "newt239.dev",
       meta: [
         { name: "theme-color", content: "#0099ff" },
+        { name: "text-scale", content: "scale" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239.dev" },
         { property: "og:title", content: "newt239.dev" },
