@@ -225,46 +225,46 @@ function onPointerUp() {
         <button class="lightbox-close" aria-label="閉じる" @click="close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
         </button>
-        <template v-if="hasMultiple">
-          <button class="lightbox-nav lightbox-nav-prev" aria-label="前の画像" @click="prev">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-          </button>
-          <button class="lightbox-nav lightbox-nav-next" aria-label="次の画像" @click="next">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-          </button>
-        </template>
         <div class="lightbox-bottom-bar">
           <div v-if="hasMultiple" class="lightbox-counter">
             {{ currentIndex + 1 }} / {{ images.length }}
           </div>
-          <div role="toolbar" aria-label="ズーム操作" class="lightbox-zoom-controls">
-            <button
-              class="lightbox-zoom-btn"
-              :aria-label="'縮小'"
-              :aria-disabled="!canZoomOut"
-              :disabled="!canZoomOut"
-              @click="zoomOut"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+          <div class="lightbox-controls">
+            <button v-if="hasMultiple" class="lightbox-btn" aria-label="前の画像" @click="prev">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
             </button>
-            <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
-            <button
-              class="lightbox-zoom-btn"
-              :aria-label="'拡大'"
-              :aria-disabled="!canZoomIn"
-              :disabled="!canZoomIn"
-              @click="zoomIn"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-            </button>
-            <button
-              class="lightbox-zoom-btn lightbox-zoom-reset"
-              aria-label="ズームをリセット"
-              :aria-disabled="!canReset"
-              :disabled="!canReset"
-              @click="resetZoom"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+            <div role="toolbar" aria-label="ズーム操作" class="lightbox-zoom-controls">
+              <button
+                class="lightbox-btn"
+                aria-label="縮小"
+                :aria-disabled="!canZoomOut"
+                :disabled="!canZoomOut"
+                @click="zoomOut"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              </button>
+              <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
+              <button
+                class="lightbox-btn"
+                aria-label="拡大"
+                :aria-disabled="!canZoomIn"
+                :disabled="!canZoomIn"
+                @click="zoomIn"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              </button>
+              <button
+                class="lightbox-btn"
+                aria-label="ズームをリセット"
+                :aria-disabled="!canReset"
+                :disabled="!canReset"
+                @click="resetZoom"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+              </button>
+            </div>
+            <button v-if="hasMultiple" class="lightbox-btn" aria-label="次の画像" @click="next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
             </button>
           </div>
         </div>
@@ -342,38 +342,6 @@ function onPointerUp() {
   }
 }
 
-.lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-round);
-  corner-shape: round;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-
-  @media (hover: hover) {
-    &:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-  }
-}
-
-.lightbox-nav-prev {
-  left: 1rem;
-}
-
-.lightbox-nav-next {
-  right: 1rem;
-}
-
 .lightbox-bottom-bar {
   position: absolute;
   bottom: 1.5rem;
@@ -396,21 +364,29 @@ function onPointerUp() {
   white-space: nowrap;
 }
 
+.lightbox-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 0.25rem;
+}
+
 .lightbox-zoom-controls {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-xl);
-  padding: 0.25rem;
 }
 
-.lightbox-zoom-btn {
+.lightbox-btn {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: none;
-  border-radius: var(--radius-round);
-  corner-shape: round;
+  border-radius: var(--radius-sm);
   width: 36px;
   height: 36px;
   display: flex;
