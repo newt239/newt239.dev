@@ -83,6 +83,7 @@ const years = computed(() => {
 
 .timeline-item {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 1rem;
   padding: 0.75rem 1.25rem;
@@ -133,7 +134,7 @@ const years = computed(() => {
   font-size: 0.875rem;
   color: rgb(var(--text-muted));
   white-space: nowrap;
-  min-width: 5rem;
+  min-width: min(5rem, 40%);
   flex-shrink: 0;
 }
 

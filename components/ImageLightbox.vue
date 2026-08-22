@@ -380,10 +380,13 @@ function onPointerUp() {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
   width: max-content;
   max-width: calc(100% - 2rem);
+  min-width: 0;
 }
 
 .lightbox-counter {

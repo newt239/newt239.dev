@@ -235,7 +235,7 @@ const closeLightbox = async (index: number) => {
 .each-work-page {
   .work {
     a {
-      word-break: break-all;
+      overflow-wrap: anywhere;
     }
 
     .work-hero {
@@ -383,7 +383,8 @@ const closeLightbox = async (index: number) => {
         th,
         td {
           text-align: left;
-          padding: 0 1rem;
+          padding: 0 min(1rem, 3vw);
+          overflow-wrap: anywhere;
         }
 
         th {
@@ -393,6 +394,7 @@ const closeLightbox = async (index: number) => {
 
       code {
         margin: 0;
+        overflow-wrap: anywhere;
         padding: 0.1em 0.35em;
         font-family: var(--font-mono);
         font-size: 0.9em;

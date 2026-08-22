@@ -250,11 +250,12 @@ const links = [
     .section-body {
       background: rgb(var(--surface));
       border-radius: var(--radius-md);
-      padding: 1rem 1.5rem;
+      padding: 1rem min(1.5rem, 5vw);
+      overflow-wrap: anywhere;
 
       ul {
         margin: 0;
-        padding-left: 1.25rem;
+        padding-left: min(1.25rem, 4vw);
       }
 
       li {

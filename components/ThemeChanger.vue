@@ -159,7 +159,7 @@ dialog {
     position: fixed;
     top: 50dvh;
     left: 50%;
-    padding: 2rem;
+    padding: min(2rem, 5vw);
     width: min(90%, 600px);
     border-radius: var(--radius-lg);
     color: rgb(var(--text));
@@ -244,7 +244,7 @@ dialog {
   font-size: 1.25rem;
   line-height: var(--line-height-tight);
   margin: 0 0 1.5rem;
-  padding-inline: 2rem;
+  padding-inline: min(2rem, 5%);
   text-align: center;
   text-wrap: balance;
 }
@@ -261,7 +261,7 @@ dialog {
   font-family: unset;
   font-size: var(--font-size-title);
   width: 100%;
-  height: 4rem;
+  min-height: 4rem;
   padding-left: 1rem;
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
@@ -278,7 +278,7 @@ dialog {
   position: absolute;
   right: 0;
   top: 0;
-  height: 4rem;
+  min-height: 4rem;
   padding: 0 1rem;
   background-color: rgb(var(--text));
   color: rgb(var(--bg));
@@ -371,13 +371,16 @@ dialog {
 
     #theme-changer-input {
       font-size: 1rem;
-      height: 2.5rem;
+      min-height: 2.5rem;
       padding-left: 0.5rem;
     }
 
     .theme-change-button {
+      position: static;
+      align-self: stretch;
+      justify-content: center;
       font-size: 1rem;
-      height: 2.5rem;
+      min-height: 2.5rem;
       padding: 0 0.5rem;
       gap: 0;
 

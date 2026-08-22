@@ -215,10 +215,12 @@ function onTouchEnd() {
 
 .carousel-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
   padding-top: 0.75rem;
+  min-width: 0;
 }
 
 .carousel-nav-btn,
@@ -279,8 +281,11 @@ function onTouchEnd() {
 
 .carousel-pages {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
+  min-width: 0;
 }
 
 .carousel-page-btn.active {
