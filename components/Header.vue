@@ -143,11 +143,12 @@ header {
 
       .wordmark {
         margin: 0;
+        min-width: 0;
         font-size: clamp(1rem, 0.25rem + 7vw, 2rem);
         font-weight: 800;
       }
 
-      @container (max-width: 14rem) {
+      @container (max-width: 15em) {
         .logo-icon {
           display: none;
         }
