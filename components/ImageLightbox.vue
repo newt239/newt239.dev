@@ -433,7 +433,7 @@ function onPointerUp() {
 
 .lightbox-counter {
   padding-inline: 0.5rem;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-variant-numeric: tabular-nums;
   color: rgb(255 255 255 / 90%);
   white-space: nowrap;
@@ -491,7 +491,7 @@ function onPointerUp() {
 
 .lightbox-zoom-level {
   min-width: 3.5rem;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
   color: rgb(255 255 255 / 85%);
   text-align: center;

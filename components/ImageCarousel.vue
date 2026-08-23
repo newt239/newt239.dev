@@ -278,7 +278,7 @@ function onTouchEnd() {
   min-width: var(--tap-target-size);
   min-height: var(--tap-target-size);
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-variant-numeric: tabular-nums;
   color: rgb(var(--text));
   cursor: pointer;
@@ -305,8 +305,8 @@ function onTouchEnd() {
 }
 
 .carousel-nav-btn {
-  gap: 0.375rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  padding: 0 1rem;
 
   svg {
     flex-shrink: 0;

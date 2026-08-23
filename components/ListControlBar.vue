@@ -87,9 +87,9 @@ const apply = async () => {
   gap: 0.5rem;
   align-items: center;
   min-height: var(--tap-target-size);
-  padding: 0 0.875rem;
+  padding: 0 1rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgb(var(--text));
   cursor: pointer;
   background: rgb(var(--surface));
@@ -184,14 +184,14 @@ const apply = async () => {
 
 .control-label {
   flex-shrink: 0;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(var(--text-muted));
 }
 
 .filter-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
   min-width: 0;
 }
@@ -218,7 +218,7 @@ const apply = async () => {
 
 .control-actions {
   display: flex;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
 
   @media (width <= 37.5rem) {
@@ -229,12 +229,12 @@ const apply = async () => {
 
 .control-button {
   display: inline-flex;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
   min-height: var(--tap-target-size);
-  padding: 0 0.875rem;
+  padding: 0 1rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgb(var(--text));
   white-space: nowrap;
   cursor: pointer;

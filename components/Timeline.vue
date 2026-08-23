@@ -142,7 +142,7 @@ const years = computed(() => {
 .item-term {
   flex-shrink: 0;
   min-width: min(5rem, 40%);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(var(--text-muted));
   white-space: nowrap;
 }
@@ -171,7 +171,7 @@ const years = computed(() => {
 
 .item-description {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: var(--line-height-tight);
   color: rgb(var(--text-muted));
 }

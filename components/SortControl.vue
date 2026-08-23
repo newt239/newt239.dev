@@ -50,12 +50,12 @@ function setSort(asc: boolean) {
 
 .sort-segment {
   display: inline-flex;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
   min-height: var(--tap-target-size);
-  padding: 0 min(0.875rem, 3vw);
+  padding: 0 min(1rem, 3vw);
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgb(var(--text));
   white-space: nowrap;
   cursor: pointer;

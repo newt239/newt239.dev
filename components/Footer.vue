@@ -68,9 +68,9 @@ footer {
 
   .footer-sitemap a {
     display: inline-flex;
-    gap: 0.4rem;
+    gap: 0.5rem;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .footer-bottom {
@@ -79,7 +79,7 @@ footer {
   }
 
   .copyright {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: rgb(var(--text-muted));
   }
 }

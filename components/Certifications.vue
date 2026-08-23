@@ -46,7 +46,7 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
 .item-term {
   flex-shrink: 0;
   min-width: min(6rem, 40%);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(var(--text-muted));
   white-space: nowrap;
 }

@@ -162,7 +162,7 @@ const profile: { text: string; lang?: string }[] = [
     gap: 0.25rem;
     align-items: center;
     padding: 0.5rem 1rem;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: 800;
     color: rgb(var(--bg));
     cursor: pointer;
@@ -190,7 +190,7 @@ const profile: { text: string; lang?: string }[] = [
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 1rem;
       font-weight: 800;
       color: rgb(var(--text));
       background: rgb(var(--surface));

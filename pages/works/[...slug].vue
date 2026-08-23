@@ -292,7 +292,7 @@ const closeLightbox = async (index: number) => {
 
       dt {
         margin-top: 0.75rem;
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         font-weight: 800;
         line-height: var(--line-height-tight);
         color: rgb(var(--text-muted));
@@ -311,13 +311,13 @@ const closeLightbox = async (index: number) => {
       .tech-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.375rem;
+        gap: 0.5rem;
         align-items: center;
       }
 
       .tech-tag {
         display: inline-block;
-        padding: 0.125rem 0.625rem;
+        padding: 0.25rem 0.75rem;
         font-size: 1rem;
         line-height: var(--line-height-tight);
         color: rgb(var(--text));
@@ -326,7 +326,7 @@ const closeLightbox = async (index: number) => {
 
         @supports (text-box-trim: trim-both) {
           text-box: trim-both text text;
-          padding-block: 0.375rem;
+          padding-block: 0.5rem;
         }
       }
     }
@@ -370,7 +370,7 @@ const closeLightbox = async (index: number) => {
 
       h3 {
         padding-left: 0;
-        font-size: 1.125rem;
+        font-size: 1.25rem;
       }
 
       h2 a {
@@ -539,7 +539,7 @@ const closeLightbox = async (index: number) => {
   }
 
   .work-nav-label {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     line-height: var(--line-height-tight);
     color: rgb(var(--text-muted));
   }

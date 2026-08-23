@@ -80,7 +80,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
   .track-body {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 0.25rem;
     align-items: flex-start;
     justify-content: flex-start;
     min-width: 0;
@@ -104,7 +104,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     margin: 0;
     overflow: hidden;
     -webkit-line-clamp: 1;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     line-height: var(--line-height-tight);
     color: rgb(var(--text-muted));
     overflow-wrap: anywhere;

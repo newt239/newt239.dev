@@ -90,12 +90,12 @@ const getSiteName = (url: string) => {
 
 .site-info {
   display: inline-flex;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
 }
 
 .site-name {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(var(--text-muted));
 }
 
@@ -123,7 +123,7 @@ const getSiteName = (url: string) => {
 }
 
 .article-date {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
   color: rgb(var(--text-muted));
 }

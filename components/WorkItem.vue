@@ -70,7 +70,7 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 0.375rem;
+  gap: 0.5rem;
   padding: 0.75rem 1rem 1rem;
 
   :is(h2, h3) {
@@ -105,7 +105,7 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
   margin: 0;
   overflow: hidden;
   -webkit-line-clamp: 2;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: var(--line-height-tight);
   color: rgb(var(--text-muted));
   -webkit-box-orient: vertical;

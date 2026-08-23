@@ -16,12 +16,12 @@ defineProps<{
 <style scoped>
 .filter-chip {
   display: inline-flex;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-items: center;
   min-height: var(--tap-target-size);
-  padding: 0 0.875rem;
+  padding: 0 1rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgb(var(--text));
   white-space: nowrap;
   cursor: pointer;

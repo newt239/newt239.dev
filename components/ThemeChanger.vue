@@ -398,7 +398,7 @@ dialog {
   }
 
   .modal-description {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .modal-message {
@@ -445,8 +445,8 @@ dialog {
 
     .tabler-icon-sparkles,
     .tabler-icon-loader-2 {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 }

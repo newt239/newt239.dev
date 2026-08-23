@@ -200,8 +200,8 @@ const links = [
         margin: 0;
 
         dt {
-          padding-top: 0.125rem;
-          font-size: 0.875rem;
+          padding-top: 0.25rem;
+          font-size: 0.75rem;
           font-weight: 800;
           color: rgb(var(--text-muted));
         }
@@ -286,7 +286,7 @@ const links = [
 
     .link-card {
       display: flex;
-      gap: 0.2rem;
+      gap: 0.25rem;
       align-items: center;
       padding: 0.75rem 1.5rem;
       font-weight: 800;

@@ -119,7 +119,7 @@ useSeoMeta({
 
   .last-updated {
     margin-top: 2rem;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     color: rgb(var(--text-muted));
     text-align: right;
   }
