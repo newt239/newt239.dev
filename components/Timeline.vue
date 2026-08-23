@@ -109,7 +109,7 @@ const years = computed(() => {
 
     /* 親の .year-items が overflow: hidden なので外側に描くとリングが完全に隠れる */
     &:focus-visible {
-      outline-offset: -2px;
+      outline-offset: calc(var(--focus-ring-offset) * -1);
     }
 
     .item-title {

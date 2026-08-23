@@ -101,6 +101,8 @@
   --surface-hover: 236 230 222;
   --border: 240 234 228;
   --focus-ring: 0 95 204;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
   --transition-duration: 0.2s;
   --transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --transition: all var(--transition-duration) var(--transition-easing);
@@ -194,17 +196,19 @@
   }
 }
 
-a, button, input {
+a, button, input, [tabindex]:not([tabindex="-1"]) {
   &:focus-visible{
-    outline: 2px solid rgb(var(--focus-ring));
-    outline-offset: 2px;
+    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline-offset: var(--focus-ring-offset);
   }
 }
 
 html {
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
-  scroll-padding-top: var(--header-height);
+  scroll-padding-top: calc(
+    var(--header-height) + var(--focus-ring-offset) + var(--focus-ring-width) + var(--border-width)
+  );
 }
 
 /* palt が指定されていると text-spacing-trim の used value が none になるため、対応環境では palt を外す */

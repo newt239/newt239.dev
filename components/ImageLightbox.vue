@@ -356,8 +356,8 @@ function onPointerUp() {
 
 .lightbox-close:focus-visible,
 .lightbox-btn:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid currentColor;
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */

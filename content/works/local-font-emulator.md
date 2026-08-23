@@ -12,11 +12,11 @@ images:
 
 ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができるWebアプリです。
 
-※ ブラウザの <a href="https://developer.mozilla.org/en-US/docs/Web/API/Local_Font_Access_API" target="_blank">`Local Font Access API`</a> を利用しているため、デスクトップ版のGoogle Chromeでのみ利用できます。
+※ ブラウザの <a href="https://developer.mozilla.org/en-US/docs/Web/API/Local_Font_Access_API" target="_blank" rel="noopener noreferrer">`Local Font Access API`</a> を利用しているため、デスクトップ版のGoogle Chromeでのみ利用できます。
 
 ## リンク
 
-- <a href="https://newt239.github.io/local-font-emulator/" target="_blank">Local Font Emulator</a>
+- <a href="https://newt239.github.io/local-font-emulator/" target="_blank" rel="noopener noreferrer">Local Font Emulator</a>
 
 ## 機能について
 

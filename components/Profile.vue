@@ -4,11 +4,11 @@ import dayjs from "dayjs";
 
 const age = dayjs().diff(dayjs("2005-11-02"), "year");
 
-const profile: string[] = [
-  `${age}yo`,
-  "すきなもの: Webフロントエンド, UI/UX",
-  "言語: TypeScript",
-  "趣味: アニメ, ボカロ, 旅行, カメラ",
+const profile: { text: string; lang?: string }[] = [
+  { text: `${age}yo`, lang: "en" },
+  { text: "すきなもの: Webフロントエンド, UI/UX" },
+  { text: "言語: TypeScript" },
+  { text: "趣味: アニメ, ボカロ, 旅行, カメラ" },
 ];
 </script>
 
@@ -18,8 +18,8 @@ const profile: string[] = [
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <ul>
-          <li v-for="item in profile" :key="item">
-            {{ item }}
+          <li v-for="item in profile" :key="item.text" :lang="item.lang">
+            {{ item.text }}
           </li>
         </ul>
       </div>

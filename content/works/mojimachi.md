@@ -23,4 +23,4 @@ images:
 
 ## インストール
 
-GitHubの<a href="https://github.com/newt239/mojimachi/releases" target="_blank">Releases</a>ページからインストーラーをダウンロードできます。
+GitHubの<a href="https://github.com/newt239/mojimachi/releases" target="_blank" rel="noopener noreferrer">Releases</a>ページからインストーラーをダウンロードできます。

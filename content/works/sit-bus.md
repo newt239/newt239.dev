@@ -15,4 +15,4 @@ images:
 
 大学が学バス時刻表サイトにて提供している情報を取得し、現在時刻をもとに次のバスの時間を計算しています。
 
-- <a href="https://sit-bus.vercel.app/" target="_blank">SIT Bus</a>
+- <a href="https://sit-bus.vercel.app/" target="_blank" rel="noopener noreferrer">SIT Bus</a>
