@@ -18,23 +18,23 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
 
 <style scoped>
 .certification-list {
+  container-type: inline-size;
+  overflow: hidden;
   background: rgb(var(--surface));
   border-radius: var(--radius-md);
-  overflow: hidden;
-  container-type: inline-size;
 }
 
 .certification-item {
   display: flex;
-  align-items: baseline;
   gap: 1rem;
+  align-items: baseline;
   padding: 0.75rem 1.25rem;
 
   @container (max-width: 16em) {
     & {
       flex-direction: column;
-      align-items: stretch;
       gap: 0.25rem;
+      align-items: stretch;
     }
   }
 
@@ -44,18 +44,18 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
 }
 
 .item-term {
+  flex-shrink: 0;
+  min-width: min(6rem, 40%);
   font-size: 0.875rem;
   color: rgb(var(--text-muted));
   white-space: nowrap;
-  min-width: min(6rem, 40%);
-  flex-shrink: 0;
 }
 
 .item-title {
   min-width: 0;
-  overflow-wrap: anywhere;
-  font-weight: 600;
   font-size: 1rem;
+  font-weight: 600;
   line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
 }
 </style>

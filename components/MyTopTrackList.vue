@@ -39,19 +39,19 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
 .my-top-track-list {
   .track-grid {
     display: grid;
-    gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+    gap: 1rem;
   }
 
   .track-card {
     display: flex;
     gap: 0.75rem;
     padding: 0.75rem;
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-md);
-    background: rgb(var(--surface));
     color: rgb(var(--text));
     text-decoration: none;
+    background: rgb(var(--surface));
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
     transition: var(--transition);
 
     @media (hover: hover) {
@@ -68,47 +68,47 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
   }
 
   .track-thumbnail {
+    flex-shrink: 0;
     width: 80px;
     height: 80px;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-    flex-shrink: 0;
-    user-select: none;
     pointer-events: none;
+    user-select: none;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
   }
 
   .track-body {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
-    min-width: 0;
-    justify-content: flex-start;
     align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .track-name {
-    margin: 0;
+    display: -webkit-box;
     padding: 0;
-    overflow-wrap: anywhere;
+    margin: 0;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
     font-size: 1rem;
     font-weight: 700;
     line-height: var(--line-height-tight);
-    display: -webkit-box;
+    overflow-wrap: anywhere;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
   }
 
   .track-artists {
-    margin: 0;
-    overflow-wrap: anywhere;
-    font-size: 0.875rem;
-    color: rgb(var(--text-muted));
-    line-height: var(--line-height-tight);
     display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    margin: 0;
     overflow: hidden;
+    -webkit-line-clamp: 1;
+    font-size: 0.875rem;
+    line-height: var(--line-height-tight);
+    color: rgb(var(--text-muted));
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
   }
 }
 </style>

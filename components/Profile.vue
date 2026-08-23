@@ -77,52 +77,52 @@ const profile: { text: string; lang?: string }[] = [
 .profile {
   display: flex;
   flex-direction: row;
+  gap: 1rem;
   justify-content: space-between;
   width: 100%;
-  gap: 1rem;
 
-  @media screen and (max-width: 43.75rem) {
+  @media screen and (width <= 43.75rem) {
     flex-direction: column;
   }
 
   .top-card {
-    display: flex;
     position: relative;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 1rem;
+    justify-content: space-between;
     width: 70%;
+    color: rgb(var(--bg));
     background-color: rgb(var(--text));
     background-image: radial-gradient(
         ellipse 90% 125% at 88% 6%,
-        rgb(var(--text-muted) / 0.95) 0%,
-        rgb(var(--text-muted) / 0.6) 28%,
-        rgb(var(--text-muted) / 0.25) 52%,
-        rgb(var(--text-muted) / 0.07) 68%,
-        rgb(var(--text-muted) / 0) 82%
+        rgb(var(--text-muted) / 95%) 0%,
+        rgb(var(--text-muted) / 60%) 28%,
+        rgb(var(--text-muted) / 25%) 52%,
+        rgb(var(--text-muted) / 7%) 68%,
+        rgb(var(--text-muted) / 0%) 82%
       ),
       radial-gradient(
         ellipse 75% 105% at 6% 98%,
-        rgb(var(--text-muted) / 0.6) 0%,
-        rgb(var(--text-muted) / 0.3) 34%,
-        rgb(var(--text-muted) / 0.08) 58%,
-        rgb(var(--text-muted) / 0) 76%
+        rgb(var(--text-muted) / 60%) 0%,
+        rgb(var(--text-muted) / 30%) 34%,
+        rgb(var(--text-muted) / 8%) 58%,
+        rgb(var(--text-muted) / 0%) 76%
       ),
       radial-gradient(
         ellipse 65% 85% at 52% 44%,
-        rgb(var(--text-muted) / 0.32) 0%,
-        rgb(var(--text-muted) / 0.12) 45%,
-        rgb(var(--text-muted) / 0) 74%
+        rgb(var(--text-muted) / 32%) 0%,
+        rgb(var(--text-muted) / 12%) 45%,
+        rgb(var(--text-muted) / 0%) 74%
       );
-    color: rgb(var(--bg));
     border-radius: var(--radius-md);
     transition: var(--transition);
 
     @media (hover: hover) {
       &:hover {
         .more-detail-button {
-          background-color: rgb(var(--bg));
           color: rgb(var(--text));
+          background-color: rgb(var(--bg));
         }
       }
     }
@@ -130,8 +130,8 @@ const profile: { text: string; lang?: string }[] = [
     @media (hover: none) {
       &:active {
         .more-detail-button {
-          background-color: rgb(var(--bg));
           color: rgb(var(--text));
+          background-color: rgb(var(--bg));
         }
       }
     }
@@ -140,7 +140,7 @@ const profile: { text: string; lang?: string }[] = [
       padding: 0 0 1rem;
     }
 
-    @media screen and (max-width: 43.75rem) {
+    @media screen and (width <= 43.75rem) {
       width: 100%;
     }
   }
@@ -149,59 +149,59 @@ const profile: { text: string; lang?: string }[] = [
     margin: 3vh min(3vh, 5vw) 5rem;
 
     ul {
-      line-height: var(--line-height-body);
       margin: 0;
+      line-height: var(--line-height-body);
     }
   }
 
   .more-detail-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
     position: absolute;
-    bottom: 1rem;
     right: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
     padding: 0.5rem 1rem;
-    border: var(--border-width) solid rgb(var(--bg));
-    border-radius: var(--radius-pill);
-    cursor: pointer;
-    transition: var(--transition);
     font-size: 0.9375rem;
     font-weight: 600;
     color: rgb(var(--bg));
+    cursor: pointer;
+    border: var(--border-width) solid rgb(var(--bg));
+    border-radius: var(--radius-pill);
+    transition: var(--transition);
   }
 
   .sns-links {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 1rem;
+    justify-content: space-between;
     width: 30%;
     font-size: 1rem;
 
-    @media screen and (max-width: 43.75rem) {
-      width: 100%;
+    @media screen and (width <= 43.75rem) {
       display: grid;
-      gap: 0.75rem;
       grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
+      gap: 0.75rem;
+      width: 100%;
     }
 
     .sns-card {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      font-weight: 800;
       color: rgb(var(--text));
       background: rgb(var(--surface));
       border: var(--border-width) solid transparent;
       border-radius: var(--radius-md);
-      padding: 0.6rem 1rem;
       transition: var(--transition);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      font-weight: 800;
 
       @media (hover: hover) {
         &:hover {
-          border-color: rgb(var(--text));
           text-decoration: none;
+          border-color: rgb(var(--text));
         }
       }
 

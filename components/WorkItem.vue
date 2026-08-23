@@ -32,15 +32,15 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
 
 <style scoped>
 .work-card {
-  view-transition-class: list-card;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   color: rgb(var(--text));
+  background: rgb(var(--surface));
   border: var(--border-width) solid transparent;
   border-radius: var(--radius-md);
-  overflow: hidden;
-  background: rgb(var(--surface));
   transition: var(--transition);
+  view-transition-class: list-card;
 
   @media (hover: hover) {
     &:hover {
@@ -56,34 +56,34 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
 }
 
 .work-card-thumbnail {
-  view-transition-class: work-thumb;
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  -webkit-touch-callout: none;
   pointer-events: none;
+  object-fit: cover;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  view-transition-class: work-thumb;
+  -webkit-touch-callout: none;
 }
 
 .work-card-body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 0.375rem;
   padding: 0.75rem 1rem 1rem;
-  flex: 1;
 
   :is(h2, h3) {
-    view-transition-class: list-title;
     width: auto;
-    font-weight: 700;
-    text-box: normal;
-    margin: 0;
     padding: 0;
+    margin: 0;
     font-size: 1.25rem;
+    font-weight: 700;
     line-height: var(--line-height-tight);
     color: rgb(var(--text));
     overflow-wrap: anywhere;
+    view-transition-class: list-title;
+    text-box: normal;
   }
 }
 
@@ -100,15 +100,15 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
 }
 
 .work-card-description {
+  display: -webkit-box;
+  flex: 1;
   margin: 0;
-  color: rgb(var(--text-muted));
+  overflow: hidden;
+  -webkit-line-clamp: 2;
   font-size: 0.9375rem;
   line-height: var(--line-height-tight);
-  display: -webkit-box;
+  color: rgb(var(--text-muted));
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  flex: 1;
 }
 
 </style>

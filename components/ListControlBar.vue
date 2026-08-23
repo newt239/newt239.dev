@@ -84,17 +84,17 @@ const apply = async () => {
 
 .list-controls-toggle {
   display: inline-flex;
-  align-items: center;
   gap: 0.5rem;
+  align-items: center;
   min-height: var(--tap-target-size);
   padding: 0 0.875rem;
   font-family: inherit;
   font-size: 0.875rem;
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  background: rgb(var(--surface));
   color: rgb(var(--text));
   cursor: pointer;
+  background: rgb(var(--surface));
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
   transition: var(--transition);
 
   @media (hover: hover) {
@@ -111,22 +111,21 @@ const apply = async () => {
 }
 
 .list-controls-panel {
-  grid-column: 1 / -1;
-  justify-self: end;
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
+  visibility: hidden;
   flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 1.25rem;
+  align-items: center;
+  justify-self: end;
   max-width: 100%;
+  height: 0;
+  padding-block: 0;
   padding-inline: 0.75rem;
+  margin-block-start: 0;
+  overflow: hidden;
   border: var(--border-width) solid rgb(var(--surface));
   border-radius: var(--radius-md);
-  overflow: hidden;
-  visibility: hidden;
-  height: 0;
-  margin-block-start: 0;
-  padding-block: 0;
-  border-block-width: 0;
   opacity: 0;
   translate: 0 -0.25rem;
   transition:
@@ -137,24 +136,24 @@ const apply = async () => {
     opacity var(--transition-duration) var(--transition-easing),
     translate var(--transition-duration) var(--transition-easing),
     visibility var(--transition-duration);
+  border-block-width: 0;
 
   &.is-open {
     visibility: visible;
     height: auto;
-    margin-block-start: var(--list-header-row-gap);
     padding-block: 0.5rem;
-    border-block-width: var(--border-width);
+    margin-block-start: var(--list-header-row-gap);
     opacity: 1;
     translate: 0 0;
+    border-block-width: var(--border-width);
   }
 
-  @media (max-width: 37.5rem) {
+  @media (width <= 37.5rem) {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: 0.5rem;
-    row-gap: 0.75rem;
-    justify-self: stretch;
+    gap: 0.75rem 0.5rem;
     align-items: center;
+    justify-self: stretch;
 
     @container (max-width: 16em) {
       & {
@@ -171,58 +170,58 @@ const apply = async () => {
 
 .control-row {
   display: flex;
-  align-items: center;
   gap: 0.5rem;
+  align-items: center;
   min-width: 0;
 
-  @media (max-width: 37.5rem) {
+  @media (width <= 37.5rem) {
     display: grid;
-    grid-column: 1 / -1;
     grid-template-columns: subgrid;
+    grid-column: 1 / -1;
     align-items: center;
   }
 }
 
 .control-label {
+  flex-shrink: 0;
   font-size: 0.875rem;
   color: rgb(var(--text-muted));
-  flex-shrink: 0;
 }
 
 .filter-chips {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 0.375rem;
+  align-items: center;
   min-width: 0;
 }
 
-@media (max-width: 37.5rem) {
+@media (width <= 37.5rem) {
   .sort-row :deep(.sort-segmented) {
     justify-self: start;
   }
 }
 
 .control-divider {
+  flex-shrink: 0;
   align-self: stretch;
   border-left: var(--border-width) solid rgb(var(--surface));
-  flex-shrink: 0;
 
-  @media (max-width: 37.5rem) {
+  @media (width <= 37.5rem) {
     grid-column: 1 / -1;
     align-self: auto;
     width: 100%;
-    border-left: none;
     border-top: var(--border-width) solid rgb(var(--surface));
+    border-left: none;
   }
 }
 
 .control-actions {
   display: flex;
-  align-items: center;
   gap: 0.375rem;
+  align-items: center;
 
-  @media (max-width: 37.5rem) {
+  @media (width <= 37.5rem) {
     grid-column: 1 / -1;
     justify-content: flex-end;
   }
@@ -230,19 +229,19 @@ const apply = async () => {
 
 .control-button {
   display: inline-flex;
-  align-items: center;
   gap: 0.375rem;
+  align-items: center;
   min-height: var(--tap-target-size);
   padding: 0 0.875rem;
   font-family: inherit;
   font-size: 0.875rem;
+  color: rgb(var(--text));
+  white-space: nowrap;
+  cursor: pointer;
+  background: rgb(var(--surface));
   border: none;
   border-radius: var(--radius-sm);
-  background: rgb(var(--surface));
-  color: rgb(var(--text));
-  cursor: pointer;
   transition: var(--transition);
-  white-space: nowrap;
 
   @media (hover: hover) {
     &:not(:disabled):hover {
@@ -251,9 +250,9 @@ const apply = async () => {
   }
 
   &.primary {
-    background: rgb(var(--text));
-    color: rgb(var(--bg));
     font-weight: 700;
+    color: rgb(var(--bg));
+    background: rgb(var(--text));
 
     @media (hover: hover) {
       &:not(:disabled):hover {
@@ -264,9 +263,9 @@ const apply = async () => {
   }
 
   &:disabled {
-    background: rgb(var(--surface));
     color: rgb(var(--text-faint));
     cursor: default;
+    background: rgb(var(--surface));
   }
 }
 </style>

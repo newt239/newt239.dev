@@ -62,19 +62,19 @@ useSeoMeta({
 <style scoped>
 .privacy-page {
   max-width: 800px;
-  margin: 0 auto;
   padding: 2rem;
+  margin: 0 auto;
   line-height: var(--line-height-body);
   overflow-wrap: anywhere;
 
   > h1 {
-    font-size: var(--font-size-title);
     margin-bottom: 0.5rem;
+    font-size: var(--font-size-title);
   }
 
   .privacy-intro {
-    color: rgb(var(--text-muted));
     margin-bottom: 2rem;
+    color: rgb(var(--text-muted));
   }
 
   .privacy-sections {
@@ -86,17 +86,17 @@ useSeoMeta({
   .privacy-section {
     h2 {
       width: auto;
-      font-weight: 700;
-      text-box: normal;
-      font-size: 1.5rem;
       padding: 0 0 0.5rem;
       margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-box: normal;
     }
 
     .section-body {
+      padding: 1rem 1.5rem;
       background: rgb(var(--surface));
       border-radius: var(--radius-md);
-      padding: 1rem 1.5rem;
 
       p {
         margin: 0 0 0.75rem;
@@ -107,8 +107,8 @@ useSeoMeta({
       }
 
       ul {
-        margin: 0;
         padding-left: 1.25rem;
+        margin: 0;
       }
 
       li {
@@ -118,10 +118,10 @@ useSeoMeta({
   }
 
   .last-updated {
-    text-align: right;
-    color: rgb(var(--text-muted));
-    font-size: 0.9375rem;
     margin-top: 2rem;
+    font-size: 0.9375rem;
+    color: rgb(var(--text-muted));
+    text-align: right;
   }
 }
 </style>

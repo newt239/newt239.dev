@@ -35,21 +35,21 @@ const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).s
 
   .article-grid {
     display: grid;
-    gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+    gap: 1rem;
   }
 
   .see-all-articles {
     display: grid;
     grid-row: span 2;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100%;
     padding: 1rem 0;
+    color: rgb(var(--text));
+    background: rgb(var(--surface));
     border: var(--border-width) solid transparent;
     border-radius: var(--radius-md);
-    background: rgb(var(--surface));
-    color: rgb(var(--text));
     transition: var(--transition);
 
     @media (hover: hover) {

@@ -50,18 +50,18 @@ function setSort(asc: boolean) {
 
 .sort-segment {
   display: inline-flex;
-  align-items: center;
   gap: 0.375rem;
+  align-items: center;
   min-height: var(--tap-target-size);
   padding: 0 min(0.875rem, 3vw);
   font-family: inherit;
   font-size: 0.875rem;
-  border: none;
-  background: transparent;
   color: rgb(var(--text));
-  cursor: pointer;
-  transition: var(--transition);
   white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: var(--transition);
 
   &:first-child {
     border-start-start-radius: var(--radius-sm);
@@ -84,9 +84,9 @@ function setSort(asc: boolean) {
   }
 
   &.active {
-    background: rgb(var(--text));
-    color: rgb(var(--bg));
     font-weight: 700;
+    color: rgb(var(--bg));
+    background: rgb(var(--text));
   }
 
   .sort-segment-icon {

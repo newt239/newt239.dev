@@ -86,10 +86,16 @@
 }
 
 :root {
-  color-scheme: light;
-  interpolate-size: allow-keywords;
-  --text-scale: env(preferred-text-scale, 1);
   font-size: calc(100% * var(--text-scale));
+  color-scheme: light;
+  transition-timing-function: var(--theme-transition-easing);
+  transition-duration: var(--theme-transition-duration);
+  transition-property:
+    --text, --text-muted, --text-faint, --bg, --accent, --accent-dark, --highlight, --surface,
+    --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
+  interpolate-size: allow-keywords;
+
+  --text-scale: env(preferred-text-scale, 1);
   --text: 48 42 37;
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;
@@ -151,11 +157,6 @@
   --header-icon-spin-turns: 1turn;
   --header-icon-spin-easing: linear;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
-  transition-property:
-    --text, --text-muted, --text-faint, --bg, --accent, --accent-dark, --highlight, --surface,
-    --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
-  transition-duration: var(--theme-transition-duration);
-  transition-timing-function: var(--theme-transition-easing);
 }
 
 @media (display-mode: standalone) {
@@ -175,18 +176,17 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
+
     transition: none;
   }
 }
 
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 
   &::selection {
-    background-color: rgb(var(--text));
     color: rgb(var(--bg));
+    background-color: rgb(var(--text));
   }
 }
 
@@ -221,25 +221,25 @@ html {
 
 body {
   margin: 0;
-  color: rgb(var(--text));
-  background-color: rgb(var(--bg));
-  line-height: var(--line-height-body);
   font-family: var(--font-family), var(--font-fallback);
+  line-height: var(--line-height-body);
+  color: rgb(var(--text));
   cursor: default;
+  background-color: rgb(var(--bg));
 }
 
 h1,
 h2,
 .category-name {
+  width: fit-content;
+  padding: 1rem 0 0.5rem;
+  margin: 0;
   font-size: var(--font-size-display);
   font-weight: 800;
   line-height: var(--line-height-heading);
-  padding: 1rem 0 0.5rem;
-  margin: 0px;
-  width: fit-content;
-  overflow-wrap: anywhere;
-  word-break: auto-phrase;
   hyphens: auto;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
 }
 
 /* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
@@ -267,27 +267,30 @@ h2,
 
 @keyframes heading-color-wave {
   0% {
-    color: rgb(var(--accent) / 0);
+    color: rgb(var(--accent) / 0%);
   }
+
   40% {
     color: rgb(var(--highlight));
   }
+
   70% {
     color: rgb(var(--accent-dark));
   }
+
   100% {
     color: inherit;
   }
 }
 
 h3 {
+  padding: 1rem 1rem 0;
+  margin: 0;
   font-size: 1.5rem;
   line-height: var(--line-height-heading);
-  padding: 1rem 1rem 0;
-  margin: 0px;
-  overflow-wrap: anywhere;
-  word-break: auto-phrase;
   hyphens: auto;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
 }
 
 h4 {
@@ -295,9 +298,9 @@ h4 {
   margin: 0;
   font-size: 1.125rem;
   line-height: var(--line-height-heading);
-  overflow-wrap: anywhere;
-  word-break: auto-phrase;
   hyphens: auto;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
 }
 
 a {
@@ -307,8 +310,8 @@ a {
 .underline, p a, li a, table a {
   color: rgb(var(--accent));
   text-decoration: underline;
-  text-underline-offset: 0.25rem;
   text-decoration-style: dashed;
+  text-underline-offset: 0.25rem;
   transition: var(--transition);
 
   @media (hover: hover) {
@@ -324,15 +327,15 @@ a {
   }
 }
 
-.underline[href^="http"]:not([href*="newt239.dev"]):not(:has(svg))::after,
-:is(p, li, table) a[href^="http"]:not([href*="newt239.dev"]):not(:has(svg))::after {
-  content: "";
+.underline[href^="http"]:not([href*="newt239.dev"], :has(svg))::after,
+:is(p, li, table) a[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
   display: inline-block;
   width: 0.85em;
   height: 0.85em;
   margin-left: 0.15em;
   vertical-align: -0.1em;
-  background-color: currentColor;
+  content: "";
+  background-color: currentcolor;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
   -webkit-mask-repeat: no-repeat;
@@ -347,8 +350,8 @@ ul {
 
 .container {
   max-width: var(--container-max-width);
-  margin: 0 auto;
   padding: var(--container-padding-inline);
+  margin: 0 auto;
 }
 
 .tabler-icon {
@@ -364,12 +367,12 @@ ul {
   position: absolute;
   width: 1px;
   height: 1px;
-  margin: -1px;
   padding: 0;
-  border: 0;
+  margin: -1px;
   overflow: hidden;
-  clip-path: inset(50%);
   white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
 }
 
 ::view-transition-group(*),
@@ -427,15 +430,15 @@ ul {
 }
 
 ::view-transition-old(.work-thumb) {
-  animation-name: none;
   mix-blend-mode: normal;
   opacity: 0;
+  animation-name: none;
 }
 
 ::view-transition-new(.work-thumb) {
-  animation-name: none;
   mix-blend-mode: normal;
   opacity: 1;
+  animation-name: none;
 }
 
 /* ヘッダーは遷移中も居続けるので、ルートのクロスフェードから外して new だけを出す */
@@ -444,15 +447,15 @@ ul {
 }
 
 ::view-transition-old(site-header) {
-  animation-name: none;
   mix-blend-mode: normal;
   opacity: 0;
+  animation-name: none;
 }
 
 ::view-transition-new(site-header) {
-  animation-name: none;
   mix-blend-mode: normal;
   opacity: 1;
+  animation-name: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -18,9 +18,9 @@ import { IconChevronLeft } from "@tabler/icons-vue";
 
   .back {
     display: inline-flex;
+    gap: 0.25rem;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
     width: 100%;
     max-width: 320px;
     padding: 0.75rem 1.5rem;
@@ -32,8 +32,8 @@ import { IconChevronLeft } from "@tabler/icons-vue";
 
     @media (hover: hover) {
       &:hover {
-        border-color: rgb(var(--text));
         color: rgb(var(--text));
+        border-color: rgb(var(--text));
       }
     }
 

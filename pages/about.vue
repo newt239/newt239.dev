@@ -164,25 +164,25 @@ const links = [
 
   .about-hero {
     display: flex;
+    gap: 2rem;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
     padding: 2rem 0;
 
-    @media screen and (max-width: 37.5rem) {
+    @media screen and (width <= 37.5rem) {
       flex-direction: column;
       align-items: center;
     }
 
     .profile-icon {
+      flex-shrink: 0;
       width: 160px;
       height: 160px;
+      object-fit: cover;
       border-radius: var(--radius-round);
       corner-shape: round;
-      object-fit: cover;
-      flex-shrink: 0;
 
-      @media screen and (max-width: 37.5rem) {
+      @media screen and (width <= 37.5rem) {
         align-self: center;
       }
     }
@@ -193,17 +193,17 @@ const links = [
       }
 
       .basic-info {
-        margin: 0;
-        padding: 0;
         display: grid;
         grid-template-columns: auto 1fr;
         gap: 0.25rem 1rem;
+        padding: 0;
+        margin: 0;
 
         dt {
-          font-weight: 700;
-          font-size: 0.875rem;
-          color: rgb(var(--text-muted));
           padding-top: 0.125rem;
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: rgb(var(--text-muted));
         }
 
         dd {
@@ -212,7 +212,7 @@ const links = [
         }
       }
 
-      @media screen and (max-width: 37.5rem) {
+      @media screen and (width <= 37.5rem) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -237,11 +237,11 @@ const links = [
   .about-section {
     h2 {
       width: auto;
-      font-weight: 700;
-      text-box: normal;
-      font-size: 1.5rem;
       padding: 0 0 0.5rem;
       margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-box: normal;
     }
 
     h3 {
@@ -251,14 +251,14 @@ const links = [
     }
 
     .section-body {
-      background: rgb(var(--surface));
-      border-radius: var(--radius-md);
       padding: 1rem min(1.5rem, 5vw);
       overflow-wrap: anywhere;
+      background: rgb(var(--surface));
+      border-radius: var(--radius-md);
 
       ul {
-        margin: 0;
         padding-left: min(1.25rem, 4vw);
+        margin: 0;
       }
 
       li {
@@ -286,20 +286,20 @@ const links = [
 
     .link-card {
       display: flex;
-      align-items: center;
       gap: 0.2rem;
+      align-items: center;
       padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      color: rgb(var(--accent));
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 0.25rem;
+      transition: var(--transition);
 
       .external-icon {
         width: 1em;
         height: 1em;
       }
-      color: rgb(var(--accent));
-      text-decoration: underline;
-      text-underline-offset: 0.25rem;
-      text-decoration-style: dashed;
-      font-weight: 600;
-      transition: var(--transition);
 
       &:not(:last-child) {
         border-bottom: var(--border-width-hairline) solid rgb(var(--border));
@@ -312,9 +312,9 @@ const links = [
 
       @media (hover: hover) {
         &:hover {
+          text-decoration-color: transparent;
           background: rgb(var(--surface));
           opacity: var(--hover-opacity);
-          text-decoration-color: transparent;
         }
       }
 

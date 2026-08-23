@@ -39,9 +39,9 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
 footer {
   .footer-inner {
     max-width: var(--container-max-width);
-    margin: 0 auto;
     padding: 2.5rem var(--container-padding-inline) 2rem
       calc(var(--container-padding-inline) + 0.5rem);
+    margin: 0 auto;
   }
 
   .footer-sitemap {
@@ -49,16 +49,16 @@ footer {
     flex-direction: column;
     gap: 1.25rem;
     padding-top: 1.5rem;
-    border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 0.15);
+    border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 15%);
   }
 
   .footer-sitemap ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 
   .footer-sitemap li {
@@ -67,10 +67,10 @@ footer {
   }
 
   .footer-sitemap a {
-    font-size: 0.875rem;
     display: inline-flex;
-    align-items: center;
     gap: 0.4rem;
+    align-items: center;
+    font-size: 0.875rem;
   }
 
   .footer-bottom {
