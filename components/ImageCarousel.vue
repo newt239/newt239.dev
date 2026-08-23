@@ -78,7 +78,6 @@ function onKeydown(e: KeyboardEvent) {
   let nextIndex: number | null = null;
   if (e.key === "ArrowLeft") nextIndex = currentIndex.value - 1;
   else if (e.key === "ArrowRight") nextIndex = currentIndex.value + 1;
-  // Home/End はタブリスト内でだけ扱う。カルーセル全体で奪うとページのスクロールを妨げる
   else if (fromPages && e.key === "Home") nextIndex = 0;
   else if (fromPages && e.key === "End") nextIndex = props.images.length - 1;
   if (nextIndex === null) return;

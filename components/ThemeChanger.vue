@@ -406,8 +406,6 @@ dialog {
   }
 }
 
-/* 入力欄がプレースホルダを表示できない幅になったら縦積みにする。
-   コンテナクエリの em はコンテナの文字サイズ基準なので、幅の縮小と文字の拡大の両方に追従する */
 @container theme-modal (max-width: 23em) {
   .theme-change-form {
     display: flex;

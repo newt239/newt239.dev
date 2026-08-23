@@ -206,7 +206,6 @@ a, button, input, [tabindex]:not([tabindex="-1"]) {
 html {
   scrollbar-gutter: stable;
   font-feature-settings: "palt";
-  /* ヘッダーの下にフォーカスリングとカードの枠線が潜り込まないよう、その分だけ余分に確保する */
   scroll-padding-top: calc(
     var(--header-height) + var(--focus-ring-offset) + var(--focus-ring-width) + var(--border-width)
   );
