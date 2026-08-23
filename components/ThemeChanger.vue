@@ -161,6 +161,7 @@ dialog {
   .modal-content {
     --modal-padding: min(2rem, 5vw);
 
+    container: theme-modal / inline-size;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
     position: fixed;
@@ -270,22 +271,36 @@ dialog {
 }
 
 .theme-change-form {
-  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  background-color: rgb(var(--bg));
+  border: var(--border-width) solid rgb(var(--text));
+  border-radius: var(--radius-pill);
+
+  &:has(#theme-changer-input:focus-visible) {
+    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline-offset: var(--focus-ring-offset);
+  }
 }
 
 #theme-changer-input {
   font-family: unset;
   font-size: var(--font-size-title);
-  width: 100%;
+  min-width: 0;
   min-height: 4rem;
   padding-left: 1rem;
   color: rgb(var(--text));
-  background-color: rgb(var(--bg));
-  border: var(--border-width) solid rgb(var(--text));
-  border-radius: var(--radius-pill);
+  background: none;
+  border: none;
+  border-radius: inherit;
 
   &::placeholder {
     color: rgb(var(--text-muted));
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 }
 
@@ -295,9 +310,9 @@ dialog {
   gap: 0.5rem;
   font-family: unset;
   font-size: var(--font-size-title);
-  position: absolute;
-  right: 0;
-  top: 0;
+  position: relative;
+  margin: calc(var(--border-width) * -1);
+  margin-inline-start: 0;
   min-height: 4rem;
   padding: 0 1rem;
   background-color: rgb(var(--text));
@@ -386,37 +401,55 @@ dialog {
     font-size: 1.125rem;
   }
 
+  .modal-message {
+    font-size: 0.75rem;
+  }
+}
+
+/* 入力欄がプレースホルダを表示できない幅になったら縦積みにする。
+   コンテナクエリの em はコンテナの文字サイズ基準なので、幅の縮小と文字の拡大の両方に追従する */
+@container theme-modal (max-width: 23em) {
   .theme-change-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    background: none;
+    border: none;
 
-    #theme-changer-input {
-      font-size: 1rem;
-      min-height: 2.5rem;
-      padding-left: 0.5rem;
-      text-align: center;
-    }
-
-    .theme-change-button {
-      position: relative;
-      align-self: stretch;
-      justify-content: center;
-      font-size: 1rem;
-      min-height: 2.5rem;
-      padding: 0 0.5rem;
-      gap: 0;
-
-      .tabler-icon-sparkles,
-      .tabler-icon-loader-2 {
-        width: 1.2rem;
-        height: 1.2rem;
-      }
+    &:has(#theme-changer-input:focus-visible) {
+      outline: none;
     }
   }
 
-  .modal-message {
-    font-size: 0.75rem;
+  #theme-changer-input {
+    font-size: 1rem;
+    min-height: 2.5rem;
+    padding-left: 0.5rem;
+    text-align: center;
+    background-color: rgb(var(--bg));
+    border: var(--border-width) solid rgb(var(--text));
+    border-radius: var(--radius-pill);
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  .theme-change-button {
+    margin: 0;
+    align-self: stretch;
+    justify-content: center;
+    font-size: 1rem;
+    min-height: 2.5rem;
+    padding: 0 0.5rem;
+    gap: 0;
+
+    .tabler-icon-sparkles,
+    .tabler-icon-loader-2 {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 }
 
