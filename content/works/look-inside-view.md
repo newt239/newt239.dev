@@ -25,4 +25,4 @@ images:
 
 ## リンク
 
-- <a href="https://look-inside-view.web.app/" target="_blank">Look Inside View - shfes'21</a>
+- <a href="https://look-inside-view.web.app/" target="_blank" rel="noopener noreferrer">Look Inside View - shfes'21</a>

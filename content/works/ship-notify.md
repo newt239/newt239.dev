@@ -12,7 +12,7 @@ images:
     alt: Discordデスクトップアプリのサーバー「SHIP Info」のチャンネル「高校連絡事項」を表示したスクリーンショット。左側のナビゲーションにはカテゴリー別チャンネルが並び、メッセージエリアにはBOT「SHIP-Assistant」が「高校1年 日帰り校外学習の目的地変更について」や「第42回 卒業証書授与式 ライブ配信」など学内連絡をカード形式で投稿している。
 ---
 
-<a href="https://ship.sakae-higashi.jp/" target="_blank">SHIP</a>（Sakae Higashi Internet Program）や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。SHIPの閉鎖に伴いサービスの提供を終了しました。
+<a href="https://ship.sakae-higashi.jp/" target="_blank" rel="noopener noreferrer">SHIP</a>（Sakae Higashi Internet Program）や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。SHIPの閉鎖に伴いサービスの提供を終了しました。
 
 <!--more-->
 
@@ -38,8 +38,8 @@ DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用し�
 
 ### SHIP-Assistant on Web
 
-- <a href="https://ship-assistant.web.app/" target="_blank">SHIP-Asisstant</a>
+- <a href="https://ship-assistant.web.app/" target="_blank" rel="noopener noreferrer">SHIP-Asisstant</a>
 
 ### Notion 上で利用方法を説明したページ
 
-- <a href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a" target="_blank">SHIP Assistant's Note</a>
+- <a href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a" target="_blank" rel="noopener noreferrer">SHIP Assistant's Note</a>

@@ -64,8 +64,8 @@ https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95t
 
 ### Quiz Flasher
 
-- <a href="https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec" target="_blank">ホーム｜ Quiz Flasher</a>
+- <a href="https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec" target="_blank" rel="noopener noreferrer">ホーム｜ Quiz Flasher</a>
 
 ### abcLINEQUIZ [LINE bot]
 
-- <a href="https://lin.ee/DidtKli" target="_blank">LINE Add Friend</a>
+- <a href="https://lin.ee/DidtKli" target="_blank" rel="noopener noreferrer">LINE Add Friend</a>
