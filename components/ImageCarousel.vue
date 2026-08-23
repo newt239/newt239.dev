@@ -71,16 +71,20 @@ function imageStyle(index: number) {
 }
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-  e.preventDefault();
   const target = e.target as Node;
   const fromPages = pagesRef.value?.contains(target) ?? false;
   const fromTrack = trackRef.value?.contains(target) ?? false;
-  if (e.key === "ArrowLeft") {
-    prev();
-  } else {
-    next();
-  }
+
+  let nextIndex: number | null = null;
+  if (e.key === "ArrowLeft") nextIndex = currentIndex.value - 1;
+  else if (e.key === "ArrowRight") nextIndex = currentIndex.value + 1;
+  // Home/End はタブリスト内でだけ扱う。カルーセル全体で奪うとページのスクロールを妨げる
+  else if (fromPages && e.key === "Home") nextIndex = 0;
+  else if (fromPages && e.key === "End") nextIndex = props.images.length - 1;
+  if (nextIndex === null) return;
+
+  e.preventDefault();
+  goTo(nextIndex);
   if (fromPages) {
     nextTick(() => {
       const buttons = pagesRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-page-btn");
@@ -142,7 +146,7 @@ function onTouchEnd() {
           :role="hasMultiple ? 'tabpanel' : 'group'"
           :inert="index !== currentIndex"
           :aria-roledescription="hasMultiple ? 'スライド' : undefined"
-          :aria-label="hasMultiple ? `${index + 1} / ${images.length}` : undefined"
+          :aria-labelledby="hasMultiple ? `${slideIdBase}-tab-${index}` : undefined"
         >
           <button
             type="button"
@@ -170,6 +174,7 @@ function onTouchEnd() {
         <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
+            :id="`${slideIdBase}-tab-${index}`"
             :key="index"
             type="button"
             class="carousel-page-btn"
@@ -178,7 +183,7 @@ function onTouchEnd() {
             role="tab"
             :aria-selected="index === currentIndex"
             :aria-controls="`${slideIdBase}-slide-${index}`"
-            :aria-label="`スライド ${index + 1}`"
+            :aria-label="`${index + 1} / ${images.length}`"
             @click="goTo(index)"
           >
             {{ index + 1 }}
@@ -208,8 +213,8 @@ function onTouchEnd() {
   width: 100%;
 
   &:has(.carousel-image-button:focus-visible) {
-    outline: 2px solid rgb(var(--focus-ring));
-    outline-offset: 2px;
+    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline-offset: var(--focus-ring-offset);
   }
 }
 
