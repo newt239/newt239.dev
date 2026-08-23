@@ -317,9 +317,7 @@ function onTouchEnd() {
   }
 
   @container (max-width: 24em) {
-    & {
-      flex: 1 1 0;
-    }
+    flex: 1 1 0;
   }
 }
 
@@ -340,9 +338,7 @@ function onTouchEnd() {
   min-width: 0;
 
   @container (max-width: 24em) {
-    & {
-      display: none;
-    }
+    display: none;
   }
 }
 

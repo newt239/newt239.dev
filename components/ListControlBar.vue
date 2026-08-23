@@ -156,10 +156,8 @@ const apply = async () => {
     justify-self: stretch;
 
     @container (max-width: 16em) {
-      & {
-        grid-template-columns: 1fr;
-        row-gap: 0.5rem;
-      }
+      grid-template-columns: 1fr;
+      row-gap: 0.5rem;
     }
   }
 

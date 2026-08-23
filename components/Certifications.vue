@@ -31,11 +31,9 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
   padding: 0.75rem 1.25rem;
 
   @container (max-width: 16em) {
-    & {
-      flex-direction: column;
-      gap: 0.25rem;
-      align-items: stretch;
-    }
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: stretch;
   }
 
   &:not(:last-child) {

@@ -354,12 +354,6 @@ function onPointerUp() {
   }
 }
 
-.lightbox-close:focus-visible,
-.lightbox-btn:focus-visible {
-  outline: var(--focus-ring-width) solid currentcolor;
-  outline-offset: var(--focus-ring-offset);
-}
-
 /* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */
 .lightbox-content {
   display: flex;
@@ -487,6 +481,12 @@ function onPointerUp() {
     cursor: default;
     opacity: 0.35;
   }
+}
+
+.lightbox-close:focus-visible,
+.lightbox-btn:focus-visible {
+  outline: var(--focus-ring-width) solid currentcolor;
+  outline-offset: var(--focus-ring-offset);
 }
 
 .lightbox-zoom-level {

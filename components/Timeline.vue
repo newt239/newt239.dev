@@ -82,6 +82,36 @@ const years = computed(() => {
   border-radius: var(--radius-md);
 }
 
+.item-term {
+  flex-shrink: 0;
+  min-width: min(5rem, 40%);
+  font-size: 0.75rem;
+  color: rgb(var(--text-muted));
+  white-space: nowrap;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
+  transition: var(--transition);
+
+  .external-icon {
+    width: 0.9em;
+    height: 0.9em;
+    margin-left: 0.2em;
+    vertical-align: -0.15em;
+  }
+}
+
 /* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
 .timeline-item {
   display: flex;
@@ -93,11 +123,9 @@ const years = computed(() => {
   transition: var(--transition);
 
   @container (max-width: 16em) {
-    & {
-      flex-direction: column;
-      gap: 0.25rem;
-      align-items: stretch;
-    }
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: stretch;
   }
 
   &:not(:last-child) {
@@ -137,36 +165,6 @@ const years = computed(() => {
     }
   }
 
-}
-
-.item-term {
-  flex-shrink: 0;
-  min-width: min(5rem, 40%);
-  font-size: 0.75rem;
-  color: rgb(var(--text-muted));
-  white-space: nowrap;
-}
-
-.item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
-.item-title {
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: var(--line-height-tight);
-  overflow-wrap: anywhere;
-  transition: var(--transition);
-
-  .external-icon {
-    width: 0.9em;
-    height: 0.9em;
-    margin-left: 0.2em;
-    vertical-align: -0.15em;
-  }
 }
 
 .item-description {

@@ -160,6 +160,8 @@
 }
 
 @media (display-mode: standalone) {
+  /* プラグインが相対カラー構文を検出せず @supports を不要と誤判定するため無効化する */
+  /* stylelint-disable-next-line plugin/use-baseline */
   @supports (color: rgb(from AccentColor r g b)) {
     :root {
       --accent: from oklch(from AccentColor clamp(0.45, l, 0.62) clamp(0.08, c, 0.25) h) r g b;
