@@ -75,7 +75,7 @@ const links = [
   <main>
     <div class="container about-page">
       <div class="about-hero">
-        <img src="/icon.webp" alt="プロフィール画像" class="profile-icon">
+        <img src="/icon.webp" alt="" class="profile-icon">
         <div class="hero-info">
           <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
           <dl class="basic-info">
@@ -307,7 +307,7 @@ const links = [
 
       /* 親の .link-list が overflow: hidden なので外側に描くとリングが完全に隠れる */
       &:focus-visible {
-        outline-offset: -2px;
+        outline-offset: calc(var(--focus-ring-offset) * -1);
       }
 
       @media (hover: hover) {
