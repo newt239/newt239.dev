@@ -50,6 +50,12 @@ bun run lint
 # リントと自動修正
 bun run lint:fix
 
+# CSS のリント
+bun run lint:css
+
+# CSS のリントと自動修正
+bun run lint:css:fix
+
 # content 配下の Markdown の文章チェック
 bun run lint:text
 
@@ -103,6 +109,11 @@ bun run a11y
 - 色は必ず `:root` のトークン経由で指定する。固定値を書くと AI テーマ生成に追従しない
 - 本文に載る文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で `--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - コードブロックの配色は [libs/shiki-theme.ts](libs/shiki-theme.ts) の Shiki テーマが `--code-*` トークン経由で参照する。Shiki の組み込みテーマは固定 hex を出力しテーマ追従しないため使わない
+- [stylelint.config.mjs](stylelint.config.mjs) で次を強制する。`bun run lint:css:fix` で直せるものは自動で直る
+  - 長さは rem で 0.25 の倍数のみ。`0.875rem` のような中間値は使わない
+  - `font-weight` は `400` と `800` のみ。Typekit の kit が R / B の 2 ウェイトしか持たないため
+  - Baseline widely available の範囲で書く。未到達の機能を使うときは `@supports` で囲むか、`stylelint.config.mjs` の `plugin/use-baseline` の ignore に追加して意図を残す
+  - プロパティの並び順は `stylelint-config-recess-order`
 
 ### 主要機能
 
@@ -121,7 +132,7 @@ bun run a11y
 
 ### CI
 
-- [lint.yml](.github/workflows/lint.yml) - PR で `bun run build` / `tsc` / ESLint / textlint
+- [lint.yml](.github/workflows/lint.yml) - PR で `bun run build` / `tsc` / ESLint / Stylelint / textlint
 - [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `bun run generate` してから Lighthouse CI と axe
   - しきい値は [lighthouserc.json](lighthouserc.json)。`meta-description` と `robots-txt` は off にしている（description を持たない方針と、`robots.txt` の Content-Signal 行を Lighthouse が不明なディレクティブとみなすため）
   - axe と Lighthouse が見るのは**デフォルトテーマだけ**。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
