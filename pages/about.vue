@@ -202,7 +202,7 @@ const links = [
         dt {
           padding-top: 0.125rem;
           font-size: 0.875rem;
-          font-weight: 700;
+          font-weight: 800;
           color: rgb(var(--text-muted));
         }
 
@@ -240,7 +240,7 @@ const links = [
       padding: 0 0 0.5rem;
       margin: 0;
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       text-box: normal;
     }
 
@@ -289,7 +289,7 @@ const links = [
       gap: 0.2rem;
       align-items: center;
       padding: 0.75rem 1.5rem;
-      font-weight: 600;
+      font-weight: 800;
       color: rgb(var(--accent));
       text-decoration: underline;
       text-decoration-style: dashed;

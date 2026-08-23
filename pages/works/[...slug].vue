@@ -293,7 +293,7 @@ const closeLightbox = async (index: number) => {
       dt {
         margin-top: 0.75rem;
         font-size: 0.875rem;
-        font-weight: 700;
+        font-weight: 800;
         line-height: var(--line-height-tight);
         color: rgb(var(--text-muted));
         letter-spacing: 0.05em;
@@ -547,7 +547,7 @@ const closeLightbox = async (index: number) => {
   .work-nav-title {
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: 700;
+    font-weight: 800;
     line-height: var(--line-height-tight);
     white-space: nowrap;
   }

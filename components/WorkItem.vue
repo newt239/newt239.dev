@@ -78,7 +78,7 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
     padding: 0;
     margin: 0;
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: var(--line-height-tight);
     color: rgb(var(--text));
     overflow-wrap: anywhere;

@@ -156,7 +156,7 @@ const years = computed(() => {
 
 .item-title {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--line-height-tight);
   overflow-wrap: anywhere;
   transition: var(--transition);

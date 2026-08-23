@@ -107,7 +107,7 @@ const getSiteName = (url: string) => {
     padding: 0;
     margin: 0;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: var(--line-height-tight);
     text-box: normal;
   }

@@ -93,7 +93,7 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     overflow: hidden;
     -webkit-line-clamp: 2;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: var(--line-height-tight);
     overflow-wrap: anywhere;
     -webkit-box-orient: vertical;

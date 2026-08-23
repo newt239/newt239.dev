@@ -84,7 +84,7 @@ function setSort(asc: boolean) {
   }
 
   &.active {
-    font-weight: 700;
+    font-weight: 800;
     color: rgb(var(--bg));
     background: rgb(var(--text));
   }

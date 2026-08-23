@@ -89,7 +89,7 @@ useSeoMeta({
       padding: 0 0 0.5rem;
       margin: 0;
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       text-box: normal;
     }
 

@@ -163,7 +163,7 @@ const profile: { text: string; lang?: string }[] = [
     align-items: center;
     padding: 0.5rem 1rem;
     font-size: 0.9375rem;
-    font-weight: 600;
+    font-weight: 800;
     color: rgb(var(--bg));
     cursor: pointer;
     border: var(--border-width) solid rgb(var(--bg));

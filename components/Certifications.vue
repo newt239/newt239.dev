@@ -54,7 +54,7 @@ const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCom
 .item-title {
   min-width: 0;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--line-height-tight);
   overflow-wrap: anywhere;
 }
