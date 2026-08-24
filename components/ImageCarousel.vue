@@ -206,10 +206,10 @@ function onTouchEnd() {
 
 .carousel-viewport {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-md);
-  aspect-ratio: 16 / 9;
-  width: 100%;
 
   &:has(.carousel-image-button:focus-visible) {
     outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
@@ -241,9 +241,9 @@ function onTouchEnd() {
   width: 100%;
   height: 100%;
   padding: 0;
-  border: none;
-  background: none;
   cursor: pointer;
+  background: none;
+  border: none;
 
   &:focus-visible {
     outline: none;
@@ -251,40 +251,40 @@ function onTouchEnd() {
 }
 
 .carousel-image {
-  view-transition-class: work-thumb;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   border-radius: var(--radius-md);
+  view-transition-class: work-thumb;
 }
 
 .carousel-controls {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.25rem;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  padding-top: 0.75rem;
   min-width: 0;
+  padding-top: 0.75rem;
 }
 
 .carousel-nav-btn,
 .carousel-page-btn {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   min-width: var(--tap-target-size);
   min-height: var(--tap-target-size);
-  border-radius: var(--radius-sm);
-  border: var(--border-width) solid transparent;
-  background: rgb(var(--surface));
+  font-family: inherit;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
   color: rgb(var(--text));
   cursor: pointer;
-  flex-shrink: 0;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-variant-numeric: tabular-nums;
+  background: rgb(var(--surface));
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
   transition: var(--transition);
 
   @media (hover: hover) {
@@ -305,28 +305,26 @@ function onTouchEnd() {
 }
 
 .carousel-nav-btn {
-  gap: 0.375rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  padding: 0 1rem;
 
   svg {
     flex-shrink: 0;
   }
 
-  @media (max-width: 48rem) {
+  @media (width <= 48rem) {
     padding: 0;
   }
 
   @container (max-width: 24em) {
-    & {
-      flex: 1 1 0;
-    }
+    flex: 1 1 0;
   }
 }
 
 .carousel-nav-label {
   white-space: nowrap;
 
-  @media (max-width: 48rem) {
+  @media (width <= 48rem) {
     display: none;
   }
 }
@@ -334,22 +332,20 @@ function onTouchEnd() {
 .carousel-pages {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.25rem;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
   min-width: 0;
 
   @container (max-width: 24em) {
-    & {
-      display: none;
-    }
+    display: none;
   }
 }
 
 .carousel-page-btn.active {
-  background: rgb(var(--text));
+  font-weight: 800;
   color: rgb(var(--bg));
+  background: rgb(var(--text));
   border-color: rgb(var(--text));
-  font-weight: 700;
 }
 </style>

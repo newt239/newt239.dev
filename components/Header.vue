@@ -69,47 +69,46 @@ if (import.meta.client) {
 
 <style>
 header {
-  view-transition-name: site-header;
-  background-color: rgb(var(--bg) / 0.72);
   position: sticky;
+  top: 0;
+  right: 0;
+  left: auto;
   z-index: 100;
   width: 100%;
-  top: 0;
-  left: auto;
-  right: 0px;
   padding: 0.75rem 0;
   color: rgb(var(--text));
-  backdrop-filter: blur(12px) saturate(1.4);
-  border-style: solid;
+  background-color: rgb(var(--bg) / 72%);
   border-color: rgb(var(--border));
+  border-style: solid;
   border-width: 0 0 var(--border-width-hairline);
+  backdrop-filter: blur(12px) saturate(1.4);
+  view-transition-name: site-header;
 
   .header-inner {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
+    flex-flow: row nowrap;
     gap: min(1rem, 3vw);
+    align-items: center;
     max-width: var(--container-max-width);
-    container-type: inline-size;
-    margin: 0 auto;
     padding-inline: var(--container-padding-inline);
+    margin: 0 auto;
+    container-type: inline-size;
   }
 
   a {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
     min-width: 0;
     color: rgb(var(--text));
     border-radius: var(--radius-sm);
 
     .logo {
       display: flex;
+      gap: min(0.75rem, 3vw);
       align-items: center;
       min-width: 0;
-      gap: min(0.75rem, 3vw);
       transition: var(--transition);
 
       @media (hover: hover) {
@@ -125,10 +124,10 @@ header {
       }
 
       .logo-icon {
+        display: block;
+        flex-shrink: 0;
         width: var(--header-icon-size);
         height: var(--header-icon-size);
-        flex-shrink: 0;
-        display: block;
         border-radius: var(--radius-round);
         corner-shape: round;
 
@@ -142,8 +141,8 @@ header {
       }
 
       .wordmark {
-        margin: 0;
         min-width: 0;
+        margin: 0;
         font-size: var(--wordmark-font-size);
         font-weight: 800;
       }

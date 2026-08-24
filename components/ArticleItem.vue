@@ -63,17 +63,17 @@ const getSiteName = (url: string) => {
 
 <style scoped>
 .article-card {
-  view-transition-class: list-card;
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 2;
   gap: 0;
+  overflow: hidden;
   color: rgb(var(--text));
   background: rgb(var(--surface));
   border: var(--border-width) solid transparent;
   border-radius: var(--radius-md);
-  overflow: hidden;
   transition: var(--transition);
+  view-transition-class: list-card;
 
   @media (hover: hover) {
     &:hover {
@@ -90,12 +90,12 @@ const getSiteName = (url: string) => {
 
 .site-info {
   display: inline-flex;
+  gap: 0.5rem;
   align-items: center;
-  gap: 0.375rem;
 }
 
 .site-name {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(var(--text-muted));
 }
 
@@ -104,27 +104,27 @@ const getSiteName = (url: string) => {
 
   :is(h2, h3) {
     width: auto;
-    font-weight: 700;
-    text-box: normal;
-    margin: 0;
     padding: 0;
+    margin: 0;
     font-size: 1rem;
+    font-weight: 800;
     line-height: var(--line-height-tight);
+    text-box: normal;
   }
 }
 
 .article-card-footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   gap: 0.25rem 0.5rem;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.5rem min(1rem, 4%) 1rem;
 }
 
 .article-date {
-  font-size: 0.875rem;
-  color: rgb(var(--text-muted));
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
+  color: rgb(var(--text-muted));
 }
 </style>

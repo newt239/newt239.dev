@@ -197,28 +197,28 @@ const filteredArticles = computed(() => {
   .list-header {
     display: grid;
     grid-template-columns: 1fr auto;
-    align-items: center;
     column-gap: 1rem;
+    align-items: center;
     margin-bottom: 1.5rem;
 
     @container (max-width: 16em) {
       grid-template-columns: 1fr;
-      justify-items: start;
       row-gap: var(--list-header-row-gap);
+      justify-items: start;
     }
   }
 
   .empty-state {
     padding: 3rem 1rem;
-    text-align: center;
     color: rgb(var(--text-muted));
+    text-align: center;
   }
 
   .article-grid {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
     grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+    gap: 1rem;
 
     a {
       color: rgb(var(--text));

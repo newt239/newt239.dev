@@ -62,43 +62,71 @@ const years = computed(() => {
 
 .year-header {
   display: flex;
-  align-items: baseline;
   gap: 0.75rem;
+  align-items: baseline;
   padding: 0 0 0.5rem;
 }
 
 .year-text {
+  padding: 0;
+  margin: 0;
   font-size: var(--font-size-title);
   font-weight: 800;
   color: rgb(var(--text));
-  padding: 0;
-  margin: 0;
 }
 
 .year-items {
+  container-type: inline-size;
+  overflow: hidden;
   background: rgb(var(--surface));
   border-radius: var(--radius-md);
-  overflow: hidden;
-  container-type: inline-size;
+}
+
+.item-term {
+  flex-shrink: 0;
+  min-width: min(5rem, 40%);
+  font-size: 0.75rem;
+  color: rgb(var(--text-muted));
+  white-space: nowrap;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
+  transition: var(--transition);
+
+  .external-icon {
+    width: 0.9em;
+    height: 0.9em;
+    margin-left: 0.2em;
+    vertical-align: -0.15em;
+  }
 }
 
 /* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
 .timeline-item {
   display: flex;
-  align-items: baseline;
   gap: 1rem;
+  align-items: baseline;
   padding: 0.75rem 1.25rem;
-
-  @container (max-width: 16em) {
-    & {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.25rem;
-    }
-  }
   color: rgb(var(--text));
   text-decoration: none;
   transition: var(--transition);
+
+  @container (max-width: 16em) {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: stretch;
+  }
 
   &:not(:last-child) {
     border-bottom: var(--border-width-hairline) solid rgb(var(--border));
@@ -115,8 +143,8 @@ const years = computed(() => {
     .item-title {
       color: rgb(var(--accent));
       text-decoration: underline;
-      text-underline-offset: 0.25rem;
       text-decoration-style: dashed;
+      text-underline-offset: 0.25rem;
     }
 
     @media (hover: hover) {
@@ -124,8 +152,8 @@ const years = computed(() => {
         background: rgb(var(--surface));
 
         .item-title {
-          opacity: var(--hover-opacity);
           text-decoration-color: transparent;
+          opacity: var(--hover-opacity);
         }
       }
     }
@@ -139,39 +167,9 @@ const years = computed(() => {
 
 }
 
-.item-term {
-  font-size: 0.875rem;
-  color: rgb(var(--text-muted));
-  white-space: nowrap;
-  min-width: min(5rem, 40%);
-  flex-shrink: 0;
-}
-
-.item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
-.item-title {
-  overflow-wrap: anywhere;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: var(--line-height-tight);
-  transition: var(--transition);
-
-  .external-icon {
-    width: 0.9em;
-    height: 0.9em;
-    vertical-align: -0.15em;
-    margin-left: 0.2em;
-  }
-}
-
 .item-description {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: var(--line-height-tight);
   color: rgb(var(--text-muted));
 }

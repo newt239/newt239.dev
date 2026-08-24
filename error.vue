@@ -71,25 +71,25 @@ useSeoMeta({
   }
 
   .error-actions {
-    padding: 2rem 0 1rem;
     width: 100%;
+    padding: 2rem 0 1rem;
   }
 
   .back {
     display: inline-flex;
+    gap: 0.25rem;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
     width: 100%;
     max-width: 320px;
     padding: 0.75rem 1.5rem;
     font-family: unset;
     font-size: 1rem;
     color: rgb(var(--text));
+    cursor: pointer;
     background-color: rgb(var(--surface));
     border: var(--border-width) solid transparent;
     border-radius: var(--radius-sm);
-    cursor: pointer;
     transition: var(--transition);
 
     @media (hover: hover) {

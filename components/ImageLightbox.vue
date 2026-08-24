@@ -332,43 +332,37 @@ function onPointerUp() {
   position: fixed;
   inset: 0 0 auto;
   z-index: 1000;
-  view-transition-name: lightbox-overlay;
-  width: auto;
-  height: 100lvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0 0 calc(100lvh - 100svh);
-  border: none;
-  color: inherit;
-  background: rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: auto;
+  max-width: none;
+  height: 100lvh;
+  max-height: none;
+  padding: 0 0 calc(100lvh - 100svh);
+  margin: 0;
   overflow: hidden;
+  color: inherit;
   outline: none;
+  background: rgb(0 0 0 / 85%);
+  border: none;
+  view-transition-name: lightbox-overlay;
 
   &::backdrop {
     background: none;
   }
 }
 
-.lightbox-close:focus-visible,
-.lightbox-btn:focus-visible {
-  outline: var(--focus-ring-width) solid currentColor;
-  outline-offset: var(--focus-ring-offset);
-}
-
 /* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */
 .lightbox-content {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  padding: 1rem;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 1rem;
 }
 
 .lightbox-content.is-zoomed {
@@ -378,11 +372,11 @@ function onPointerUp() {
 .lightbox-image {
   max-width: 100%;
   max-height: 100%;
+  touch-action: none;
+  user-select: none;
   object-fit: contain;
   border-radius: var(--radius-sm);
   transition: transform 0.2s ease;
-  user-select: none;
-  touch-action: none;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -399,22 +393,22 @@ function onPointerUp() {
   top: 1rem;
   right: 1rem;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-round);
-  corner-shape: round;
-  width: var(--tap-target-size);
-  height: var(--tap-target-size);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
+  color: #fff;
   cursor: pointer;
+  background: rgb(0 0 0 / 70%);
+  border: none;
+  border-radius: var(--radius-round);
+  corner-shape: round;
   transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      background: rgba(0, 0, 0, 0.85);
+      background: rgb(0 0 0 / 85%);
     }
   }
 }
@@ -424,31 +418,31 @@ function onPointerUp() {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.75rem;
-  padding-bottom: 1.5rem;
-  max-width: calc(100% - 1rem);
+  align-items: center;
   min-width: 0;
+  max-width: calc(100% - 1rem);
+  padding-bottom: 1.5rem;
 }
 
 .lightbox-counter {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9375rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
   padding-inline: 0.5rem;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  color: rgb(255 255 255 / 90%);
+  white-space: nowrap;
 }
 
 .lightbox-controls {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
-  background: rgba(0, 0, 0, 0.72);
-  border-radius: var(--radius-md);
   padding: 0.25rem;
+  background: rgb(0 0 0 / 72%);
+  border-radius: var(--radius-md);
 }
 
 .lightbox-controls:has(> .lightbox-cluster) {
@@ -458,42 +452,48 @@ function onPointerUp() {
 .lightbox-cluster {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
 }
 
 .lightbox-btn {
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  width: var(--tap-target-size);
-  height: var(--tap-target-size);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
+  color: #fff;
   cursor: pointer;
+  background: rgb(255 255 255 / 14%);
+  border: none;
+  border-radius: var(--radius-sm);
   transition: var(--transition);
 
   @media (hover: hover) {
     &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgb(255 255 255 / 25%);
     }
   }
 
   &:disabled {
-    opacity: 0.35;
     cursor: default;
+    opacity: 0.35;
   }
 }
 
+.lightbox-close:focus-visible,
+.lightbox-btn:focus-visible {
+  outline: var(--focus-ring-width) solid currentcolor;
+  outline-offset: var(--focus-ring-offset);
+}
+
 .lightbox-zoom-level {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
   min-width: 3.5rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: rgb(255 255 255 / 85%);
   text-align: center;
   white-space: nowrap;
 }

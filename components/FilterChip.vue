@@ -16,19 +16,19 @@ defineProps<{
 <style scoped>
 .filter-chip {
   display: inline-flex;
+  gap: 0.5rem;
   align-items: center;
-  gap: 0.375rem;
   min-height: var(--tap-target-size);
+  padding: 0 1rem;
   font-family: inherit;
-  font-size: 0.875rem;
-  padding: 0 0.875rem;
-  border-radius: var(--radius-sm);
-  border: none;
-  background: rgb(var(--surface));
+  font-size: 1rem;
   color: rgb(var(--text));
-  cursor: pointer;
-  transition: var(--transition);
   white-space: nowrap;
+  cursor: pointer;
+  background: rgb(var(--surface));
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
 
   @media (hover: hover) {
     &:not(.active):hover {
@@ -41,8 +41,8 @@ defineProps<{
   }
 
   &.active {
-    background: rgb(var(--text));
     color: rgb(var(--bg));
+    background: rgb(var(--text));
   }
 
   .filter-chip-icon {

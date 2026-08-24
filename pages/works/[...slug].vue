@@ -261,24 +261,24 @@ const closeLightbox = async (index: number) => {
         width: 360px;
 
         .work-title {
-          view-transition-class: list-title;
           display: block;
           width: auto;
-          text-box: normal;
-          font-size: var(--font-size-title);
-          font-weight: 800;
           padding: 0;
           margin: 0 0 0.75rem;
+          font-size: var(--font-size-title);
+          font-weight: 800;
+          view-transition-class: list-title;
+          text-box: normal;
         }
       }
 
-      @media (max-width: 48rem) {
+      @media (width <= 48rem) {
         flex-direction: column;
         gap: 1rem;
 
         > .work-sidebar {
-          width: 100%;
           order: -1;
+          width: 100%;
         }
       }
     }
@@ -287,16 +287,16 @@ const closeLightbox = async (index: number) => {
       display: grid;
       grid-template-columns: 1fr;
       gap: 0.25rem;
-      margin: 0;
       padding: 0;
+      margin: 0;
 
       dt {
-        font-weight: 700;
-        color: rgb(var(--text-muted));
-        font-size: 0.875rem;
-        letter-spacing: 0.05em;
-        line-height: var(--line-height-tight);
         margin-top: 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        line-height: var(--line-height-tight);
+        color: rgb(var(--text-muted));
+        letter-spacing: 0.05em;
 
         &:first-of-type {
           margin-top: 0;
@@ -311,22 +311,22 @@ const closeLightbox = async (index: number) => {
       .tech-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.375rem;
+        gap: 0.5rem;
         align-items: center;
       }
 
       .tech-tag {
         display: inline-block;
-        padding: 0.125rem 0.625rem;
-        border-radius: var(--radius-xs);
+        padding: 0.25rem 0.75rem;
         font-size: 1rem;
         line-height: var(--line-height-tight);
-        background: rgb(var(--surface));
         color: rgb(var(--text));
+        background: rgb(var(--surface));
+        border-radius: var(--radius-xs);
 
         @supports (text-box-trim: trim-both) {
           text-box: trim-both text text;
-          padding-block: 0.375rem;
+          padding-block: 0.5rem;
         }
       }
     }
@@ -336,7 +336,7 @@ const closeLightbox = async (index: number) => {
       padding-bottom: 1rem;
       overflow-wrap: anywhere;
 
-      @media (max-width: 48rem) {
+      @media (width <= 48rem) {
         padding-top: 0;
       }
 
@@ -345,8 +345,8 @@ const closeLightbox = async (index: number) => {
       }
 
       ul {
-        margin: 0.5rem 0;
         padding-left: 1.5rem;
+        margin: 0.5rem 0;
 
         ul {
           margin: 0;
@@ -354,23 +354,23 @@ const closeLightbox = async (index: number) => {
       }
 
       li {
-        line-height: var(--line-height-body);
         margin: 0.25rem 0;
+        line-height: var(--line-height-body);
       }
 
       h2 {
         display: inline-block;
         padding: 0.25rem 0.75rem;
-        letter-spacing: 0;
         margin: 1rem 0 0;
         font-size: 1.25rem;
         color: rgb(var(--bg));
+        letter-spacing: 0;
         background-color: rgb(var(--text));
       }
 
       h3 {
-        font-size: 1.125rem;
         padding-left: 0;
+        font-size: 1.25rem;
       }
 
       h2 a {
@@ -393,8 +393,8 @@ const closeLightbox = async (index: number) => {
 
         th,
         td {
-          text-align: left;
           padding: 0 min(1rem, 3vw);
+          text-align: left;
         }
 
         th {
@@ -403,29 +403,29 @@ const closeLightbox = async (index: number) => {
       }
 
       code {
-        margin: 0;
-        overflow-wrap: anywhere;
         padding: 0.1em 0.35em;
+        margin: 0;
         font-family: var(--font-mono);
         font-size: 0.9em;
         color: var(--code-text);
+        overflow-wrap: anywhere;
+        cursor: text;
         background-color: var(--code-bg);
         border: var(--border-width-hairline) solid rgb(var(--border));
         border-radius: var(--radius-xs);
-        cursor: text;
       }
 
       pre {
-        margin: 0.5rem 0;
         padding: 1rem;
+        margin: 0.5rem 0;
         line-height: var(--line-height-tight);
         color: var(--code-text);
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+        cursor: text;
         background-color: var(--code-bg);
         border: var(--border-width-hairline) solid rgb(var(--border));
         border-radius: var(--radius-sm);
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-        cursor: text;
 
         code {
           padding: 0;
@@ -456,11 +456,11 @@ const closeLightbox = async (index: number) => {
   .work-nav {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: stretch;
     gap: 1rem;
+    align-items: stretch;
     padding: 2rem 0 1rem;
 
-    @media (max-width: 48rem) {
+    @media (width <= 48rem) {
       grid-template-columns: auto minmax(0, 1fr) auto;
       gap: min(0.5rem, 2vw);
     }
@@ -468,8 +468,8 @@ const closeLightbox = async (index: number) => {
 
   .work-nav-link {
     display: flex;
-    align-items: center;
     gap: 0.5rem;
+    align-items: center;
     min-height: var(--tap-target-size);
     padding: 0.75rem 1.25rem;
     color: rgb(var(--text));
@@ -494,18 +494,18 @@ const closeLightbox = async (index: number) => {
       text-align: right;
     }
 
-    @media (max-width: 48rem) {
-      min-width: 0;
+    @media (width <= 48rem) {
       gap: min(0.5rem, 2vw);
+      min-width: 0;
       padding: min(0.75rem, 3vw);
 
       &.is-all {
-        white-space: normal;
         text-align: center;
+        white-space: normal;
       }
     }
 
-    @media (max-width: 20rem) {
+    @media (width <= 20rem) {
       &.is-all {
         justify-content: center;
       }
@@ -533,22 +533,22 @@ const closeLightbox = async (index: number) => {
     flex-direction: column;
     min-width: 0;
 
-    @media (max-width: 48rem) {
+    @media (width <= 48rem) {
       display: none;
     }
   }
 
   .work-nav-label {
-    font-size: 0.8125rem;
-    color: rgb(var(--text-muted));
+    font-size: 0.75rem;
     line-height: var(--line-height-tight);
+    color: rgb(var(--text-muted));
   }
 
   .work-nav-title {
-    font-weight: 700;
-    line-height: var(--line-height-tight);
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 800;
+    line-height: var(--line-height-tight);
     white-space: nowrap;
   }
 }

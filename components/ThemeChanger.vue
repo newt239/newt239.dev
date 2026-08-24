@@ -122,17 +122,17 @@ const onKeyDown = (event: KeyboardEvent) => {
 
 <style scoped>
 .modal-open-button {
-  width: var(--tap-target-size);
-  height: var(--tap-target-size);
-  color: rgb(var(--text));
-  background-color: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--tap-target-size);
+  height: var(--tap-target-size);
+  color: rgb(var(--text));
+  cursor: pointer;
+  background-color: rgb(var(--surface));
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
 
   svg {
     width: var(--tap-target-icon-size);
@@ -141,8 +141,8 @@ const onKeyDown = (event: KeyboardEvent) => {
 
   @media (hover: hover) {
     &:hover {
-      border-color: rgb(var(--text));
       color: rgb(var(--text));
+      border-color: rgb(var(--text));
     }
   }
 
@@ -161,22 +161,22 @@ dialog {
   .modal-content {
     --modal-padding: min(2rem, 5vw);
 
-    container: theme-modal / inline-size;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
     position: fixed;
     top: 50dvh;
     left: 50%;
-    padding: var(--modal-padding);
+    z-index: 1000;
     width: min(90%, 600px);
     max-height: calc(100dvh - var(--modal-padding) * 2);
+    padding: var(--modal-padding);
+    container: theme-modal / inline-size;
     overflow-y: auto;
     overscroll-behavior: contain;
-    border-radius: var(--radius-lg);
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
     border: var(--border-width) solid rgb(var(--border));
-    z-index: 1000;
+    border-radius: var(--radius-lg);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
     transition: all 0.3s;
     transition-behavior: allow-discrete;
 
@@ -234,10 +234,10 @@ dialog {
   width: var(--tap-target-size);
   height: var(--tap-target-size);
   color: rgb(var(--text));
+  cursor: pointer;
   background: none;
   border: var(--border-width) solid transparent;
   border-radius: var(--radius-sm);
-  cursor: pointer;
   transition: var(--transition);
 
   svg {
@@ -259,9 +259,9 @@ dialog {
 }
 
 .modal-description {
+  margin: 0 0 1.5rem;
   font-size: 1.25rem;
   line-height: var(--line-height-tight);
-  margin: 0 0 1.5rem;
   text-align: center;
   text-wrap: balance;
 }
@@ -285,11 +285,11 @@ dialog {
 }
 
 #theme-changer-input {
-  font-family: unset;
-  font-size: var(--font-size-title);
   min-width: 0;
   min-height: 4rem;
   padding-left: 1rem;
+  font-family: unset;
+  font-size: var(--font-size-title);
   color: rgb(var(--text));
   background: none;
   border: none;
@@ -305,21 +305,21 @@ dialog {
 }
 
 .theme-change-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: unset;
-  font-size: var(--font-size-title);
   position: relative;
-  margin: calc(var(--border-width) * -1);
-  margin-inline-start: 0;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
   min-height: 4rem;
   padding: 0 1rem;
-  background-color: rgb(var(--text));
+  margin: calc(var(--border-width) * -1);
+  margin-inline-start: 0;
+  font-family: unset;
+  font-size: var(--font-size-title);
   color: rgb(var(--bg));
+  cursor: pointer;
+  background-color: rgb(var(--text));
   border: var(--border-width) solid rgb(var(--text));
   border-radius: var(--radius-pill);
-  cursor: pointer;
   transition: var(--transition);
 
   &:hover {
@@ -333,12 +333,12 @@ dialog {
   }
 
   &::before {
-    content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
-    border-radius: inherit;
     padding: 2px;
+    pointer-events: none;
+    content: "";
     background: conic-gradient(
       from var(--theme-beam-angle),
       transparent 0%,
@@ -347,13 +347,13 @@ dialog {
       transparent 28%,
       transparent 100%
     );
+    border-radius: inherit;
+    opacity: 0;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: 0;
-    pointer-events: none;
     transition: opacity 0.3s;
   }
 
@@ -392,13 +392,13 @@ dialog {
   }
 }
 
-@media screen and (max-width: 37.5rem) {
+@media screen and (width <= 37.5rem) {
   dialog .modal-content {
     --modal-padding: 1rem;
   }
 
   .modal-description {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .modal-message {
@@ -420,9 +420,9 @@ dialog {
   }
 
   #theme-changer-input {
-    font-size: 1rem;
     min-height: 2.5rem;
     padding-left: 0.5rem;
+    font-size: 1rem;
     text-align: center;
     background-color: rgb(var(--bg));
     border: var(--border-width) solid rgb(var(--text));
@@ -435,18 +435,18 @@ dialog {
   }
 
   .theme-change-button {
-    margin: 0;
+    gap: 0;
     align-self: stretch;
     justify-content: center;
-    font-size: 1rem;
     min-height: 2.5rem;
     padding: 0 0.5rem;
-    gap: 0;
+    margin: 0;
+    font-size: 1rem;
 
     .tabler-icon-sparkles,
     .tabler-icon-loader-2 {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 }

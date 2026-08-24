@@ -11,9 +11,9 @@
 
 <style>
 .wrapper {
-  margin: 0 auto;
   width: 100%;
   min-height: 100vh;
+  margin: 0 auto;
 }
 
 #main-content:focus {
@@ -22,9 +22,9 @@
 
 .skip-link {
   position: fixed;
-  z-index: 200;
   top: 0.5rem;
   left: 0.5rem;
+  z-index: 200;
   padding: 0.5rem 1rem;
   color: rgb(var(--text));
   background-color: rgb(var(--bg));
