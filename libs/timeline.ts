@@ -8,6 +8,13 @@ export type TimelineItem = {
 
 export const timeline: TimelineItem[] = [
   {
+    start: "2026-08",
+    end: null,
+    title: "ピクシブ サマーインターン",
+    description: null,
+    src: "https://x.com/newt239/status/2093326361456963737",
+  },
+  {
     start: "2026-05",
     end: "2026-06",
     title: "MIXI 就業型インターン",
