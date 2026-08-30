@@ -44,9 +44,10 @@ useSeoMeta({
 .error-page {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
+  min-height: calc(100dvh - var(--header-height));
   text-align: center;
 
   .status-code {
@@ -59,8 +60,8 @@ useSeoMeta({
 
   .error-heading {
     width: auto;
+    padding: 0;
     text-box: normal;
-    padding: 1rem 0 0.5rem;
     line-height: var(--line-height-heading);
   }
 
@@ -72,7 +73,7 @@ useSeoMeta({
 
   .error-actions {
     width: 100%;
-    padding: 2rem 0 1rem;
+    padding: 1rem 0 0;
   }
 
   .back {
