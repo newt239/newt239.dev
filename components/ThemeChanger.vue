@@ -307,7 +307,7 @@ dialog {
 .theme-change-button {
   position: relative;
   display: inline-flex;
-  gap: 0.5rem;
+  gap: 0.5em;
   align-items: center;
   min-height: 4rem;
   padding: 0 1rem;
@@ -435,7 +435,6 @@ dialog {
   }
 
   .theme-change-button {
-    gap: 0;
     align-self: stretch;
     justify-content: center;
     min-height: 2.5rem;
