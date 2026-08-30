@@ -13,6 +13,7 @@ const descriptionId = useId();
 const isGenerating = ref(false);
 const promptModel = defineModel<string>();
 const modalRef = ref<HTMLDialogElement>();
+const isBackdropPress = ref(false);
 const responseMessage = ref(defaultMessage);
 
 const generateTheme = async () => {
@@ -75,6 +76,8 @@ const onKeyDown = (event: KeyboardEvent) => {
     closedby="any"
     :aria-labelledby="descriptionId"
     :aria-busy="isGenerating"
+    @pointerdown="isBackdropPress = $event.target === $event.currentTarget"
+    @pointerup.self="isBackdropPress && modalRef?.close()"
     @close="onDialogClose"
   >
     <div class="modal-content" lang="en">
