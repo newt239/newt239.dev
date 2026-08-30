@@ -13,6 +13,7 @@ const descriptionId = useId();
 const isGenerating = ref(false);
 const promptModel = defineModel<string>();
 const modalRef = ref<HTMLDialogElement>();
+const isBackdropPress = ref(false);
 const responseMessage = ref(defaultMessage);
 
 const generateTheme = async () => {
@@ -75,6 +76,8 @@ const onKeyDown = (event: KeyboardEvent) => {
     closedby="any"
     :aria-labelledby="descriptionId"
     :aria-busy="isGenerating"
+    @pointerdown="isBackdropPress = $event.target === $event.currentTarget"
+    @pointerup.self="isBackdropPress && modalRef?.close()"
     @close="onDialogClose"
   >
     <div class="modal-content" lang="en">
@@ -307,7 +310,7 @@ dialog {
 .theme-change-button {
   position: relative;
   display: inline-flex;
-  gap: 0.5rem;
+  gap: 0.375em;
   align-items: center;
   min-height: 4rem;
   padding: 0 1rem;
@@ -435,7 +438,6 @@ dialog {
   }
 
   .theme-change-button {
-    gap: 0;
     align-self: stretch;
     justify-content: center;
     min-height: 2.5rem;
