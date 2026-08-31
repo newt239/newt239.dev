@@ -8,7 +8,7 @@ tech:
   - HeroUI
   - Tailwind CSS
   - Cloudflare Workers
-description: 表示されたアイコンがどの UI アイコンライブラリのものかを当てる 4 択クイズ Web アプリです。
+description: 表示されたアイコンがどのUIアイコンライブラリのものかを当てる4択クイズWebアプリです。
 images:
   - src: icondle.webp
     alt: 「Icondle」のトップページ。淡い青のアイコンが敷き詰められた背景の中央にロゴが表示され、「今日の問題に挑戦する」ボタンと「セット名を当てる」「アイコンを当てる」の2つのモード選択カードが並ぶ。
