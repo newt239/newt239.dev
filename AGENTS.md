@@ -121,6 +121,8 @@ bun run a11y
 - **View Transitions**: [nuxt.config.ts](nuxt.config.ts) の `experimental.viewTransition` で有効化
 - **ページトランジション**: [app.vue](app.vue) でブラー + 不透明度のカスタムトランジション
 - **アナリティクス**: [plugins/vue-gtag.client.ts](plugins/vue-gtag.client.ts) で vue-gtag-next を使用した Google Analytics
+  - 計測するのは `newt239.dev` を開いた実ブラウザだけ。localhost とプレビューデプロイ、`navigator.webdriver` が立つ自動化ブラウザ、ヘッドレスやボットの UA では gtag.js を読み込まない
+  - `?analytics=off` を付けてアクセスすると `analytics=off` の Cookie を保存し、そのブラウザで恒久的に計測を止める。`?analytics=on` で解除する。Claude in Chrome のように実ブラウザを操作する AI Agent はこれで除外する
 - **Adobe Fonts**: [nuxt.config.ts](nuxt.config.ts) の `app.head.script` で Typekit を読み込み
 
 ### SEO メタ
