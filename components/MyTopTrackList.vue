@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconExternalLink } from "@tabler/icons-vue";
+
 type TrackListProp = {
   name: string;
   artists: string[];
@@ -24,10 +26,14 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
         target="_blank"
         rel="noopener noreferrer"
         class="track-card"
+        :aria-label="`${track.name} ${track.artists.join(', ')} - Spotify（外部サイト）`"
       >
         <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" alt="" />
         <div class="track-body">
-          <h3 class="track-name">{{ track.name }}</h3>
+          <h3 class="track-name">
+            {{ track.name }}
+            <IconExternalLink aria-hidden="true" />
+          </h3>
           <p class="track-artists">{{ track.artists.join(", ") }}</p>
         </div>
       </a>
@@ -84,6 +90,14 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
     align-items: flex-start;
     justify-content: flex-start;
     min-width: 0;
+  }
+
+  .track-name .tabler-icon {
+    width: var(--external-link-icon-size);
+    height: var(--external-link-icon-size);
+    margin-left: var(--external-link-icon-gap-heading);
+    vertical-align: var(--external-link-icon-shift);
+    color: rgb(var(--text-muted));
   }
 
   .track-name {
