@@ -2,17 +2,20 @@ import VueGtag, { trackRouter } from "vue-gtag-next";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const optOutParam = new URLSearchParams(location.search).get("analytics");
-  if (optOutParam === "off") {
-    document.cookie = "analytics=off; path=/; max-age=31536000; samesite=lax";
-  } else if (optOutParam === "on") {
-    document.cookie = "analytics=off; path=/; max-age=0; samesite=lax";
+  if (navigator.cookieEnabled) {
+    if (optOutParam === "off") {
+      sessionStorage.setItem("analytics", "off");
+    } else if (optOutParam === "on") {
+      sessionStorage.removeItem("analytics");
+    }
   }
 
   const isTrackableVisitor =
     location.hostname === "newt239.dev" &&
     !navigator.webdriver &&
     !/HeadlessChrome|Playwright|Puppeteer|Electron|bot|crawler|spider/i.test(navigator.userAgent) &&
-    !document.cookie.split("; ").includes("analytics=off");
+    optOutParam !== "off" &&
+    !(navigator.cookieEnabled && sessionStorage.getItem("analytics") === "off");
 
   if (!isTrackableVisitor) {
     return;

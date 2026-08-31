@@ -14,6 +14,8 @@
 - 想定外のエラーはその場で捕捉せず、呼び出し元やフレームワークのエラーハンドラへ伝播させる
 - 失敗時にも必要な状態復元・クリーンアップは `finally` で保証する
 
+本番サイト <https://newt239.dev> をブラウザで開くときは、必ず `?analytics=off` を付けた URL から開始してください。Claude in Chrome はページ側から検出できないため、これを忘れるとデバッグ操作が Google Analytics に記録されます。同じタブ内で遷移する限り 1 回付ければ足ります。
+
 関数は**アロー関数**で定義してください。
 
 **関数を不用意に増やさない**でください。次に当てはまるものはインライン化を検討します:
@@ -122,7 +124,8 @@ bun run a11y
 - **ページトランジション**: [app.vue](app.vue) でブラー + 不透明度のカスタムトランジション
 - **アナリティクス**: [plugins/vue-gtag.client.ts](plugins/vue-gtag.client.ts) で vue-gtag-next を使用した Google Analytics
   - 計測するのは `newt239.dev` を開いた実ブラウザだけ。localhost とプレビューデプロイ、`navigator.webdriver` が立つ自動化ブラウザ、ヘッドレスやボットの UA では gtag.js を読み込まない
-  - `?analytics=off` を付けてアクセスすると `analytics=off` の Cookie を保存し、そのブラウザで恒久的に計測を止める。`?analytics=on` で解除する。Claude in Chrome のように実ブラウザを操作する AI Agent はこれで除外する
+  - `?analytics=off` を付けてアクセスすると `sessionStorage` にオプトアウトを記録する。同じタブ内ならフルページ遷移を跨いでも維持され、別タブとタブを閉じたあとには影響しない。`?analytics=on` で解除する
+  - Claude in Chrome は `navigator.webdriver` が false で UA も通常の Chrome と同一のため、ページ側から自動検出できない。上のオプトアウトで除外する
 - **Adobe Fonts**: [nuxt.config.ts](nuxt.config.ts) の `app.head.script` で Typekit を読み込み
 
 ### SEO メタ
