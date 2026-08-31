@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
+import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
 </script>
 
 <template>
@@ -24,6 +24,12 @@ import { IconBrandX, IconBrandGithub } from "@tabler/icons-vue";
             <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
               <IconBrandGithub :size="18" />
               GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://fernweh.newt239.dev/" target="_blank" rel="noopener noreferrer">
+              <IconPhoto :size="18" />
+              fernweh
             </a>
           </li>
         </ul>
