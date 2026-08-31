@@ -9,7 +9,7 @@ tech:
   - Firebase
 images:
   - src: ship-info.webp
-    alt: Discordデスクトップアプリのサーバー「SHIP Info」のチャンネル「高校連絡事項」を表示したスクリーンショット。左側のナビゲーションにはカテゴリー別チャンネルが並び、メッセージエリアにはBOT「SHIP-Assistant」が「高校1年 日帰り校外学習の目的地変更について」や「第42回 卒業証書授与式 ライブ配信」など学内連絡をカード形式で投稿している。
+    alt: Discordのサーバー「SHIP Info」の「高校連絡事項」チャンネル。BOT「SHIP-Assistant」が校外学習の変更や卒業式のライブ配信といった学内連絡をカード形式で投稿している。
 ---
 
 <a href="https://ship.sakae-higashi.jp/" target="_blank" rel="noopener noreferrer">SHIP</a>（Sakae Higashi Internet Program）や栄東中高ホームページの栄東ニュースを定期的にスクレイピングし、更新があれば通知するシステムです。SHIPの閉鎖に伴いサービスの提供を終了しました。

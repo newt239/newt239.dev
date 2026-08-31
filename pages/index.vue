@@ -22,7 +22,7 @@ useHead({
 </script>
 
 <template>
-  <main>
+  <div>
     <h1 class="visually-hidden" lang="en">newt239.dev</h1>
     <div class="container">
       <Profile />
@@ -45,5 +45,5 @@ useHead({
     <div class="container">
       <MyTopTrackList />
     </div>
-  </main>
+  </div>
 </template>

@@ -9,12 +9,19 @@ tech:
   - React Aria
 images:
   - src: ginga-ui-eyecatch.webp
-    alt: カラフルなグラデーション背景に「GingaUI」という白抜きロゴを中央配置したプロモーションバナー。周囲の白い角丸カードが機能を説明しており、左から時計回りに「UI Component Library for React（React ロゴ）」「20 + Components（パズルピースのアイコン）」「Accessible（立体ハート）」「Simple to Use（笑顔の絵文字）」「Generate Theme with AI（パレットのアイコン）」「Free and Opensource（札束のアイコン）」「Support SSR（ドライバーのアイコン）」「TypeScript Based（TS ロゴ）」と記載されている。
+    alt: グラデーション背景に「GingaUI」のロゴを置いたバナー。周囲のカードに「UI Component Library for React」「20+ Components」「Accessible」などの特徴が並ぶ。
 ---
 
 LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリを開発しています。
 
 NICT（情報通信研究機構）のセキュリティイノベータ育成プログラムである [SecHack365](https://sechack365.nict.go.jp/) に採択され、開発を行いました。
+
+## 特徴
+
+- React向けのコンポーネントライブラリで、20以上のコンポーネントを提供しています
+- React Ariaをベースにアクセシビリティへ配慮し、SSRにも対応しています
+- LLMにプロンプトを渡してテーマを生成できます
+- TypeScriptで書かれたオープンソースソフトウェアです
 
 ## 関連リンク
 

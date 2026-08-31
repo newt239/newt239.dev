@@ -6,7 +6,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <main>
+  <div>
     <div class="container privacy-page">
       <h1 v-colorful-heading>プライバシーポリシー</h1>
       <p class="privacy-intro">newt239.dev（以下、「当サイト」といいます）では、ユーザーの皆様の個人情報の取扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
@@ -56,7 +56,7 @@ useSeoMeta({
 
       <p class="last-updated">制定日：2025年10月21日</p>
     </div>
-  </main>
+  </div>
 </template>
 
 <style scoped>

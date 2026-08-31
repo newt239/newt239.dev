@@ -97,7 +97,7 @@ const sortedWorks = computed(() => {
 </script>
 
 <template>
-  <main>
+  <div>
     <div class="container work-list-page">
       <div class="list-header">
         <h1 v-colorful-heading class="category-name" lang="en">Works</h1>
@@ -131,7 +131,7 @@ const sortedWorks = computed(() => {
       </div>
       <BackToTop />
     </div>
-  </main>
+  </div>
 </template>
 
 <style>

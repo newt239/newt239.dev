@@ -1,15 +1,38 @@
+<script setup lang="ts">
+const main = useTemplateRef<HTMLElement>("main");
+
+if (import.meta.client) {
+  const nuxtApp = useNuxtApp();
+  const router = useRouter();
+
+  const unregister = nuxtApp.hook("page:finish", () => {
+    if (nuxtApp.isHydrating || router.currentRoute.value.hash) return;
+    main.value?.focus({ preventScroll: true });
+  });
+
+  onUnmounted(unregister);
+}
+</script>
+
 <template>
   <div>
+    <NuxtLoadingIndicator class="loading-indicator" />
     <a class="skip-link" href="#main-content">本文へスキップ</a>
     <Header />
-    <div id="main-content" tabindex="-1" class="wrapper">
+    <main id="main-content" ref="main" tabindex="-1" class="wrapper">
       <slot />
-    </div>
+    </main>
     <Footer />
   </div>
 </template>
 
 <style>
+.loading-indicator {
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
 .wrapper {
   width: 100%;
   min-height: 100vh;

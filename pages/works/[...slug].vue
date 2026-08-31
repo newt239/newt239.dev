@@ -159,7 +159,7 @@ const closeLightbox = async (index: number) => {
 </script>
 
 <template>
-  <main>
+  <div>
     <div class="container each-work-page">
       <div class="work">
         <template v-if="data">
@@ -236,7 +236,7 @@ const closeLightbox = async (index: number) => {
         </NuxtLink>
       </nav>
     </div>
-  </main>
+  </div>
 </template>
 
 <style>
