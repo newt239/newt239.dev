@@ -103,10 +103,10 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 
 .album-card .tabler-icon,
 .see-all-albums .tabler-icon {
-  width: 0.85em;
-  height: 0.85em;
-  margin-left: 0.15em;
-  vertical-align: -0.1em;
+  width: var(--external-link-icon-size);
+  height: var(--external-link-icon-size);
+  margin-left: var(--external-link-icon-gap-heading);
+  vertical-align: var(--external-link-icon-shift);
 }
 
 .album-card-thumbnail {

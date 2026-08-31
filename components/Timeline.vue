@@ -43,7 +43,7 @@ const years = computed(() => {
               <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
             </span>
             <div class="item-content">
-              <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" :size="14" class="external-icon" /></span>
+              <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" /></span>
               <p v-if="item.description" class="item-description">{{ item.description }}</p>
             </div>
           </component>
@@ -105,10 +105,10 @@ const years = computed(() => {
   transition: var(--transition);
 
   .external-icon {
-    width: 0.9em;
-    height: 0.9em;
-    margin-left: 0.2em;
-    vertical-align: -0.15em;
+    width: var(--external-link-icon-size);
+    height: var(--external-link-icon-size);
+    margin-left: var(--external-link-icon-gap);
+    vertical-align: var(--external-link-icon-shift);
   }
 }
 
