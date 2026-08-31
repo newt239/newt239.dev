@@ -34,13 +34,13 @@ useHead({
       <LatestArticleList />
     </div>
     <div class="container">
-      <LatestAlbumList />
-    </div>
-    <div class="container">
       <Timeline />
     </div>
     <div class="container">
       <Certifications />
+    </div>
+    <div class="container">
+      <LatestAlbumList />
     </div>
     <div class="container">
       <MyTopTrackList />

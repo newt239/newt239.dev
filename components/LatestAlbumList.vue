@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconChevronRight } from "@tabler/icons-vue";
+import { IconExternalLink } from "@tabler/icons-vue";
 
 type AlbumListResponse = {
   albums: {
@@ -36,6 +36,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         target="_blank"
         rel="noopener noreferrer"
         class="album-card"
+        :aria-label="`${album.title} ${album.period} - fernweh（外部サイト）`"
       >
         <img
           class="album-card-thumbnail"
@@ -47,7 +48,10 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
           decoding="async"
         >
         <div class="album-card-body">
-          <h3>{{ album.title }}</h3>
+          <h3>
+            {{ album.title }}
+            <IconExternalLink :size="16" aria-hidden="true" />
+          </h3>
           <p class="album-card-period">{{ album.period }}</p>
         </div>
       </a>
@@ -56,10 +60,11 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         target="_blank"
         rel="noopener noreferrer"
         class="see-all-albums"
+        aria-label="fernweh ですべての写真を見る（外部サイト）"
       >
         <span>
           すべての写真を見る
-          <IconChevronRight aria-hidden="true" />
+          <IconExternalLink :size="20" aria-hidden="true" />
         </span>
       </a>
     </div>
@@ -124,6 +129,11 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
     color: rgb(var(--text));
     overflow-wrap: anywhere;
     text-box: normal;
+
+    .tabler-icon {
+      vertical-align: -0.1em;
+      color: rgb(var(--text-muted));
+    }
   }
 }
 
