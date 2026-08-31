@@ -18,7 +18,7 @@ const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
 <template>
   <NuxtLink :to="`/works/${slug}`" class="work-card" :class="{ 'is-transitioning': slug === activeWorkSlug }"
     :style="`view-transition-name: ${slug}-card;`">
-    <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" :alt="thumbnail?.alt"
+    <NuxtImg class="work-card-thumbnail" :src="`/images/${thumbnail?.src}`" alt=""
       :style="`view-transition-name: ${slug}-img;`" :loading="priority ? 'eager' : undefined"
       :fetchpriority="priority ? 'high' : undefined" sizes="sm:100vw md:50vw lg:400px" />
     <div class="work-card-body">

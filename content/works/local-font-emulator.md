@@ -7,7 +7,7 @@ tech:
   - Mantine
 images:
   - src: local-font-emulator.webp
-    alt: 黄色の角丸ブロックをレンガ状に配置し、太字黒文字で 「Local Font Emulator」と記載。右中段のブロックに「newt239 / local-font-emulator」のリポジトリ名が小さく入ったビジュアルバナー。
+    alt: 黄色の角丸ブロックをレンガ状に並べた背景に「Local Font Emulator」と記したバナー。
 ---
 
 ローカルフォントの一覧を取得し、それらをブラウザ上で表示することができるWebアプリです。
