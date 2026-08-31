@@ -50,7 +50,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         <div class="album-card-body">
           <h3>
             {{ album.title }}
-            <IconExternalLink :size="16" aria-hidden="true" />
+            <IconExternalLink aria-hidden="true" />
           </h3>
           <p class="album-card-period">{{ album.period }}</p>
         </div>
@@ -64,7 +64,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
       >
         <span>
           すべての写真を見る
-          <IconExternalLink :size="20" aria-hidden="true" />
+          <IconExternalLink aria-hidden="true" />
         </span>
       </a>
     </div>
@@ -101,6 +101,14 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
   }
 }
 
+.album-card .tabler-icon,
+.see-all-albums .tabler-icon {
+  width: 0.85em;
+  height: 0.85em;
+  margin-left: 0.15em;
+  vertical-align: -0.1em;
+}
+
 .album-card-thumbnail {
   display: block;
   width: 100%;
@@ -131,7 +139,6 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
     text-box: normal;
 
     .tabler-icon {
-      vertical-align: -0.1em;
       color: rgb(var(--text-muted));
     }
   }
