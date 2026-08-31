@@ -140,7 +140,7 @@ const filteredArticles = computed(() => {
 </script>
 
 <template>
-  <main>
+  <div>
     <div class="container article-list-page">
       <div class="list-header">
         <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
@@ -183,7 +183,7 @@ const filteredArticles = computed(() => {
       </div>
       <BackToTop />
     </div>
-  </main>
+  </div>
 </template>
 
 <style>

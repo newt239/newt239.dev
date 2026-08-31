@@ -24,7 +24,7 @@ useSeoMeta({
 
 <template>
   <NuxtLayout>
-    <main>
+    <div>
       <div class="container error-page">
         <p class="status-code" lang="en">{{ error.statusCode }}</p>
         <h1 v-colorful-heading class="error-heading">{{ heading }}</h1>
@@ -36,7 +36,7 @@ useSeoMeta({
           </button>
         </div>
       </div>
-    </main>
+    </div>
   </NuxtLayout>
 </template>
 

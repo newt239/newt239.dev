@@ -72,7 +72,7 @@ const links = [
 </script>
 
 <template>
-  <main>
+  <div>
     <div class="container about-page">
       <div class="about-hero">
         <img src="/icon.webp" alt="" class="profile-icon">
@@ -154,7 +154,7 @@ const links = [
         </section>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <style>
