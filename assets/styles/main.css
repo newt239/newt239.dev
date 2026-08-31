@@ -131,6 +131,10 @@
   --container-max-width: 1280px;
   --container-padding-inline: min(1rem, 4vw);
   --card-min-width: min(17.5rem, 100%);
+  --external-link-icon-size: 0.85em;
+  --external-link-icon-gap: 0.2em;
+  --external-link-icon-gap-heading: 0.1em;
+  --external-link-icon-shift: -0.05em;
   --tap-target-size: clamp(32px, 15vw, 44px);
   --tap-target-icon-size: calc(var(--tap-target-size) * 0.45);
   --font-size-display: clamp(2rem, 1.25rem + 2vw, 2.5rem);
@@ -332,10 +336,10 @@ a {
 .underline[href^="http"]:not([href*="newt239.dev"], :has(svg))::after,
 :is(p, li, table) a[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
   display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
-  margin-left: 0.15em;
-  vertical-align: -0.1em;
+  width: var(--external-link-icon-size);
+  height: var(--external-link-icon-size);
+  margin-left: var(--external-link-icon-gap);
+  vertical-align: var(--external-link-icon-shift);
   content: "";
   background-color: currentcolor;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");

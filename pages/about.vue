@@ -148,7 +148,7 @@ const links = [
               class="link-card"
             >
               {{ link.label }}
-              <IconExternalLink :size="16" class="external-icon" />
+              <IconExternalLink class="external-icon" />
             </a>
           </div>
         </section>
@@ -297,8 +297,10 @@ const links = [
       transition: var(--transition);
 
       .external-icon {
-        width: 1em;
-        height: 1em;
+        width: var(--external-link-icon-size);
+        height: var(--external-link-icon-size);
+        margin-left: var(--external-link-icon-gap);
+        vertical-align: var(--external-link-icon-shift);
       }
 
       &:not(:last-child) {

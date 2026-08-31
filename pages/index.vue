@@ -40,6 +40,9 @@ useHead({
       <Certifications />
     </div>
     <div class="container">
+      <LatestAlbumList />
+    </div>
+    <div class="container">
       <MyTopTrackList />
     </div>
   </main>
