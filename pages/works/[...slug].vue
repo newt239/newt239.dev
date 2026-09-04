@@ -1,110 +1,88 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
 
+import type { ImageCarousel } from "#components";
+
 import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");
-const { data } = await useAsyncData(workPath, () => {
-  return queryCollection('works').path(workPath).first()
-});
+const { data } = await useAsyncData(workPath, () =>
+  queryCollection("works").path(workPath).first()
+);
+if (!data.value) {
+  throw createError({ statusCode: 404, fatal: true });
+}
+const work = data.value;
+const workSlug = work.path.split("/")[2] ?? "";
 
 const { data: worksOrder } = await useAsyncData("works-order", () =>
   queryCollection("works").order("period", "DESC").select("path", "title").all()
 );
+const works = worksOrder.value ?? [];
+const currentIndex = works.findIndex((item) => item.path === workPath);
+const previousWork = works[currentIndex - 1];
+const nextWork = works[currentIndex + 1];
 
-const currentIndex = computed(() =>
-  worksOrder.value?.findIndex((work) => work.path === workPath) ?? -1
-);
-const previousWork = computed(() =>
-  currentIndex.value > 0 ? worksOrder.value?.[currentIndex.value - 1] : undefined
-);
-const nextWork = computed(() =>
-  currentIndex.value === -1 ? undefined : worksOrder.value?.[currentIndex.value + 1]
-);
-
-if (!data.value) {
-  useSeoMeta({
-    title: 'Not Found - newt239.dev',
-    ogTitle: 'Not Found - newt239.dev',
-    description: 'コンテンツが見つかりませんでした',
-    ogDescription: 'コンテンツが見つかりませんでした',
-  });
-} else {
-  useSeoMeta({
-    title: `${data.value.title} - newt239.dev`,
-    ogTitle: `${data.value.title} - newt239.dev`,
-    twitterTitle: `${data.value.title} - newt239.dev`,
-    description: data.value.description,
-    ogDescription: data.value.description,
-    twitterDescription: data.value.description,
-    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-    twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-    twitterLabel1: "期間",
-    twitterData1: formatPeriod(data.value.period),
-    twitterLabel2: "技術構成",
-    twitterData2: data.value.tech.join(", "),
-  });
-
-  const work = data.value;
-  useHead({
-    script: [
-      {
-        type: "application/ld+json",
-        innerHTML: {
-          "@context": "https://schema.org",
-          "@type": "SoftwareSourceCode",
-          "@id": `https://newt239.dev${work.path}#work`,
-          name: work.title,
-          description: work.description,
-          url: `https://newt239.dev${work.path}`,
-          image: `https://newt239.dev/images/${work.images[0]?.src ?? ""}`,
-          datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
-          keywords: work.tech,
-          inLanguage: "ja",
-          author: { "@id": personId },
-          ...(work.github
-            ? { codeRepository: `https://github.com/${work.github}` }
-            : {}),
-        },
-      },
-      {
-        type: "application/ld+json",
-        innerHTML: {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
-            { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
-            { "@type": "ListItem", position: 3, name: work.title },
-          ],
-        },
-      },
-    ],
-  });
-}
-
-const imageList = computed(() => {
-  if (!data.value?.images?.length) return [];
-  return data.value.images;
+usePageSeo({
+  title: work.title,
+  ogImage: `${siteUrl}/og/works-${workSlug}.jpg`,
+});
+useSeoMeta({
+  twitterTitle: `${work.title} - newt239.dev`,
+  description: work.description,
+  ogDescription: work.description,
+  twitterDescription: work.description,
+  twitterLabel1: "期間",
+  twitterData1: formatPeriod(work.period),
+  twitterLabel2: "技術構成",
+  twitterData2: work.tech.join(", "),
 });
 
-const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "@id": `${siteUrl}${work.path}#work`,
+        name: work.title,
+        description: work.description,
+        url: `${siteUrl}${work.path}`,
+        image: `${siteUrl}/images/${work.images[0]?.src ?? ""}`,
+        datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
+        keywords: work.tech,
+        inLanguage: "ja",
+        author: { "@id": personId },
+        codeRepository: work.github ? `https://github.com/${work.github}` : undefined,
+      },
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "作品一覧", item: `${siteUrl}/works` },
+          { "@type": "ListItem", position: 3, name: work.title },
+        ],
+      },
+    },
+  ],
+});
 
 // 一覧へ戻る際、この作品のカードだけを他のカードより前面に出すために共有する
-const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
-watchEffect(() => {
-  activeWorkSlug.value = workSlug.value || null;
-});
+const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
+activeWorkSlug.value = workSlug;
 
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
-const carouselRef = ref<{
-  snapTo: (index: number) => void;
-  focusCurrentImage: () => void;
-} | null>(null);
+const carouselRef = useTemplateRef<InstanceType<typeof ImageCarousel>>("carousel");
 
 const openLightbox = async (index: number) => {
   lightboxIndex.value = index;
@@ -162,46 +140,41 @@ const closeLightbox = async (index: number) => {
   <div>
     <div class="container each-work-page">
       <div class="work">
-        <template v-if="data">
-          <div class="work-hero">
-            <ImageCarousel
-              ref="carouselRef"
-              :images="imageList"
-              :work-slug="workSlug"
-              :morph-index="morphIndex"
-              @open-lightbox="openLightbox"
-            />
-            <div class="work-sidebar">
-              <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
-              <dl class="work-meta">
-              <template v-if="data.github">
+        <div class="work-hero">
+          <ImageCarousel
+            ref="carousel"
+            :images="work.images"
+            :work-slug="workSlug"
+            :morph-index="morphIndex"
+            @open-lightbox="openLightbox"
+          />
+          <div class="work-sidebar">
+            <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ work.title }}</h1>
+            <dl class="work-meta">
+              <template v-if="work.github">
                 <dt>GitHub</dt>
                 <dd>
-                  <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
+                  <a class="underline" :href="`https://github.com/${work.github}`" target="_blank" rel="noopener noreferrer">{{ work.github }}</a>
                 </dd>
               </template>
               <dt>期間</dt>
-              <dd>{{ formatPeriod(data.period) }}</dd>
+              <dd>{{ formatPeriod(work.period) }}</dd>
               <dt>技術構成</dt>
               <dd class="tech-tags">
-                <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
+                <span v-for="tech in work.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
             </dl>
-            </div>
           </div>
-          <div class="content">
-            <ContentRenderer :value="data" />
-          </div>
-          <ImageLightbox
-            :images="imageList"
-            :initial-index="lightboxIndex"
-            :open="lightboxOpen"
-            @close="closeLightbox"
-          />
-        </template>
-        <template v-else>
-          <p class="not-founded">お探しの作品は見つかりませんでした。</p>
-        </template>
+        </div>
+        <div class="content">
+          <ContentRenderer :value="work" />
+        </div>
+        <ImageLightbox
+          :images="work.images"
+          :initial-index="lightboxIndex"
+          :open="lightboxOpen"
+          @close="closeLightbox"
+        />
       </div>
       <nav class="work-nav" aria-label="作品ナビゲーション">
         <NuxtLink
@@ -209,7 +182,7 @@ const closeLightbox = async (index: number) => {
           :to="previousWork.path"
           rel="prev"
           :aria-label="`前の作品: ${previousWork.title}`"
-          class="work-nav-link is-previous"
+          class="work-nav-link surface-button is-previous"
         >
           <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="work-nav-body">
@@ -217,7 +190,7 @@ const closeLightbox = async (index: number) => {
             <span class="work-nav-title">{{ previousWork.title }}</span>
           </span>
         </NuxtLink>
-        <NuxtLink to="/works" class="work-nav-link is-all" aria-label="すべての作品">
+        <NuxtLink to="/works" class="work-nav-link surface-button is-all" aria-label="すべての作品">
           <IconLayoutGrid :size="20" aria-hidden="true" />
           <span class="work-nav-all-label">すべての作品</span>
         </NuxtLink>
@@ -226,7 +199,7 @@ const closeLightbox = async (index: number) => {
           :to="nextWork.path"
           rel="next"
           :aria-label="`次の作品: ${nextWork.title}`"
-          class="work-nav-link is-next"
+          class="work-nav-link surface-button is-next"
         >
           <span class="work-nav-body">
             <span class="work-nav-label">次の作品</span>
@@ -239,217 +212,90 @@ const closeLightbox = async (index: number) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .each-work-page {
-  .work {
-    a {
-      overflow-wrap: anywhere;
+  .work-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: start;
+
+    > .carousel {
+      flex: 1;
+      min-width: 0;
     }
 
-    .work-hero {
-      display: flex;
-      gap: 2rem;
-      align-items: start;
+    > .work-sidebar {
+      flex-shrink: 0;
+      width: 360px;
 
-      > .carousel {
-        flex: 1;
-        min-width: 0;
+      .work-title {
+        display: block;
+        width: auto;
+        padding: 0;
+        margin: 0 0 0.75rem;
+        font-size: var(--font-size-title);
+        font-weight: 800;
+        view-transition-class: list-title;
+        text-box: normal;
       }
+    }
+
+    @media (width <= 48rem) {
+      flex-direction: column;
+      gap: 1rem;
 
       > .work-sidebar {
-        flex-shrink: 0;
-        width: 360px;
-
-        .work-title {
-          display: block;
-          width: auto;
-          padding: 0;
-          margin: 0 0 0.75rem;
-          font-size: var(--font-size-title);
-          font-weight: 800;
-          view-transition-class: list-title;
-          text-box: normal;
-        }
+        order: -1;
+        width: 100%;
       }
+    }
+  }
 
-      @media (width <= 48rem) {
-        flex-direction: column;
-        gap: 1rem;
+  .work-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0;
+    margin: 0;
 
-        > .work-sidebar {
-          order: -1;
-          width: 100%;
-        }
+    dt {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: var(--line-height-tight);
+      color: rgb(var(--text-muted));
+      letter-spacing: 0.05em;
+
+      &:first-of-type {
+        margin-top: 0;
       }
     }
 
-    .work-meta {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-      padding: 0;
+    dd {
       margin: 0;
-
-      dt {
-        margin-top: 0.75rem;
-        font-size: 0.75rem;
-        font-weight: 800;
-        line-height: var(--line-height-tight);
-        color: rgb(var(--text-muted));
-        letter-spacing: 0.05em;
-
-        &:first-of-type {
-          margin-top: 0;
-        }
-      }
-
-      dd {
-        margin: 0;
-        line-height: var(--line-height-tight);
-      }
-
-      .tech-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: center;
-      }
-
-      .tech-tag {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        font-size: 1rem;
-        line-height: var(--line-height-tight);
-        color: rgb(var(--text));
-        background: rgb(var(--surface));
-        border-radius: var(--radius-xs);
-
-        @supports (text-box-trim: trim-both) {
-          text-box: trim-both text text;
-          padding-block: 0.5rem;
-        }
-      }
+      line-height: var(--line-height-tight);
     }
 
-    .content {
-      padding-top: 1.5rem;
-      padding-bottom: 1rem;
-      overflow-wrap: anywhere;
-
-      @media (width <= 48rem) {
-        padding-top: 0;
-      }
-
-      p {
-        margin: 1rem 0;
-      }
-
-      ul {
-        padding-left: 1.5rem;
-        margin: 0.5rem 0;
-
-        ul {
-          margin: 0;
-        }
-      }
-
-      li {
-        margin: 0.25rem 0;
-        line-height: var(--line-height-body);
-      }
-
-      h2 {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        margin: 1rem 0 0;
-        font-size: 1.25rem;
-        color: rgb(var(--bg));
-        letter-spacing: 0;
-        background-color: rgb(var(--text));
-      }
-
-      h3 {
-        padding-left: 0;
-        font-size: 1.25rem;
-      }
-
-      h2 a {
-        color: inherit;
-      }
-
-      h3,
-      h4,
-      h5 {
-        a {
-          color: rgb(var(--text));
-        }
-      }
-
-      /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
-      table {
-        margin: 0;
-        overflow-wrap: normal;
-        border-spacing: 0 0.5rem;
-
-        th,
-        td {
-          padding: 0 min(1rem, 3vw);
-          text-align: left;
-        }
-
-        th {
-          border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
-        }
-      }
-
-      code {
-        padding: 0.1em 0.35em;
-        margin: 0;
-        font-family: var(--font-mono);
-        font-size: 0.9em;
-        color: var(--code-text);
-        overflow-wrap: anywhere;
-        cursor: text;
-        background-color: var(--code-bg);
-        border: var(--border-width-hairline) solid rgb(var(--border));
-        border-radius: var(--radius-xs);
-      }
-
-      pre {
-        padding: 1rem;
-        margin: 0.5rem 0;
-        line-height: var(--line-height-tight);
-        color: var(--code-text);
-        overflow-wrap: anywhere;
-        white-space: pre-wrap;
-        cursor: text;
-        background-color: var(--code-bg);
-        border: var(--border-width-hairline) solid rgb(var(--border));
-        border-radius: var(--radius-sm);
-
-        code {
-          padding: 0;
-          font-size: inherit;
-          background: none;
-          border: 0;
-          border-radius: 0;
-        }
-      }
-
-      p:has(img) {
-        text-align: center;
-
-        img {
-          max-width: 100%;
-          max-height: 50vh;
-          border-radius: var(--radius-sm);
-        }
-      }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
     }
 
-    .not-founded {
-      padding: 5rem 1rem;
-      text-align: center;
+    .tech-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 1rem;
+      line-height: var(--line-height-tight);
+      color: rgb(var(--text));
+      background: rgb(var(--surface));
+      border-radius: var(--radius-xs);
+
+      @supports (text-box-trim: trim-both) {
+        text-box: trim-both text text;
+        padding-block: 0.5rem;
+      }
     }
   }
 
@@ -472,11 +318,6 @@ const closeLightbox = async (index: number) => {
     align-items: center;
     min-height: var(--tap-target-size);
     padding: 0.75rem 1.25rem;
-    color: rgb(var(--text));
-    background-color: rgb(var(--surface));
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-sm);
-    transition: var(--transition);
 
     svg {
       flex-shrink: 0;
@@ -514,18 +355,6 @@ const closeLightbox = async (index: number) => {
         display: none;
       }
     }
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
-
-    @media (hover: none) {
-      &:active {
-        border-color: rgb(var(--text));
-      }
-    }
   }
 
   .work-nav-body {
@@ -550,6 +379,139 @@ const closeLightbox = async (index: number) => {
     font-weight: 800;
     line-height: var(--line-height-tight);
     white-space: nowrap;
+  }
+}
+</style>
+
+<style>
+.each-work-page .work {
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  .content {
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    overflow-wrap: anywhere;
+
+    @media (width <= 48rem) {
+      padding-top: 0;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+
+      ul {
+        margin: 0;
+      }
+    }
+
+    li {
+      margin: 0.25rem 0;
+      line-height: var(--line-height-body);
+    }
+
+    h2 {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin: 1rem 0 0;
+      font-size: 1.25rem;
+      color: rgb(var(--bg));
+      letter-spacing: 0;
+      background-color: rgb(var(--text));
+    }
+
+    h3 {
+      padding: 1.5rem 0 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    h4 {
+      padding: 0 0 0 0.75rem;
+      margin: 1rem 0 0;
+      font-size: 1rem;
+      font-weight: 800;
+      border-left: var(--border-width) solid rgb(var(--accent));
+    }
+
+    h2 a {
+      color: inherit;
+    }
+
+    h3,
+    h4,
+    h5 {
+      a {
+        color: rgb(var(--text));
+      }
+    }
+
+    /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
+    table {
+      margin: 0;
+      overflow-wrap: normal;
+      border-spacing: 0 0.5rem;
+
+      th,
+      td {
+        padding: 0 min(1rem, 3vw);
+        text-align: left;
+      }
+
+      th {
+        border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
+      }
+    }
+
+    code {
+      padding: 0.1em 0.35em;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--code-text);
+      overflow-wrap: anywhere;
+      cursor: text;
+      background-color: var(--code-bg);
+      border: var(--border-width-hairline) solid rgb(var(--border));
+      border-radius: var(--radius-xs);
+    }
+
+    pre {
+      padding: 1rem;
+      margin: 0.5rem 0;
+      line-height: var(--line-height-tight);
+      color: var(--code-text);
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      cursor: text;
+      background-color: var(--code-bg);
+      border: var(--border-width-hairline) solid rgb(var(--border));
+      border-radius: var(--radius-sm);
+
+      code {
+        padding: 0;
+        font-size: inherit;
+        background: none;
+        border: 0;
+        border-radius: 0;
+      }
+    }
+
+    p:has(img) {
+      text-align: center;
+
+      img {
+        max-width: 100%;
+        max-height: 50vh;
+        border-radius: var(--radius-sm);
+      }
+    }
   }
 }
 </style>

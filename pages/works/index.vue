@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const works = await queryCollection('works').order("period", "DESC").all();
+import { siteUrl } from "~/libs/site";
 
-useSeoMeta({
-  title: "作品一覧 - newt239.dev",
-  ogTitle: "作品一覧 - newt239.dev",
-  ogImage: "https://newt239.dev/og/works.png",
-  twitterImage: "https://newt239.dev/og/works.png",
-});
+const { data } = await useAsyncData("works-list", () =>
+  queryCollection("works").order("period", "DESC").all()
+);
+const works = data.value ?? [];
+
+usePageSeo({ title: "作品一覧", ogImage: `${siteUrl}/og/works.png` });
 
 useHead({
   script: [
@@ -15,11 +15,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "@id": "https://newt239.dev/works#webpage",
+        "@id": `${siteUrl}/works#webpage`,
         name: "作品一覧 - newt239.dev",
-        url: "https://newt239.dev/works",
+        url: `${siteUrl}/works`,
         inLanguage: "ja",
-        isPartOf: { "@id": "https://newt239.dev/#website" },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: works.length,
@@ -27,7 +27,7 @@ useHead({
             "@type": "ListItem",
             position: index + 1,
             name: work.title,
-            url: `https://newt239.dev${work.path}`,
+            url: `${siteUrl}${work.path}`,
           })),
         },
       },
@@ -38,7 +38,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
           { "@type": "ListItem", position: 2, name: "作品一覧" },
         ],
       },
@@ -46,53 +46,23 @@ useHead({
   ],
 });
 
-const route = useRoute();
-const router = useRouter();
-
-const sortAsc = ref(false);
-const featuredOnly = ref(false);
-const draftSortAsc = ref(false);
-const draftFeaturedOnly = ref(false);
-
-watch(() => route.query, (query) => {
-  sortAsc.value = query.dir === "asc";
-  featuredOnly.value = query.featured === "1";
-  draftSortAsc.value = sortAsc.value;
-  draftFeaturedOnly.value = featuredOnly.value;
-}, { immediate: true });
-
-const applyControls = async () => {
-  const update = async () => {
-    sortAsc.value = draftSortAsc.value;
-    featuredOnly.value = draftFeaturedOnly.value;
+const { applied, draft, dirty, hasConditions, apply } = useListControls(
+  (query) => ({ sortAsc: query.dir === "asc", featuredOnly: query.featured === "1" }),
+  ({ sortAsc, featuredOnly }) => {
     const query: Record<string, string> = {};
-    if (sortAsc.value) query.dir = "asc";
-    if (featuredOnly.value) query.featured = "1";
-    await router.replace({ query });
-    await nextTick();
-  };
-  if (!("startViewTransition" in document)) {
-    await update();
-    return;
+    if (sortAsc) query.dir = "asc";
+    if (featuredOnly) query.featured = "1";
+    return query;
   }
-  const transition = document.startViewTransition({ types: ["list-filter"], update });
-  await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
-};
+);
 
 const sortedWorks = computed(() => {
-  let result = [...works];
-
-  if (featuredOnly.value) {
-    result = result.filter((w) => w.order != null);
-  }
-
-  result.sort((a, b) => {
-    return sortAsc.value
+  const result = applied.value.featuredOnly ? works.filter((w) => w.order != null) : works;
+  return result.toSorted((a, b) => {
+    return applied.value.sortAsc
       ? a.period.localeCompare(b.period)
       : b.period.localeCompare(a.period);
   });
-
-  return result;
 });
 </script>
 
@@ -104,15 +74,15 @@ const sortedWorks = computed(() => {
 
         <ListControlBar
           filter-label="絞り込み"
-          :sort-asc="draftSortAsc"
-          :has-conditions="featuredOnly || sortAsc"
-          :dirty="draftFeaturedOnly !== featuredOnly || draftSortAsc !== sortAsc"
-          @update:sort-asc="draftSortAsc = $event"
-          @apply="applyControls"
+          :sort-asc="draft.sortAsc"
+          :has-conditions="hasConditions"
+          :dirty="dirty"
+          @update:sort-asc="draft.sortAsc = $event"
+          @apply="apply"
         >
           <FilterChip
-            :active="draftFeaturedOnly"
-            @click="draftFeaturedOnly = !draftFeaturedOnly"
+            :active="draft.featuredOnly"
+            @click="draft.featuredOnly = !draft.featuredOnly"
           >
             おすすめ
           </FilterChip>
@@ -120,7 +90,7 @@ const sortedWorks = computed(() => {
       </div>
 
       <p class="visually-hidden" role="status">
-        {{ sortAsc ? "古い順" : "新しい順" }}で{{ sortedWorks.length }}件表示しています
+        {{ applied.sortAsc ? "古い順" : "新しい順" }}で{{ sortedWorks.length }}件表示しています
       </p>
 
       <div v-if="sortedWorks.length === 0" class="empty-state">
@@ -134,44 +104,18 @@ const sortedWorks = computed(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .work-list-page {
   container-type: inline-size;
+}
 
-  .category-name {
-    view-transition-name: work-category-name;
-  }
+.category-name {
+  view-transition-name: work-category-name;
+}
 
-  .list-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 1rem;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    @container (max-width: 16em) {
-      grid-template-columns: 1fr;
-      row-gap: var(--list-header-row-gap);
-      justify-items: start;
-    }
-  }
-
-  .empty-state {
-    padding: 3rem 1rem;
-    color: rgb(var(--text-muted));
-    text-align: center;
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-
-    a {
-      color: rgb(var(--text));
-      text-decoration: none;
-    }
-  }
-
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
 }
 </style>

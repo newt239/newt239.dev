@@ -37,7 +37,7 @@ const apply = async () => {
     <button
       ref="toggle"
       type="button"
-      class="list-controls-toggle"
+      class="list-controls-toggle surface-button"
       :aria-expanded="isOpen"
       :aria-controls="panelId"
       @click="isOpen = !isOpen"
@@ -88,26 +88,6 @@ const apply = async () => {
   align-items: center;
   min-height: var(--tap-target-size);
   padding: 0 1rem;
-  font-family: inherit;
-  font-size: 1rem;
-  color: rgb(var(--text));
-  cursor: pointer;
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: rgb(var(--text));
-    }
-  }
-
-  @media (hover: none) {
-    &:active {
-      border-color: rgb(var(--text));
-    }
-  }
 }
 
 .list-controls-panel {

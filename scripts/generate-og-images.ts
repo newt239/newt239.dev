@@ -3,16 +3,14 @@
 import { existsSync } from "node:fs";
 import { readdir, readFile, mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
 import { parse } from "yaml";
 
 import { formatPeriod } from "../libs/period";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = join(__dirname, "..");
+const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
 const IMAGES_DIR = join(ROOT_DIR, "public", "images");
 const OUTPUT_DIR = join(ROOT_DIR, "public", "og");
@@ -33,7 +31,6 @@ const COLORS = {
   bg: "rgb(255, 248, 240)",
   text: "rgb(48, 42, 37)",
   muted: "rgb(110, 100, 90)",
-  accent: "rgb(74, 136, 224)",
 };
 
 type WorkFrontmatter = {
@@ -213,58 +210,46 @@ const defaultNode = (title: string, icon: string) => ({
   },
 });
 
-const toDataUri = async (buffer: Buffer) =>
-  `data:image/png;base64,${buffer.toString("base64")}`;
+const fonts = await loadFonts();
+await mkdir(OUTPUT_DIR, { recursive: true });
 
-const main = async () => {
-  const fonts = await loadFonts();
-  await mkdir(OUTPUT_DIR, { recursive: true });
+const iconBuffer = await sharp(join(ROOT_DIR, "public", "icon.png")).resize(176, 176).png().toBuffer();
+const icon = `data:image/png;base64,${iconBuffer.toString("base64")}`;
 
-  const icon = await toDataUri(
-    await sharp(join(ROOT_DIR, "public", "icon.png")).resize(176, 176).png().toBuffer()
+for (const [name, title] of [
+  ["about", "わたしについて"],
+  ["works", "作品一覧"],
+  ["articles", "記事一覧"],
+] as const) {
+  await render(defaultNode(title, icon), fonts, join(OUTPUT_DIR, `${name}.png`));
+}
+
+const files = (await readdir(WORKS_DIR)).filter((file) => file.endsWith(".md"));
+for (const file of files) {
+  const raw = await readFile(join(WORKS_DIR, file), "utf8");
+  const frontmatter = raw.match(/^---\n([\s\S]*?)\n---/)?.[1];
+  if (!frontmatter) {
+    throw new Error(`frontmatter を読み取れません: ${file}`);
+  }
+  // failsafe スキーマにしないと period: 2024.10 が数値 2024.1 に丸められて月が壊れる
+  const { title, period, images } = parse(frontmatter, {
+    schema: "failsafe",
+  }) as WorkFrontmatter;
+  const [thumbnail] = images;
+  if (!thumbnail) {
+    throw new Error(`images が空です: ${file}`);
+  }
+  const screenshotBuffer = await sharp(join(IMAGES_DIR, thumbnail.src))
+    .resize(WIDTH, SHOT_HEIGHT, { fit: "cover", position: "top" })
+    .png()
+    .toBuffer();
+  const screenshot = `data:image/png;base64,${screenshotBuffer.toString("base64")}`;
+  const slug = file.replace(/\.md$/, "");
+  await render(
+    workNode(title, period, screenshot),
+    fonts,
+    join(OUTPUT_DIR, `works-${slug}.jpg`)
   );
+}
 
-  for (const [name, title] of [
-    ["about", "わたしについて"],
-    ["works", "作品一覧"],
-    ["articles", "記事一覧"],
-  ] as const) {
-    await render(defaultNode(title, icon), fonts, join(OUTPUT_DIR, `${name}.png`));
-  }
-
-  const files = (await readdir(WORKS_DIR)).filter((file) => file.endsWith(".md"));
-  for (const file of files) {
-    const raw = await readFile(join(WORKS_DIR, file), "utf8");
-    const frontmatter = raw.match(/^---\n([\s\S]*?)\n---/)?.[1];
-    if (!frontmatter) {
-      throw new Error(`frontmatter を読み取れません: ${file}`);
-    }
-    // failsafe スキーマにしないと period: 2024.10 が数値 2024.1 に丸められて月が壊れる
-    const { title, period, images } = parse(frontmatter, {
-      schema: "failsafe",
-    }) as WorkFrontmatter;
-    const [thumbnail] = images;
-    if (!thumbnail) {
-      throw new Error(`images が空です: ${file}`);
-    }
-    const screenshot = await toDataUri(
-      await sharp(join(IMAGES_DIR, thumbnail.src))
-        .resize(WIDTH, SHOT_HEIGHT, { fit: "cover", position: "top" })
-        .png()
-        .toBuffer()
-    );
-    const slug = file.replace(/\.md$/, "");
-    await render(
-      workNode(title, period, screenshot),
-      fonts,
-      join(OUTPUT_DIR, `works-${slug}.jpg`)
-    );
-  }
-
-  console.log(`\n${files.length + 3} 件の OG 画像を生成しました。`);
-};
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+console.log(`\n${files.length + 3} 件の OG 画像を生成しました。`);

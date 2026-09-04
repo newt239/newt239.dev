@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import { IconSparkles, IconLoader2, IconX } from "@tabler/icons-vue";
 
-import { applyTheme, themeConstraints, themeVariables } from "~/libs/theme";
-
-import type { ThemeGenerationResponse } from "~/libs/theme";
+import {
+  applyTheme,
+  themeConstraints,
+  themeVariables,
+  type ThemeGenerationResponse,
+} from "~/libs/theme";
 
 const defaultMessage = "Caution: All prompts are recorded.";
 const fallbackMessage = "Something went wrong. Please try another word.";
@@ -11,14 +14,15 @@ const fallbackMessage = "Something went wrong. Please try another word.";
 const dialogId = useId();
 const descriptionId = useId();
 const isGenerating = ref(false);
-const promptModel = defineModel<string>();
-const modalRef = ref<HTMLDialogElement>();
+const themePrompt = ref("");
+const modalRef = useTemplateRef<HTMLDialogElement>("modal");
 const isBackdropPress = ref(false);
 const responseMessage = ref(defaultMessage);
 
 const generateTheme = async () => {
-  if (!promptModel.value) {
-    promptModel.value = "fairy tale";
+  if (isGenerating.value) return;
+  if (!themePrompt.value) {
+    themePrompt.value = "fairy tale";
   }
   isGenerating.value = true;
   try {
@@ -28,11 +32,15 @@ const generateTheme = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: promptModel.value,
+        prompt: themePrompt.value,
         requiredVariables: themeVariables,
         constraints: themeConstraints,
       }),
     });
+    if (!res.ok) {
+      responseMessage.value = fallbackMessage;
+      return;
+    }
     const content: ThemeGenerationResponse = await res.json();
     if (content.type !== "success") {
       responseMessage.value =
@@ -53,18 +61,13 @@ const onDialogClose = () => {
   isGenerating.value = false;
   responseMessage.value = defaultMessage;
 };
-const onKeyDown = (event: KeyboardEvent) => {
-  if (event.key === "Enter" && !event.isComposing) {
-    generateTheme();
-  }
-};
 </script>
 
 <template>
   <button
     type="button"
     aria-label="テーマ変更"
-    class="modal-open-button"
+    class="modal-open-button surface-button"
     command="show-modal"
     :commandfor="dialogId"
   >
@@ -72,7 +75,7 @@ const onKeyDown = (event: KeyboardEvent) => {
   </button>
   <dialog
     :id="dialogId"
-    ref="modalRef"
+    ref="modal"
     closedby="any"
     :aria-labelledby="descriptionId"
     :aria-busy="isGenerating"
@@ -96,25 +99,22 @@ const onKeyDown = (event: KeyboardEvent) => {
       <p :id="descriptionId" class="modal-description">Enter a prompt to generate a new theme.</p>
       <div class="theme-change-form">
         <input
-          id="theme-changer-input"
-          v-model="promptModel"
+          v-model="themePrompt"
+          class="theme-change-input"
           type="text"
           placeholder="fairy tale"
           :aria-labelledby="descriptionId"
           autofocus
-          @keydown.enter="onKeyDown"
+          @keydown.enter="!$event.isComposing && generateTheme()"
         />
         <button
           class="theme-change-button"
           :class="{ 'is-generating': isGenerating }"
-          :disabled="isGenerating"
+          :aria-disabled="isGenerating"
           @click="generateTheme"
         >
-          <IconSparkles
-            v-if="isGenerating === false"
-            aria-hidden="true"
-          />
-          <IconLoader2 v-else aria-hidden="true" />
+          <IconSparkles v-if="!isGenerating" class="button-icon" aria-hidden="true" />
+          <IconLoader2 v-else class="button-icon loading-icon" aria-hidden="true" />
           Generate
         </button>
       </div>
@@ -130,29 +130,10 @@ const onKeyDown = (event: KeyboardEvent) => {
   justify-content: center;
   width: var(--tap-target-size);
   height: var(--tap-target-size);
-  color: rgb(var(--text));
-  cursor: pointer;
-  background-color: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
 
   svg {
     width: var(--tap-target-icon-size);
     height: var(--tap-target-icon-size);
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      color: rgb(var(--text));
-      border-color: rgb(var(--text));
-    }
-  }
-
-  @media (hover: none) {
-    &:active {
-      border-color: rgb(var(--text));
-    }
   }
 }
 
@@ -281,13 +262,13 @@ dialog {
   border: var(--border-width) solid rgb(var(--text));
   border-radius: var(--radius-pill);
 
-  &:has(#theme-changer-input:focus-visible) {
+  &:has(.theme-change-input:focus-visible) {
     outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
     outline-offset: var(--focus-ring-offset);
   }
 }
 
-#theme-changer-input {
+.theme-change-input {
   min-width: 0;
   min-height: 4rem;
   padding-left: 1rem;
@@ -370,14 +351,13 @@ dialog {
     }
   }
 
-  .tabler-icon-sparkles,
-  .tabler-icon-loader-2 {
+  .button-icon {
     width: 2rem;
     height: 2rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .tabler-icon-loader-2 {
+    .loading-icon {
       animation: spin 1s linear infinite;
     }
   }
@@ -417,12 +397,12 @@ dialog {
     background: none;
     border: none;
 
-    &:has(#theme-changer-input:focus-visible) {
+    &:has(.theme-change-input:focus-visible) {
       outline: none;
     }
   }
 
-  #theme-changer-input {
+  .theme-change-input {
     min-height: 2.5rem;
     padding-left: 0.5rem;
     font-size: 1rem;
@@ -445,8 +425,7 @@ dialog {
     margin: 0;
     font-size: 1rem;
 
-    .tabler-icon-sparkles,
-    .tabler-icon-loader-2 {
+    .button-icon {
       width: 1.25rem;
       height: 1.25rem;
     }

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconChevronDown, IconChevronLeft, IconChevronRight, IconChevronUp, IconMinus, IconPlus, IconX, IconZoomReset } from "@tabler/icons-vue";
+
 const props = defineProps<{
   images: { src: string; alt: string }[];
   initialIndex: number;
@@ -21,7 +23,7 @@ const PAN_KEYS: Record<string, [number, number]> = {
 };
 
 const currentIndex = ref(props.initialIndex);
-const dialogRef = ref<HTMLDialogElement | null>(null);
+const dialogRef = useTemplateRef<HTMLDialogElement>("dialog");
 const contentRef = useTemplateRef<HTMLElement>("content");
 const imageRef = useTemplateRef<{ imgEl: HTMLImageElement | null }>("image");
 const scale = ref(1);
@@ -44,10 +46,9 @@ useHead({
   link: computed(() => {
     if (!props.open || !hasMultiple.value) return [];
     const total = props.images.length;
-    const neighbors = [...new Set([
-      (currentIndex.value + 1) % total,
-      (currentIndex.value - 1 + total) % total,
-    ])].filter((index) => index !== currentIndex.value);
+    const next = (currentIndex.value + 1) % total;
+    const prev = (currentIndex.value - 1 + total) % total;
+    const neighbors = next === prev ? [next] : [next, prev];
     return neighbors.flatMap((index) => {
       const image = props.images[index];
       if (!image) return [];
@@ -60,10 +61,8 @@ onMounted(() => {
   supportsViewTransition.value = "startViewTransition" in document;
 });
 const canZoomIn = computed(() => scale.value < MAX_SCALE);
-const canZoomOut = computed(() => scale.value > MIN_SCALE);
-const canReset = computed(() => scale.value !== 1);
+const isZoomed = computed(() => scale.value > MIN_SCALE);
 const scalePercent = computed(() => `${Math.round(scale.value * 100)}%`);
-const isPanned = computed(() => scale.value > MIN_SCALE);
 
 const imageTransform = computed(() => {
   if (scale.value === 1 && translateX.value === 0 && translateY.value === 0) {
@@ -71,6 +70,118 @@ const imageTransform = computed(() => {
   }
   return `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`;
 });
+
+const resetZoom = () => {
+  scale.value = 1;
+  translateX.value = 0;
+  translateY.value = 0;
+};
+
+const clampTranslate = () => {
+  const image = imageRef.value?.imgEl;
+  const content = contentRef.value;
+  if (!image || !content) return;
+  const limitX =
+    Math.max(0, image.offsetWidth * scale.value - content.clientWidth) / 2 / scale.value;
+  const limitY =
+    Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
+  translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
+  translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
+};
+
+const panBy = (directionX: number, directionY: number) => {
+  if (!isZoomed.value) return;
+  translateX.value += (directionX * PAN_STEP) / scale.value;
+  translateY.value += (directionY * PAN_STEP) / scale.value;
+  clampTranslate();
+};
+
+const zoomIn = () => {
+  if (canZoomIn.value) {
+    scale.value = Math.min(scale.value + SCALE_STEP, MAX_SCALE);
+  }
+};
+
+const zoomOut = () => {
+  if (isZoomed.value) {
+    scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
+    clampTranslate();
+  }
+};
+
+const close = () => {
+  emit("close", currentIndex.value);
+};
+
+const prev = () => {
+  resetZoom();
+  currentIndex.value =
+    ((currentIndex.value - 1) + props.images.length) % props.images.length;
+};
+
+const next = () => {
+  resetZoom();
+  currentIndex.value = (currentIndex.value + 1) % props.images.length;
+};
+
+const onKeydown = (e: KeyboardEvent) => {
+  const direction = PAN_KEYS[e.key];
+  if (direction) {
+    if (!isZoomed.value) return;
+    e.preventDefault();
+    panBy(direction[0], direction[1]);
+  } else if (e.key === "+" || e.key === "=") {
+    e.preventDefault();
+    zoomIn();
+  } else if (e.key === "-") {
+    e.preventDefault();
+    zoomOut();
+  } else if (e.key === "0") {
+    e.preventDefault();
+    resetZoom();
+  }
+};
+
+const onBackdropClick = (e: MouseEvent) => {
+  if (e.target === e.currentTarget && !didDrag) {
+    close();
+  }
+  didDrag = false;
+};
+
+const onPointerDown = (e: PointerEvent) => {
+  if (!isZoomed.value) return;
+  if (e.pointerType === "touch" && !e.isPrimary) return;
+
+  isDragging.value = true;
+  didDrag = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragStartTranslateX = translateX.value;
+  dragStartTranslateY = translateY.value;
+
+  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  e.preventDefault();
+};
+
+const onPointerMove = (e: PointerEvent) => {
+  if (!isDragging.value) return;
+
+  const dx = (e.clientX - dragStartX) / scale.value;
+  const dy = (e.clientY - dragStartY) / scale.value;
+
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+    didDrag = true;
+  }
+
+  translateX.value = dragStartTranslateX + dx;
+  translateY.value = dragStartTranslateY + dy;
+  clampTranslate();
+};
+
+const onPointerUp = () => {
+  isDragging.value = false;
+};
 
 watch(
   () => props.initialIndex,
@@ -91,118 +202,6 @@ watch(
     }
   }
 );
-
-function resetZoom() {
-  scale.value = 1;
-  translateX.value = 0;
-  translateY.value = 0;
-}
-
-function clampTranslate() {
-  const image = imageRef.value?.imgEl;
-  const content = contentRef.value;
-  if (!image || !content) return;
-  const limitX =
-    Math.max(0, image.offsetWidth * scale.value - content.clientWidth) / 2 / scale.value;
-  const limitY =
-    Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
-  translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
-  translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
-}
-
-function panBy(directionX: number, directionY: number) {
-  if (scale.value <= MIN_SCALE) return;
-  translateX.value += (directionX * PAN_STEP) / scale.value;
-  translateY.value += (directionY * PAN_STEP) / scale.value;
-  clampTranslate();
-}
-
-function zoomIn() {
-  if (canZoomIn.value) {
-    scale.value = Math.min(scale.value + SCALE_STEP, MAX_SCALE);
-  }
-}
-
-function zoomOut() {
-  if (canZoomOut.value) {
-    scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
-    clampTranslate();
-  }
-}
-
-function close() {
-  emit("close", currentIndex.value);
-}
-
-function prev() {
-  resetZoom();
-  currentIndex.value =
-    ((currentIndex.value - 1) + props.images.length) % props.images.length;
-}
-
-function next() {
-  resetZoom();
-  currentIndex.value = (currentIndex.value + 1) % props.images.length;
-}
-
-function onKeydown(e: KeyboardEvent) {
-  const direction = PAN_KEYS[e.key];
-  if (direction) {
-    if (scale.value <= MIN_SCALE) return;
-    e.preventDefault();
-    panBy(direction[0], direction[1]);
-  } else if (e.key === "+" || e.key === "=") {
-    e.preventDefault();
-    zoomIn();
-  } else if (e.key === "-") {
-    e.preventDefault();
-    zoomOut();
-  } else if (e.key === "0") {
-    e.preventDefault();
-    resetZoom();
-  }
-}
-
-function onBackdropClick(e: MouseEvent) {
-  if (e.target === e.currentTarget && !didDrag) {
-    close();
-  }
-  didDrag = false;
-}
-
-function onPointerDown(e: PointerEvent) {
-  if (scale.value <= MIN_SCALE) return;
-  if (e.pointerType === "touch" && !e.isPrimary) return;
-
-  isDragging.value = true;
-  didDrag = false;
-  dragStartX = e.clientX;
-  dragStartY = e.clientY;
-  dragStartTranslateX = translateX.value;
-  dragStartTranslateY = translateY.value;
-
-  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  e.preventDefault();
-}
-
-function onPointerMove(e: PointerEvent) {
-  if (!isDragging.value) return;
-
-  const dx = (e.clientX - dragStartX) / scale.value;
-  const dy = (e.clientY - dragStartY) / scale.value;
-
-  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
-    didDrag = true;
-  }
-
-  translateX.value = dragStartTranslateX + dx;
-  translateY.value = dragStartTranslateY + dy;
-  clampTranslate();
-}
-
-function onPointerUp() {
-  isDragging.value = false;
-}
 </script>
 
 <template>
@@ -210,7 +209,7 @@ function onPointerUp() {
     <Transition name="lightbox" :css="!supportsViewTransition">
       <dialog
         v-if="open"
-        ref="dialogRef"
+        ref="dialog"
         class="lightbox-overlay"
         aria-label="画像拡大表示"
         @cancel.prevent="close"
@@ -220,7 +219,7 @@ function onPointerUp() {
         <div
           ref="content"
           class="lightbox-content"
-          :class="{ 'is-zoomed': isPanned }"
+          :class="{ 'is-zoomed': isZoomed }"
           @click="onBackdropClick"
         >
           <NuxtImg
@@ -239,7 +238,7 @@ function onPointerUp() {
           />
         </div>
         <button class="lightbox-close" aria-label="閉じる" @click="close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          <IconX :size="24" aria-hidden="true" />
         </button>
         <div class="lightbox-bottom-bar">
           <div class="lightbox-controls">
@@ -247,78 +246,71 @@ function onPointerUp() {
               <button
                 class="lightbox-btn"
                 aria-label="縮小"
-                :aria-disabled="!canZoomOut"
-                :disabled="!canZoomOut"
+                :aria-disabled="!isZoomed"
                 @click="zoomOut"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                <IconMinus :size="18" aria-hidden="true" />
               </button>
               <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
               <button
                 class="lightbox-btn"
                 aria-label="拡大"
                 :aria-disabled="!canZoomIn"
-                :disabled="!canZoomIn"
                 @click="zoomIn"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                <IconPlus :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
                 aria-label="ズームをリセット"
-                :aria-disabled="!canReset"
-                :disabled="!canReset"
-                @click="resetZoom"
+                :aria-disabled="!isZoomed"
+                @click="isZoomed && resetZoom()"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+                <IconZoomReset :size="18" aria-hidden="true" />
               </button>
             </div>
             <div role="group" aria-label="画像の移動" class="lightbox-cluster">
               <button
                 class="lightbox-btn"
                 aria-label="左を表示"
-                :aria-disabled="!isPanned"
-                :disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(1, 0)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                <IconChevronLeft :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
                 aria-label="上を表示"
-                :aria-disabled="!isPanned"
-                :disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(0, 1)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+                <IconChevronUp :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
                 aria-label="下を表示"
-                :aria-disabled="!isPanned"
-                :disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(0, -1)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                <IconChevronDown :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
                 aria-label="右を表示"
-                :aria-disabled="!isPanned"
-                :disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(-1, 0)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                <IconChevronRight :size="18" aria-hidden="true" />
               </button>
             </div>
           </div>
           <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
             <button class="lightbox-btn" aria-label="前の画像" @click="prev">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+              <IconChevronLeft :size="18" aria-hidden="true" />
             </button>
             <span class="lightbox-counter" aria-live="polite">{{ currentIndex + 1 }} / {{ images.length }}</span>
             <button class="lightbox-btn" aria-label="次の画像" @click="next">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+              <IconChevronRight :size="18" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -472,12 +464,12 @@ function onPointerUp() {
   transition: var(--transition);
 
   @media (hover: hover) {
-    &:hover:not(:disabled) {
+    &:hover:not([aria-disabled="true"]) {
       background: rgb(255 255 255 / 25%);
     }
   }
 
-  &:disabled {
+  &[aria-disabled="true"] {
     cursor: default;
     opacity: 0.35;
   }

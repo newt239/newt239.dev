@@ -6,8 +6,10 @@ if (import.meta.client) {
   const router = useRouter();
 
   const unregister = nuxtApp.hook("page:finish", () => {
-    if (nuxtApp.isHydrating || router.currentRoute.value.hash) return;
-    main.value?.focus({ preventScroll: true });
+    if (nuxtApp.isHydrating) return;
+    const { hash } = router.currentRoute.value;
+    const target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : main.value;
+    target?.focus({ preventScroll: true });
   });
 
   onUnmounted(unregister);
@@ -26,7 +28,7 @@ if (import.meta.client) {
   </div>
 </template>
 
-<style>
+<style scoped>
 .loading-indicator {
   @media (prefers-reduced-motion: reduce) {
     display: none;

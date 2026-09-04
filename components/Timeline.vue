@@ -1,23 +1,18 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-import { timeline } from "~/libs/timeline";
+import { timeline, type TimelineItem } from "~/libs/timeline";
 
-import type { TimelineItem } from "~/libs/timeline";
-
-const years = computed(() => {
-  const grouped = new Map<number, TimelineItem[]>();
-  for (const item of [...timeline].sort((a, b) => b.start.localeCompare(a.start))) {
-    const year = Number(item.start.slice(0, 4));
-    const yearItems = grouped.get(year);
-    if (yearItems) {
-      yearItems.push(item);
-    } else {
-      grouped.set(year, [item]);
-    }
+const years: { year: number; items: TimelineItem[] }[] = [];
+for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) {
+  const year = Number(item.start.slice(0, 4));
+  const last = years.at(-1);
+  if (last?.year === year) {
+    last.items.push(item);
+  } else {
+    years.push({ year, items: [item] });
   }
-  return [...grouped].map(([year, yearItems]) => ({ year, items: yearItems }));
-});
+}
 </script>
 
 <template>
@@ -42,10 +37,7 @@ const years = computed(() => {
             <span class="item-term">
               <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
             </span>
-            <div class="item-content">
-              <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" /></span>
-              <p v-if="item.description" class="item-description">{{ item.description }}</p>
-            </div>
+            <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" /></span>
           </component>
         </div>
       </div>
@@ -90,26 +82,13 @@ const years = computed(() => {
   white-space: nowrap;
 }
 
-.item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
 .item-title {
+  min-width: 0;
   font-size: 1rem;
   font-weight: 800;
   line-height: var(--line-height-tight);
   overflow-wrap: anywhere;
   transition: var(--transition);
-
-  .external-icon {
-    width: var(--external-link-icon-size);
-    height: var(--external-link-icon-size);
-    margin-left: var(--external-link-icon-gap);
-    vertical-align: var(--external-link-icon-shift);
-  }
 }
 
 /* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
@@ -164,13 +143,5 @@ const years = computed(() => {
       }
     }
   }
-
-}
-
-.item-description {
-  margin: 0;
-  font-size: 0.75rem;
-  line-height: var(--line-height-tight);
-  color: rgb(var(--text-muted));
 }
 </style>

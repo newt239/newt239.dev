@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconCheck } from "@tabler/icons-vue";
 
-const props = defineProps<{
+defineProps<{
   sortAsc: boolean;
   labelId: string;
 }>();
@@ -9,11 +9,6 @@ const props = defineProps<{
 const emit = defineEmits<{
   "update:sortAsc": [boolean];
 }>();
-
-function setSort(asc: boolean) {
-  if (props.sortAsc === asc) return;
-  emit("update:sortAsc", asc);
-}
 </script>
 
 <template>
@@ -22,7 +17,7 @@ function setSort(asc: boolean) {
       class="sort-segment"
       :class="{ active: !sortAsc }"
       :aria-pressed="!sortAsc"
-      @click="setSort(false)"
+      @click="sortAsc && emit('update:sortAsc', false)"
     >
       <IconCheck v-if="!sortAsc" :size="16" class="sort-segment-icon" aria-hidden="true" />
       <span>新しい順</span>
@@ -31,7 +26,7 @@ function setSort(asc: boolean) {
       class="sort-segment"
       :class="{ active: sortAsc }"
       :aria-pressed="sortAsc"
-      @click="setSort(true)"
+      @click="!sortAsc && emit('update:sortAsc', true)"
     >
       <IconCheck v-if="sortAsc" :size="16" class="sort-segment-icon" aria-hidden="true" />
       <span>古い順</span>

@@ -1,18 +1,18 @@
 import { readdirSync } from "node:fs";
 
 import { shikiTheme } from "./libs/shiki-theme";
+import { siteUrl } from "./libs/site";
 
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
 const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
 );
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
   site: {
-    url: "https://newt239.dev",
+    url: siteUrl,
     name: "newt239.dev",
   },
   css: ["@/assets/styles/main.css"],
@@ -28,14 +28,14 @@ export default defineNuxtConfig({
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "newt239.dev" },
         { property: "og:title", content: "newt239.dev" },
-        { property: "og:image", content: "https://newt239.dev/og-image-2026.webp" },
+        { property: "og:image", content: `${siteUrl}/og-image-2026.webp` },
         { property: "og:image:alt", content: "newt239.dev" },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },
         { property: "twitter:site", content: "@newt239" },
         { property: "twitter:creator", content: "@newt239" },
         { property: "twitter:domain", content: "newt239.dev" },
-        { property: "twitter:image", content: "https://newt239.dev/og-image-2026.webp" },
+        { property: "twitter:image", content: `${siteUrl}/og-image-2026.webp` },
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/icon.png" },

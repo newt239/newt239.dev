@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { personId } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
 useHead({
   script: [
@@ -8,10 +9,10 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "@id": "https://newt239.dev/#website",
+        "@id": `${siteUrl}/#website`,
         name: "newt239.dev",
         description: "newt239's portfolio site",
-        url: "https://newt239.dev",
+        url: siteUrl,
         inLanguage: "ja",
         author: { "@id": personId },
         publisher: { "@id": personId },

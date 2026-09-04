@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { certifications } from "~/libs/certifications";
 
-const sortedCertifications = [...certifications].sort((a, b) => b.date.localeCompare(a.date));
+const sortedCertifications = certifications.toSorted((a, b) => b.date.localeCompare(a.date));
 </script>
 
 <template>

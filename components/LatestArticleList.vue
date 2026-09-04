@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
-import { articleList } from "~/libs/articles";
-import ArticleItem from "./ArticleItem.vue";
 
-const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+import { articleList } from "~/libs/articles";
+
+const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).s
         :url="article.url"
         :date="article.date"
       />
-      <NuxtLink to="/articles" class="see-all-articles">
+      <NuxtLink to="/articles" class="see-all-card surface-card see-all-articles">
         <span>
           すべての記事を見る
           <IconChevronRight aria-hidden="true" />
@@ -27,42 +27,18 @@ const articles = [...articleList].sort((a, b) => b.date.localeCompare(a.date)).s
   </div>
 </template>
 
-<style>
-.latest-article-list {
-  .category-title {
-    view-transition-name: article-category-name;
-  }
+<style scoped>
+.category-title {
+  view-transition-name: article-category-name;
+}
 
-  .article-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-  }
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
+}
 
-  .see-all-articles {
-    display: grid;
-    grid-row: span 2;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 1rem 0;
-    color: rgb(var(--text));
-    background: rgb(var(--surface));
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-md);
-    transition: var(--transition);
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
-
-    @media (hover: none) {
-      &:active {
-        border-color: rgb(var(--text));
-      }
-    }
-  }
+.see-all-articles {
+  grid-row: span 2;
 }
 </style>

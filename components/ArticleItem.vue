@@ -1,62 +1,45 @@
 <script setup lang="ts">
 import { IconBook2 } from "@tabler/icons-vue";
 
-interface Props {
+import { articleSite } from "~/libs/articles";
+
+const props = defineProps<{
   title: string;
   url: string;
   date: string;
   headingLevel?: "h2" | "h3";
-}
-const props = defineProps<Props>();
+}>();
 
 const transitionKey = computed(
   () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}`
 );
 
-const getSiteName = (url: string) => {
-  switch (true) {
-    case url.startsWith("https://qiita.com/"):
-      return "Qiita";
-    case url.startsWith("https://zenn.dev/"):
-      return "Zenn";
-    case url.startsWith("https://newt239.hatenablog.com/"):
-      return "はてな";
-    case url.startsWith("https://note.com/"):
-      return "note";
-    case url.startsWith("https://developers.cyberagent.co.jp/"):
-      return "CyberAgent";
-    default:
-      return url.split("/")[2];
-  }
-};
+const site = computed(() => articleSite(props.url));
 </script>
 
 <template>
   <a
-    :href="`${props.url}`"
+    :href="url"
     target="_blank"
     rel="noopener noreferrer"
-    class="article-card"
+    class="article-card surface-card"
     :style="`view-transition-name: ${transitionKey}-card;`"
   >
     <div class="article-card-body">
       <component
-        :is="props.headingLevel ?? 'h3'"
+        :is="headingLevel ?? 'h3'"
         :style="`view-transition-name: ${transitionKey}-title;`"
       >
-        {{ props.title }}
+        {{ title }}
       </component>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
-        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.webp" alt="" width="16" height="16" />
-        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16" height="16" />
-        <NuxtImg v-else-if="props.url.startsWith('https://newt239.hatenablog.com/')" src="/hatena.webp" alt=""
-          width="16" height="16" />
+        <NuxtImg v-if="site.icon" :src="site.icon" alt="" width="16" height="16" />
         <IconBook2 v-else :size="16" />
-        <span class="site-name">{{ getSiteName(props.url) }}</span>
+        <span class="site-name">{{ site.name }}</span>
       </div>
-      <time class="article-date" :datetime="props.date">{{ props.date.replaceAll("-", "/") }}</time>
+      <time class="article-date" :datetime="date">{{ date.replaceAll("-", "/") }}</time>
     </div>
   </a>
 </template>
@@ -68,24 +51,7 @@ const getSiteName = (url: string) => {
   grid-row: span 2;
   gap: 0;
   overflow: hidden;
-  color: rgb(var(--text));
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-md);
-  transition: var(--transition);
   view-transition-class: list-card;
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: rgb(var(--text));
-    }
-  }
-
-  @media (hover: none) {
-    &:active {
-      border-color: rgb(var(--text));
-    }
-  }
 }
 
 .site-info {

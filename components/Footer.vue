@@ -41,24 +41,22 @@ import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
   </footer>
 </template>
 
-<style>
-footer {
-  .footer-inner {
-    max-width: var(--container-max-width);
-    padding: 2.5rem var(--container-padding-inline) 2rem
-      calc(var(--container-padding-inline) + 0.5rem);
-    margin: 0 auto;
-  }
+<style scoped>
+.footer-inner {
+  max-width: var(--container-max-width);
+  padding: 2.5rem var(--container-padding-inline) 2rem
+    calc(var(--container-padding-inline) + 0.5rem);
+  margin: 0 auto;
+}
 
-  .footer-sitemap {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding-top: 1.5rem;
-    border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 15%);
-  }
+.footer-sitemap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 15%);
 
-  .footer-sitemap ul {
+  ul {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.5rem;
@@ -67,26 +65,26 @@ footer {
     list-style: none;
   }
 
-  .footer-sitemap li {
+  li {
     display: flex;
     align-items: center;
   }
 
-  .footer-sitemap a {
+  a {
     display: inline-flex;
     gap: 0.5rem;
     align-items: center;
     font-size: 1rem;
   }
+}
 
-  .footer-bottom {
-    margin-top: 1.5rem;
-    text-align: left;
-  }
+.footer-bottom {
+  margin-top: 1.5rem;
+  text-align: left;
+}
 
-  .copyright {
-    font-size: 0.75rem;
-    color: rgb(var(--text-muted));
-  }
+.copyright {
+  font-size: 0.75rem;
+  color: rgb(var(--text-muted));
 }
 </style>

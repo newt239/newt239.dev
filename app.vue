@@ -1,13 +1,15 @@
 <script lang="ts" setup>
+import { siteUrl } from "~/libs/site";
+
 const route = useRoute();
-const canonicalPath = computed(() => route.path.replace(/\/+$/, "") || "/");
+const canonicalUrl = computed(() => `${siteUrl}${route.path.replace(/\/+$/, "") || "/"}`);
 
 useHead({
-  link: [{ rel: "canonical", href: () => `https://newt239.dev${canonicalPath.value}` }],
+  link: [{ rel: "canonical", href: canonicalUrl }],
 });
 
 useSeoMeta({
-  ogUrl: () => `https://newt239.dev${canonicalPath.value}`,
+  ogUrl: canonicalUrl,
 });
 </script>
 

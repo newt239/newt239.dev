@@ -2,13 +2,9 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 import { person } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
-useSeoMeta({
-  title: "わたしについて - newt239.dev",
-  ogTitle: "わたしについて - newt239.dev",
-  ogImage: "https://newt239.dev/og/about.png",
-  twitterImage: "https://newt239.dev/og/about.png",
-});
+usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
 
 useHead({
   script: [
@@ -17,11 +13,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
-        "@id": "https://newt239.dev/about#webpage",
+        "@id": `${siteUrl}/about#webpage`,
         name: "わたしについて - newt239.dev",
-        url: "https://newt239.dev/about",
+        url: `${siteUrl}/about`,
         inLanguage: "ja",
-        isPartOf: { "@id": "https://newt239.dev/#website" },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: person,
       },
     },
@@ -29,7 +25,7 @@ useHead({
 });
 
 const contacts = [
-  { label: "メール", items: [{ href: "mailto:contact@newt239.dev", text: "contact@newt239.dev" }] },
+  { label: "メール", items: [{ href: `mailto:${person.email}`, text: person.email }] },
   {
     label: "Discordサーバー",
     items: [{ href: "https://discord.gg/rct5sx6rbZ", text: "https://discord.gg/rct5sx6rbZ" }],
@@ -80,7 +76,7 @@ const links = [
           <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
           <dl class="basic-info">
             <dt>誕生日</dt>
-            <dd>2005年11月2日</dd>
+            <dd>{{ new Date(person.birthDate).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</dd>
             <dt>所属</dt>
             <dd>芝浦工業大学 3年<br>デザイン工学部 デザイン工学科<br>ロボティクス・情報デザイン系</dd>
           </dl>
@@ -88,8 +84,8 @@ const links = [
       </div>
 
       <div class="about-sections">
-        <section class="about-section">
-          <h2>コンタクト</h2>
+        <section id="contact" class="about-section" tabindex="-1">
+          <h2 class="section-heading">コンタクト</h2>
           <div class="section-body">
             <ul>
               <li v-for="contact in contacts" :key="contact.label">
@@ -111,7 +107,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>興味・関心</h2>
+          <h2 class="section-heading">興味・関心</h2>
           <div class="section-body">
             <ul>
               <li v-for="interest in interests" :key="interest.category">
@@ -125,7 +121,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>趣味</h2>
+          <h2 class="section-heading">趣味</h2>
           <div class="section-body hobbies">
             <div v-for="hobby in hobbies" :key="hobby.title">
               <h3>{{ hobby.title }}</h3>
@@ -137,7 +133,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>リンク集</h2>
+          <h2 class="section-heading">リンク集</h2>
           <div class="section-body link-list">
             <a
               v-for="link in links"
@@ -157,7 +153,7 @@ const links = [
   </div>
 </template>
 
-<style>
+<style scoped>
 .about-page {
   max-width: 800px;
   margin: 0 auto;
@@ -235,35 +231,10 @@ const links = [
   }
 
   .about-section {
-    h2 {
-      width: auto;
-      padding: 0 0 0.5rem;
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 800;
-      text-box: normal;
-    }
-
     h3 {
       padding: 0;
       margin: 0 0 0.25rem;
       font-size: 1rem;
-    }
-
-    .section-body {
-      padding: 1rem min(1.5rem, 5vw);
-      overflow-wrap: anywhere;
-      background: rgb(var(--surface));
-      border-radius: var(--radius-md);
-
-      ul {
-        padding-left: min(1.25rem, 4vw);
-        margin: 0;
-      }
-
-      li {
-        line-height: var(--line-height-body);
-      }
     }
 
     .hobbies {
@@ -295,13 +266,6 @@ const links = [
       text-decoration-style: dashed;
       text-underline-offset: 0.25rem;
       transition: var(--transition);
-
-      .external-icon {
-        width: var(--external-link-icon-size);
-        height: var(--external-link-icon-size);
-        margin-left: var(--external-link-icon-gap);
-        vertical-align: var(--external-link-icon-shift);
-      }
 
       &:not(:last-child) {
         border-bottom: var(--border-width-hairline) solid rgb(var(--border));

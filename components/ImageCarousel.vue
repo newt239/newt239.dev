@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-vue";
+
 const props = defineProps<{
   images: { src: string; alt: string }[];
   workSlug: string;
@@ -10,8 +12,10 @@ const emit = defineEmits<{
 }>();
 
 const currentIndex = ref(0);
-const trackRef = ref<HTMLElement | null>(null);
-const pagesRef = ref<HTMLElement | null>(null);
+const trackRef = useTemplateRef<HTMLElement>("track");
+const pagesRef = useTemplateRef<HTMLElement>("pages");
+const imageButtons = useTemplateRef<HTMLButtonElement[]>("imageButtons");
+const pageButtons = useTemplateRef<HTMLButtonElement[]>("pageButtons");
 const isSnapping = ref(false);
 const slideIdBase = useId();
 
@@ -30,36 +34,35 @@ useHead({
 let touchStartX = 0;
 let touchDeltaX = 0;
 
-function goTo(index: number) {
+const goTo = (index: number) => {
   currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
-}
+};
 
-function prev() {
+const prev = () => {
   goTo(currentIndex.value - 1);
-}
+};
 
-function next() {
+const next = () => {
   goTo(currentIndex.value + 1);
-}
+};
 
-function snapTo(index: number) {
+const snapTo = (index: number) => {
   isSnapping.value = true;
-  currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
+  goTo(index);
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       isSnapping.value = false;
     });
   });
-}
+};
 
-function focusCurrentImage() {
-  const buttons = trackRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-image-button");
-  buttons?.[currentIndex.value]?.focus({ preventScroll: true });
-}
+const focusCurrentImage = () => {
+  imageButtons.value?.[currentIndex.value]?.focus({ preventScroll: true });
+};
 
 defineExpose({ snapTo, focusCurrentImage });
 
-function imageStyle(index: number) {
+const imageStyle = (index: number) => {
   if (props.morphIndex === index) {
     return "view-transition-name: lightbox-img; view-transition-class: none;";
   }
@@ -68,9 +71,9 @@ function imageStyle(index: number) {
     return `view-transition-name: ${props.workSlug}-img;`;
   }
   return undefined;
-}
+};
 
-function onKeydown(e: KeyboardEvent) {
+const onKeydown = (e: KeyboardEvent) => {
   const target = e.target as Node;
   const fromPages = pagesRef.value?.contains(target) ?? false;
   const fromTrack = trackRef.value?.contains(target) ?? false;
@@ -85,29 +88,26 @@ function onKeydown(e: KeyboardEvent) {
   e.preventDefault();
   goTo(nextIndex);
   if (fromPages) {
-    nextTick(() => {
-      const buttons = pagesRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-page-btn");
-      buttons?.[currentIndex.value]?.focus();
-    });
+    nextTick(() => pageButtons.value?.[currentIndex.value]?.focus());
   } else if (fromTrack) {
     nextTick(focusCurrentImage);
   }
-}
+};
 
-function onTouchStart(e: TouchEvent) {
+const onTouchStart = (e: TouchEvent) => {
   const touch = e.touches[0];
   if (!touch) return;
   touchStartX = touch.clientX;
   touchDeltaX = 0;
-}
+};
 
-function onTouchMove(e: TouchEvent) {
+const onTouchMove = (e: TouchEvent) => {
   const touch = e.touches[0];
   if (!touch) return;
   touchDeltaX = touch.clientX - touchStartX;
-}
+};
 
-function onTouchEnd() {
+const onTouchEnd = () => {
   if (Math.abs(touchDeltaX) > 50) {
     if (touchDeltaX < 0) {
       next();
@@ -116,7 +116,7 @@ function onTouchEnd() {
     }
   }
   touchDeltaX = 0;
-}
+};
 </script>
 
 <template>
@@ -129,7 +129,7 @@ function onTouchEnd() {
   >
     <div class="carousel-viewport">
       <div
-        ref="trackRef"
+        ref="track"
         class="carousel-track"
         :class="{ 'no-transition': isSnapping }"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
@@ -148,6 +148,7 @@ function onTouchEnd() {
           :aria-labelledby="hasMultiple ? `${slideIdBase}-tab-${index}` : undefined"
         >
           <button
+            ref="imageButtons"
             type="button"
             class="carousel-image-button"
             @click="emit('open-lightbox', index)"
@@ -166,17 +167,18 @@ function onTouchEnd() {
     </div>
     <template v-if="hasMultiple">
       <div class="carousel-controls">
-        <button type="button" class="carousel-nav-btn" aria-label="前の画像" @click="prev">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+        <button type="button" class="carousel-nav-btn surface-button" aria-label="前の画像" @click="prev">
+          <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="carousel-nav-label">前の画像</span>
         </button>
-        <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
+        <div ref="pages" class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
             :id="`${slideIdBase}-tab-${index}`"
             :key="index"
+            ref="pageButtons"
             type="button"
-            class="carousel-page-btn"
+            class="carousel-page-btn surface-button"
             :class="{ active: index === currentIndex }"
             :tabindex="index === currentIndex ? 0 : -1"
             role="tab"
@@ -188,9 +190,9 @@ function onTouchEnd() {
             {{ index + 1 }}
           </button>
         </div>
-        <button type="button" class="carousel-nav-btn" aria-label="次の画像" @click="next">
+        <button type="button" class="carousel-nav-btn surface-button" aria-label="次の画像" @click="next">
           <span class="carousel-nav-label">次の画像</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+          <IconChevronRight :size="20" aria-hidden="true" />
         </button>
       </div>
     </template>
@@ -277,29 +279,11 @@ function onTouchEnd() {
   justify-content: center;
   min-width: var(--tap-target-size);
   min-height: var(--tap-target-size);
-  font-family: inherit;
-  font-size: 1rem;
   font-variant-numeric: tabular-nums;
-  color: rgb(var(--text));
-  cursor: pointer;
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
 
   @media (hover: hover) {
-    &:not(.active):hover {
-      border-color: rgb(var(--text));
-    }
-
     &.active:hover {
       opacity: var(--hover-opacity);
-    }
-  }
-
-  @media (hover: none) {
-    &:not(.active):active {
-      border-color: rgb(var(--text));
     }
   }
 }
