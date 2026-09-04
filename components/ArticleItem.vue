@@ -39,7 +39,7 @@ const site = computed(() => articleSite(props.url));
         <IconBook2 v-else :size="16" aria-hidden="true" />
         <span class="site-name">{{ site.name }}</span>
       </div>
-      <time class="article-date" :datetime="date">{{ date.replaceAll("-", "/") }}</time>
+      <time class="article-date" :datetime="date">{{ new Date(date).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</time>
     </div>
   </a>
 </template>
