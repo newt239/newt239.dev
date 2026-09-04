@@ -17,6 +17,7 @@ const isBackdropPress = ref(false);
 const responseMessage = ref(defaultMessage);
 
 const generateTheme = async () => {
+  if (isGenerating.value) return;
   if (!promptModel.value) {
     promptModel.value = "fairy tale";
   }
@@ -107,7 +108,7 @@ const onKeyDown = (event: KeyboardEvent) => {
         <button
           class="theme-change-button"
           :class="{ 'is-generating': isGenerating }"
-          :disabled="isGenerating"
+          :aria-disabled="isGenerating"
           @click="generateTheme"
         >
           <IconSparkles

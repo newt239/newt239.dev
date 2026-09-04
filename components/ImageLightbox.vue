@@ -248,7 +248,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="縮小"
                 :aria-disabled="!canZoomOut"
-                :disabled="!canZoomOut"
                 @click="zoomOut"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
@@ -258,7 +257,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="拡大"
                 :aria-disabled="!canZoomIn"
-                :disabled="!canZoomIn"
                 @click="zoomIn"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
@@ -267,8 +265,7 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="ズームをリセット"
                 :aria-disabled="!canReset"
-                :disabled="!canReset"
-                @click="resetZoom"
+                @click="canReset && resetZoom()"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
               </button>
@@ -278,7 +275,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="左を表示"
                 :aria-disabled="!isPanned"
-                :disabled="!isPanned"
                 @click="panBy(1, 0)"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
@@ -287,7 +283,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="上を表示"
                 :aria-disabled="!isPanned"
-                :disabled="!isPanned"
                 @click="panBy(0, 1)"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
@@ -296,7 +291,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="下を表示"
                 :aria-disabled="!isPanned"
-                :disabled="!isPanned"
                 @click="panBy(0, -1)"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
@@ -305,7 +299,6 @@ function onPointerUp() {
                 class="lightbox-btn"
                 aria-label="右を表示"
                 :aria-disabled="!isPanned"
-                :disabled="!isPanned"
                 @click="panBy(-1, 0)"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
@@ -472,12 +465,12 @@ function onPointerUp() {
   transition: var(--transition);
 
   @media (hover: hover) {
-    &:hover:not(:disabled) {
+    &:hover:not([aria-disabled="true"]) {
       background: rgb(255 255 255 / 25%);
     }
   }
 
-  &:disabled {
+  &[aria-disabled="true"] {
     cursor: default;
     opacity: 0.35;
   }
