@@ -46,10 +46,9 @@ useHead({
   link: computed(() => {
     if (!props.open || !hasMultiple.value) return [];
     const total = props.images.length;
-    const neighbors = [...new Set([
-      (currentIndex.value + 1) % total,
-      (currentIndex.value - 1 + total) % total,
-    ])].filter((index) => index !== currentIndex.value);
+    const next = (currentIndex.value + 1) % total;
+    const prev = (currentIndex.value - 1 + total) % total;
+    const neighbors = next === prev ? [next] : [next, prev];
     return neighbors.flatMap((index) => {
       const image = props.images[index];
       if (!image) return [];

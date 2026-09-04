@@ -55,26 +55,23 @@ const { applied, draft, dirty, hasConditions, apply } = useListControls(
     sortAsc: query.dir === "asc",
     sites: new Set((typeof query.sites === "string" ? query.sites : "").split(",").filter(Boolean)),
   }),
-  ({ sortAsc, sites }) => ({
-    ...(sites.size > 0 ? { sites: [...sites].join(",") } : {}),
-    ...(sortAsc ? { dir: "asc" } : {}),
-  })
+  ({ sortAsc, sites }) => {
+    const query: Record<string, string> = {};
+    if (sites.size > 0) query.sites = [...sites].join(",");
+    if (sortAsc) query.dir = "asc";
+    return query;
+  }
 );
 
 const filteredArticles = computed(() => {
-  let result = [...articleList];
-
-  if (applied.value.sites.size > 0) {
-    result = result.filter((article) => applied.value.sites.has(articleSiteName(article.url)));
-  }
-
-  result.sort((a, b) => {
+  const result = applied.value.sites.size > 0
+    ? articleList.filter((article) => applied.value.sites.has(articleSiteName(article.url)))
+    : articleList;
+  return result.toSorted((a, b) => {
     return applied.value.sortAsc
       ? a.date.localeCompare(b.date)
       : b.date.localeCompare(a.date);
   });
-
-  return result;
 });
 </script>
 

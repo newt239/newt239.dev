@@ -61,9 +61,7 @@ useHead({
         keywords: work.tech,
         inLanguage: "ja",
         author: { "@id": personId },
-        ...(work.github
-          ? { codeRepository: `https://github.com/${work.github}` }
-          : {}),
+        codeRepository: work.github ? `https://github.com/${work.github}` : undefined,
       },
     },
     {

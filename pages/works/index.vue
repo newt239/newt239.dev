@@ -46,26 +46,21 @@ useHead({
 
 const { applied, draft, dirty, hasConditions, apply } = useListControls(
   (query) => ({ sortAsc: query.dir === "asc", featuredOnly: query.featured === "1" }),
-  ({ sortAsc, featuredOnly }) => ({
-    ...(sortAsc ? { dir: "asc" } : {}),
-    ...(featuredOnly ? { featured: "1" } : {}),
-  })
+  ({ sortAsc, featuredOnly }) => {
+    const query: Record<string, string> = {};
+    if (sortAsc) query.dir = "asc";
+    if (featuredOnly) query.featured = "1";
+    return query;
+  }
 );
 
 const sortedWorks = computed(() => {
-  let result = [...works];
-
-  if (applied.value.featuredOnly) {
-    result = result.filter((w) => w.order != null);
-  }
-
-  result.sort((a, b) => {
+  const result = applied.value.featuredOnly ? works.filter((w) => w.order != null) : works;
+  return result.toSorted((a, b) => {
     return applied.value.sortAsc
       ? a.period.localeCompare(b.period)
       : b.period.localeCompare(a.period);
   });
-
-  return result;
 });
 </script>
 
