@@ -24,7 +24,7 @@ useHead({
 });
 
 const contacts = [
-  { label: "メール", items: [{ href: "mailto:contact@newt239.dev", text: "contact@newt239.dev" }] },
+  { label: "メール", items: [{ href: `mailto:${person.email}`, text: person.email }] },
   {
     label: "Discordサーバー",
     items: [{ href: "https://discord.gg/rct5sx6rbZ", text: "https://discord.gg/rct5sx6rbZ" }],
@@ -75,7 +75,7 @@ const links = [
           <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
           <dl class="basic-info">
             <dt>誕生日</dt>
-            <dd>2005年11月2日</dd>
+            <dd>{{ new Date(person.birthDate).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</dd>
             <dt>所属</dt>
             <dd>芝浦工業大学 3年<br>デザイン工学部 デザイン工学科<br>ロボティクス・情報デザイン系</dd>
           </dl>
