@@ -88,7 +88,7 @@ const links = [
       </div>
 
       <div class="about-sections">
-        <section class="about-section">
+        <section id="contact" class="about-section" tabindex="-1">
           <h2>コンタクト</h2>
           <div class="section-body">
             <ul>
