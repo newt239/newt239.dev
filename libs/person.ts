@@ -1,3 +1,4 @@
+import { profileSameAs } from "./links";
 import { siteUrl } from "./site";
 
 export const personId = `${siteUrl}/about#person`;
@@ -18,14 +19,5 @@ export const person = {
     name: "芝浦工業大学 デザイン工学部 デザイン工学科",
     url: "https://www.shibaura-it.ac.jp/",
   },
-  sameAs: [
-    "https://x.com/newt239",
-    "https://github.com/newt239",
-    "https://zenn.dev/newt_st21",
-    "https://qiita.com/newt239",
-    "https://newt239.hatenablog.com/",
-    "https://mixi.social/@newt",
-    "https://annict.com/@newt",
-    "https://www.linkedin.com/in/newt239/",
-  ],
+  sameAs: profileSameAs,
 };

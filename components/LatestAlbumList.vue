@@ -35,11 +35,11 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         :href="album.url"
         target="_blank"
         rel="noopener noreferrer"
-        class="album-card surface-card"
+        class="thumb-card surface-card"
         :aria-label="`${album.title} ${album.period} - fernweh（外部サイト）`"
       >
         <img
-          class="album-card-thumbnail"
+          class="thumb-card-image"
           :src="album.thumbnail.src"
           :srcset="album.thumbnail.srcset"
           sizes="(min-width: 48rem) 25rem, 100vw"
@@ -47,12 +47,12 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
           loading="lazy"
           decoding="async"
         >
-        <div class="album-card-body">
-          <h3>
+        <div class="thumb-card-body">
+          <h3 class="thumb-card-title">
             {{ album.title }}
             <IconExternalLink class="external-icon" aria-hidden="true" />
           </h3>
-          <p class="album-card-period">{{ album.period }}</p>
+          <p class="thumb-card-text">{{ album.period }}</p>
         </div>
       </a>
       <a
@@ -72,52 +72,12 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 </template>
 
 <style scoped>
-.album-card {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.album-card-thumbnail {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  pointer-events: none;
-  object-fit: cover;
+.thumb-card-image {
   background: rgb(var(--surface-hover));
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  -webkit-touch-callout: none;
 }
 
-.album-card-body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem 1rem;
-
-  h3 {
-    width: auto;
-    padding: 0;
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 800;
-    line-height: var(--line-height-tight);
-    color: rgb(var(--text));
-    overflow-wrap: anywhere;
-    text-box: normal;
-
-    .external-icon {
-      margin-left: var(--external-link-icon-gap-heading);
-      color: rgb(var(--text-muted));
-    }
-  }
-}
-
-.album-card-period {
-  margin: 0;
-  font-size: 1rem;
-  line-height: var(--line-height-tight);
+.thumb-card-title .external-icon {
+  margin-left: var(--external-link-icon-gap-heading);
   color: rgb(var(--text-muted));
 }
 </style>

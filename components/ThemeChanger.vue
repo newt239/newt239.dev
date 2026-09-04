@@ -328,10 +328,9 @@ dialog {
     );
     border-radius: inherit;
     opacity: 0;
-    -webkit-mask:
+    mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
     mask-composite: exclude;
     transition: opacity var(--dialog-transition-duration);
   }

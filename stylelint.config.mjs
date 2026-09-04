@@ -35,7 +35,6 @@ export default {
     ],
     "declaration-property-value-no-unknown": [true, { ignoreProperties: { "/^--/": [/^from /] } }],
     "property-no-unknown": [true, { ignoreProperties: ["corner-shape"] }],
-    "property-no-vendor-prefix": [true, { ignoreProperties: ["/^-webkit-mask/"] }],
     "selector-class-pattern": /^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z][a-z0-9]*(-[a-z0-9]+)*)?$/,
     "selector-pseudo-class-no-unknown": [true, { ignorePseudoClasses: ["deep"] }],
   },
