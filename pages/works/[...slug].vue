@@ -6,9 +6,9 @@ import { personId } from "~/libs/person";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");
-const { data } = await useAsyncData(workPath, () => {
-  return queryCollection('works').path(workPath).first()
-});
+const { data } = await useAsyncData(workPath, () =>
+  queryCollection("works").path(workPath).first()
+);
 
 const { data: worksOrder } = await useAsyncData("works-order", () =>
   queryCollection("works").order("period", "DESC").select("path", "title").all()
@@ -25,78 +25,65 @@ const nextWork = computed(() =>
 );
 
 if (!data.value) {
-  useSeoMeta({
-    title: 'Not Found - newt239.dev',
-    ogTitle: 'Not Found - newt239.dev',
-    description: 'コンテンツが見つかりませんでした',
-    ogDescription: 'コンテンツが見つかりませんでした',
-  });
-} else {
-  usePageSeo({
-    title: data.value.title,
-    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-  });
-  useSeoMeta({
-    twitterTitle: `${data.value.title} - newt239.dev`,
-    description: data.value.description,
-    ogDescription: data.value.description,
-    twitterDescription: data.value.description,
-    twitterLabel1: "期間",
-    twitterData1: formatPeriod(data.value.period),
-    twitterLabel2: "技術構成",
-    twitterData2: data.value.tech.join(", "),
-  });
-
-  const work = data.value;
-  useHead({
-    script: [
-      {
-        type: "application/ld+json",
-        innerHTML: {
-          "@context": "https://schema.org",
-          "@type": "SoftwareSourceCode",
-          "@id": `https://newt239.dev${work.path}#work`,
-          name: work.title,
-          description: work.description,
-          url: `https://newt239.dev${work.path}`,
-          image: `https://newt239.dev/images/${work.images[0]?.src ?? ""}`,
-          datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
-          keywords: work.tech,
-          inLanguage: "ja",
-          author: { "@id": personId },
-          ...(work.github
-            ? { codeRepository: `https://github.com/${work.github}` }
-            : {}),
-        },
-      },
-      {
-        type: "application/ld+json",
-        innerHTML: {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
-            { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
-            { "@type": "ListItem", position: 3, name: work.title },
-          ],
-        },
-      },
-    ],
-  });
+  throw createError({ statusCode: 404, fatal: true });
 }
+const work = data.value;
+const workSlug = work.path.split("/")[2] ?? "";
 
-const imageList = computed(() => {
-  if (!data.value?.images?.length) return [];
-  return data.value.images;
+usePageSeo({
+  title: work.title,
+  ogImage: `https://newt239.dev/og/works-${workSlug}.jpg`,
+});
+useSeoMeta({
+  twitterTitle: `${work.title} - newt239.dev`,
+  description: work.description,
+  ogDescription: work.description,
+  twitterDescription: work.description,
+  twitterLabel1: "期間",
+  twitterData1: formatPeriod(work.period),
+  twitterLabel2: "技術構成",
+  twitterData2: work.tech.join(", "),
 });
 
-const workSlug = computed(() => data.value?.path?.split('/')[2] ?? '');
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "@id": `https://newt239.dev${work.path}#work`,
+        name: work.title,
+        description: work.description,
+        url: `https://newt239.dev${work.path}`,
+        image: `https://newt239.dev/images/${work.images[0]?.src ?? ""}`,
+        datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
+        keywords: work.tech,
+        inLanguage: "ja",
+        author: { "@id": personId },
+        ...(work.github
+          ? { codeRepository: `https://github.com/${work.github}` }
+          : {}),
+      },
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
+          { "@type": "ListItem", position: 3, name: work.title },
+        ],
+      },
+    },
+  ],
+});
 
 // 一覧へ戻る際、この作品のカードだけを他のカードより前面に出すために共有する
-const activeWorkSlug = useState<string | null>('active-work-slug', () => null);
-watchEffect(() => {
-  activeWorkSlug.value = workSlug.value || null;
-});
+const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
+activeWorkSlug.value = workSlug;
 
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
@@ -162,46 +149,41 @@ const closeLightbox = async (index: number) => {
   <div>
     <div class="container each-work-page">
       <div class="work">
-        <template v-if="data">
-          <div class="work-hero">
-            <ImageCarousel
-              ref="carouselRef"
-              :images="imageList"
-              :work-slug="workSlug"
-              :morph-index="morphIndex"
-              @open-lightbox="openLightbox"
-            />
-            <div class="work-sidebar">
-              <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ data.title }}</h1>
-              <dl class="work-meta">
-              <template v-if="data.github">
+        <div class="work-hero">
+          <ImageCarousel
+            ref="carouselRef"
+            :images="work.images"
+            :work-slug="workSlug"
+            :morph-index="morphIndex"
+            @open-lightbox="openLightbox"
+          />
+          <div class="work-sidebar">
+            <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ work.title }}</h1>
+            <dl class="work-meta">
+              <template v-if="work.github">
                 <dt>GitHub</dt>
                 <dd>
-                  <a class="underline" :href="`https://github.com/${data.github}`" target="_blank" rel="noopener noreferrer">{{ data.github }}</a>
+                  <a class="underline" :href="`https://github.com/${work.github}`" target="_blank" rel="noopener noreferrer">{{ work.github }}</a>
                 </dd>
               </template>
               <dt>期間</dt>
-              <dd>{{ formatPeriod(data.period) }}</dd>
+              <dd>{{ formatPeriod(work.period) }}</dd>
               <dt>技術構成</dt>
               <dd class="tech-tags">
-                <span v-for="tech in data.tech" :key="tech" class="tech-tag">{{ tech }}</span>
+                <span v-for="tech in work.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
             </dl>
-            </div>
           </div>
-          <div class="content">
-            <ContentRenderer :value="data" />
-          </div>
-          <ImageLightbox
-            :images="imageList"
-            :initial-index="lightboxIndex"
-            :open="lightboxOpen"
-            @close="closeLightbox"
-          />
-        </template>
-        <template v-else>
-          <p class="not-founded">お探しの作品は見つかりませんでした。</p>
-        </template>
+        </div>
+        <div class="content">
+          <ContentRenderer :value="work" />
+        </div>
+        <ImageLightbox
+          :images="work.images"
+          :initial-index="lightboxIndex"
+          :open="lightboxOpen"
+          @close="closeLightbox"
+        />
       </div>
       <nav class="work-nav" aria-label="作品ナビゲーション">
         <NuxtLink
@@ -456,10 +438,6 @@ const closeLightbox = async (index: number) => {
       }
     }
 
-    .not-founded {
-      padding: 5rem 1rem;
-      text-align: center;
-    }
   }
 
   .work-nav {
