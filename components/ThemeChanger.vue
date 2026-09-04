@@ -34,6 +34,10 @@ const generateTheme = async () => {
         constraints: themeConstraints,
       }),
     });
+    if (!res.ok) {
+      responseMessage.value = fallbackMessage;
+      return;
+    }
     const content: ThemeGenerationResponse = await res.json();
     if (content.type !== "success") {
       responseMessage.value =
@@ -53,11 +57,6 @@ const generateTheme = async () => {
 const onDialogClose = () => {
   isGenerating.value = false;
   responseMessage.value = defaultMessage;
-};
-const onKeyDown = (event: KeyboardEvent) => {
-  if (event.key === "Enter" && !event.isComposing) {
-    generateTheme();
-  }
 };
 </script>
 
@@ -103,7 +102,7 @@ const onKeyDown = (event: KeyboardEvent) => {
           placeholder="fairy tale"
           :aria-labelledby="descriptionId"
           autofocus
-          @keydown.enter="onKeyDown"
+          @keydown.enter="!$event.isComposing && generateTheme()"
         />
         <button
           class="theme-change-button"

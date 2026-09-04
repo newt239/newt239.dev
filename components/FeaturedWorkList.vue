@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
-import WorkItem from "~/components/WorkItem.vue";
 
 const { data: works } = await useAsyncData("featured-works", () =>
   queryCollection("works")
@@ -15,7 +14,7 @@ const { data: works } = await useAsyncData("featured-works", () =>
     <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
-      <NuxtLink to="works" class="see-all-card">
+      <NuxtLink to="/works" class="see-all-card">
         <span>
           すべての作品を見る
           <IconChevronRight aria-hidden="true" />

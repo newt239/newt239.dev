@@ -5,19 +5,17 @@ import { timeline } from "~/libs/timeline";
 
 import type { TimelineItem } from "~/libs/timeline";
 
-const years = computed(() => {
-  const grouped = new Map<number, TimelineItem[]>();
-  for (const item of [...timeline].sort((a, b) => b.start.localeCompare(a.start))) {
-    const year = Number(item.start.slice(0, 4));
-    const yearItems = grouped.get(year);
-    if (yearItems) {
-      yearItems.push(item);
-    } else {
-      grouped.set(year, [item]);
-    }
+const grouped = new Map<number, TimelineItem[]>();
+for (const item of [...timeline].sort((a, b) => b.start.localeCompare(a.start))) {
+  const year = Number(item.start.slice(0, 4));
+  const yearItems = grouped.get(year);
+  if (yearItems) {
+    yearItems.push(item);
+  } else {
+    grouped.set(year, [item]);
   }
-  return [...grouped].map(([year, yearItems]) => ({ year, items: yearItems }));
-});
+}
+const years = [...grouped].map(([year, yearItems]) => ({ year, items: yearItems }));
 </script>
 
 <template>

@@ -23,7 +23,7 @@ const PAN_KEYS: Record<string, [number, number]> = {
 };
 
 const currentIndex = ref(props.initialIndex);
-const dialogRef = ref<HTMLDialogElement | null>(null);
+const dialogRef = useTemplateRef<HTMLDialogElement>("dialog");
 const contentRef = useTemplateRef<HTMLElement>("content");
 const imageRef = useTemplateRef<{ imgEl: HTMLImageElement | null }>("image");
 const scale = ref(1);
@@ -212,7 +212,7 @@ watch(
     <Transition name="lightbox" :css="!supportsViewTransition">
       <dialog
         v-if="open"
-        ref="dialogRef"
+        ref="dialog"
         class="lightbox-overlay"
         aria-label="画像拡大表示"
         @cancel.prevent="close"
