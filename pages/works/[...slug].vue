@@ -369,8 +369,17 @@ const closeLightbox = async (index: number) => {
       }
 
       h3 {
-        padding-left: 0;
+        padding: 1.5rem 0 0;
         font-size: 1.25rem;
+        font-weight: 800;
+      }
+
+      h4 {
+        padding: 0 0 0 0.75rem;
+        margin: 1rem 0 0;
+        font-size: 1rem;
+        font-weight: 800;
+        border-left: var(--border-width) solid rgb(var(--accent));
       }
 
       h2 a {
