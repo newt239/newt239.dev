@@ -30,7 +30,7 @@ useSeoMeta({
         <h1 v-colorful-heading class="error-heading">{{ heading }}</h1>
         <p class="error-description">{{ description }}</p>
         <div class="error-actions">
-          <button type="button" class="back" @click="clearError({ redirect: '/' })">
+          <button type="button" class="back-button" @click="clearError({ redirect: '/' })">
             <IconChevronLeft aria-hidden="true" />
             トップへ戻る
           </button>
@@ -74,36 +74,6 @@ useSeoMeta({
   .error-actions {
     width: 100%;
     padding: 1rem 0 0;
-  }
-
-  .back {
-    display: inline-flex;
-    gap: 0.25rem;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 320px;
-    padding: 0.75rem 1.5rem;
-    font-family: unset;
-    font-size: 1rem;
-    color: rgb(var(--text));
-    cursor: pointer;
-    background-color: rgb(var(--surface));
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-sm);
-    transition: var(--transition);
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
-
-    @media (hover: none) {
-      &:active {
-        border-color: rgb(var(--text));
-      }
-    }
   }
 }
 </style>

@@ -59,7 +59,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         href="https://fernweh.newt239.dev/"
         target="_blank"
         rel="noopener noreferrer"
-        class="see-all-albums"
+        class="see-all-card see-all-albums"
         aria-label="fernweh ですべての写真を見る（外部サイト）"
       >
         <span>
@@ -149,30 +149,5 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
   font-size: 1rem;
   line-height: var(--line-height-tight);
   color: rgb(var(--text-muted));
-}
-
-.see-all-albums {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 1rem 0;
-  color: rgb(var(--text));
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-md);
-  transition: var(--transition);
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: rgb(var(--text));
-    }
-  }
-
-  @media (hover: none) {
-    &:active {
-      border-color: rgb(var(--text));
-    }
-  }
 }
 </style>

@@ -89,7 +89,7 @@ const links = [
 
       <div class="about-sections">
         <section id="contact" class="about-section" tabindex="-1">
-          <h2>コンタクト</h2>
+          <h2 class="section-heading">コンタクト</h2>
           <div class="section-body">
             <ul>
               <li v-for="contact in contacts" :key="contact.label">
@@ -111,7 +111,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>興味・関心</h2>
+          <h2 class="section-heading">興味・関心</h2>
           <div class="section-body">
             <ul>
               <li v-for="interest in interests" :key="interest.category">
@@ -125,7 +125,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>趣味</h2>
+          <h2 class="section-heading">趣味</h2>
           <div class="section-body hobbies">
             <div v-for="hobby in hobbies" :key="hobby.title">
               <h3>{{ hobby.title }}</h3>
@@ -137,7 +137,7 @@ const links = [
         </section>
 
         <section class="about-section">
-          <h2>リンク集</h2>
+          <h2 class="section-heading">リンク集</h2>
           <div class="section-body link-list">
             <a
               v-for="link in links"
@@ -235,35 +235,10 @@ const links = [
   }
 
   .about-section {
-    h2 {
-      width: auto;
-      padding: 0 0 0.5rem;
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 800;
-      text-box: normal;
-    }
-
     h3 {
       padding: 0;
       margin: 0 0 0.25rem;
       font-size: 1rem;
-    }
-
-    .section-body {
-      padding: 1rem min(1.5rem, 5vw);
-      overflow-wrap: anywhere;
-      background: rgb(var(--surface));
-      border-radius: var(--radius-md);
-
-      ul {
-        padding-left: min(1.25rem, 4vw);
-        margin: 0;
-      }
-
-      li {
-        line-height: var(--line-height-body);
-      }
     }
 
     .hobbies {
