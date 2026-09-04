@@ -31,7 +31,6 @@ const COLORS = {
   bg: "rgb(255, 248, 240)",
   text: "rgb(48, 42, 37)",
   muted: "rgb(110, 100, 90)",
-  accent: "rgb(74, 136, 224)",
 };
 
 type WorkFrontmatter = {
