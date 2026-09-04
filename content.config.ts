@@ -17,7 +17,7 @@ export default defineContentConfig({
             alt: z.string(),
           })
         ).min(1),
-        sitemap: defineSitemapSchema(),
+        sitemap: defineSitemapSchema({ z }),
       }),
     }),
   },
