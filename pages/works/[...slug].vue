@@ -32,15 +32,15 @@ if (!data.value) {
     ogDescription: 'コンテンツが見つかりませんでした',
   });
 } else {
+  usePageSeo({
+    title: data.value.title,
+    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
+  });
   useSeoMeta({
-    title: `${data.value.title} - newt239.dev`,
-    ogTitle: `${data.value.title} - newt239.dev`,
     twitterTitle: `${data.value.title} - newt239.dev`,
     description: data.value.description,
     ogDescription: data.value.description,
     twitterDescription: data.value.description,
-    ogImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
-    twitterImage: `https://newt239.dev/og/works-${data.value.path.split("/")[2]}.jpg`,
     twitterLabel1: "期間",
     twitterData1: formatPeriod(data.value.period),
     twitterLabel2: "技術構成",

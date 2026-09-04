@@ -4,12 +4,7 @@ const { data } = await useAsyncData("works-list", () =>
 );
 const works = data.value ?? [];
 
-useSeoMeta({
-  title: "作品一覧 - newt239.dev",
-  ogTitle: "作品一覧 - newt239.dev",
-  ogImage: "https://newt239.dev/og/works.png",
-  twitterImage: "https://newt239.dev/og/works.png",
-});
+usePageSeo({ title: "作品一覧", ogImage: "https://newt239.dev/og/works.png" });
 
 useHead({
   script: [

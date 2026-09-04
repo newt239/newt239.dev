@@ -1,8 +1,5 @@
 <script setup lang="ts">
-useSeoMeta({
-  title: "プライバシーポリシー - newt239.dev",
-  ogTitle: "プライバシーポリシー - newt239.dev",
-});
+usePageSeo({ title: "プライバシーポリシー" });
 </script>
 
 <template>
