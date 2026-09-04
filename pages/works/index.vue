@@ -49,48 +49,23 @@ useHead({
   ],
 });
 
-const route = useRoute();
-const router = useRouter();
-
-const sortAsc = ref(false);
-const featuredOnly = ref(false);
-const draftSortAsc = ref(false);
-const draftFeaturedOnly = ref(false);
-
-watch(() => route.query, (query) => {
-  sortAsc.value = query.dir === "asc";
-  featuredOnly.value = query.featured === "1";
-  draftSortAsc.value = sortAsc.value;
-  draftFeaturedOnly.value = featuredOnly.value;
-}, { immediate: true });
-
-const applyControls = async () => {
-  const update = async () => {
-    sortAsc.value = draftSortAsc.value;
-    featuredOnly.value = draftFeaturedOnly.value;
-    const query: Record<string, string> = {};
-    if (sortAsc.value) query.dir = "asc";
-    if (featuredOnly.value) query.featured = "1";
-    await router.replace({ query });
-    await nextTick();
-  };
-  if (!("startViewTransition" in document)) {
-    await update();
-    return;
-  }
-  const transition = document.startViewTransition({ types: ["list-filter"], update });
-  await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
-};
+const { applied, draft, dirty, hasConditions, apply } = useListControls(
+  (query) => ({ sortAsc: query.dir === "asc", featuredOnly: query.featured === "1" }),
+  ({ sortAsc, featuredOnly }) => ({
+    ...(sortAsc ? { dir: "asc" } : {}),
+    ...(featuredOnly ? { featured: "1" } : {}),
+  })
+);
 
 const sortedWorks = computed(() => {
   let result = [...works];
 
-  if (featuredOnly.value) {
+  if (applied.value.featuredOnly) {
     result = result.filter((w) => w.order != null);
   }
 
   result.sort((a, b) => {
-    return sortAsc.value
+    return applied.value.sortAsc
       ? a.period.localeCompare(b.period)
       : b.period.localeCompare(a.period);
   });
@@ -107,15 +82,15 @@ const sortedWorks = computed(() => {
 
         <ListControlBar
           filter-label="絞り込み"
-          :sort-asc="draftSortAsc"
-          :has-conditions="featuredOnly || sortAsc"
-          :dirty="draftFeaturedOnly !== featuredOnly || draftSortAsc !== sortAsc"
-          @update:sort-asc="draftSortAsc = $event"
-          @apply="applyControls"
+          :sort-asc="draft.sortAsc"
+          :has-conditions="hasConditions"
+          :dirty="dirty"
+          @update:sort-asc="draft.sortAsc = $event"
+          @apply="apply"
         >
           <FilterChip
-            :active="draftFeaturedOnly"
-            @click="draftFeaturedOnly = !draftFeaturedOnly"
+            :active="draft.featuredOnly"
+            @click="draft.featuredOnly = !draft.featuredOnly"
           >
             おすすめ
           </FilterChip>
@@ -123,7 +98,7 @@ const sortedWorks = computed(() => {
       </div>
 
       <p class="visually-hidden" role="status">
-        {{ sortAsc ? "古い順" : "新しい順" }}で{{ sortedWorks.length }}件表示しています
+        {{ applied.sortAsc ? "古い順" : "新しい順" }}で{{ sortedWorks.length }}件表示しています
       </p>
 
       <div v-if="sortedWorks.length === 0" class="empty-state">
@@ -145,26 +120,6 @@ const sortedWorks = computed(() => {
     view-transition-name: work-category-name;
   }
 
-  .list-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 1rem;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    @container (max-width: 16em) {
-      grid-template-columns: 1fr;
-      row-gap: var(--list-header-row-gap);
-      justify-items: start;
-    }
-  }
-
-  .empty-state {
-    padding: 3rem 1rem;
-    color: rgb(var(--text-muted));
-    text-align: center;
-  }
-
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
@@ -175,6 +130,5 @@ const sortedWorks = computed(() => {
       text-decoration: none;
     }
   }
-
 }
 </style>

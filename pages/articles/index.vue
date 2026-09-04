@@ -71,66 +71,28 @@ const allSites = computed(() => {
   return [...siteSet];
 });
 
-const route = useRoute();
-const router = useRouter();
-
-const selectedSites = ref<Set<SiteName>>(new Set());
-const sortAsc = ref(false);
-const draftSelectedSites = ref<Set<SiteName>>(new Set());
-const draftSortAsc = ref(false);
-
-watch(() => route.query, (query) => {
-  sortAsc.value = query.dir === "asc";
-  const raw = query.sites;
-  const sites = (typeof raw === "string" ? raw : "").split(",").filter(Boolean);
-  selectedSites.value = new Set(sites as SiteName[]);
-  draftSortAsc.value = sortAsc.value;
-  draftSelectedSites.value = new Set(selectedSites.value);
-}, { immediate: true });
-
-const applyControls = async () => {
-  const update = async () => {
-    sortAsc.value = draftSortAsc.value;
-    selectedSites.value = new Set(draftSelectedSites.value);
-    const query: Record<string, string> = {};
-    if (selectedSites.value.size > 0) query.sites = [...selectedSites.value].join(",");
-    if (sortAsc.value) query.dir = "asc";
-    await router.replace({ query });
-    await nextTick();
-  };
-  if (!("startViewTransition" in document)) {
-    await update();
-    return;
-  }
-  const transition = document.startViewTransition({ types: ["list-filter"], update });
-  await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
-};
-
-const toggleDraftSite = (site: SiteName) => {
-  const next = new Set(draftSelectedSites.value);
-  if (next.has(site)) {
-    next.delete(site);
-  } else {
-    next.add(site);
-  }
-  draftSelectedSites.value = next;
-};
-
-const draftDirty = computed(() =>
-  draftSortAsc.value !== sortAsc.value
-  || draftSelectedSites.value.size !== selectedSites.value.size
-  || [...draftSelectedSites.value].some((site) => !selectedSites.value.has(site))
+const { applied, draft, dirty, hasConditions, apply } = useListControls(
+  (query) => ({
+    sortAsc: query.dir === "asc",
+    sites: new Set(
+      (typeof query.sites === "string" ? query.sites : "").split(",").filter(Boolean) as SiteName[]
+    ),
+  }),
+  ({ sortAsc, sites }) => ({
+    ...(sites.size > 0 ? { sites: [...sites].join(",") } : {}),
+    ...(sortAsc ? { dir: "asc" } : {}),
+  })
 );
 
 const filteredArticles = computed(() => {
   let result = [...articleList];
 
-  if (selectedSites.value.size > 0) {
-    result = result.filter((article) => selectedSites.value.has(getSiteKey(article.url)));
+  if (applied.value.sites.size > 0) {
+    result = result.filter((article) => applied.value.sites.has(getSiteKey(article.url)));
   }
 
   result.sort((a, b) => {
-    return sortAsc.value
+    return applied.value.sortAsc
       ? a.date.localeCompare(b.date)
       : b.date.localeCompare(a.date);
   });
@@ -147,17 +109,17 @@ const filteredArticles = computed(() => {
 
         <ListControlBar
           filter-label="サイト"
-          :sort-asc="draftSortAsc"
-          :has-conditions="selectedSites.size > 0 || sortAsc"
-          :dirty="draftDirty"
-          @update:sort-asc="draftSortAsc = $event"
-          @apply="applyControls"
+          :sort-asc="draft.sortAsc"
+          :has-conditions="hasConditions"
+          :dirty="dirty"
+          @update:sort-asc="draft.sortAsc = $event"
+          @apply="apply"
         >
           <FilterChip
             v-for="site in allSites"
             :key="site"
-            :active="draftSelectedSites.has(site)"
-            @click="toggleDraftSite(site)"
+            :active="draft.sites.has(site)"
+            @click="draft.sites.has(site) ? draft.sites.delete(site) : draft.sites.add(site)"
           >
             {{ site }}
           </FilterChip>
@@ -165,7 +127,7 @@ const filteredArticles = computed(() => {
       </div>
 
       <p class="visually-hidden" role="status">
-        {{ sortAsc ? "古い順" : "新しい順" }}で{{ filteredArticles.length }}件表示しています
+        {{ applied.sortAsc ? "古い順" : "新しい順" }}で{{ filteredArticles.length }}件表示しています
       </p>
 
       <div v-if="filteredArticles.length === 0" class="empty-state">
@@ -194,26 +156,6 @@ const filteredArticles = computed(() => {
     view-transition-name: article-category-name;
   }
 
-  .list-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 1rem;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    @container (max-width: 16em) {
-      grid-template-columns: 1fr;
-      row-gap: var(--list-header-row-gap);
-      justify-items: start;
-    }
-  }
-
-  .empty-state {
-    padding: 3rem 1rem;
-    color: rgb(var(--text-muted));
-    text-align: center;
-  }
-
   .article-grid {
     display: grid;
     grid-template-rows: auto;
@@ -225,6 +167,5 @@ const filteredArticles = computed(() => {
       text-decoration: none;
     }
   }
-
 }
 </style>
