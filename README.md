@@ -9,4 +9,4 @@
 
 newt's portfolio site.
 
-This website was built with Nuxt3.
+This website was built with [Nuxt v4](https://nuxt.com/).
