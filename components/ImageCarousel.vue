@@ -30,36 +30,36 @@ useHead({
 let touchStartX = 0;
 let touchDeltaX = 0;
 
-function goTo(index: number) {
+const goTo = (index: number) => {
   currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
-}
+};
 
-function prev() {
+const prev = () => {
   goTo(currentIndex.value - 1);
-}
+};
 
-function next() {
+const next = () => {
   goTo(currentIndex.value + 1);
-}
+};
 
-function snapTo(index: number) {
+const snapTo = (index: number) => {
   isSnapping.value = true;
-  currentIndex.value = ((index % props.images.length) + props.images.length) % props.images.length;
+  goTo(index);
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       isSnapping.value = false;
     });
   });
-}
+};
 
-function focusCurrentImage() {
+const focusCurrentImage = () => {
   const buttons = trackRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-image-button");
   buttons?.[currentIndex.value]?.focus({ preventScroll: true });
-}
+};
 
 defineExpose({ snapTo, focusCurrentImage });
 
-function imageStyle(index: number) {
+const imageStyle = (index: number) => {
   if (props.morphIndex === index) {
     return "view-transition-name: lightbox-img; view-transition-class: none;";
   }
@@ -68,9 +68,9 @@ function imageStyle(index: number) {
     return `view-transition-name: ${props.workSlug}-img;`;
   }
   return undefined;
-}
+};
 
-function onKeydown(e: KeyboardEvent) {
+const onKeydown = (e: KeyboardEvent) => {
   const target = e.target as Node;
   const fromPages = pagesRef.value?.contains(target) ?? false;
   const fromTrack = trackRef.value?.contains(target) ?? false;
@@ -92,22 +92,22 @@ function onKeydown(e: KeyboardEvent) {
   } else if (fromTrack) {
     nextTick(focusCurrentImage);
   }
-}
+};
 
-function onTouchStart(e: TouchEvent) {
+const onTouchStart = (e: TouchEvent) => {
   const touch = e.touches[0];
   if (!touch) return;
   touchStartX = touch.clientX;
   touchDeltaX = 0;
-}
+};
 
-function onTouchMove(e: TouchEvent) {
+const onTouchMove = (e: TouchEvent) => {
   const touch = e.touches[0];
   if (!touch) return;
   touchDeltaX = touch.clientX - touchStartX;
-}
+};
 
-function onTouchEnd() {
+const onTouchEnd = () => {
   if (Math.abs(touchDeltaX) > 50) {
     if (touchDeltaX < 0) {
       next();
@@ -116,7 +116,7 @@ function onTouchEnd() {
     }
   }
   touchDeltaX = 0;
-}
+};
 </script>
 
 <template>

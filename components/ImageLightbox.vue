@@ -72,6 +72,118 @@ const imageTransform = computed(() => {
   return `scale(${scale.value}) translate(${translateX.value}px, ${translateY.value}px)`;
 });
 
+const resetZoom = () => {
+  scale.value = 1;
+  translateX.value = 0;
+  translateY.value = 0;
+};
+
+const clampTranslate = () => {
+  const image = imageRef.value?.imgEl;
+  const content = contentRef.value;
+  if (!image || !content) return;
+  const limitX =
+    Math.max(0, image.offsetWidth * scale.value - content.clientWidth) / 2 / scale.value;
+  const limitY =
+    Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
+  translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
+  translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
+};
+
+const panBy = (directionX: number, directionY: number) => {
+  if (scale.value <= MIN_SCALE) return;
+  translateX.value += (directionX * PAN_STEP) / scale.value;
+  translateY.value += (directionY * PAN_STEP) / scale.value;
+  clampTranslate();
+};
+
+const zoomIn = () => {
+  if (canZoomIn.value) {
+    scale.value = Math.min(scale.value + SCALE_STEP, MAX_SCALE);
+  }
+};
+
+const zoomOut = () => {
+  if (canZoomOut.value) {
+    scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
+    clampTranslate();
+  }
+};
+
+const close = () => {
+  emit("close", currentIndex.value);
+};
+
+const prev = () => {
+  resetZoom();
+  currentIndex.value =
+    ((currentIndex.value - 1) + props.images.length) % props.images.length;
+};
+
+const next = () => {
+  resetZoom();
+  currentIndex.value = (currentIndex.value + 1) % props.images.length;
+};
+
+const onKeydown = (e: KeyboardEvent) => {
+  const direction = PAN_KEYS[e.key];
+  if (direction) {
+    if (scale.value <= MIN_SCALE) return;
+    e.preventDefault();
+    panBy(direction[0], direction[1]);
+  } else if (e.key === "+" || e.key === "=") {
+    e.preventDefault();
+    zoomIn();
+  } else if (e.key === "-") {
+    e.preventDefault();
+    zoomOut();
+  } else if (e.key === "0") {
+    e.preventDefault();
+    resetZoom();
+  }
+};
+
+const onBackdropClick = (e: MouseEvent) => {
+  if (e.target === e.currentTarget && !didDrag) {
+    close();
+  }
+  didDrag = false;
+};
+
+const onPointerDown = (e: PointerEvent) => {
+  if (scale.value <= MIN_SCALE) return;
+  if (e.pointerType === "touch" && !e.isPrimary) return;
+
+  isDragging.value = true;
+  didDrag = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragStartTranslateX = translateX.value;
+  dragStartTranslateY = translateY.value;
+
+  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  e.preventDefault();
+};
+
+const onPointerMove = (e: PointerEvent) => {
+  if (!isDragging.value) return;
+
+  const dx = (e.clientX - dragStartX) / scale.value;
+  const dy = (e.clientY - dragStartY) / scale.value;
+
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+    didDrag = true;
+  }
+
+  translateX.value = dragStartTranslateX + dx;
+  translateY.value = dragStartTranslateY + dy;
+  clampTranslate();
+};
+
+const onPointerUp = () => {
+  isDragging.value = false;
+};
+
 watch(
   () => props.initialIndex,
   (val) => {
@@ -91,118 +203,6 @@ watch(
     }
   }
 );
-
-function resetZoom() {
-  scale.value = 1;
-  translateX.value = 0;
-  translateY.value = 0;
-}
-
-function clampTranslate() {
-  const image = imageRef.value?.imgEl;
-  const content = contentRef.value;
-  if (!image || !content) return;
-  const limitX =
-    Math.max(0, image.offsetWidth * scale.value - content.clientWidth) / 2 / scale.value;
-  const limitY =
-    Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
-  translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
-  translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
-}
-
-function panBy(directionX: number, directionY: number) {
-  if (scale.value <= MIN_SCALE) return;
-  translateX.value += (directionX * PAN_STEP) / scale.value;
-  translateY.value += (directionY * PAN_STEP) / scale.value;
-  clampTranslate();
-}
-
-function zoomIn() {
-  if (canZoomIn.value) {
-    scale.value = Math.min(scale.value + SCALE_STEP, MAX_SCALE);
-  }
-}
-
-function zoomOut() {
-  if (canZoomOut.value) {
-    scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
-    clampTranslate();
-  }
-}
-
-function close() {
-  emit("close", currentIndex.value);
-}
-
-function prev() {
-  resetZoom();
-  currentIndex.value =
-    ((currentIndex.value - 1) + props.images.length) % props.images.length;
-}
-
-function next() {
-  resetZoom();
-  currentIndex.value = (currentIndex.value + 1) % props.images.length;
-}
-
-function onKeydown(e: KeyboardEvent) {
-  const direction = PAN_KEYS[e.key];
-  if (direction) {
-    if (scale.value <= MIN_SCALE) return;
-    e.preventDefault();
-    panBy(direction[0], direction[1]);
-  } else if (e.key === "+" || e.key === "=") {
-    e.preventDefault();
-    zoomIn();
-  } else if (e.key === "-") {
-    e.preventDefault();
-    zoomOut();
-  } else if (e.key === "0") {
-    e.preventDefault();
-    resetZoom();
-  }
-}
-
-function onBackdropClick(e: MouseEvent) {
-  if (e.target === e.currentTarget && !didDrag) {
-    close();
-  }
-  didDrag = false;
-}
-
-function onPointerDown(e: PointerEvent) {
-  if (scale.value <= MIN_SCALE) return;
-  if (e.pointerType === "touch" && !e.isPrimary) return;
-
-  isDragging.value = true;
-  didDrag = false;
-  dragStartX = e.clientX;
-  dragStartY = e.clientY;
-  dragStartTranslateX = translateX.value;
-  dragStartTranslateY = translateY.value;
-
-  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  e.preventDefault();
-}
-
-function onPointerMove(e: PointerEvent) {
-  if (!isDragging.value) return;
-
-  const dx = (e.clientX - dragStartX) / scale.value;
-  const dy = (e.clientY - dragStartY) / scale.value;
-
-  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
-    didDrag = true;
-  }
-
-  translateX.value = dragStartTranslateX + dx;
-  translateY.value = dragStartTranslateY + dy;
-  clampTranslate();
-}
-
-function onPointerUp() {
-  isDragging.value = false;
-}
 </script>
 
 <template>
