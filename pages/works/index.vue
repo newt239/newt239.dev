@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const works = await queryCollection('works').order("period", "DESC").all();
+const { data } = await useAsyncData("works-list", () =>
+  queryCollection("works").order("period", "DESC").all()
+);
+const works = data.value ?? [];
 
 useSeoMeta({
   title: "作品一覧 - newt239.dev",
