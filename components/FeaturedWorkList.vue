@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-const { data: works } = await useAsyncData("featured-works", () =>
+const { data: works, error } = await useAsyncData("featured-works", () =>
   queryCollection("works")
     .where("order", "IS NOT NULL")
     .order("order", "ASC")
+    .select("path", "title", "description", "images", "order")
     .all()
 );
+if (error.value) throw error.value;
 </script>
 
 <template>
@@ -27,11 +29,5 @@ const { data: works } = await useAsyncData("featured-works", () =>
 <style scoped>
 .category-title {
   view-transition-name: work-category-name;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-  gap: 1rem;
 }
 </style>

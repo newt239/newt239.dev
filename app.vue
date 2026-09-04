@@ -23,11 +23,7 @@ useSeoMeta({
 @supports not (view-transition-name: none) {
   .page-enter-active,
   .page-leave-active {
-    transition: all 0.5s;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: all var(--page-fade-duration);
   }
 
   .page-enter-from,

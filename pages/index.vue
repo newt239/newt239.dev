@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { personId } from "~/libs/person";
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
 useHead({
   script: [
@@ -10,7 +10,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
-        name: "newt239.dev",
+        name: siteName,
         description: "newt239's portfolio site",
         url: siteUrl,
         inLanguage: "ja",

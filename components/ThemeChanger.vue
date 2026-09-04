@@ -108,6 +108,7 @@ const onDialogClose = () => {
           @keydown.enter="!$event.isComposing && generateTheme()"
         />
         <button
+          type="button"
           class="theme-change-button"
           :class="{ 'is-generating': isGenerating }"
           :aria-disabled="isGenerating"
@@ -139,7 +140,7 @@ const onDialogClose = () => {
 
 dialog {
   padding: 0;
-  transition: all 0.3s;
+  transition: all var(--dialog-transition-duration);
   transition-behavior: allow-discrete;
 
   .modal-content {
@@ -161,22 +162,14 @@ dialog {
     border-radius: var(--radius-lg);
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
-    transition: all 0.3s;
+    transition: all var(--dialog-transition-duration);
     transition-behavior: allow-discrete;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
   }
 
   &::backdrop {
     opacity: 0;
-    transition: all 0.3s;
+    transition: all var(--dialog-transition-duration);
     transition-behavior: allow-discrete;
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
   }
 
   &[open] {
@@ -306,9 +299,11 @@ dialog {
   border-radius: var(--radius-pill);
   transition: var(--transition);
 
-  &:hover {
-    color: rgb(var(--text));
-    background-color: rgb(var(--bg));
+  @media (hover: hover) {
+    &:hover {
+      color: rgb(var(--text));
+      background-color: rgb(var(--bg));
+    }
   }
 
   &.is-generating {
@@ -338,7 +333,7 @@ dialog {
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    transition: opacity 0.3s;
+    transition: opacity var(--dialog-transition-duration);
   }
 
   &.is-generating::before {
@@ -347,7 +342,7 @@ dialog {
 
   @media (prefers-reduced-motion: no-preference) {
     &.is-generating::before {
-      animation: theme-generating-beam 1.2s linear infinite;
+      animation: theme-generating-beam var(--theme-beam-duration) linear infinite;
     }
   }
 
@@ -358,7 +353,7 @@ dialog {
 
   @media (prefers-reduced-motion: no-preference) {
     .loading-icon {
-      animation: spin 1s linear infinite;
+      animation: spin var(--spinner-duration) linear infinite;
     }
   }
 }

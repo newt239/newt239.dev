@@ -18,9 +18,10 @@ if (!data.value) {
 const work = data.value;
 const workSlug = work.path.split("/")[2] ?? "";
 
-const { data: worksOrder } = await useAsyncData("works-order", () =>
+const { data: worksOrder, error: worksOrderError } = await useAsyncData("works-order", () =>
   queryCollection("works").order("period", "DESC").select("path", "title").all()
 );
+if (worksOrderError.value) throw worksOrderError.value;
 const works = worksOrder.value ?? [];
 const currentIndex = works.findIndex((item) => item.path === workPath);
 const previousWork = works[currentIndex - 1];
@@ -31,7 +32,6 @@ usePageSeo({
   ogImage: `${siteUrl}/og/works-${workSlug}.jpg`,
 });
 useSeoMeta({
-  twitterTitle: `${work.title} - newt239.dev`,
   description: work.description,
   ogDescription: work.description,
   twitterDescription: work.description,
@@ -52,7 +52,7 @@ useHead({
         name: work.title,
         description: work.description,
         url: `${siteUrl}${work.path}`,
-        image: `${siteUrl}/images/${work.images[0]?.src ?? ""}`,
+        image: `${siteUrl}/images/${work.images[0].src}`,
         datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
         keywords: work.tech,
         inLanguage: "ja",
@@ -80,12 +80,12 @@ const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
 activeWorkSlug.value = workSlug;
 
 const lightboxOpen = ref(false);
-const lightboxIndex = ref(0);
+const imageIndex = ref(0);
 const morphIndex = ref<number | null>(null);
 const carouselRef = useTemplateRef<InstanceType<typeof ImageCarousel>>("carousel");
 
 const openLightbox = async (index: number) => {
-  lightboxIndex.value = index;
+  imageIndex.value = index;
   if (!("startViewTransition" in document)) {
     lightboxOpen.value = true;
     return;
@@ -108,21 +108,18 @@ const openLightbox = async (index: number) => {
   }
 };
 
-const closeLightbox = async (index: number) => {
+const closeLightbox = async () => {
   if (!("startViewTransition" in document)) {
-    carouselRef.value?.snapTo(index);
     lightboxOpen.value = false;
     await nextTick();
     carouselRef.value?.focusCurrentImage();
     return;
   }
-  carouselRef.value?.snapTo(index);
-  await nextTick();
   const transition = document.startViewTransition({
     types: ["lightbox-close"],
     update: async () => {
       lightboxOpen.value = false;
-      morphIndex.value = index;
+      morphIndex.value = imageIndex.value;
       await nextTick();
     },
   });
@@ -143,9 +140,11 @@ const closeLightbox = async (index: number) => {
         <div class="work-hero">
           <ImageCarousel
             ref="carousel"
+            v-model:index="imageIndex"
             :images="work.images"
             :work-slug="workSlug"
             :morph-index="morphIndex"
+            :instant="lightboxOpen"
             @open-lightbox="openLightbox"
           />
           <div class="work-sidebar">
@@ -170,8 +169,8 @@ const closeLightbox = async (index: number) => {
           <ContentRenderer :value="work" />
         </div>
         <ImageLightbox
+          v-model:index="imageIndex"
           :images="work.images"
-          :initial-index="lightboxIndex"
           :open="lightboxOpen"
           @close="closeLightbox"
         />

@@ -95,7 +95,7 @@
     --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
   interpolate-size: allow-keywords;
 
-  --text-scale: env(preferred-text-scale, 1);
+  --text-scale: 1;
   --text: 48 42 37;
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;
@@ -120,7 +120,6 @@
   --radius-sm: calc(8px * var(--radius-scale));
   --radius-md: calc(12px * var(--radius-scale));
   --radius-lg: calc(16px * var(--radius-scale));
-  --radius-xl: calc(24px * var(--radius-scale));
   --radius-pill: calc(32px * var(--radius-scale));
   --radius-round: 50%;
   --border-width: 2px;
@@ -160,6 +159,15 @@
   --header-icon-catch-up-easing: var(--transition-easing);
   --header-icon-spin-turns: 1turn;
   --header-icon-spin-easing: linear;
+  --dialog-transition-duration: 0.3s;
+  --lightbox-fade-duration: 0.25s;
+  --lightbox-zoom-duration: 0.2s;
+  --carousel-slide-duration: 0.4s;
+  --page-fade-duration: 0.5s;
+  --heading-wave-duration: 0.7s;
+  --heading-wave-stagger: 0.045s;
+  --theme-beam-duration: 1.2s;
+  --spinner-duration: 1s;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
 }
 
@@ -182,6 +190,16 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
+    --transition-duration: 0s;
+    --dialog-transition-duration: 0s;
+    --lightbox-fade-duration: 0s;
+    --lightbox-zoom-duration: 0s;
+    --carousel-slide-duration: 0s;
+    --page-fade-duration: 0s;
+    --heading-wave-duration: 0s;
+    --heading-wave-stagger: 0s;
+    --theme-beam-duration: 0s;
+    --spinner-duration: 0s;
 
     transition: none;
   }
@@ -267,8 +285,8 @@ h2,
 }
 
 .colorful-heading.is-visible .colorful-heading__char {
-  animation: heading-color-wave 0.7s ease both;
-  animation-delay: calc(var(--char-index, 0) * 0.045s);
+  animation: heading-color-wave var(--heading-wave-duration) ease both;
+  animation-delay: calc(var(--char-index, 0) * var(--heading-wave-stagger));
 }
 
 @keyframes heading-color-wave {
@@ -289,31 +307,30 @@ h2,
   }
 }
 
-h3 {
+h3,
+h4 {
   padding: 1rem 1rem 0;
   margin: 0;
-  font-size: 1.5rem;
   line-height: var(--line-height-heading);
   hyphens: auto;
   word-break: auto-phrase;
   overflow-wrap: anywhere;
 }
 
+h3 {
+  font-size: 1.5rem;
+}
+
 h4 {
-  padding: 1rem 1rem 0;
-  margin: 0;
   font-size: 1.25rem;
-  line-height: var(--line-height-heading);
-  hyphens: auto;
-  word-break: auto-phrase;
-  overflow-wrap: anywhere;
 }
 
 a {
   text-decoration: none;
 }
 
-.underline, p a, li a, table a {
+.underline,
+:is(p, li, table) a {
   color: rgb(var(--accent));
   text-decoration: underline;
   text-decoration-style: dashed;
@@ -374,10 +391,74 @@ ul {
   }
 }
 
+.list-page {
+  container-type: inline-size;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
+}
+
 .empty-state {
   padding: 3rem 1rem;
   color: rgb(var(--text-muted));
   text-align: center;
+}
+
+.record-list {
+  container-type: inline-size;
+  overflow: hidden;
+  background: rgb(var(--surface));
+  border-radius: var(--radius-md);
+}
+
+.record-item {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.75rem 1.25rem;
+
+  @container (max-width: 16em) {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: stretch;
+  }
+
+  &:not(:last-child) {
+    border-bottom: var(--border-width-hairline) solid rgb(var(--border));
+  }
+}
+
+.record-term {
+  flex-shrink: 0;
+  min-width: var(--record-term-width);
+  font-size: 0.75rem;
+  color: rgb(var(--text-muted));
+  white-space: nowrap;
+}
+
+.record-title {
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
+}
+
+.chip-button {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-height: var(--tap-target-size);
+  font-family: inherit;
+  font-size: 1rem;
+  color: rgb(var(--text));
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
 }
 
 .surface-card,
@@ -466,11 +547,6 @@ ul {
 
 .tabler-icon {
   vertical-align: -6px;
-}
-
-.sub {
-  font-size: 50%;
-  color: rgb(var(--text-muted));
 }
 
 .visually-hidden {

@@ -17,13 +17,13 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 
 <template>
   <div class="timeline">
-    <h2 v-colorful-heading class="category-title" lang="en">Timeline</h2>
+    <h2 v-colorful-heading lang="en">Timeline</h2>
     <div class="timeline-body">
       <div v-for="year in years" :key="year.year" class="year-section">
         <div class="year-header">
           <h3 class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
         </div>
-        <div class="year-items">
+        <div class="year-items record-list">
           <component
             :is="item.src ? 'a' : 'div'"
             v-for="item in year.items"
@@ -31,13 +31,13 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
             :href="item.src || undefined"
             :target="item.src ? '_blank' : undefined"
             :rel="item.src ? 'noopener noreferrer' : undefined"
-            class="timeline-item"
+            class="timeline-item record-item"
             :class="{ 'has-link': !!item.src }"
           >
-            <span class="item-term">
+            <span class="record-term">
               <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
             </span>
-            <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" /></span>
+            <span class="item-title record-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" aria-hidden="true" /></span>
           </component>
         </div>
       </div>
@@ -68,48 +68,18 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 }
 
 .year-items {
-  container-type: inline-size;
-  overflow: hidden;
-  background: rgb(var(--surface));
-  border-radius: var(--radius-md);
-}
-
-.item-term {
-  flex-shrink: 0;
-  min-width: min(5rem, 40%);
-  font-size: 0.75rem;
-  color: rgb(var(--text-muted));
-  white-space: nowrap;
+  --record-term-width: min(5rem, 40%);
 }
 
 .item-title {
-  min-width: 0;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: var(--line-height-tight);
-  overflow-wrap: anywhere;
   transition: var(--transition);
 }
 
 /* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
 .timeline-item {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-  padding: 0.75rem 1.25rem;
   color: rgb(var(--text));
   text-decoration: none;
   transition: var(--transition);
-
-  @container (max-width: 16em) {
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: stretch;
-  }
-
-  &:not(:last-child) {
-    border-bottom: var(--border-width-hairline) solid rgb(var(--border));
-  }
 
   &.has-link {
     cursor: pointer;

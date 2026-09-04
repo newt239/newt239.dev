@@ -1,4 +1,4 @@
-export type Certification = {
+type Certification = {
   date: string;
   title: string;
 };

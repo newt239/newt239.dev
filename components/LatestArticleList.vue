@@ -9,7 +9,7 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
 <template>
   <div class="latest-article-list">
     <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
-    <div class="article-grid">
+    <div class="card-grid">
       <ArticleItem
         v-for="article in articles"
         :key="article.url"
@@ -30,12 +30,6 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
 <style scoped>
 .category-title {
   view-transition-name: article-category-name;
-}
-
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-  gap: 1rem;
 }
 
 .see-all-articles {

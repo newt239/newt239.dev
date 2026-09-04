@@ -1,20 +1,24 @@
-export type ArticleProp = {
+type Article = {
   title: string;
   url: string;
   date: string;
 };
 
-export const articleSites: { prefix: string; name: string; icon?: string }[] = [
+type ArticleSite = { name: string; icon?: string };
+
+const articleSites: (ArticleSite & { prefix: string })[] = [
   { prefix: "https://qiita.com/", name: "Qiita", icon: "/qiita.webp" },
   { prefix: "https://zenn.dev/", name: "Zenn", icon: "/zenn.png" },
   { prefix: "https://newt239.hatenablog.com/", name: "はてな", icon: "/hatena.webp" },
   { prefix: "https://developers.cyberagent.co.jp/", name: "CyberAgent" },
-  { prefix: "", name: "その他" },
 ];
 
-export const articleSite = (url: string) =>
-  articleSites.find((site) => url.startsWith(site.prefix))!;
-export const articleList: ArticleProp[] = [
+const otherSite: ArticleSite = { name: "その他" };
+
+export const articleSite = (url: string): ArticleSite =>
+  articleSites.find((site) => url.startsWith(site.prefix)) ?? otherSite;
+
+export const articleList: Article[] = [
   { title: "最近育てているフロントエンド開発用テンプレートの話", url: "https://zenn.dev/newt_st21/articles/next-template-2026", date: "2026-08-24" },
   { title: "MIXIのインターンに参加しました", url: "https://newt239.hatenablog.com/entry/2026/06/18/185837", date: "2026-06-18" },
   { title: "2025年のふりかえり", url: "https://newt239.hatenablog.com/entry/2025/12/31/223530", date: "2025-12-31" },

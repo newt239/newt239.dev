@@ -1,4 +1,4 @@
-export type ThemeVariable = {
+type ThemeVariable = {
   name: string;
   description: string;
   defaultValue: string;
@@ -8,17 +8,17 @@ export type ThemeVariable = {
   max?: number;
 };
 
-export type ThemeConstraint =
+type ThemeConstraint =
   | { type: "contrast"; foreground: string; background: string; min: number }
   | { type: "similar"; a: string; b: string; max: number };
 
-export type ThemeFont = {
+type ThemeFont = {
   family: string;
   note: string;
   query?: string;
 };
 
-export const defaultFontFamily = "fot-udkakugo-large-pr6n";
+const defaultFontFamily = "fot-udkakugo-large-pr6n";
 
 export type ThemeGenerationResponse =
   | {
@@ -28,7 +28,7 @@ export type ThemeGenerationResponse =
     }
   | { type: "error" | "limited"; error: unknown };
 
-export const themeFonts: ThemeFont[] = [
+const themeFonts: ThemeFont[] = [
   {
     family: defaultFontFamily,
     note: "FOT-UD角ゴ_ラージ Pr6N, a large-face universal-design gothic from Adobe Fonts with wide apertures and a crisp contemporary silhouette, used by transit signage, public wayfinding and product interfaces, and the right pick whenever the theme calls for clarity, neutrality or an engineered modern feel",
