@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-vue";
+
 const props = defineProps<{
   images: { src: string; alt: string }[];
   workSlug: string;
@@ -167,7 +169,7 @@ const onTouchEnd = () => {
     <template v-if="hasMultiple">
       <div class="carousel-controls">
         <button type="button" class="carousel-nav-btn" aria-label="前の画像" @click="prev">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+          <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="carousel-nav-label">前の画像</span>
         </button>
         <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
@@ -190,7 +192,7 @@ const onTouchEnd = () => {
         </div>
         <button type="button" class="carousel-nav-btn" aria-label="次の画像" @click="next">
           <span class="carousel-nav-label">次の画像</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+          <IconChevronRight :size="20" aria-hidden="true" />
         </button>
       </div>
     </template>

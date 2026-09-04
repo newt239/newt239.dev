@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IconChevronDown, IconChevronLeft, IconChevronRight, IconChevronUp, IconMinus, IconPlus, IconX, IconZoomReset } from "@tabler/icons-vue";
+
 const props = defineProps<{
   images: { src: string; alt: string }[];
   initialIndex: number;
@@ -239,7 +241,7 @@ watch(
           />
         </div>
         <button class="lightbox-close" aria-label="閉じる" @click="close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          <IconX :size="24" aria-hidden="true" />
         </button>
         <div class="lightbox-bottom-bar">
           <div class="lightbox-controls">
@@ -250,7 +252,7 @@ watch(
                 :aria-disabled="!canZoomOut"
                 @click="zoomOut"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                <IconMinus :size="18" aria-hidden="true" />
               </button>
               <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
               <button
@@ -259,7 +261,7 @@ watch(
                 :aria-disabled="!canZoomIn"
                 @click="zoomIn"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                <IconPlus :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
@@ -267,7 +269,7 @@ watch(
                 :aria-disabled="!canReset"
                 @click="canReset && resetZoom()"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+                <IconZoomReset :size="18" aria-hidden="true" />
               </button>
             </div>
             <div role="group" aria-label="画像の移動" class="lightbox-cluster">
@@ -277,7 +279,7 @@ watch(
                 :aria-disabled="!isPanned"
                 @click="panBy(1, 0)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                <IconChevronLeft :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
@@ -285,7 +287,7 @@ watch(
                 :aria-disabled="!isPanned"
                 @click="panBy(0, 1)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+                <IconChevronUp :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
@@ -293,7 +295,7 @@ watch(
                 :aria-disabled="!isPanned"
                 @click="panBy(0, -1)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                <IconChevronDown :size="18" aria-hidden="true" />
               </button>
               <button
                 class="lightbox-btn"
@@ -301,17 +303,17 @@ watch(
                 :aria-disabled="!isPanned"
                 @click="panBy(-1, 0)"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                <IconChevronRight :size="18" aria-hidden="true" />
               </button>
             </div>
           </div>
           <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
             <button class="lightbox-btn" aria-label="前の画像" @click="prev">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+              <IconChevronLeft :size="18" aria-hidden="true" />
             </button>
             <span class="lightbox-counter" aria-live="polite">{{ currentIndex + 1 }} / {{ images.length }}</span>
             <button class="lightbox-btn" aria-label="次の画像" @click="next">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+              <IconChevronRight :size="18" aria-hidden="true" />
             </button>
           </div>
         </div>
