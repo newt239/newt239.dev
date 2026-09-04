@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { IconChevronDown, IconChevronLeft, IconChevronRight, IconChevronUp, IconMinus, IconPlus, IconX, IconZoomReset } from "@tabler/icons-vue";
 
+import type { WorksCollectionItem } from "@nuxt/content";
+
 const props = defineProps<{
-  images: { src: string; alt: string }[];
-  initialIndex: number;
+  images: WorksCollectionItem["images"];
   open: boolean;
 }>();
 
 const emit = defineEmits<{
-  close: [index: number];
+  close: [];
 }>();
+
+const index = defineModel<number>("index", { required: true });
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 5;
@@ -22,7 +25,6 @@ const PAN_KEYS: Record<string, [number, number]> = {
   ArrowDown: [0, -1],
 };
 
-const currentIndex = ref(props.initialIndex);
 const dialogRef = useTemplateRef<HTMLDialogElement>("dialog");
 const contentRef = useTemplateRef<HTMLElement>("content");
 const imageRef = useTemplateRef<{ imgEl: HTMLImageElement | null }>("image");
@@ -38,7 +40,7 @@ let dragStartTranslateY = 0;
 let didDrag = false;
 
 const hasMultiple = computed(() => props.images.length > 1);
-const currentImage = computed(() => props.images[currentIndex.value]);
+const currentImage = computed(() => props.images[index.value]);
 const supportsViewTransition = ref(false);
 
 const img = useImage();
@@ -46,8 +48,8 @@ useHead({
   link: computed(() => {
     if (!props.open || !hasMultiple.value) return [];
     const total = props.images.length;
-    const next = (currentIndex.value + 1) % total;
-    const prev = (currentIndex.value - 1 + total) % total;
+    const next = (index.value + 1) % total;
+    const prev = (index.value - 1 + total) % total;
     const neighbors = next === prev ? [next] : [next, prev];
     return neighbors.flatMap((index) => {
       const image = props.images[index];
@@ -110,18 +112,17 @@ const zoomOut = () => {
 };
 
 const close = () => {
-  emit("close", currentIndex.value);
+  emit("close");
 };
 
 const prev = () => {
   resetZoom();
-  currentIndex.value =
-    ((currentIndex.value - 1) + props.images.length) % props.images.length;
+  index.value = (index.value - 1 + props.images.length) % props.images.length;
 };
 
 const next = () => {
   resetZoom();
-  currentIndex.value = (currentIndex.value + 1) % props.images.length;
+  index.value = (index.value + 1) % props.images.length;
 };
 
 const onKeydown = (e: KeyboardEvent) => {
@@ -182,13 +183,6 @@ const onPointerMove = (e: PointerEvent) => {
 const onPointerUp = () => {
   isDragging.value = false;
 };
-
-watch(
-  () => props.initialIndex,
-  (val) => {
-    currentIndex.value = val;
-  }
-);
 
 watch(
   () => props.open,
@@ -315,7 +309,7 @@ watch(
             <button type="button" class="lightbox-btn" aria-label="前の画像" @click="prev">
               <IconChevronLeft :size="18" aria-hidden="true" />
             </button>
-            <span class="lightbox-counter" aria-live="polite">{{ currentIndex + 1 }} / {{ images.length }}</span>
+            <span class="lightbox-counter" aria-live="polite">{{ index + 1 }} / {{ images.length }}</span>
             <button type="button" class="lightbox-btn" aria-label="次の画像" @click="next">
               <IconChevronRight :size="18" aria-hidden="true" />
             </button>
@@ -375,11 +369,7 @@ watch(
   user-select: none;
   object-fit: contain;
   border-radius: var(--radius-sm);
-  transition: transform 0.2s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: transform var(--lightbox-zoom-duration) ease;
 }
 
 .lightbox-image.is-dragging {
@@ -397,7 +387,7 @@ watch(
   justify-content: center;
   width: var(--tap-target-size);
   height: var(--tap-target-size);
-  color: #fff;
+  color: rgb(255 255 255);
   cursor: pointer;
   background: rgb(0 0 0 / 70%);
   border: none;
@@ -463,7 +453,7 @@ watch(
   justify-content: center;
   width: var(--tap-target-size);
   height: var(--tap-target-size);
-  color: #fff;
+  color: rgb(255 255 255);
   cursor: pointer;
   background: rgb(255 255 255 / 14%);
   border: none;
@@ -499,11 +489,7 @@ watch(
 
 .lightbox-enter-active,
 .lightbox-leave-active {
-  transition: opacity 0.25s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  transition: opacity var(--lightbox-fade-duration) ease;
 }
 
 .lightbox-enter-from,

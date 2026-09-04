@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
-const { data } = await useAsyncData("works-list", () =>
-  queryCollection("works").order("period", "DESC").all()
+const { data, error } = await useAsyncData("works-list", () =>
+  queryCollection("works")
+    .order("period", "DESC")
+    .select("id", "path", "title", "description", "images", "order", "period")
+    .all()
 );
+if (error.value) throw error.value;
 const works = data.value ?? [];
 
 usePageSeo({ title: "作品一覧", ogImage: `${siteUrl}/og/works.png` });
@@ -16,7 +20,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "@id": `${siteUrl}/works#webpage`,
-        name: "作品一覧 - newt239.dev",
+        name: `作品一覧 - ${siteName}`,
         url: `${siteUrl}/works`,
         inLanguage: "ja",
         isPartOf: { "@id": `${siteUrl}/#website` },
@@ -68,7 +72,7 @@ const sortedWorks = computed(() => {
 
 <template>
   <div>
-    <div class="container work-list-page">
+    <div class="container list-page">
       <div class="list-header">
         <h1 v-colorful-heading class="category-name" lang="en">Works</h1>
 
@@ -105,17 +109,7 @@ const sortedWorks = computed(() => {
 </template>
 
 <style scoped>
-.work-list-page {
-  container-type: inline-size;
-}
-
 .category-name {
   view-transition-name: work-category-name;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-  gap: 1rem;
 }
 </style>

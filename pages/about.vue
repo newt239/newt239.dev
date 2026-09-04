@@ -2,7 +2,7 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 import { person } from "~/libs/person";
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
 usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
 
@@ -14,7 +14,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "@id": `${siteUrl}/about#webpage`,
-        name: "わたしについて - newt239.dev",
+        name: `わたしについて - ${siteName}`,
         url: `${siteUrl}/about`,
         inLanguage: "ja",
         isPartOf: { "@id": `${siteUrl}/#website` },
@@ -157,6 +157,11 @@ const links = [
 .about-page {
   max-width: 800px;
   margin: 0 auto;
+
+  .sub {
+    font-size: 50%;
+    color: rgb(var(--text-muted));
+  }
 
   .about-hero {
     display: flex;

@@ -15,6 +15,13 @@ const profile: { text: string; lang?: string }[] = [
   { text: "言語: TypeScript" },
   { text: "趣味: アニメ, ボカロ, 旅行, カメラ" },
 ];
+
+const snsLinks = [
+  { name: "X", handle: "@newt239", href: "https://x.com/newt239", icon: IconBrandX },
+  { name: "GitHub", handle: "@newt239", href: "https://github.com/newt239", icon: IconBrandGithub },
+  { name: "Zenn", handle: "@newt_st21", href: "https://zenn.dev/newt_st21", icon: "/zenn.png" },
+  { name: "Qiita", handle: "@newt239", href: "https://qiita.com/newt239", icon: "/qiita.webp" },
+];
 </script>
 
 <template>
@@ -35,44 +42,17 @@ const profile: { text: string; lang?: string }[] = [
     </NuxtLink>
     <div class="sns-links">
       <a
+        v-for="link in snsLinks"
+        :key="link.href"
         class="sns-card surface-card"
-        href="https://x.com/newt239"
+        :href="link.href"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div class="sns-name">X</div>
-        <div>@newt239</div>
-        <IconBrandX aria-hidden="true" />
-      </a>
-      <a
-        class="sns-card surface-card"
-        href="https://github.com/newt239"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="sns-name">GitHub</div>
-        <div>@newt239</div>
-        <IconBrandGithub aria-hidden="true" />
-      </a>
-      <a
-        class="sns-card surface-card"
-        href="https://zenn.dev/newt_st21"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="sns-name">Zenn</div>
-        <div>@newt_st21</div>
-        <img src="/zenn.png" alt="" aria-hidden="true" class="sns-icon" />
-      </a>
-      <a
-        class="sns-card surface-card"
-        href="https://qiita.com/newt239"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="sns-name">Qiita</div>
-        <div>@newt239</div>
-        <img src="/qiita.webp" alt="" aria-hidden="true" class="sns-icon" />
+        <div class="sns-name">{{ link.name }}</div>
+        <div>{{ link.handle }}</div>
+        <component :is="link.icon" v-if="typeof link.icon !== 'string'" aria-hidden="true" />
+        <img v-else :src="link.icon" alt="" aria-hidden="true" class="sns-icon" />
       </a>
     </div>
   </div>

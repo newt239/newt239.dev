@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { articleList, articleSite } from "~/libs/articles";
 import { personId } from "~/libs/person";
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
 usePageSeo({ title: "記事一覧", ogImage: `${siteUrl}/og/articles.png` });
 
@@ -13,7 +13,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "@id": `${siteUrl}/articles#webpage`,
-        name: "記事一覧 - newt239.dev",
+        name: `記事一覧 - ${siteName}`,
         url: `${siteUrl}/articles`,
         inLanguage: "ja",
         isPartOf: { "@id": `${siteUrl}/#website` },
@@ -78,7 +78,7 @@ const filteredArticles = computed(() => {
 
 <template>
   <div>
-    <div class="container article-list-page">
+    <div class="container list-page">
       <div class="list-header">
         <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
 
@@ -108,7 +108,7 @@ const filteredArticles = computed(() => {
       <div v-if="filteredArticles.length === 0" class="empty-state">
         該当する記事が見つかりませんでした。
       </div>
-      <div v-else class="article-grid">
+      <div v-else class="card-grid">
         <ArticleItem
           v-for="article in filteredArticles"
           :key="article.url"
@@ -124,18 +124,7 @@ const filteredArticles = computed(() => {
 </template>
 
 <style scoped>
-.article-list-page {
-  container-type: inline-size;
-}
-
 .category-name {
   view-transition-name: article-category-name;
-}
-
-.article-grid {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-  gap: 1rem;
 }
 </style>

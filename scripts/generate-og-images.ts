@@ -9,6 +9,7 @@ import sharp from "sharp";
 import { parse } from "yaml";
 
 import { formatPeriod } from "../libs/period";
+import { themeVariables } from "../libs/theme";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
@@ -27,10 +28,18 @@ const HEIGHT = 630;
 const SHOT_HEIGHT = 400;
 const CONTENT_WIDTH = 660;
 
+const themeColor = (name: string) => {
+  const variable = themeVariables.find((candidate) => candidate.name === name);
+  if (!variable) {
+    throw new Error(`テーマ変数が見つかりません: ${name}`);
+  }
+  return `rgb(${variable.defaultValue.split(" ").join(", ")})`;
+};
+
 const COLORS = {
-  bg: "rgb(255, 248, 240)",
-  text: "rgb(48, 42, 37)",
-  muted: "rgb(110, 100, 90)",
+  bg: themeColor("--bg"),
+  text: themeColor("--text"),
+  muted: themeColor("--text-muted"),
 };
 
 type WorkFrontmatter = {

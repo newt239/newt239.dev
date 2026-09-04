@@ -65,7 +65,7 @@ const apply = async () => {
       <div class="control-actions">
         <button
           type="button"
-          class="control-button primary"
+          class="chip-button control-button"
           :disabled="!dirty"
           @click="apply"
         >
@@ -141,9 +141,6 @@ const apply = async () => {
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 }
 
 .control-row {
@@ -206,37 +203,15 @@ const apply = async () => {
 }
 
 .control-button {
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  min-height: var(--tap-target-size);
   padding: 0 1rem;
-  font-family: inherit;
-  font-size: 1rem;
-  color: rgb(var(--text));
-  white-space: nowrap;
-  cursor: pointer;
-  background: rgb(var(--surface));
-  border: none;
+  font-weight: 800;
+  color: rgb(var(--bg));
+  background: rgb(var(--text));
   border-radius: var(--radius-sm);
-  transition: var(--transition);
 
   @media (hover: hover) {
     &:not(:disabled):hover {
-      background: rgb(var(--surface-hover));
-    }
-  }
-
-  &.primary {
-    font-weight: 800;
-    color: rgb(var(--bg));
-    background: rgb(var(--text));
-
-    @media (hover: hover) {
-      &:not(:disabled):hover {
-        background: rgb(var(--text));
-        opacity: var(--hover-opacity);
-      }
+      opacity: var(--hover-opacity);
     }
   }
 

@@ -28,7 +28,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 <template>
   <div class="latest-album-list">
     <h2 v-colorful-heading lang="en">Photos</h2>
-    <div class="album-grid">
+    <div class="card-grid">
       <a
         v-for="album in albums"
         :key="album.slug"
@@ -72,12 +72,6 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 </template>
 
 <style scoped>
-.album-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-  gap: 1rem;
-}
-
 .album-card {
   display: flex;
   flex-direction: column;

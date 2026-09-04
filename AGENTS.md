@@ -90,6 +90,9 @@ bun run a11y
   - [libs/articles.ts](libs/articles.ts) - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
   - [libs/timeline.ts](libs/timeline.ts) - 経歴。年ごとのグルーピングは [Timeline.vue](components/Timeline.vue) の computed で行う
   - [libs/certifications.ts](libs/certifications.ts) - 資格
+  - [libs/person.ts](libs/person.ts) - JSON-LD の Person とその `@id`
+  - [libs/site.ts](libs/site.ts) - `siteUrl` と `siteName`。URL やサイト名を文字列で直書きせずここから参照する
+  - [libs/period.ts](libs/period.ts) - 作品の `period`（`YYYY.MM - YYYY.MM`）を表示用に整形する。OG 画像生成でも使う
 - 並び順は配列の記述順に依存させず、使う側で日付の降順に並べ替える
 
 ### ルーティングとページ構成
@@ -121,7 +124,9 @@ bun run a11y
 
 - **テーマ生成**: [ThemeChanger.vue](components/ThemeChanger.vue) は AI を使用してユーザーのプロンプトから CSS カスタムプロパティを生成（`api.newt239.dev/ai/generate-theme` 経由）
 - **View Transitions**: [nuxt.config.ts](nuxt.config.ts) の `experimental.viewTransition` で有効化
-- **ページトランジション**: [app.vue](app.vue) でブラー + 不透明度のカスタムトランジション
+- **ページトランジション**: View Transition 非対応ブラウザ向けのフォールバック。[middleware/page-transition.global.ts](middleware/page-transition.global.ts) が `document.startViewTransition` の無いときだけ Vue の `pageTransition` を有効化し、[app.vue](app.vue) の `@supports not (view-transition-name: none)` 内でブラー + 不透明度を定義する
+- **スクロール復元**: [app/router.options.ts](app/router.options.ts) は Nuxt 既定の `scrollBehavior` とほぼ同じだが、View Transition のスナップショット取得より前にスクロール位置を確定させるため rAF を挟まない（PR #119）。Nuxt 側の改善に追従する際はこの差分だけを維持する
+- **一覧のフィルタとソート**: [composables/useListControls.ts](composables/useListControls.ts) が URL クエリと下書き状態の同期、適用時の View Transition を担う。[usePageSeo.ts](composables/usePageSeo.ts) はページ固有の title / og:image を設定する
 - **アナリティクス**: [plugins/vue-gtag.client.ts](plugins/vue-gtag.client.ts) で vue-gtag-next を使用した Google Analytics
   - 計測するのは `newt239.dev` を開いた実ブラウザだけ。localhost とプレビューデプロイ、`navigator.webdriver` が立つ自動化ブラウザ、ヘッドレスやボットの UA では gtag.js を読み込まない
   - `?analytics=off` を付けてアクセスすると `sessionStorage` にオプトアウトを記録する。同じタブ内ならフルページ遷移を跨いでも維持され、別タブとタブを閉じたあとには影響しない。`?analytics=on` で解除する

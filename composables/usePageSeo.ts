@@ -1,6 +1,10 @@
+import { siteName } from "~/libs/site";
+
 export const usePageSeo = ({ title, ogImage }: { title: string; ogImage?: string }) => {
-  useSeoMeta({ title: `${title} - newt239.dev`, ogTitle: `${title} - newt239.dev` });
-  if (ogImage) {
-    useSeoMeta({ ogImage, twitterImage: ogImage });
-  }
+  useSeoMeta({
+    title: `${title} - ${siteName}`,
+    ogTitle: `${title} - ${siteName}`,
+    ogImage,
+    twitterImage: ogImage,
+  });
 };

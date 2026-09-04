@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { readdir, stat } from "node:fs/promises";
-import { join } from "node:path";
+import { extname, join } from "node:path";
 import sharp from "sharp";
 
 const PUBLIC_DIR = join(import.meta.dirname, "..", "public", "images");
@@ -13,16 +13,16 @@ const targets = entries
   .filter(
     (entry) =>
       entry.isFile() &&
-      TARGET_EXTENSIONS.has(entry.name.slice(entry.name.lastIndexOf(".")).toLowerCase())
+      TARGET_EXTENSIONS.has(extname(entry.name).toLowerCase())
   )
   .map((entry) => join(entry.parentPath, entry.name));
 
 for (const inputPath of targets) {
   const outputPath = `${inputPath.slice(0, inputPath.lastIndexOf("."))}.webp`;
-  const { width = 0 } = await sharp(inputPath).metadata();
   const pipeline = sharp(inputPath);
+  const { width = 0 } = await pipeline.metadata();
   if (width > MAX_WIDTH) {
-    pipeline.resize({ width: MAX_WIDTH, withoutEnlargement: true });
+    pipeline.resize({ width: MAX_WIDTH });
   }
   await pipeline.webp({ quality: 85 }).toFile(outputPath);
   const [before, after] = await Promise.all([stat(inputPath), stat(outputPath)]);

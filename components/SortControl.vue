@@ -15,7 +15,7 @@ const emit = defineEmits<{
   <div class="sort-segmented" role="group" :aria-labelledby="labelId">
     <button
       type="button"
-      class="sort-segment"
+      class="chip-button sort-segment"
       :class="{ active: !sortAsc }"
       :aria-pressed="!sortAsc"
       @click="sortAsc && emit('update:sortAsc', false)"
@@ -25,7 +25,7 @@ const emit = defineEmits<{
     </button>
     <button
       type="button"
-      class="sort-segment"
+      class="chip-button sort-segment"
       :class="{ active: sortAsc }"
       :aria-pressed="sortAsc"
       @click="!sortAsc && emit('update:sortAsc', true)"
@@ -46,19 +46,8 @@ const emit = defineEmits<{
 }
 
 .sort-segment {
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  min-height: var(--tap-target-size);
   padding: 0 min(1rem, 3vw);
-  font-family: inherit;
-  font-size: 1rem;
-  color: rgb(var(--text));
-  white-space: nowrap;
-  cursor: pointer;
   background: transparent;
-  border: none;
-  transition: var(--transition);
 
   &:first-child {
     border-start-start-radius: var(--radius-sm);

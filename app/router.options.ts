@@ -39,7 +39,7 @@ export default <RouterConfig>{
         const resolvePosition = () =>
           resolve(router.currentRoute.value.fullPath === to.fullPath ? position() : false);
 
-        const transitionPromise = nuxtApp["~transitionPromise"] as Promise<void> | undefined;
+        const transitionPromise = nuxtApp["~transitionPromise"];
         if (transitionPromise) {
           transitionPromise.then(() => requestAnimationFrame(resolvePosition));
           return;

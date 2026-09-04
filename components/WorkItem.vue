@@ -1,16 +1,12 @@
 <script setup lang="ts">
+import type { WorksCollectionItem } from "@nuxt/content";
+
 const props = defineProps<{
-  work: {
-    path: string;
-    title: string;
-    images: { src: string; alt: string }[];
-    description: string;
-  };
+  work: Pick<WorksCollectionItem, "path" | "title" | "images" | "description">;
   priority?: boolean;
   headingLevel?: "h2" | "h3";
 }>();
 const slug = computed(() => props.work.path.split("/")[2]);
-const thumbnail = computed(() => props.work.images[0]);
 const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
 </script>
 
@@ -23,7 +19,7 @@ const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
   >
     <NuxtImg
       class="work-card-thumbnail"
-      :src="`/images/${thumbnail?.src}`"
+      :src="`/images/${work.images[0].src}`"
       alt=""
       :style="`view-transition-name: ${slug}-img;`"
       :loading="priority ? 'eager' : undefined"

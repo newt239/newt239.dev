@@ -1,21 +1,17 @@
 <script lang="ts" setup>
 import { IconChevronLeft } from "@tabler/icons-vue";
 
-import { clearError, type NuxtError } from "#app";
+import type { NuxtError } from "#app";
 
 const props = defineProps<{ error: NuxtError }>();
 
-const isNotFound = computed(() => props.error.statusCode === 404);
-const heading = computed(() =>
-  isNotFound.value ? "ページが見つかりません" : "エラーが発生しました"
-);
-const description = computed(() =>
-  isNotFound.value
-    ? "お探しのページは移動または削除された可能性があります。"
-    : "しばらく時間をおいてからもう一度お試しください。"
-);
+const isNotFound = props.error.statusCode === 404;
+const heading = isNotFound ? "ページが見つかりません" : "エラーが発生しました";
+const description = isNotFound
+  ? "お探しのページは移動または削除された可能性があります。"
+  : "しばらく時間をおいてからもう一度お試しください。";
 
-usePageSeo({ title: heading.value });
+usePageSeo({ title: heading });
 useSeoMeta({ robots: "noindex" });
 </script>
 
