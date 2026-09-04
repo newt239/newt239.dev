@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <button class="filter-chip" :class="{ active }" :aria-pressed="active">
+  <button type="button" class="filter-chip" :class="{ active }" :aria-pressed="active">
     <IconCheck v-if="active" :size="16" class="filter-chip-icon" aria-hidden="true" />
     <span><slot /></span>
   </button>

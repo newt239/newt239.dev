@@ -108,6 +108,7 @@ const onDialogClose = () => {
           @keydown.enter="!$event.isComposing && generateTheme()"
         />
         <button
+          type="button"
           class="theme-change-button"
           :class="{ 'is-generating': isGenerating }"
           :aria-disabled="isGenerating"

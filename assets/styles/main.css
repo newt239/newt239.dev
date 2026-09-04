@@ -95,7 +95,7 @@
     --surface-hover, --border, --focus-ring, --radius-scale, --border-width;
   interpolate-size: allow-keywords;
 
-  --text-scale: env(preferred-text-scale, 1);
+  --text-scale: 1;
   --text: 48 42 37;
   --text-muted: 110 100 90;
   --text-faint: 122 114 104;

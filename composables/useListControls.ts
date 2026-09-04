@@ -38,7 +38,8 @@ export const useListControls = <T>(
       return;
     }
     const transition = document.startViewTransition({ types: ["list-filter"], update });
-    await Promise.allSettled([transition.finished, transition.updateCallbackDone]);
+    await Promise.allSettled([transition.finished]);
+    await transition.updateCallbackDone;
   };
 
   return { applied, draft, dirty, hasConditions, apply };

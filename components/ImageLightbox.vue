@@ -237,13 +237,14 @@ watch(
             @pointercancel="onPointerUp"
           />
         </div>
-        <button class="lightbox-close" aria-label="閉じる" @click="close">
+        <button type="button" class="lightbox-close" aria-label="閉じる" @click="close">
           <IconX :size="24" aria-hidden="true" />
         </button>
         <div class="lightbox-bottom-bar">
           <div class="lightbox-controls">
             <div role="group" aria-label="ズーム操作" class="lightbox-cluster">
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="縮小"
                 :aria-disabled="!isZoomed"
@@ -253,6 +254,7 @@ watch(
               </button>
               <span class="lightbox-zoom-level" aria-live="polite">{{ scalePercent }}</span>
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="拡大"
                 :aria-disabled="!canZoomIn"
@@ -261,6 +263,7 @@ watch(
                 <IconPlus :size="18" aria-hidden="true" />
               </button>
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="ズームをリセット"
                 :aria-disabled="!isZoomed"
@@ -271,6 +274,7 @@ watch(
             </div>
             <div role="group" aria-label="画像の移動" class="lightbox-cluster">
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="左を表示"
                 :aria-disabled="!isZoomed"
@@ -279,6 +283,7 @@ watch(
                 <IconChevronLeft :size="18" aria-hidden="true" />
               </button>
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="上を表示"
                 :aria-disabled="!isZoomed"
@@ -287,6 +292,7 @@ watch(
                 <IconChevronUp :size="18" aria-hidden="true" />
               </button>
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="下を表示"
                 :aria-disabled="!isZoomed"
@@ -295,6 +301,7 @@ watch(
                 <IconChevronDown :size="18" aria-hidden="true" />
               </button>
               <button
+                type="button"
                 class="lightbox-btn"
                 aria-label="右を表示"
                 :aria-disabled="!isZoomed"
@@ -305,11 +312,11 @@ watch(
             </div>
           </div>
           <div v-if="hasMultiple" role="group" aria-label="画像の切り替え" class="lightbox-controls">
-            <button class="lightbox-btn" aria-label="前の画像" @click="prev">
+            <button type="button" class="lightbox-btn" aria-label="前の画像" @click="prev">
               <IconChevronLeft :size="18" aria-hidden="true" />
             </button>
             <span class="lightbox-counter" aria-live="polite">{{ currentIndex + 1 }} / {{ images.length }}</span>
-            <button class="lightbox-btn" aria-label="次の画像" @click="next">
+            <button type="button" class="lightbox-btn" aria-label="次の画像" @click="next">
               <IconChevronRight :size="18" aria-hidden="true" />
             </button>
           </div>

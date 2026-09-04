@@ -16,19 +16,19 @@ import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
         <ul>
           <li>
             <a href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
-              <IconBrandX :size="18" />
+              <IconBrandX :size="18" aria-hidden="true" />
               X
             </a>
           </li>
           <li>
             <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
-              <IconBrandGithub :size="18" />
+              <IconBrandGithub :size="18" aria-hidden="true" />
               GitHub
             </a>
           </li>
           <li>
             <a href="https://fernweh.newt239.dev/" target="_blank" rel="noopener noreferrer">
-              <IconPhoto :size="18" />
+              <IconPhoto :size="18" aria-hidden="true" />
               fernweh
             </a>
           </li>

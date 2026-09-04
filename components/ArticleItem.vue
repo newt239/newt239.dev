@@ -36,7 +36,7 @@ const site = computed(() => articleSite(props.url));
     <div class="article-card-footer">
       <div class="site-info">
         <NuxtImg v-if="site.icon" :src="site.icon" alt="" width="16" height="16" />
-        <IconBook2 v-else :size="16" />
+        <IconBook2 v-else :size="16" aria-hidden="true" />
         <span class="site-name">{{ site.name }}</span>
       </div>
       <time class="article-date" :datetime="date">{{ date.replaceAll("-", "/") }}</time>

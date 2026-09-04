@@ -14,6 +14,7 @@ const emit = defineEmits<{
 <template>
   <div class="sort-segmented" role="group" :aria-labelledby="labelId">
     <button
+      type="button"
       class="sort-segment"
       :class="{ active: !sortAsc }"
       :aria-pressed="!sortAsc"
@@ -23,6 +24,7 @@ const emit = defineEmits<{
       <span>新しい順</span>
     </button>
     <button
+      type="button"
       class="sort-segment"
       :class="{ active: sortAsc }"
       :aria-pressed="sortAsc"

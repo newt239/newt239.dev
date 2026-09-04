@@ -58,7 +58,7 @@ const { applied, draft, dirty, hasConditions, apply } = useListControls(
   }),
   ({ sortAsc, sites }) => {
     const query: Record<string, string> = {};
-    if (sites.size > 0) query.sites = [...sites].join(",");
+    if (sites.size > 0) query.sites = [...sites].toSorted().join(",");
     if (sortAsc) query.dir = "asc";
     return query;
   }

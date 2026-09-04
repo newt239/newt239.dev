@@ -37,7 +37,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
             <span class="item-term">
               <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
             </span>
-            <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" /></span>
+            <span class="item-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" aria-hidden="true" /></span>
           </component>
         </div>
       </div>

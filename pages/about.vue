@@ -144,7 +144,7 @@ const links = [
               class="link-card"
             >
               {{ link.label }}
-              <IconExternalLink class="external-icon" />
+              <IconExternalLink class="external-icon" aria-hidden="true" />
             </a>
           </div>
         </section>
