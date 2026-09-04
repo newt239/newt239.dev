@@ -225,11 +225,13 @@ await mkdir(OUTPUT_DIR, { recursive: true });
 const iconBuffer = await sharp(join(ROOT_DIR, "public", "icon.png")).resize(176, 176).png().toBuffer();
 const icon = `data:image/png;base64,${iconBuffer.toString("base64")}`;
 
-for (const [name, title] of [
+const defaultPages = [
   ["about", "わたしについて"],
   ["works", "作品一覧"],
   ["articles", "記事一覧"],
-] as const) {
+] as const;
+
+for (const [name, title] of defaultPages) {
   await render(defaultNode(title, icon), fonts, join(OUTPUT_DIR, `${name}.png`));
 }
 
@@ -261,4 +263,4 @@ for (const file of files) {
   );
 }
 
-console.log(`\n${files.length + 3} 件の OG 画像を生成しました。`);
+console.log(`\n${files.length + defaultPages.length} 件の OG 画像を生成しました。`);

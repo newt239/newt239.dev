@@ -25,6 +25,13 @@ const PAN_KEYS: Record<string, [number, number]> = {
   ArrowDown: [0, -1],
 };
 
+const PAN_BUTTONS = [
+  { label: "左を表示", icon: IconChevronLeft, x: 1, y: 0 },
+  { label: "上を表示", icon: IconChevronUp, x: 0, y: 1 },
+  { label: "下を表示", icon: IconChevronDown, x: 0, y: -1 },
+  { label: "右を表示", icon: IconChevronRight, x: -1, y: 0 },
+];
+
 const dialogRef = useTemplateRef<HTMLDialogElement>("dialog");
 const contentRef = useTemplateRef<HTMLElement>("content");
 const imageRef = useTemplateRef<{ imgEl: HTMLImageElement | null }>("image");
@@ -268,40 +275,15 @@ watch(
             </div>
             <div role="group" aria-label="画像の移動" class="lightbox-cluster">
               <button
+                v-for="button in PAN_BUTTONS"
+                :key="button.label"
                 type="button"
                 class="lightbox-btn"
-                aria-label="左を表示"
+                :aria-label="button.label"
                 :aria-disabled="!isZoomed"
-                @click="panBy(1, 0)"
+                @click="panBy(button.x, button.y)"
               >
-                <IconChevronLeft :size="18" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                class="lightbox-btn"
-                aria-label="上を表示"
-                :aria-disabled="!isZoomed"
-                @click="panBy(0, 1)"
-              >
-                <IconChevronUp :size="18" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                class="lightbox-btn"
-                aria-label="下を表示"
-                :aria-disabled="!isZoomed"
-                @click="panBy(0, -1)"
-              >
-                <IconChevronDown :size="18" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                class="lightbox-btn"
-                aria-label="右を表示"
-                :aria-disabled="!isZoomed"
-                @click="panBy(-1, 0)"
-              >
-                <IconChevronRight :size="18" aria-hidden="true" />
+                <component :is="button.icon" :size="18" aria-hidden="true" />
               </button>
             </div>
           </div>

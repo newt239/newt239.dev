@@ -10,17 +10,19 @@ type TrackListProp = {
   link: string;
 };
 
-const { data: trackList } = useLazyFetch<TrackListProp[]>(
+const { data } = useLazyFetch<TrackListProp[]>(
   "https://api.newt239.dev/spotify/my-top-tracks"
 );
+
+const trackList = computed(() => data.value?.slice(0, 12) ?? []);
 </script>
 
 <template>
-  <div v-show="trackList && trackList.length !== 0" class="my-top-track-list">
+  <div v-show="trackList.length !== 0" class="my-top-track-list">
     <h2 v-colorful-heading lang="en">My Top Tracks</h2>
     <div class="card-grid">
       <a
-        v-for="track in trackList?.slice(0, 12)"
+        v-for="track in trackList"
         :key="track.name"
         :href="track.link"
         target="_blank"

@@ -35,7 +35,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
             :class="{ 'has-link': !!item.src }"
           >
             <span class="record-term">
-              <time :datetime="item.start">{{ Number(item.start.slice(5)) }}月</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ Number(item.end.slice(5)) }}月</time></template>
+              <time :datetime="item.start">{{ new Date(item.start).toLocaleDateString("ja-JP", { month: "long", timeZone: "UTC" }) }}</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ new Date(item.end).toLocaleDateString("ja-JP", { month: "long", timeZone: "UTC" }) }}</time></template>
             </span>
             <span class="item-title record-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" aria-hidden="true" /></span>
           </component>
@@ -75,7 +75,6 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
   transition: var(--transition);
 }
 
-/* 1 件でも折り返す幅ならセクション全体を縦積みにして、行ごとの体裁がばらつかないようにする */
 .timeline-item {
   color: rgb(var(--text));
   text-decoration: none;

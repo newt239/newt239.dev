@@ -1,5 +1,15 @@
 <script lang="ts" setup>
 import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
+
+import { socialLinks } from "~/libs/links";
+
+const copyrightYear = useState("copyright-year", () => new Date().getFullYear());
+
+const externalLinks = [
+  { ...socialLinks.x, icon: IconBrandX },
+  { ...socialLinks.github, icon: IconBrandGithub },
+  { ...socialLinks.fernweh, icon: IconPhoto },
+];
 </script>
 
 <template>
@@ -14,28 +24,16 @@ import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
           <li><NuxtLink to="/privacy">プライバシーポリシー</NuxtLink></li>
         </ul>
         <ul>
-          <li>
-            <a href="https://x.com/newt239" target="_blank" rel="noopener noreferrer">
-              <IconBrandX :size="18" aria-hidden="true" />
-              X
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/newt239" target="_blank" rel="noopener noreferrer">
-              <IconBrandGithub :size="18" aria-hidden="true" />
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href="https://fernweh.newt239.dev/" target="_blank" rel="noopener noreferrer">
-              <IconPhoto :size="18" aria-hidden="true" />
-              fernweh
+          <li v-for="link in externalLinks" :key="link.href">
+            <a :href="link.href" target="_blank" rel="noopener noreferrer">
+              <component :is="link.icon" :size="18" aria-hidden="true" />
+              {{ link.name }}
             </a>
           </li>
         </ul>
       </nav>
       <div class="footer-bottom">
-        <div class="copyright">&copy; newt 2026</div>
+        <div class="copyright">&copy; newt {{ copyrightYear }}</div>
       </div>
     </div>
   </footer>

@@ -350,8 +350,7 @@ a {
   }
 }
 
-.underline[href^="http"]:not([href*="newt239.dev"], :has(svg))::after,
-:is(p, li, table) a[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+:is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
   display: inline-block;
   width: var(--external-link-icon-size);
   height: var(--external-link-icon-size);
@@ -359,11 +358,8 @@ a {
   vertical-align: var(--external-link-icon-shift);
   content: "";
   background-color: currentcolor;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
-  -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
   mask-size: contain;
 }
 
@@ -490,6 +486,49 @@ ul {
   font-size: 1rem;
   cursor: pointer;
   border-radius: var(--radius-sm);
+}
+
+.thumb-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.thumb-card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  pointer-events: none;
+  object-fit: cover;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  -webkit-touch-callout: none;
+}
+
+.thumb-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.thumb-card-title {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  color: rgb(var(--text));
+  overflow-wrap: anywhere;
+  text-box: normal;
+}
+
+.thumb-card-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: var(--line-height-tight);
+  color: rgb(var(--text-muted));
 }
 
 .see-all-card {

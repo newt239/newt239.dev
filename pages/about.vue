@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
+import { socialLinks } from "~/libs/links";
 import { person } from "~/libs/person";
 import { siteName, siteUrl } from "~/libs/site";
 
@@ -25,10 +26,12 @@ useHead({
 });
 
 const contacts = [
-  { label: "メール", items: [{ href: `mailto:${person.email}`, text: person.email }] },
+  { label: "メール", href: `mailto:${person.email}`, text: person.email, external: false },
   {
     label: "Discordサーバー",
-    items: [{ href: "https://discord.gg/rct5sx6rbZ", text: "https://discord.gg/rct5sx6rbZ" }],
+    href: "https://discord.gg/rct5sx6rbZ",
+    text: "https://discord.gg/rct5sx6rbZ",
+    external: true,
   },
 ] as const;
 
@@ -60,11 +63,11 @@ const hobbies = [
 ] as const;
 
 const links = [
-  { href: "https://newt239.hatenablog.com/", label: "はてなブログ" },
-  { href: "https://mixi.social/@newt", label: "mixi2" },
-  { href: "https://annict.com/@newt", label: "Annict" },
-  { href: "https://www.linkedin.com/in/newt239/", label: "LinkedIn" },
-] as const;
+  socialLinks.hatena,
+  socialLinks.mixi2,
+  socialLinks.annict,
+  socialLinks.linkedin,
+];
 </script>
 
 <template>
@@ -91,13 +94,13 @@ const links = [
               <li v-for="contact in contacts" :key="contact.label">
                 {{ contact.label }}
                 <ul>
-                  <li v-for="item in contact.items" :key="item.text">
+                  <li>
                     <a
-                      :href="item.href"
-                      :target="item.href.startsWith('http') ? '_blank' : undefined"
-                      :rel="item.href.startsWith('http') ? 'noopener noreferrer' : undefined"
+                      :href="contact.href"
+                      :target="contact.external ? '_blank' : undefined"
+                      :rel="contact.external ? 'noopener noreferrer' : undefined"
                     >
-                      {{ item.text }}
+                      {{ contact.text }}
                     </a>
                   </li>
                 </ul>
@@ -143,7 +146,7 @@ const links = [
               rel="noopener noreferrer"
               class="link-card"
             >
-              {{ link.label }}
+              {{ link.name }}
               <IconExternalLink class="external-icon" aria-hidden="true" />
             </a>
           </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IconBrandGithub, IconBrandX, IconChevronRight } from "@tabler/icons-vue";
 
+import { socialLinks } from "~/libs/links";
 import { person } from "~/libs/person";
 
 const today = new Date();
@@ -17,10 +18,10 @@ const profile: { text: string; lang?: string }[] = [
 ];
 
 const snsLinks = [
-  { name: "X", handle: "@newt239", href: "https://x.com/newt239", icon: IconBrandX },
-  { name: "GitHub", handle: "@newt239", href: "https://github.com/newt239", icon: IconBrandGithub },
-  { name: "Zenn", handle: "@newt_st21", href: "https://zenn.dev/newt_st21", icon: "/zenn.png" },
-  { name: "Qiita", handle: "@newt239", href: "https://qiita.com/newt239", icon: "/qiita.webp" },
+  { ...socialLinks.x, icon: IconBrandX },
+  { ...socialLinks.github, icon: IconBrandGithub },
+  { ...socialLinks.zenn, icon: "/zenn.png" },
+  { ...socialLinks.qiita, icon: "/qiita.webp" },
 ];
 </script>
 
@@ -52,7 +53,7 @@ const snsLinks = [
         <div class="sns-name">{{ link.name }}</div>
         <div>{{ link.handle }}</div>
         <component :is="link.icon" v-if="typeof link.icon !== 'string'" aria-hidden="true" />
-        <img v-else :src="link.icon" alt="" aria-hidden="true" class="sns-icon" />
+        <NuxtImg v-else :src="link.icon" alt="" aria-hidden="true" width="24" height="24" class="sns-icon" />
       </a>
     </div>
   </div>

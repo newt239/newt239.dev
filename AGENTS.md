@@ -90,10 +90,12 @@ bun run a11y
   - [libs/articles.ts](libs/articles.ts) - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
   - [libs/timeline.ts](libs/timeline.ts) - 経歴。年ごとのグルーピングは [Timeline.vue](components/Timeline.vue) の computed で行う
   - [libs/certifications.ts](libs/certifications.ts) - 資格
-  - [libs/person.ts](libs/person.ts) - JSON-LD の Person とその `@id`
+  - [libs/person.ts](libs/person.ts) - JSON-LD の Person とその `@id`。`sameAs` は `libs/links.ts` から組み立てる
+  - [libs/links.ts](libs/links.ts) - 外部リンクの名前・ハンドル・URL。Profile・Footer・about・`person.sameAs` はすべてここを参照し、URL を直書きしない。アイコンは Vue コンポーネントなので各コンポーネント側に置く
   - [libs/site.ts](libs/site.ts) - `siteUrl` と `siteName`。URL やサイト名を文字列で直書きせずここから参照する
   - [libs/period.ts](libs/period.ts) - 作品の `period`（`YYYY.MM - YYYY.MM`）を表示用に整形する。OG 画像生成でも使う
 - 並び順は配列の記述順に依存させず、使う側で日付の降順に並べ替える
+- 日付の表示は `toLocaleDateString("ja-JP", …)` を使い、`timeZone: "UTC"` を必ず指定する。指定しないと `YYYY-MM` の UTC 解釈と実行環境のタイムゾーンがずれて月が1つ戻る。`slice` と `Number` で組み立てない
 
 ### ルーティングとページ構成
 
@@ -114,6 +116,8 @@ bun run a11y
 - 色は必ず `:root` のトークン経由で指定する。固定値を書くと AI テーマ生成に追従しない
 - 本文に載る文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で `--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - コードブロックの配色は [libs/shiki-theme.ts](libs/shiki-theme.ts) の Shiki テーマが `--code-*` トークン経由で参照する。Shiki の組み込みテーマは固定 hex を出力しテーマ追従しないため使わない
+- 16:9 のサムネイルを持つカードは `main.css` の `.thumb-card` / `.thumb-card-image` / `.thumb-card-body` / `.thumb-card-title` / `.thumb-card-text` を使う。見出しは要素セレクタに頼らず `.thumb-card-title` を直接付ける。付けないと `h1, h2` などのグローバル規則に負ける
+- **`main.css` の共通クラスは単一クラスセレクタのままにする。** scoped CSS は Vite のチャンク分割次第で `entry.css` の前にも後ろにも出るため、同詳細度の勝敗がビルドごとに反転する。`main.css` 側に `.thumb-card-image.foo` のような2クラスの規則を足すと、コンポーネントの `.thumb-card-image[data-v]` と同点になって壊れる。共通クラスとコンポーネント側で同じプロパティを奪い合わせない
 - [stylelint.config.mjs](stylelint.config.mjs) で次を強制する。`bun run lint:css:fix` で直せるものは自動で直る
   - 長さは rem で 0.25 の倍数のみ。`0.875rem` のような中間値は使わない
   - `font-weight` は `400` と `800` のみ。Typekit の kit が R / B の 2 ウェイトしか持たないため
