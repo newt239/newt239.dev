@@ -1,12 +1,14 @@
-export const personId = "https://newt239.dev/about#person";
+import { siteUrl } from "./site";
+
+export const personId = `${siteUrl}/about#person`;
 
 export const person = {
   "@type": "Person",
   "@id": personId,
   name: "newt",
   alternateName: "newt239",
-  url: "https://newt239.dev/about",
-  image: "https://newt239.dev/icon.webp",
+  url: `${siteUrl}/about`,
+  image: `${siteUrl}/icon.webp`,
   birthDate: "2005-11-02",
   email: "contact@newt239.dev",
   nationality: "JP",

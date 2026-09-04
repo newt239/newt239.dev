@@ -1,38 +1,34 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-vue";
 
+import type { ImageCarousel } from "#components";
+
 import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");
 const { data } = await useAsyncData(workPath, () =>
   queryCollection("works").path(workPath).first()
 );
-
-const { data: worksOrder } = await useAsyncData("works-order", () =>
-  queryCollection("works").order("period", "DESC").select("path", "title").all()
-);
-
-const currentIndex = computed(() =>
-  worksOrder.value?.findIndex((work) => work.path === workPath) ?? -1
-);
-const previousWork = computed(() =>
-  currentIndex.value > 0 ? worksOrder.value?.[currentIndex.value - 1] : undefined
-);
-const nextWork = computed(() =>
-  currentIndex.value === -1 ? undefined : worksOrder.value?.[currentIndex.value + 1]
-);
-
 if (!data.value) {
   throw createError({ statusCode: 404, fatal: true });
 }
 const work = data.value;
 const workSlug = work.path.split("/")[2] ?? "";
 
+const { data: worksOrder } = await useAsyncData("works-order", () =>
+  queryCollection("works").order("period", "DESC").select("path", "title").all()
+);
+const works = worksOrder.value ?? [];
+const currentIndex = works.findIndex((item) => item.path === workPath);
+const previousWork = works[currentIndex - 1];
+const nextWork = works[currentIndex + 1];
+
 usePageSeo({
   title: work.title,
-  ogImage: `https://newt239.dev/og/works-${workSlug}.jpg`,
+  ogImage: `${siteUrl}/og/works-${workSlug}.jpg`,
 });
 useSeoMeta({
   twitterTitle: `${work.title} - newt239.dev`,
@@ -52,11 +48,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
-        "@id": `https://newt239.dev${work.path}#work`,
+        "@id": `${siteUrl}${work.path}#work`,
         name: work.title,
         description: work.description,
-        url: `https://newt239.dev${work.path}`,
-        image: `https://newt239.dev/images/${work.images[0]?.src ?? ""}`,
+        url: `${siteUrl}${work.path}`,
+        image: `${siteUrl}/images/${work.images[0]?.src ?? ""}`,
         datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
         keywords: work.tech,
         inLanguage: "ja",
@@ -70,8 +66,8 @@ useHead({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
-          { "@type": "ListItem", position: 2, name: "作品一覧", item: "https://newt239.dev/works" },
+          { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "作品一覧", item: `${siteUrl}/works` },
           { "@type": "ListItem", position: 3, name: work.title },
         ],
       },
@@ -86,10 +82,7 @@ activeWorkSlug.value = workSlug;
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
 const morphIndex = ref<number | null>(null);
-const carouselRef = ref<{
-  snapTo: (index: number) => void;
-  focusCurrentImage: () => void;
-} | null>(null);
+const carouselRef = useTemplateRef<InstanceType<typeof ImageCarousel>>("carousel");
 
 const openLightbox = async (index: number) => {
   lightboxIndex.value = index;
@@ -149,7 +142,7 @@ const closeLightbox = async (index: number) => {
       <div class="work">
         <div class="work-hero">
           <ImageCarousel
-            ref="carouselRef"
+            ref="carousel"
             :images="work.images"
             :work-slug="workSlug"
             :morph-index="morphIndex"
@@ -189,7 +182,7 @@ const closeLightbox = async (index: number) => {
           :to="previousWork.path"
           rel="prev"
           :aria-label="`前の作品: ${previousWork.title}`"
-          class="work-nav-link is-previous"
+          class="work-nav-link surface-button is-previous"
         >
           <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="work-nav-body">
@@ -197,7 +190,7 @@ const closeLightbox = async (index: number) => {
             <span class="work-nav-title">{{ previousWork.title }}</span>
           </span>
         </NuxtLink>
-        <NuxtLink to="/works" class="work-nav-link is-all" aria-label="すべての作品">
+        <NuxtLink to="/works" class="work-nav-link surface-button is-all" aria-label="すべての作品">
           <IconLayoutGrid :size="20" aria-hidden="true" />
           <span class="work-nav-all-label">すべての作品</span>
         </NuxtLink>
@@ -206,7 +199,7 @@ const closeLightbox = async (index: number) => {
           :to="nextWork.path"
           rel="next"
           :aria-label="`次の作品: ${nextWork.title}`"
-          class="work-nav-link is-next"
+          class="work-nav-link surface-button is-next"
         >
           <span class="work-nav-body">
             <span class="work-nav-label">次の作品</span>
@@ -219,223 +212,91 @@ const closeLightbox = async (index: number) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .each-work-page {
-  .work {
-    a {
-      overflow-wrap: anywhere;
+  .work-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: start;
+
+    > .carousel {
+      flex: 1;
+      min-width: 0;
     }
 
-    .work-hero {
-      display: flex;
-      gap: 2rem;
-      align-items: start;
+    > .work-sidebar {
+      flex-shrink: 0;
+      width: 360px;
 
-      > .carousel {
-        flex: 1;
-        min-width: 0;
+      .work-title {
+        display: block;
+        width: auto;
+        padding: 0;
+        margin: 0 0 0.75rem;
+        font-size: var(--font-size-title);
+        font-weight: 800;
+        view-transition-class: list-title;
+        text-box: normal;
       }
+    }
+
+    @media (width <= 48rem) {
+      flex-direction: column;
+      gap: 1rem;
 
       > .work-sidebar {
-        flex-shrink: 0;
-        width: 360px;
-
-        .work-title {
-          display: block;
-          width: auto;
-          padding: 0;
-          margin: 0 0 0.75rem;
-          font-size: var(--font-size-title);
-          font-weight: 800;
-          view-transition-class: list-title;
-          text-box: normal;
-        }
+        order: -1;
+        width: 100%;
       }
+    }
+  }
 
-      @media (width <= 48rem) {
-        flex-direction: column;
-        gap: 1rem;
+  .work-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0;
+    margin: 0;
 
-        > .work-sidebar {
-          order: -1;
-          width: 100%;
-        }
+    dt {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: var(--line-height-tight);
+      color: rgb(var(--text-muted));
+      letter-spacing: 0.05em;
+
+      &:first-of-type {
+        margin-top: 0;
       }
     }
 
-    .work-meta {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-      padding: 0;
+    dd {
       margin: 0;
-
-      dt {
-        margin-top: 0.75rem;
-        font-size: 0.75rem;
-        font-weight: 800;
-        line-height: var(--line-height-tight);
-        color: rgb(var(--text-muted));
-        letter-spacing: 0.05em;
-
-        &:first-of-type {
-          margin-top: 0;
-        }
-      }
-
-      dd {
-        margin: 0;
-        line-height: var(--line-height-tight);
-      }
-
-      .tech-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: center;
-      }
-
-      .tech-tag {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        font-size: 1rem;
-        line-height: var(--line-height-tight);
-        color: rgb(var(--text));
-        background: rgb(var(--surface));
-        border-radius: var(--radius-xs);
-
-        @supports (text-box-trim: trim-both) {
-          text-box: trim-both text text;
-          padding-block: 0.5rem;
-        }
-      }
+      line-height: var(--line-height-tight);
     }
 
-    .content {
-      padding-top: 1.5rem;
-      padding-bottom: 1rem;
-      overflow-wrap: anywhere;
-
-      @media (width <= 48rem) {
-        padding-top: 0;
-      }
-
-      p {
-        margin: 1rem 0;
-      }
-
-      ul {
-        padding-left: 1.5rem;
-        margin: 0.5rem 0;
-
-        ul {
-          margin: 0;
-        }
-      }
-
-      li {
-        margin: 0.25rem 0;
-        line-height: var(--line-height-body);
-      }
-
-      h2 {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        margin: 1rem 0 0;
-        font-size: 1.25rem;
-        color: rgb(var(--bg));
-        letter-spacing: 0;
-        background-color: rgb(var(--text));
-      }
-
-      h3 {
-        padding: 1.5rem 0 0;
-        font-size: 1.25rem;
-        font-weight: 800;
-      }
-
-      h4 {
-        padding: 0 0 0 0.75rem;
-        margin: 1rem 0 0;
-        font-size: 1rem;
-        font-weight: 800;
-        border-left: var(--border-width) solid rgb(var(--accent));
-      }
-
-      h2 a {
-        color: inherit;
-      }
-
-      h3,
-      h4,
-      h5 {
-        a {
-          color: rgb(var(--text));
-        }
-      }
-
-      /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
-      table {
-        margin: 0;
-        overflow-wrap: normal;
-        border-spacing: 0 0.5rem;
-
-        th,
-        td {
-          padding: 0 min(1rem, 3vw);
-          text-align: left;
-        }
-
-        th {
-          border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
-        }
-      }
-
-      code {
-        padding: 0.1em 0.35em;
-        margin: 0;
-        font-family: var(--font-mono);
-        font-size: 0.9em;
-        color: var(--code-text);
-        overflow-wrap: anywhere;
-        cursor: text;
-        background-color: var(--code-bg);
-        border: var(--border-width-hairline) solid rgb(var(--border));
-        border-radius: var(--radius-xs);
-      }
-
-      pre {
-        padding: 1rem;
-        margin: 0.5rem 0;
-        line-height: var(--line-height-tight);
-        color: var(--code-text);
-        overflow-wrap: anywhere;
-        white-space: pre-wrap;
-        cursor: text;
-        background-color: var(--code-bg);
-        border: var(--border-width-hairline) solid rgb(var(--border));
-        border-radius: var(--radius-sm);
-
-        code {
-          padding: 0;
-          font-size: inherit;
-          background: none;
-          border: 0;
-          border-radius: 0;
-        }
-      }
-
-      p:has(img) {
-        text-align: center;
-
-        img {
-          max-width: 100%;
-          max-height: 50vh;
-          border-radius: var(--radius-sm);
-        }
-      }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
     }
 
+    .tech-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 1rem;
+      line-height: var(--line-height-tight);
+      color: rgb(var(--text));
+      background: rgb(var(--surface));
+      border-radius: var(--radius-xs);
+
+      @supports (text-box-trim: trim-both) {
+        text-box: trim-both text text;
+        padding-block: 0.5rem;
+      }
+    }
   }
 
   .work-nav {
@@ -457,11 +318,6 @@ const closeLightbox = async (index: number) => {
     align-items: center;
     min-height: var(--tap-target-size);
     padding: 0.75rem 1.25rem;
-    color: rgb(var(--text));
-    background-color: rgb(var(--surface));
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-sm);
-    transition: var(--transition);
 
     svg {
       flex-shrink: 0;
@@ -499,18 +355,6 @@ const closeLightbox = async (index: number) => {
         display: none;
       }
     }
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
-
-    @media (hover: none) {
-      &:active {
-        border-color: rgb(var(--text));
-      }
-    }
   }
 
   .work-nav-body {
@@ -535,6 +379,139 @@ const closeLightbox = async (index: number) => {
     font-weight: 800;
     line-height: var(--line-height-tight);
     white-space: nowrap;
+  }
+}
+</style>
+
+<style>
+.each-work-page .work {
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  .content {
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    overflow-wrap: anywhere;
+
+    @media (width <= 48rem) {
+      padding-top: 0;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+
+      ul {
+        margin: 0;
+      }
+    }
+
+    li {
+      margin: 0.25rem 0;
+      line-height: var(--line-height-body);
+    }
+
+    h2 {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin: 1rem 0 0;
+      font-size: 1.25rem;
+      color: rgb(var(--bg));
+      letter-spacing: 0;
+      background-color: rgb(var(--text));
+    }
+
+    h3 {
+      padding: 1.5rem 0 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    h4 {
+      padding: 0 0 0 0.75rem;
+      margin: 1rem 0 0;
+      font-size: 1rem;
+      font-weight: 800;
+      border-left: var(--border-width) solid rgb(var(--accent));
+    }
+
+    h2 a {
+      color: inherit;
+    }
+
+    h3,
+    h4,
+    h5 {
+      a {
+        color: rgb(var(--text));
+      }
+    }
+
+    /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
+    table {
+      margin: 0;
+      overflow-wrap: normal;
+      border-spacing: 0 0.5rem;
+
+      th,
+      td {
+        padding: 0 min(1rem, 3vw);
+        text-align: left;
+      }
+
+      th {
+        border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
+      }
+    }
+
+    code {
+      padding: 0.1em 0.35em;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--code-text);
+      overflow-wrap: anywhere;
+      cursor: text;
+      background-color: var(--code-bg);
+      border: var(--border-width-hairline) solid rgb(var(--border));
+      border-radius: var(--radius-xs);
+    }
+
+    pre {
+      padding: 1rem;
+      margin: 0.5rem 0;
+      line-height: var(--line-height-tight);
+      color: var(--code-text);
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      cursor: text;
+      background-color: var(--code-bg);
+      border: var(--border-width-hairline) solid rgb(var(--border));
+      border-radius: var(--radius-sm);
+
+      code {
+        padding: 0;
+        font-size: inherit;
+        background: none;
+        border: 0;
+        border-radius: 0;
+      }
+    }
+
+    p:has(img) {
+      text-align: center;
+
+      img {
+        max-width: 100%;
+        max-height: 50vh;
+        border-radius: var(--radius-sm);
+      }
+    }
   }
 }
 </style>

@@ -28,7 +28,7 @@ if (import.meta.client) {
   </div>
 </template>
 
-<style>
+<style scoped>
 .loading-indicator {
   @media (prefers-reduced-motion: reduce) {
     display: none;

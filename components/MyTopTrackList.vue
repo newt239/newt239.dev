@@ -25,104 +25,75 @@ const { data: trackList } = useLazyFetch<TrackListProp[]>(
         :href="track.link"
         target="_blank"
         rel="noopener noreferrer"
-        class="track-card"
+        class="track-card surface-card"
         :aria-label="`${track.name} ${track.artists.join(', ')} - Spotify（外部サイト）`"
       >
         <NuxtImg loading="lazy" class="track-thumbnail" :src="track.thumbnail" alt="" />
         <div class="track-body">
-          <h3 class="track-name">
+          <h3 class="track-name line-clamp">
             {{ track.name }}
-            <IconExternalLink aria-hidden="true" />
+            <IconExternalLink class="external-icon" aria-hidden="true" />
           </h3>
-          <p class="track-artists">{{ track.artists.join(", ") }}</p>
+          <p class="track-artists line-clamp">{{ track.artists.join(", ") }}</p>
         </div>
       </a>
     </div>
   </div>
 </template>
 
-<style>
-.my-top-track-list {
-  .track-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-  }
+<style scoped>
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
+}
 
-  .track-card {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    color: rgb(var(--text));
-    text-decoration: none;
-    background: rgb(var(--surface));
-    border: var(--border-width) solid transparent;
-    border-radius: var(--radius-md);
-    transition: var(--transition);
+.track-card {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
 
-    @media (hover: hover) {
-      &:hover {
-        border-color: rgb(var(--text));
-      }
-    }
+.track-thumbnail {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  user-select: none;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
 
-    @media (hover: none) {
-      &:active {
-        border-color: rgb(var(--text));
-      }
-    }
-  }
+.track-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 0;
+}
 
-  .track-thumbnail {
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    pointer-events: none;
-    user-select: none;
-    object-fit: cover;
-    border-radius: var(--radius-sm);
-  }
+.track-name {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
 
-  .track-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-width: 0;
-  }
-
-  .track-name .tabler-icon {
-    width: var(--external-link-icon-size);
-    height: var(--external-link-icon-size);
+  .external-icon {
     margin-left: var(--external-link-icon-gap-heading);
-    vertical-align: var(--external-link-icon-shift);
     color: rgb(var(--text-muted));
   }
+}
 
-  .track-name {
-    display: -webkit-box;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: var(--line-height-tight);
-    overflow-wrap: anywhere;
-    -webkit-box-orient: vertical;
-  }
+.track-artists {
+  --line-clamp: 1;
 
-  .track-artists {
-    display: -webkit-box;
-    margin: 0;
-    overflow: hidden;
-    -webkit-line-clamp: 1;
-    font-size: 0.75rem;
-    line-height: var(--line-height-tight);
-    color: rgb(var(--text-muted));
-    overflow-wrap: anywhere;
-    -webkit-box-orient: vertical;
-  }
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: var(--line-height-tight);
+  color: rgb(var(--text-muted));
+  overflow-wrap: anywhere;
 }
 </style>

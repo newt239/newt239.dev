@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
+
 import { articleList } from "~/libs/articles";
 
 const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
@@ -16,7 +17,7 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
         :url="article.url"
         :date="article.date"
       />
-      <NuxtLink to="/articles" class="see-all-card see-all-articles">
+      <NuxtLink to="/articles" class="see-all-card surface-card see-all-articles">
         <span>
           すべての記事を見る
           <IconChevronRight aria-hidden="true" />
@@ -26,20 +27,18 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
   </div>
 </template>
 
-<style>
-.latest-article-list {
-  .category-title {
-    view-transition-name: article-category-name;
-  }
+<style scoped>
+.category-title {
+  view-transition-name: article-category-name;
+}
 
-  .article-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-  }
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
+}
 
-  .see-all-articles {
-    grid-row: span 2;
-  }
+.see-all-articles {
+  grid-row: span 2;
 }
 </style>

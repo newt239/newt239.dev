@@ -35,7 +35,7 @@ const profile: { text: string; lang?: string }[] = [
     </NuxtLink>
     <div class="sns-links">
       <a
-        class="sns-card"
+        class="sns-card surface-card"
         href="https://x.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -45,7 +45,7 @@ const profile: { text: string; lang?: string }[] = [
         <IconBrandX aria-hidden="true" />
       </a>
       <a
-        class="sns-card"
+        class="sns-card surface-card"
         href="https://github.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -55,7 +55,7 @@ const profile: { text: string; lang?: string }[] = [
         <IconBrandGithub aria-hidden="true" />
       </a>
       <a
-        class="sns-card"
+        class="sns-card surface-card"
         href="https://zenn.dev/newt_st21"
         target="_blank"
         rel="noopener noreferrer"
@@ -65,7 +65,7 @@ const profile: { text: string; lang?: string }[] = [
         <img src="/zenn.png" alt="" aria-hidden="true" class="sns-icon" />
       </a>
       <a
-        class="sns-card"
+        class="sns-card surface-card"
         href="https://qiita.com/newt239"
         target="_blank"
         rel="noopener noreferrer"
@@ -78,7 +78,7 @@ const profile: { text: string; lang?: string }[] = [
   </div>
 </template>
 
-<style>
+<style scoped>
 .profile {
   display: flex;
   flex-direction: row;
@@ -197,24 +197,6 @@ const profile: { text: string; lang?: string }[] = [
       justify-content: space-between;
       padding: 0.5rem 1rem;
       font-weight: 800;
-      color: rgb(var(--text));
-      background: rgb(var(--surface));
-      border: var(--border-width) solid transparent;
-      border-radius: var(--radius-md);
-      transition: var(--transition);
-
-      @media (hover: hover) {
-        &:hover {
-          text-decoration: none;
-          border-color: rgb(var(--text));
-        }
-      }
-
-      @media (hover: none) {
-        &:active {
-          border-color: rgb(var(--text));
-        }
-      }
     }
   }
 

@@ -2,8 +2,9 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 import { person } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
-usePageSeo({ title: "わたしについて", ogImage: "https://newt239.dev/og/about.png" });
+usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
 
 useHead({
   script: [
@@ -12,11 +13,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
-        "@id": "https://newt239.dev/about#webpage",
+        "@id": `${siteUrl}/about#webpage`,
         name: "わたしについて - newt239.dev",
-        url: "https://newt239.dev/about",
+        url: `${siteUrl}/about`,
         inLanguage: "ja",
-        isPartOf: { "@id": "https://newt239.dev/#website" },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: person,
       },
     },
@@ -265,13 +266,6 @@ const links = [
       text-decoration-style: dashed;
       text-underline-offset: 0.25rem;
       transition: var(--transition);
-
-      .external-icon {
-        width: var(--external-link-icon-size);
-        height: var(--external-link-icon-size);
-        margin-left: var(--external-link-icon-gap);
-        vertical-align: var(--external-link-icon-shift);
-      }
 
       &:not(:last-child) {
         border-bottom: var(--border-width-hairline) solid rgb(var(--border));

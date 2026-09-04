@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { siteUrl } from "~/libs/site";
+
 const { data } = await useAsyncData("works-list", () =>
   queryCollection("works").order("period", "DESC").all()
 );
 const works = data.value ?? [];
 
-usePageSeo({ title: "作品一覧", ogImage: "https://newt239.dev/og/works.png" });
+usePageSeo({ title: "作品一覧", ogImage: `${siteUrl}/og/works.png` });
 
 useHead({
   script: [
@@ -13,11 +15,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "@id": "https://newt239.dev/works#webpage",
+        "@id": `${siteUrl}/works#webpage`,
         name: "作品一覧 - newt239.dev",
-        url: "https://newt239.dev/works",
+        url: `${siteUrl}/works`,
         inLanguage: "ja",
-        isPartOf: { "@id": "https://newt239.dev/#website" },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: works.length,
@@ -25,7 +27,7 @@ useHead({
             "@type": "ListItem",
             position: index + 1,
             name: work.title,
-            url: `https://newt239.dev${work.path}`,
+            url: `${siteUrl}${work.path}`,
           })),
         },
       },
@@ -36,7 +38,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
           { "@type": "ListItem", position: 2, name: "作品一覧" },
         ],
       },
@@ -102,23 +104,18 @@ const sortedWorks = computed(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .work-list-page {
   container-type: inline-size;
+}
 
-  .category-name {
-    view-transition-name: work-category-name;
-  }
+.category-name {
+  view-transition-name: work-category-name;
+}
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-
-    a {
-      color: rgb(var(--text));
-      text-decoration: none;
-    }
-  }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
 }
 </style>

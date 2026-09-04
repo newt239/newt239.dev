@@ -27,7 +27,7 @@ useSeoMeta({ robots: "noindex" });
         <h1 v-colorful-heading class="error-heading">{{ heading }}</h1>
         <p class="error-description">{{ description }}</p>
         <div class="error-actions">
-          <button type="button" class="back-button" @click="clearError({ redirect: '/' })">
+          <button type="button" class="back-button surface-button" @click="clearError({ redirect: '/' })">
             <IconChevronLeft aria-hidden="true" />
             トップへ戻る
           </button>
@@ -37,7 +37,7 @@ useSeoMeta({ robots: "noindex" });
   </NuxtLayout>
 </template>
 
-<style>
+<style scoped>
 .error-page {
   display: flex;
   flex-direction: column;

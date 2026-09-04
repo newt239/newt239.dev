@@ -12,8 +12,10 @@ const emit = defineEmits<{
 }>();
 
 const currentIndex = ref(0);
-const trackRef = ref<HTMLElement | null>(null);
-const pagesRef = ref<HTMLElement | null>(null);
+const trackRef = useTemplateRef<HTMLElement>("track");
+const pagesRef = useTemplateRef<HTMLElement>("pages");
+const imageButtons = useTemplateRef<HTMLButtonElement[]>("imageButtons");
+const pageButtons = useTemplateRef<HTMLButtonElement[]>("pageButtons");
 const isSnapping = ref(false);
 const slideIdBase = useId();
 
@@ -55,8 +57,7 @@ const snapTo = (index: number) => {
 };
 
 const focusCurrentImage = () => {
-  const buttons = trackRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-image-button");
-  buttons?.[currentIndex.value]?.focus({ preventScroll: true });
+  imageButtons.value?.[currentIndex.value]?.focus({ preventScroll: true });
 };
 
 defineExpose({ snapTo, focusCurrentImage });
@@ -87,10 +88,7 @@ const onKeydown = (e: KeyboardEvent) => {
   e.preventDefault();
   goTo(nextIndex);
   if (fromPages) {
-    nextTick(() => {
-      const buttons = pagesRef.value?.querySelectorAll<HTMLButtonElement>(".carousel-page-btn");
-      buttons?.[currentIndex.value]?.focus();
-    });
+    nextTick(() => pageButtons.value?.[currentIndex.value]?.focus());
   } else if (fromTrack) {
     nextTick(focusCurrentImage);
   }
@@ -131,7 +129,7 @@ const onTouchEnd = () => {
   >
     <div class="carousel-viewport">
       <div
-        ref="trackRef"
+        ref="track"
         class="carousel-track"
         :class="{ 'no-transition': isSnapping }"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
@@ -150,6 +148,7 @@ const onTouchEnd = () => {
           :aria-labelledby="hasMultiple ? `${slideIdBase}-tab-${index}` : undefined"
         >
           <button
+            ref="imageButtons"
             type="button"
             class="carousel-image-button"
             @click="emit('open-lightbox', index)"
@@ -168,17 +167,18 @@ const onTouchEnd = () => {
     </div>
     <template v-if="hasMultiple">
       <div class="carousel-controls">
-        <button type="button" class="carousel-nav-btn" aria-label="前の画像" @click="prev">
+        <button type="button" class="carousel-nav-btn surface-button" aria-label="前の画像" @click="prev">
           <IconChevronLeft :size="20" aria-hidden="true" />
           <span class="carousel-nav-label">前の画像</span>
         </button>
-        <div ref="pagesRef" class="carousel-pages" role="tablist" aria-label="スライド選択">
+        <div ref="pages" class="carousel-pages" role="tablist" aria-label="スライド選択">
           <button
             v-for="(_, index) in images"
             :id="`${slideIdBase}-tab-${index}`"
             :key="index"
+            ref="pageButtons"
             type="button"
-            class="carousel-page-btn"
+            class="carousel-page-btn surface-button"
             :class="{ active: index === currentIndex }"
             :tabindex="index === currentIndex ? 0 : -1"
             role="tab"
@@ -190,7 +190,7 @@ const onTouchEnd = () => {
             {{ index + 1 }}
           </button>
         </div>
-        <button type="button" class="carousel-nav-btn" aria-label="次の画像" @click="next">
+        <button type="button" class="carousel-nav-btn surface-button" aria-label="次の画像" @click="next">
           <span class="carousel-nav-label">次の画像</span>
           <IconChevronRight :size="20" aria-hidden="true" />
         </button>
@@ -279,29 +279,11 @@ const onTouchEnd = () => {
   justify-content: center;
   min-width: var(--tap-target-size);
   min-height: var(--tap-target-size);
-  font-family: inherit;
-  font-size: 1rem;
   font-variant-numeric: tabular-nums;
-  color: rgb(var(--text));
-  cursor: pointer;
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
 
   @media (hover: hover) {
-    &:not(.active):hover {
-      border-color: rgb(var(--text));
-    }
-
     &.active:hover {
       opacity: var(--hover-opacity);
-    }
-  }
-
-  @media (hover: none) {
-    &:not(.active):active {
-      border-color: rgb(var(--text));
     }
   }
 }

@@ -35,7 +35,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         :href="album.url"
         target="_blank"
         rel="noopener noreferrer"
-        class="album-card"
+        class="album-card surface-card"
         :aria-label="`${album.title} ${album.period} - fernweh（外部サイト）`"
       >
         <img
@@ -50,7 +50,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         <div class="album-card-body">
           <h3>
             {{ album.title }}
-            <IconExternalLink aria-hidden="true" />
+            <IconExternalLink class="external-icon" aria-hidden="true" />
           </h3>
           <p class="album-card-period">{{ album.period }}</p>
         </div>
@@ -59,12 +59,12 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         href="https://fernweh.newt239.dev/"
         target="_blank"
         rel="noopener noreferrer"
-        class="see-all-card see-all-albums"
+        class="see-all-card surface-card"
         aria-label="fernweh ですべての写真を見る（外部サイト）"
       >
         <span>
           すべての写真を見る
-          <IconExternalLink aria-hidden="true" />
+          <IconExternalLink class="external-icon" aria-hidden="true" />
         </span>
       </a>
     </div>
@@ -82,31 +82,6 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  color: rgb(var(--text));
-  background: rgb(var(--surface));
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius-md);
-  transition: var(--transition);
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: rgb(var(--text));
-    }
-  }
-
-  @media (hover: none) {
-    &:active {
-      border-color: rgb(var(--text));
-    }
-  }
-}
-
-.album-card .tabler-icon,
-.see-all-albums .tabler-icon {
-  width: var(--external-link-icon-size);
-  height: var(--external-link-icon-size);
-  margin-left: var(--external-link-icon-gap-heading);
-  vertical-align: var(--external-link-icon-shift);
 }
 
 .album-card-thumbnail {
@@ -138,7 +113,8 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
     overflow-wrap: anywhere;
     text-box: normal;
 
-    .tabler-icon {
+    .external-icon {
+      margin-left: var(--external-link-icon-gap-heading);
       color: rgb(var(--text-muted));
     }
   }

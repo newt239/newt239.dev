@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { articleList, articleSiteName } from "~/libs/articles";
+import { articleList, articleSite } from "~/libs/articles";
 import { personId } from "~/libs/person";
+import { siteUrl } from "~/libs/site";
 
-usePageSeo({ title: "記事一覧", ogImage: "https://newt239.dev/og/articles.png" });
+usePageSeo({ title: "記事一覧", ogImage: `${siteUrl}/og/articles.png` });
 
 useHead({
   script: [
@@ -11,11 +12,11 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "@id": "https://newt239.dev/articles#webpage",
+        "@id": `${siteUrl}/articles#webpage`,
         name: "記事一覧 - newt239.dev",
-        url: "https://newt239.dev/articles",
+        url: `${siteUrl}/articles`,
         inLanguage: "ja",
-        isPartOf: { "@id": "https://newt239.dev/#website" },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: articleList.length,
@@ -40,7 +41,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "ホーム", item: "https://newt239.dev" },
+          { "@type": "ListItem", position: 1, name: "ホーム", item: siteUrl },
           { "@type": "ListItem", position: 2, name: "記事一覧" },
         ],
       },
@@ -48,7 +49,7 @@ useHead({
   ],
 });
 
-const allSites = [...new Set(articleList.map((article) => articleSiteName(article.url)))];
+const allSites = [...new Set(articleList.map((article) => articleSite(article.url).name))];
 
 const { applied, draft, dirty, hasConditions, apply } = useListControls(
   (query) => ({
@@ -65,7 +66,7 @@ const { applied, draft, dirty, hasConditions, apply } = useListControls(
 
 const filteredArticles = computed(() => {
   const result = applied.value.sites.size > 0
-    ? articleList.filter((article) => applied.value.sites.has(articleSiteName(article.url)))
+    ? articleList.filter((article) => applied.value.sites.has(articleSite(article.url).name))
     : articleList;
   return result.toSorted((a, b) => {
     return applied.value.sortAsc
@@ -122,24 +123,19 @@ const filteredArticles = computed(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .article-list-page {
   container-type: inline-size;
+}
 
-  .category-name {
-    view-transition-name: article-category-name;
-  }
+.category-name {
+  view-transition-name: article-category-name;
+}
 
-  .article-grid {
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-
-    a {
-      color: rgb(var(--text));
-      text-decoration: none;
-    }
-  }
+.article-grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
 }
 </style>

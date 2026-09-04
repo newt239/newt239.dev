@@ -14,7 +14,7 @@ const { data: works } = await useAsyncData("featured-works", () =>
     <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
-      <NuxtLink to="/works" class="see-all-card">
+      <NuxtLink to="/works" class="see-all-card surface-card">
         <span>
           すべての作品を見る
           <IconChevronRight aria-hidden="true" />
@@ -24,21 +24,14 @@ const { data: works } = await useAsyncData("featured-works", () =>
   </div>
 </template>
 
-<style>
-.work-list {
-  .category-title {
-    view-transition-name: work-category-name;
-  }
+<style scoped>
+.category-title {
+  view-transition-name: work-category-name;
+}
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
-
-    a {
-      color: rgb(var(--text));
-      text-decoration: none;
-    }
-  }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: 1rem;
 }
 </style>

@@ -61,10 +61,8 @@ onMounted(() => {
   supportsViewTransition.value = "startViewTransition" in document;
 });
 const canZoomIn = computed(() => scale.value < MAX_SCALE);
-const canZoomOut = computed(() => scale.value > MIN_SCALE);
-const canReset = computed(() => scale.value !== 1);
+const isZoomed = computed(() => scale.value > MIN_SCALE);
 const scalePercent = computed(() => `${Math.round(scale.value * 100)}%`);
-const isPanned = computed(() => scale.value > MIN_SCALE);
 
 const imageTransform = computed(() => {
   if (scale.value === 1 && translateX.value === 0 && translateY.value === 0) {
@@ -92,7 +90,7 @@ const clampTranslate = () => {
 };
 
 const panBy = (directionX: number, directionY: number) => {
-  if (scale.value <= MIN_SCALE) return;
+  if (!isZoomed.value) return;
   translateX.value += (directionX * PAN_STEP) / scale.value;
   translateY.value += (directionY * PAN_STEP) / scale.value;
   clampTranslate();
@@ -105,7 +103,7 @@ const zoomIn = () => {
 };
 
 const zoomOut = () => {
-  if (canZoomOut.value) {
+  if (isZoomed.value) {
     scale.value = Math.max(scale.value - SCALE_STEP, MIN_SCALE);
     clampTranslate();
   }
@@ -129,7 +127,7 @@ const next = () => {
 const onKeydown = (e: KeyboardEvent) => {
   const direction = PAN_KEYS[e.key];
   if (direction) {
-    if (scale.value <= MIN_SCALE) return;
+    if (!isZoomed.value) return;
     e.preventDefault();
     panBy(direction[0], direction[1]);
   } else if (e.key === "+" || e.key === "=") {
@@ -152,7 +150,7 @@ const onBackdropClick = (e: MouseEvent) => {
 };
 
 const onPointerDown = (e: PointerEvent) => {
-  if (scale.value <= MIN_SCALE) return;
+  if (!isZoomed.value) return;
   if (e.pointerType === "touch" && !e.isPrimary) return;
 
   isDragging.value = true;
@@ -221,7 +219,7 @@ watch(
         <div
           ref="content"
           class="lightbox-content"
-          :class="{ 'is-zoomed': isPanned }"
+          :class="{ 'is-zoomed': isZoomed }"
           @click="onBackdropClick"
         >
           <NuxtImg
@@ -248,7 +246,7 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="縮小"
-                :aria-disabled="!canZoomOut"
+                :aria-disabled="!isZoomed"
                 @click="zoomOut"
               >
                 <IconMinus :size="18" aria-hidden="true" />
@@ -265,8 +263,8 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="ズームをリセット"
-                :aria-disabled="!canReset"
-                @click="canReset && resetZoom()"
+                :aria-disabled="!isZoomed"
+                @click="isZoomed && resetZoom()"
               >
                 <IconZoomReset :size="18" aria-hidden="true" />
               </button>
@@ -275,7 +273,7 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="左を表示"
-                :aria-disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(1, 0)"
               >
                 <IconChevronLeft :size="18" aria-hidden="true" />
@@ -283,7 +281,7 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="上を表示"
-                :aria-disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(0, 1)"
               >
                 <IconChevronUp :size="18" aria-hidden="true" />
@@ -291,7 +289,7 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="下を表示"
-                :aria-disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(0, -1)"
               >
                 <IconChevronDown :size="18" aria-hidden="true" />
@@ -299,7 +297,7 @@ watch(
               <button
                 class="lightbox-btn"
                 aria-label="右を表示"
-                :aria-disabled="!isPanned"
+                :aria-disabled="!isZoomed"
                 @click="panBy(-1, 0)"
               >
                 <IconChevronRight :size="18" aria-hidden="true" />

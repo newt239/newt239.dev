@@ -4,7 +4,7 @@ import { IconChevronLeft } from "@tabler/icons-vue";
 
 <template>
   <div class="back-to-top">
-    <NuxtLink class="back-button" to="/">
+    <NuxtLink class="back-button surface-button" to="/">
       <IconChevronLeft />
       トップへ戻る
     </NuxtLink>
