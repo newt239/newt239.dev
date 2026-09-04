@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { IconBook2 } from "@tabler/icons-vue";
 
+import { articleSites } from "~/libs/articles";
+
 interface Props {
   title: string;
   url: string;
@@ -13,27 +15,12 @@ const transitionKey = computed(
   () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}`
 );
 
-const getSiteName = (url: string) => {
-  switch (true) {
-    case url.startsWith("https://qiita.com/"):
-      return "Qiita";
-    case url.startsWith("https://zenn.dev/"):
-      return "Zenn";
-    case url.startsWith("https://newt239.hatenablog.com/"):
-      return "はてな";
-    case url.startsWith("https://note.com/"):
-      return "note";
-    case url.startsWith("https://developers.cyberagent.co.jp/"):
-      return "CyberAgent";
-    default:
-      return url.split("/")[2];
-  }
-};
+const site = computed(() => articleSites.find((item) => props.url.startsWith(item.prefix)));
 </script>
 
 <template>
   <a
-    :href="`${props.url}`"
+    :href="props.url"
     target="_blank"
     rel="noopener noreferrer"
     class="article-card"
@@ -49,12 +36,9 @@ const getSiteName = (url: string) => {
     </div>
     <div class="article-card-footer">
       <div class="site-info">
-        <NuxtImg v-if="props.url.startsWith('https://qiita.com/')" src="/qiita.webp" alt="" width="16" height="16" />
-        <NuxtImg v-else-if="props.url.startsWith('https://zenn.dev/')" src="/zenn.png" alt="" width="16" height="16" />
-        <NuxtImg v-else-if="props.url.startsWith('https://newt239.hatenablog.com/')" src="/hatena.webp" alt=""
-          width="16" height="16" />
+        <NuxtImg v-if="site?.icon" :src="site.icon" alt="" width="16" height="16" />
         <IconBook2 v-else :size="16" />
-        <span class="site-name">{{ getSiteName(props.url) }}</span>
+        <span class="site-name">{{ site?.name ?? "その他" }}</span>
       </div>
       <time class="article-date" :datetime="props.date">{{ props.date.replaceAll("-", "/") }}</time>
     </div>

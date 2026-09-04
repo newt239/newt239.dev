@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { articleList } from "~/libs/articles";
+import { articleList, articleSiteName } from "~/libs/articles";
 import { personId } from "~/libs/person";
 
 useSeoMeta({
@@ -53,30 +53,12 @@ useHead({
   ],
 });
 
-type SiteName = "Qiita" | "Zenn" | "はてな" | "CyberAgent" | "その他";
-
-const getSiteKey = (url: string): SiteName => {
-  if (url.startsWith("https://qiita.com/")) return "Qiita";
-  if (url.startsWith("https://zenn.dev/")) return "Zenn";
-  if (url.startsWith("https://newt239.hatenablog.com/")) return "はてな";
-  if (url.startsWith("https://developers.cyberagent.co.jp/")) return "CyberAgent";
-  return "その他";
-};
-
-const allSites = computed(() => {
-  const siteSet = new Set<SiteName>();
-  for (const article of articleList) {
-    siteSet.add(getSiteKey(article.url));
-  }
-  return [...siteSet];
-});
+const allSites = [...new Set(articleList.map((article) => articleSiteName(article.url)))];
 
 const { applied, draft, dirty, hasConditions, apply } = useListControls(
   (query) => ({
     sortAsc: query.dir === "asc",
-    sites: new Set(
-      (typeof query.sites === "string" ? query.sites : "").split(",").filter(Boolean) as SiteName[]
-    ),
+    sites: new Set((typeof query.sites === "string" ? query.sites : "").split(",").filter(Boolean)),
   }),
   ({ sortAsc, sites }) => ({
     ...(sites.size > 0 ? { sites: [...sites].join(",") } : {}),
@@ -88,7 +70,7 @@ const filteredArticles = computed(() => {
   let result = [...articleList];
 
   if (applied.value.sites.size > 0) {
-    result = result.filter((article) => applied.value.sites.has(getSiteKey(article.url)));
+    result = result.filter((article) => applied.value.sites.has(articleSiteName(article.url)));
   }
 
   result.sort((a, b) => {
