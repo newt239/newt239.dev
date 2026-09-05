@@ -584,8 +584,8 @@ ul {
   }
 }
 
-.tabler-icon {
-  vertical-align: -6px;
+.tabler-icon:not(.external-icon) {
+  vertical-align: -0.375em;
 }
 
 .visually-hidden {

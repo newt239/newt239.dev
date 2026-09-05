@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconBook2 } from "@tabler/icons-vue";
+import { IconBook2, IconExternalLink } from "@tabler/icons-vue";
 
 import { articleSite } from "~/libs/articles";
 
@@ -15,6 +15,10 @@ const transitionKey = computed(
 );
 
 const site = computed(() => articleSite(props.url));
+
+const formattedDate = computed(() =>
+  new Date(props.date).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" })
+);
 </script>
 
 <template>
@@ -23,6 +27,7 @@ const site = computed(() => articleSite(props.url));
     target="_blank"
     rel="noopener noreferrer"
     class="article-card surface-card"
+    :aria-label="`${title} - ${site.name} ${formattedDate}（外部サイト）`"
     :style="`view-transition-name: ${transitionKey}-card;`"
   >
     <div class="article-card-body">
@@ -31,6 +36,7 @@ const site = computed(() => articleSite(props.url));
         :style="`view-transition-name: ${transitionKey}-title;`"
       >
         {{ title }}
+        <IconExternalLink class="external-icon" aria-hidden="true" />
       </component>
     </div>
     <div class="article-card-footer">
@@ -39,7 +45,7 @@ const site = computed(() => articleSite(props.url));
         <IconBook2 v-else :size="16" aria-hidden="true" />
         <span class="site-name">{{ site.name }}</span>
       </div>
-      <time class="article-date" :datetime="date">{{ new Date(date).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</time>
+      <time class="article-date" :datetime="date">{{ formattedDate }}</time>
     </div>
   </a>
 </template>
@@ -76,6 +82,11 @@ const site = computed(() => articleSite(props.url));
     font-weight: 800;
     line-height: var(--line-height-tight);
     text-box: normal;
+
+    .external-icon {
+      margin-left: var(--external-link-icon-gap-heading);
+      color: rgb(var(--text-muted));
+    }
   }
 }
 
