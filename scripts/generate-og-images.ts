@@ -8,8 +8,8 @@ import satori from "satori";
 import sharp from "sharp";
 import { parse } from "yaml";
 
-import { formatPeriod } from "../libs/period";
-import { themeVariables } from "../libs/theme";
+import { formatPeriod } from "../libs/period.ts";
+import { themeVariables } from "../libs/theme.ts";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
