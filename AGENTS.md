@@ -77,7 +77,9 @@ pnpm run serve:static
 pnpm run a11y
 ```
 
-パッケージマネージャは **pnpm**、ランタイムは **Node.js** です。`npm` / `yarn` / `bun` は使いません。バージョンは [mise.toml](mise.toml) と `package.json` の `packageManager` / `devEngines.runtime` で固定しています。
+パッケージマネージャは **pnpm**、ランタイムは **Node.js** です。`npm` / `yarn` / `bun` は使いません。
+
+バージョンは `package.json` の `packageManager` と `devEngines.runtime` **だけ**で固定します。`.node-version` や `mise.toml` のような外部のバージョン管理ファイルは置きません。`pnpm install` が `devEngines.runtime` の Node を取得し、`pnpm run` はそれをスクリプトへ供給するため、実行環境のシステム Node が何であっても揃います。
 
 pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`.npmrc` は使いません。
 
@@ -175,7 +177,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - デプロイ経路は 2 系統
   - Cloudflare 側の Git 連携（Workers Builds）が push ごとにビルドする。main は本番へデプロイし、それ以外のブランチはプレビュー版としてアップロードする
   - [.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) が週次 cron（毎週月曜 0 時）と手動実行で `pnpm run generate` してから `wrangler deploy` する。Spotify の My Top Tracks を更新するためにこの週次ビルドがある
-- Workers Builds が使う Node は [.node-version](.node-version) で指定する。ビルドイメージの既定は Node 24 系で、`NODE_VERSION` / `.nvmrc` / `.node-version` でしか上書きできない。`package.json` の `devEngines` は読まれないため、[mise.toml](mise.toml) と同じ値を保つこと
+- Workers Builds のビルドイメージは既定が Node 24 系だが、`pnpm run` が `devEngines.runtime` の Node でスクリプトを走らせるため合わせる必要はない。システム Node は pnpm を起動するだけ
 - Pages 側の Git 連携と自動ビルドは停止済み。Pages プロジェクトはロールバック先として残してある
 - `nitro.compressPublicAssets` は使わない。Workers Static Assets は事前圧縮ファイルを利用せず自前で圧縮するため、`.br` / `.gz` はアップロード対象が増えるだけの無駄になる
 - `public/_headers` は Workers Static Assets でもそのまま解釈される。ファイル自体は配信されない
