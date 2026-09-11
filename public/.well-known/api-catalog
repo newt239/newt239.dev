@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.newt239.dev",
+      "service-desc": [
+        { "href": "https://api.newt239.dev/docs/openapi.json", "type": "application/json" }
+      ],
+      "service-doc": [
+        { "href": "https://api.newt239.dev/docs", "type": "text/html" }
+      ]
+    },
+    {
+      "anchor": "https://api.newt239.dev/mcp",
+      "service-desc": [
+        { "href": "https://newt239.dev/.well-known/mcp/server-card.json", "type": "application/json" }
+      ]
+    }
+  ]
+}

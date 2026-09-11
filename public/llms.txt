@@ -1,0 +1,71 @@
+# newt239.dev
+
+> newt（newt239）のポートフォリオサイト。Webフロントエンドを中心とした個人開発の作品と、外部ブログに書いた技術記事をまとめています。
+
+## ページ
+
+- [プロフィール](https://newt239.dev/about): 経歴・資格・所属・SNSアカウント
+- [作品一覧](https://newt239.dev/works): 17件
+- [記事一覧](https://newt239.dev/articles): 30件
+
+## 作品
+
+- [Icondle](https://newt239.dev/works/icondle): 2026年7月 / React, TanStack Start, HeroUI, Tailwind CSS, Cloudflare Workers / 表示されたアイコンがどのUIアイコンライブラリのものかを当てる4択クイズWebアプリです。
+- [時間割検索システム](https://newt239.dev/works/timetable): 2026年3月 / Next.js / 芝浦工業大学情報イノベーションセンターの開発アルバイトにおいて、新しい時間割サイトのデザイン・実装を担当しました。
+- [mmdash](https://newt239.dev/works/mmdash): 2025年12月 / SvelteKit
+- [第29回大宮祭ウェブサイト](https://newt239.dev/works/omiya-fes): 2025年5月 / Next.js, Cloudflare Workers, CSS Modules, Leaflet, Newt CMS / 第29回大宮祭の公式ウェブサイトを開発しました。
+- [GingaUI](https://newt239.dev/works/ginga-ui): 2024年8月〜 / React, Vite, React Aria
+- [Lounge Books](https://newt239.dev/works/lounge-books): 2024年8月〜 / SvelteKit, Go, Docker
+- [SIT Bus](https://newt239.dev/works/sit-bus): 2024年4月 / Next.js, Tailwind CSS / 東大宮駅<->大宮キャンパス間を走る学バスが次に来る時間を表示します。
+- [Roomkeeper](https://newt239.dev/works/roomkeeper): 2023年9月〜 / Next.js, Panda CSS, Supabase, Drizzle
+- [もじまち](https://newt239.dev/works/mojimachi): 2023年6月〜2023年8月 / React, Tauri, Chakra UI
+- [sh309cafe](https://newt239.dev/works/sh309cafe): 2023年6月〜2023年7月 / Remix, radix-ui, Prisma
+- [Local Font Emulator](https://newt239.dev/works/local-font-emulator): 2023年4月〜2023年5月 / React, Mantine
+- [Score Watcher](https://newt239.dev/works/score-watcher): 2022年10月〜2023年5月 / Next.js, Chakra UI, Dexie.js / クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
+- [Gateway](https://newt239.dev/works/gateway): 2021年12月〜2022年9月 / React, Golang, MySQL, AWS / 栄東祭2022において、来場者の滞在状況を記録するシステムを開発・運用しました。
+- [Look Inside View](https://newt239.dev/works/look-inside-view): 2021年6月〜2021年9月 / Pannellum, Firebase
+- [SHIP Notify](https://newt239.dev/works/ship-notify): 2021年1月〜2022年4月 / Discord.py, Selenium, Heroku, Firebase
+- [ポートフォリオサイト](https://newt239.dev/works/portfolio): 2021年〜 / Nuxt, Cloudflare Workers
+- [Quiz Flasher](https://newt239.dev/works/quiz-flasher): 2019年11月〜2020年7月 / GAS
+
+## 記事
+
+- [最近育てているフロントエンド開発用テンプレートの話](https://zenn.dev/newt_st21/articles/next-template-2026): Zenn / 2026-08-24
+- [MIXIのインターンに参加しました](https://newt239.hatenablog.com/entry/2026/06/18/185837): はてな / 2026-06-18
+- [2025年のふりかえり](https://newt239.hatenablog.com/entry/2025/12/31/223530): はてな / 2025-12-31
+- [ショートカットとして使える「.new」ドメインが便利という話](https://qiita.com/newt239/items/0d97fa1849173dda3cd3): Qiita / 2025-12-22
+- [新しい爆速なフォーマッタである Oxfmt を試してみる](https://zenn.dev/newt_st21/articles/introducing-oxfmt): Zenn / 2025-12-08
+- [サークル内SNSの投稿から投稿者を判定する分類器を作ってみた](https://newt239.hatenablog.com/entry/2025/12/01/000000): はてな / 2025-12-01
+- [Vue Fes Japan 2025に参加してきました！](https://newt239.hatenablog.com/entry/2025/11/01/151407): はてな / 2025-11-01
+- [フロントエンドカンファレンス北海道2025に参加してきました](https://newt239.hatenablog.com/entry/2025/09/18/152547): はてな / 2025-09-18
+- [隠岐＆山陰の旅](https://newt239.hatenablog.com/entry/2025/08/24/112624): はてな / 2025-08-24
+- [大阪万博に行ってきた話](https://newt239.hatenablog.com/entry/2025/07/06/112152): はてな / 2025-07-06
+- [SecHack365での1年間を振り返って](https://newt239.hatenablog.com/entry/2025/04/04/161851): はてな / 2025-04-04
+- [Spindleへの新規コンポーネント追加を通じて学んだデザインシステムにおける設計の大切さ](https://developers.cyberagent.co.jp/blog/archives/55646/): CyberAgent / 2025-03-31
+- [GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—](https://zenn.dev/newt_st21/articles/introducing-ginga-ui): Zenn / 2025-03-09
+- [Slackしか使っていないTwitter用のメタタグがある](https://zenn.dev/newt_st21/articles/twitter-label1): Zenn / 2025-03-05
+- [2024年のふりかえり](https://newt239.hatenablog.com/entry/2024/12/31/193723): はてな / 2024-12-31
+- [chroma.jsでJavaScriptから色を操作してみる](https://zenn.dev/newt_st21/articles/chromajs-introduction): Zenn / 2024-12-22
+- [芝浦学バスAPIとの邂逅](https://newt239.hatenablog.com/entry/2024/12/19/065605): はてな / 2024-12-19
+- [レイアウトを維持したままLLMに外面的なデザインを生成させるUIコンポーネントライブラリを開発している話](https://qiita.com/newt239/items/203ab81778d0852d2bbf): Qiita / 2024-12-09
+- [LayerXサマーインターン参加記](https://newt239.hatenablog.com/entry/2024/09/22/201608): はてな / 2024-09-22
+- [WebでGoogleマップのようなハーフモーダルを実装する](https://zenn.dev/newt_st21/articles/half-modal-like-google-map): Zenn / 2024-08-29
+- [【Next.js + Panda CSS】メニューバーで現在のページだけ色を変える](https://qiita.com/newt239/items/816db98098c94632cf57): Qiita / 2023-08-15
+- [Webからローカルフォントのデータを取得する～Local Font Access APIとは～](https://zenn.dev/newt_st21/articles/local-font-access-api-chromium): Zenn / 2023-07-16
+- [CSS のブラーと mix-blend-mode を同時に使うとチラつく](https://zenn.dev/newt_st21/articles/chromium-bug-of-rendering-artifacts): Zenn / 2023-05-04
+- [Nuxt3をSSGモードでCloudflare Pagesにデプロイする](https://qiita.com/newt239/items/4a28405d03bd7310189f): Qiita / 2023-03-27
+- [競技クイズ用得点表示ソフト「Score Watcher」を開発しました](https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app): Zenn / 2023-02-11
+- [Deno + Fresh で OAuth2 認証！](https://qiita.com/newt239/items/a8ae4443aee014d3b725): Qiita / 2022-12-30
+- [文化祭で滞在状況記録システムを運用しました](https://zenn.dev/newt_st21/articles/gateway-stay-status-record-system): Zenn / 2022-12-26
+- [Heroku上でdiscordgoを使ってbotを動かす](https://zenn.dev/newt_st21/articles/discordgo-with-heroku): Zenn / 2022-08-21
+- [Googleフォームが送信されたときにGASでいろいろする](https://zenn.dev/newt_st21/articles/using-gas-on-submit-google-form): Zenn / 2022-08-17
+- [Vue3でGSAPを使ってページ遷移時のアニメーションを実装する](https://qiita.com/newt239/items/9bbedc1d2b2f73e71728): Qiita / 2022-03-16
+
+## API
+
+- [OpenAPI仕様](https://api.newt239.dev/docs/openapi.json): api.newt239.devのREST API。人間向けのドキュメントは https://api.newt239.dev/docs
+- [MCPサーバー](https://api.newt239.dev/mcp): Streamable HTTP。Annictの視聴ライブラリとSpotifyのトップトラックを取得できる
+
+## Optional
+
+- [プライバシーポリシー](https://newt239.dev/privacy)

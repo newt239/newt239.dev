@@ -70,6 +70,9 @@ pnpm run compress
 # OG 画像の生成（作品の追加・タイトル・期間・画像を変更したら実行する）
 pnpm run og
 
+# llms.txt の生成（作品または libs/articles.ts を変更したら実行する）
+pnpm run llms
+
 # .output/public を localhost:3100 で配信（アクセシビリティ検査用）
 pnpm run serve:static
 
@@ -98,9 +101,10 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - **Nuxt Content v3** を使用してポートフォリオ作品を管理
 - 作品は `content/works/` 内に frontmatter メタデータ付きの Markdown ファイルとして保存
 - [content.config.ts](content.config.ts) でコンテンツスキーマが定義されており、以下のフィールドが必須:
- - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`
+ - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`, `description`
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) が `public/og/` へ生成する。CI ではなくローカルで `pnpm run og` を実行し、生成物ごとコミットして push する
 - 生成にはローカルの `~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` を使う。Adobe Fonts で同期していない環境ではスクリプトが失敗する
+- `public/llms.txt` は [scripts/generate-llms-txt.ts](scripts/generate-llms-txt.ts) が `content/works/` と [libs/articles.ts](libs/articles.ts) から生成する。OG 画像と同じくローカルで `pnpm run llms` を実行し、生成物ごとコミットする。作品を足したら `pnpm run og` と併せて両方実行する
 - Nuxt Content で管理するのは `content/works/` の作品だけ。それ以外のデータは `libs/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列で持つ
   - [libs/articles.ts](libs/articles.ts) - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
   - [libs/timeline.ts](libs/timeline.ts) - 経歴。年ごとのグルーピングは [Timeline.vue](components/Timeline.vue) の computed で行う
@@ -158,6 +162,17 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - ページ固有の値は各ページの `useSeoMeta` で設定する。ミドルウェアからは設定しない（クライアントでしか動かずプリレンダ HTML に載らない）
 - canonical と og:url はパスに依存するため [app.vue](app.vue) で `useRoute()` から組み立てる
 - `description` はサイト共通・ページ共通ともに設定していない。作品詳細のみ `content/works/*.md` の frontmatter の値が入る
+
+### エージェント向けディスカバラビリティ
+
+Worker スクリプトを持たないため、レスポンスヘッダを付ける手段は [public/_headers](public/_headers) だけ。同じヘッダ名を複数行書くと Cloudflare がカンマで結合するので、`Link` は 1 行ずつ並べてよい。
+
+- [public/_headers](public/_headers) の `Link` は RFC 8288。`sitemap` / `api-catalog` / `service-desc` / `service-doc` / `describedby` を返す
+- [public/.well-known/api-catalog](public/.well-known/api-catalog) は RFC 9727 の API カタログ。中身は RFC 9264 の linkset+json で、**リレーション名をオブジェクトのキーにする**（`links` 配列を使う形は RFC 9264 ではない）。拡張子が無く MIME を推定できないので `_headers` で `Content-Type` を指定している
+- [public/.well-known/mcp/server-card.json](public/.well-known/mcp/server-card.json) は api.newt239.dev で動いている MCP サーバーを指す。値は実サーバーの `initialize` 応答に合わせる。SEP-1649 はまだ PR 段階なので、確定したらスキーマに追従する
+- OAuth/OIDC のディスカバリ、`oauth-protected-resource`、`auth.md` は置かない。newt239.dev に保護リソースも認可サーバーも無く、存在しないエンドポイントを広告することになるため
+- Markdown for Agents（`Accept: text/markdown` でのネゴシエーション）は Cloudflare の Pro 以上のゾーン設定で、Free プランでは有効化できない
+- [public/robots.txt](public/robots.txt) の `Content-Signal: ai-train=no` と学習クローラの Disallow は維持する。利用者の代理で動くエージェントのフェッチは `User-agent: *` の Allow に含まれる
 
 ### CI
 

@@ -22,6 +22,7 @@
     "lint:fix": "eslint . --fix",
     "lint:text": "textlint \"content/**/*.md\" \"README.md\"",
     "lint:text:fix": "textlint --fix \"content/**/*.md\" \"README.md\"",
+    "llms": "node scripts/generate-llms-txt.ts",
     "og": "node scripts/generate-og-images.ts",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
