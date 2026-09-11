@@ -29,7 +29,7 @@
 
 ## プロジェクト概要
 
-Nuxt 4 で構築された個人のポートフォリオサイトです。日本語話者向けに設計されており（lang: "ja"）、Cloudflare Pages にデプロイされています。
+Nuxt 4 で構築された個人のポートフォリオサイトです。日本語話者向けに設計されており（lang: "ja"）、Cloudflare Workers にデプロイされています。
 
 ## 開発コマンド
 
@@ -150,13 +150,17 @@ bun run a11y
 - [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `bun run generate` してから Lighthouse CI と axe
   - しきい値は [lighthouserc.json](lighthouserc.json)。`meta-description` と `robots-txt` は off にしている（description を持たない方針と、`robots.txt` の Content-Signal 行を Lighthouse が不明なディレクティブとみなすため）
   - axe と Lighthouse が見るのは**デフォルトテーマだけ**。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
-- [cloudflare-pages.yml](.github/workflows/cloudflare-pages.yml) - 週次 cron でデプロイ
+- [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) - 週次 cron と手動実行でデプロイ
 
 ### デプロイ
 
-- Cloudflare Pages（SSG モード）向けに設定
-- [.github/workflows/cloudflare-pages.yml](.github/workflows/cloudflare-pages.yml) が週次 cron（毎週月曜 0 時）で `bun run generate` してから `wrangler pages deploy dist` する。main への push では走らない
-- `nitro.compressPublicAssets` でアセット圧縮を有効化
+- Cloudflare Workers の静的アセット（Workers Static Assets）に SSG の出力を載せている。Worker スクリプトは持たず、[wrangler.jsonc](wrangler.jsonc) の `assets` だけで配信する
+- `assets.directory` は `dist` ではなく `.output/public` を指す。`dist` は `nuxt generate` が張る絶対パスのシンボリックリンクで、CI 環境で辿れる保証がない
+- `assets.html_handling` と `assets.not_found_handling` は明示する。Pages は `404.html` を暗黙に使うが Workers は設定しないと汎用の 404 を返す。`nitro.prerender.autoSubfolderIndex: false` により `about.html` 形式で出力されるため、`auto-trailing-slash` が Pages と同じ URL 解決になる
+- `/about/` のような末尾スラッシュ付きの URL は `/about` へリダイレクトされるが、Pages の 308 に対し Workers は 307 を返す。仕様差であり回避手段はない
+- デプロイ経路は 2 系統。Cloudflare 側の Git 連携（Workers Builds）が push ごとにビルド・デプロイし、[.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) が週次 cron（毎週月曜 0 時）と手動実行で `bun run generate` してから `wrangler deploy` する
+- `nitro.compressPublicAssets` は使わない。Workers Static Assets は事前圧縮ファイルを利用せず自前で圧縮するため、`.br` / `.gz` はアップロード対象が増えるだけの無駄になる
+- `public/_headers` は Workers Static Assets でもそのまま解釈される。ファイル自体は配信されない
 
 ## 言語とコードレビューの方針
 
