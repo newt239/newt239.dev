@@ -2,26 +2,31 @@
   "name": "newt239.dev",
   "private": true,
   "type": "module",
-  "packageManager": "bun@1.4.0",
-  "engines": {
-    "node": ">=26.0.0"
+  "packageManager": "pnpm@12.3.4",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.8.1",
+      "onFail": "download"
+    }
   },
   "scripts": {
+    "a11y": "axe http://localhost:3100/ http://localhost:3100/works http://localhost:3100/works/score-watcher http://localhost:3100/works/icondle http://localhost:3100/articles http://localhost:3100/about http://localhost:3100/privacy --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22a,wcag22aa --exit",
     "build": "nuxt build",
+    "compress": "node scripts/compress-images.ts",
     "dev": "nuxt dev",
-    "generate": "bun --bun nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "bun --bun nuxt prepare",
+    "generate": "nuxt generate",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
     "lint:css": "stylelint \"**/*.{css,vue}\"",
     "lint:css:fix": "stylelint \"**/*.{css,vue}\" --fix",
+    "lint:fix": "eslint . --fix",
     "lint:text": "textlint \"content/**/*.md\" \"README.md\"",
     "lint:text:fix": "textlint --fix \"content/**/*.md\" \"README.md\"",
-    "compress": "bun run scripts/compress-images.ts",
-    "og": "bun run scripts/generate-og-images.ts",
+    "og": "node scripts/generate-og-images.ts",
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview",
     "serve:static": "serve .output/public --listen 3100 --no-port-switching",
-    "a11y": "axe http://localhost:3100/ http://localhost:3100/works http://localhost:3100/works/score-watcher http://localhost:3100/works/icondle http://localhost:3100/articles http://localhost:3100/about http://localhost:3100/privacy --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22a,wcag22aa --exit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@nuxt/content": "3.15.2",

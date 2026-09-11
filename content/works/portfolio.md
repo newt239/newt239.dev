@@ -4,7 +4,7 @@ github: newt239/newt239.dev
 period: 2021 -
 tech:
   - Nuxt
-  - Cloudflare Pages
+  - Cloudflare Workers
 images:
   - src: portfolio.webp
     alt: newt239.devのトップページ。左上にマスコットロゴとサイト名、右上にテーマ生成ボタン。グラデーションのヒーローカードに自己紹介とソーシャルリンクが並び、その下にWorksのカードが4件続く。
@@ -39,3 +39,11 @@ SecHack365で取り組んでいる「LLMにデザインを生成させる」と�
 サイト右上のキラキラボタンから利用できます。これもSpotifyと同様にapi.newt239.devでOpenAIのAPIを叩いているのですが、破産を防ぐために簡易的な利用回数制限を設けています。
 
 Cloudflare D1で本機能が実行された回数をカウントしていて、24時間あたりの利用回数が100回を超えると利用できないようになっています。
+
+## 2026 年
+
+ホスティング先をCloudflare PagesからCloudflare Workersに移行しました。Cloudflareが新機能をWorkers側にのみ追加するようになったためです。
+
+Workerのスクリプトは持たず、静的アセットの配信だけを行う構成です。切り替えはWorkers Routeを使い、Pages側のカスタムドメインを残したまま無停止で行いました。
+
+あわせて、パッケージマネージャをBunからpnpmに、ランタイムをNode.jsに移行しました。

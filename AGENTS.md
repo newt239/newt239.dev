@@ -35,44 +35,59 @@ Nuxt 4 で構築された個人のポートフォリオサイトです。日本�
 
 ```bash
 # 開発サーバーを起動
-bun dev
+pnpm dev
 
 # 本番用ビルド
-bun run build
+pnpm run build
+
+# 型チェック
+pnpm run typecheck
 
 # 静的サイト生成
-bun run generate
+pnpm run generate
 
 # 本番ビルドのプレビュー
-bun run preview
+pnpm run preview
 
 # コードのリント
-bun run lint
+pnpm run lint
 
 # リントと自動修正
-bun run lint:fix
+pnpm run lint:fix
 
 # CSS のリント
-bun run lint:css
+pnpm run lint:css
 
 # CSS のリントと自動修正
-bun run lint:css:fix
+pnpm run lint:css:fix
 
 # content 配下の Markdown の文章チェック
-bun run lint:text
+pnpm run lint:text
 
 # public/images の画像を WebP へ圧縮
-bun run compress
+pnpm run compress
 
 # OG 画像の生成（作品の追加・タイトル・期間・画像を変更したら実行する）
-bun run og
+pnpm run og
 
 # .output/public を localhost:3100 で配信（アクセシビリティ検査用）
-bun run serve:static
+pnpm run serve:static
 
 # axe によるアクセシビリティ検査（serve:static を起動した状態で実行する）
-bun run a11y
+pnpm run a11y
 ```
+
+パッケージマネージャは **pnpm**、ランタイムは **Node.js** です。`npm` / `yarn` / `bun` は使いません。
+
+バージョンは `package.json` の `packageManager` と `devEngines.runtime` **だけ**で固定します。`.node-version` や `mise.toml` のような外部のバージョン管理ファイルは置きません。`pnpm install` が `devEngines.runtime` の Node を取得し、`pnpm run` はそれをスクリプトへ供給するため、実行環境のシステム Node が何であっても揃います。
+
+pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`.npmrc` は使いません。
+
+- `saveExact` でバージョンを完全固定する
+- `minimumReleaseAge` が 10080 分（7 日）なので、リリース直後のバージョンはインストールされない
+- postinstall を走らせる依存は `allowBuilds` に明示する。追加を怠ると `ERR_PNPM_IGNORED_BUILDS` で install が失敗する
+
+`scripts/` の TypeScript は Node のネイティブ実行（型の除去）で動かします。**相対 import には `.ts` 拡張子が必須**です。省略すると `ERR_MODULE_NOT_FOUND` になります。
 
 `CLAUDE.md` は `AGENTS.md` へのシンボリックリンクです。編集は `AGENTS.md` に対して行い、実ファイルへ置き換えないでください。
 
@@ -84,7 +99,7 @@ bun run a11y
 - 作品は `content/works/` 内に frontmatter メタデータ付きの Markdown ファイルとして保存
 - [content.config.ts](content.config.ts) でコンテンツスキーマが定義されており、以下のフィールドが必須:
  - `images`（1件以上の `src`/`alt` の配列。先頭がサムネイル・OG 画像に使われる）, `tech`, `period`。任意で `order`, `github`
-- OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) が `public/og/` へ生成する。CI ではなくローカルで `bun run og` を実行し、生成物ごとコミットして push する
+- OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) が `public/og/` へ生成する。CI ではなくローカルで `pnpm run og` を実行し、生成物ごとコミットして push する
 - 生成にはローカルの `~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` を使う。Adobe Fonts で同期していない環境ではスクリプトが失敗する
 - Nuxt Content で管理するのは `content/works/` の作品だけ。それ以外のデータは `libs/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列で持つ
   - [libs/articles.ts](libs/articles.ts) - 外部ブログ（Zenn、Qiita、はてなブログなど）へのリンク
@@ -118,7 +133,7 @@ bun run a11y
 - コードブロックの配色は [libs/shiki-theme.ts](libs/shiki-theme.ts) の Shiki テーマが `--code-*` トークン経由で参照する。Shiki の組み込みテーマは固定 hex を出力しテーマ追従しないため使わない
 - 16:9 のサムネイルを持つカードは `main.css` の `.thumb-card` / `.thumb-card-image` / `.thumb-card-body` / `.thumb-card-title` / `.thumb-card-text` を使う。見出しは要素セレクタに頼らず `.thumb-card-title` を直接付ける。付けないと `h1, h2` などのグローバル規則に負ける
 - **`main.css` の共通クラスは単一クラスセレクタのままにする。** scoped CSS は Vite のチャンク分割次第で `entry.css` の前にも後ろにも出るため、同詳細度の勝敗がビルドごとに反転する。`main.css` 側に `.thumb-card-image.foo` のような2クラスの規則を足すと、コンポーネントの `.thumb-card-image[data-v]` と同点になって壊れる。共通クラスとコンポーネント側で同じプロパティを奪い合わせない
-- [stylelint.config.mjs](stylelint.config.mjs) で次を強制する。`bun run lint:css:fix` で直せるものは自動で直る
+- [stylelint.config.mjs](stylelint.config.mjs) で次を強制する。`pnpm run lint:css:fix` で直せるものは自動で直る
   - 長さは rem で 0.25 の倍数のみ。`0.875rem` のような中間値は使わない
   - `font-weight` は `400` と `800` のみ。Typekit の kit が R / B の 2 ウェイトしか持たないため
   - Baseline widely available の範囲で書く。未到達の機能を使うときは `@supports` で囲むか、`stylelint.config.mjs` の `plugin/use-baseline` の ignore に追加して意図を残す
@@ -146,8 +161,8 @@ bun run a11y
 
 ### CI
 
-- [lint.yml](.github/workflows/lint.yml) - PR で `bun run build` / `tsc` / ESLint / Stylelint / textlint
-- [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `bun run generate` してから Lighthouse CI と axe
+- [lint.yml](.github/workflows/lint.yml) - PR で `pnpm run build` / `typecheck` / ESLint / Stylelint / textlint
+- [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `pnpm run generate` してから Lighthouse CI と axe
   - しきい値は [lighthouserc.json](lighthouserc.json)。`meta-description` と `robots-txt` は off にしている（description を持たない方針と、`robots.txt` の Content-Signal 行を Lighthouse が不明なディレクティブとみなすため）
   - axe と Lighthouse が見るのは**デフォルトテーマだけ**。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
 - [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) - 週次 cron と手動実行でデプロイ
@@ -159,7 +174,11 @@ bun run a11y
 - `assets.html_handling` と `assets.not_found_handling` は明示する。Pages は `404.html` を暗黙に使うが Workers は設定しないと汎用の 404 を返す。`nitro.prerender.autoSubfolderIndex: false` により `about.html` 形式で出力されるため、`auto-trailing-slash` が Pages と同じ URL 解決になる
 - `/about/` のような末尾スラッシュ付きの URL は `/about` へリダイレクトされるが、Pages の 308 に対し Workers は 307 を返す。仕様差であり回避手段はない
 - `newt239.dev` は Workers Route（`newt239.dev/*`）で配信する。Workers Route は origin より前に実行されるため、Pages 側のカスタムドメインを残したまま無停止で切り替えられ、route を外せば Pages の配信に戻る。カスタムドメインとして登録し直すと Pages 側から先に外す必要があり、その間ダウンタイムが出る
-- デプロイ経路は 2 系統。Cloudflare 側の Git 連携（Workers Builds）が push ごとにビルド・デプロイし、[.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) が週次 cron（毎週月曜 0 時）と手動実行で `bun run generate` してから `wrangler deploy` する
+- デプロイ経路は 2 系統
+  - Cloudflare 側の Git 連携（Workers Builds）が push ごとにビルドする。main は本番へデプロイし、それ以外のブランチはプレビュー版としてアップロードする
+  - [.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) が週次 cron（毎週月曜 0 時）と手動実行で `pnpm run generate` してから `wrangler deploy` する。Spotify の My Top Tracks を更新するためにこの週次ビルドがある
+- Workers Builds のビルドイメージは既定が Node 24 系だが、`pnpm run` が `devEngines.runtime` の Node でスクリプトを走らせるため合わせる必要はない。システム Node は pnpm を起動するだけ
+- Pages 側の Git 連携と自動ビルドは停止済み。Pages プロジェクトはロールバック先として残してある
 - `nitro.compressPublicAssets` は使わない。Workers Static Assets は事前圧縮ファイルを利用せず自前で圧縮するため、`.br` / `.gz` はアップロード対象が増えるだけの無駄になる
 - `public/_headers` は Workers Static Assets でもそのまま解釈される。ファイル自体は配信されない
 

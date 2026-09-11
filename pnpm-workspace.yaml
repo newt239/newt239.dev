@@ -1,0 +1,15 @@
+packages:
+  - "./"
+allowBuilds:
+  chromedriver: true
+  esbuild: true
+  unrs-resolver: true
+  workerd: true
+saveExact: true
+minimumReleaseAge: 10080
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeExclude:
+  - pnpm
+  - "@pnpm/exe.*"
+update:
+  githubActions: true
