@@ -6,8 +6,8 @@
   "workers_dev": true,
   "routes": [
     {
-      "pattern": "newt239.dev/*",
-      "zone_name": "newt239.dev"
+      "pattern": "newt239.dev",
+      "custom_domain": true
     }
   ],
   "assets": {
