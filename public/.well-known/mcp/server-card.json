@@ -1,0 +1,14 @@
+{
+  "serverInfo": {
+    "name": "api.newt239.dev",
+    "version": "1.0.0",
+    "websiteUrl": "https://newt239.dev"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://api.newt239.dev/mcp"
+  },
+  "capabilities": {
+    "tools": { "listChanged": true }
+  }
+}
