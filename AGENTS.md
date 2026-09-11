@@ -172,7 +172,11 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - `assets.html_handling` と `assets.not_found_handling` は明示する。Pages は `404.html` を暗黙に使うが Workers は設定しないと汎用の 404 を返す。`nitro.prerender.autoSubfolderIndex: false` により `about.html` 形式で出力されるため、`auto-trailing-slash` が Pages と同じ URL 解決になる
 - `/about/` のような末尾スラッシュ付きの URL は `/about` へリダイレクトされるが、Pages の 308 に対し Workers は 307 を返す。仕様差であり回避手段はない
 - `newt239.dev` は Workers Route（`newt239.dev/*`）で配信する。Workers Route は origin より前に実行されるため、Pages 側のカスタムドメインを残したまま無停止で切り替えられ、route を外せば Pages の配信に戻る。カスタムドメインとして登録し直すと Pages 側から先に外す必要があり、その間ダウンタイムが出る
-- デプロイは [.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) だけが行う。週次 cron（毎週月曜 0 時）と手動実行で `pnpm run generate` してから `wrangler deploy` する。Cloudflare 側の Git 連携は使っていないため、main への push では走らない
+- デプロイ経路は 2 系統
+  - Cloudflare 側の Git 連携（Workers Builds）が push ごとにビルドする。main は本番へデプロイし、それ以外のブランチはプレビュー版としてアップロードする
+  - [.github/workflows/cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) が週次 cron（毎週月曜 0 時）と手動実行で `pnpm run generate` してから `wrangler deploy` する。Spotify の My Top Tracks を更新するためにこの週次ビルドがある
+- Workers Builds が使う Node は [.node-version](.node-version) で指定する。ビルドイメージの既定は Node 24 系で、`NODE_VERSION` / `.nvmrc` / `.node-version` でしか上書きできない。`package.json` の `devEngines` は読まれないため、[mise.toml](mise.toml) と同じ値を保つこと
+- Pages 側の Git 連携と自動ビルドは停止済み。Pages プロジェクトはロールバック先として残してある
 - `nitro.compressPublicAssets` は使わない。Workers Static Assets は事前圧縮ファイルを利用せず自前で圧縮するため、`.br` / `.gz` はアップロード対象が増えるだけの無駄になる
 - `public/_headers` は Workers Static Assets でもそのまま解釈される。ファイル自体は配信されない
 
