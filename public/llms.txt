@@ -5,11 +5,12 @@
 ## ページ
 
 - [プロフィール](https://newt239.dev/about): 経歴・資格・所属・SNSアカウント
-- [作品一覧](https://newt239.dev/works): 17件
+- [作品一覧](https://newt239.dev/works): 18件
 - [記事一覧](https://newt239.dev/articles): 30件
 
 ## 作品
 
+- [oxlint rules gacha](https://newt239.dev/works/oxlint-rules-gacha): 2026年9月 / Next.js, React, StyleX, Motion, Zdog / oxlintの870個のリントルールを、ガチャを引く感覚で1つずつ読んでいく非公式ファンサイトです。
 - [Icondle](https://newt239.dev/works/icondle): 2026年7月 / React, TanStack Start, HeroUI, Tailwind CSS, Cloudflare Workers / 表示されたアイコンがどのUIアイコンライブラリのものかを当てる4択クイズWebアプリです。
 - [時間割検索システム](https://newt239.dev/works/timetable): 2026年3月 / Next.js / 芝浦工業大学情報イノベーションセンターの開発アルバイトにおいて、新しい時間割サイトのデザイン・実装を担当しました。
 - [mmdash](https://newt239.dev/works/mmdash): 2025年12月 / SvelteKit
