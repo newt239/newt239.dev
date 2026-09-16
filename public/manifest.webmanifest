@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "name": "newt239.dev",
   "short_name": "newt239.dev",
   "description": "newt239 のポートフォリオサイト",
@@ -6,14 +7,56 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#0099ff",
+  "theme_color": "#fff8f0",
   "background_color": "#fff8f0",
   "icons": [
     {
-      "src": "/icon.png",
-      "sizes": "1000x1000",
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/narrow-home.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "トップページ"
+    },
+    {
+      "src": "/screenshots/narrow-works.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "作品一覧"
+    },
+    {
+      "src": "/screenshots/wide-home.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "トップページ"
+    },
+    {
+      "src": "/screenshots/wide-works.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "作品一覧"
     }
   ]
 }
