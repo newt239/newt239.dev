@@ -73,6 +73,9 @@ pnpm run og
 # llms.txt の生成（作品または libs/articles.ts を変更したら実行する）
 pnpm run llms
 
+# PWA アイコンの生成（public/icon.png を差し替えたら実行する）
+pnpm run icons
+
 # .output/public を localhost:3100 で配信（アクセシビリティ検査用）
 pnpm run serve:static
 
@@ -162,6 +165,19 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - ページ固有の値は各ページの `useSeoMeta` で設定する。ミドルウェアからは設定しない（クライアントでしか動かずプリレンダ HTML に載らない）
 - canonical と og:url はパスに依存するため [app.vue](app.vue) で `useRoute()` から組み立てる
 - `description` はサイト共通・ページ共通ともに設定していない。作品詳細のみ `content/works/*.md` の frontmatter の値が入る
+
+### PWA
+
+- インストール可能にする最小限の構成のみを持ち、**Service Worker は持たない**。週次 cron と push ごとの Workers Builds で更新が走るサイトに対し、キャッシュ世代管理の複雑さが見合わないため。オフライン時に白紙になることは受け入れている。Chrome はインストール要件から fetch ハンドラを外しているので、Service Worker が無くてもインストールはできる
+- **`display` を `standalone` から変えてはいけない。** `minimal-ui` などにすると [main.css](assets/styles/main.css) の `@media (display-mode: standalone)` がマッチせず、PR #85 の AccentColor 追随が丸ごと効かなくなる
+- アイコンは [scripts/generate-app-icons.ts](scripts/generate-app-icons.ts) が `public/icon.png` を元に `public/icons/` へ生成する。OG 画像と同じくローカルで `pnpm run icons` を実行し、生成物ごとコミットする
+  - `purpose: "any"`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon だけ `--bg` の既定色で不透明化する。iOS は透過を黒で合成し、maskable はマスクが全面を塗る前提のため
+  - `maskable` はセーフゾーン（中心の直径 80% の円）に収めるため 72% に縮小して中央へ合成する。`public/icon.png` は被写体が端まで広がっており（余白は上 6% / 下 0%）、原寸のままでは円マスクで欠ける。アイコンを差し替えたら縮小率を見直す
+- `theme_color` と `background_color` は `--bg` の既定値 `#fff8f0` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON で [libs/theme.ts](libs/theme.ts) を参照できないため導出しておらず、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタと合わせて 3 箇所（`main.css` の standalone ブロックを含む）が連動する。`--bg` を変えたらこれらも直す
+  - インストール済み PWA では `--bg` が AccentColor と `color-mix` されるため、実際の背景は `theme_color` と厳密には一致しない。manifest は静的値しか持てないので素の既定値に合わせている
+- `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しは `pnpm run generate` して `pnpm run serve:static` を起動し、Chrome を `--remote-debugging-port` 付きで立ち上げて CDP の `Emulation.setDeviceMetricsOverride` と `Page.captureScreenshot` で撮る。`--headless --window-size` では Chrome のウィンドウ幅の下限 500px が効いてしまい、390px 指定でも 500px でレイアウトした結果を切り取った画像になる
+  - Chrome のリッチインストール UI の制約は、JPEG か PNG・320〜3840px・最大辺が最小辺の 2.3 倍以内・`form_factor` ごとに同一アスペクト比。現在は narrow が 780x1688（390x844 を DPR 2 で撮影）、wide が 1280x800
+- Lighthouse 12 で PWA カテゴリごと `installable-manifest` / `maskable-icon` の audit が削除されたため、[lighthouserc.json](lighthouserc.json) に manifest 関連の assertion は置けない。確認は Chrome DevTools の Application > Manifest で行う
 
 ### エージェント向けディスカバラビリティ
 
