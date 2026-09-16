@@ -23,7 +23,7 @@ export default defineNuxtConfig({
       },
       title: siteName,
       meta: [
-        { name: "theme-color", content: "#0099ff" },
+        { name: "theme-color", content: "#fff8f0" },
         { name: "text-scale", content: "scale" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: siteName },
@@ -38,7 +38,9 @@ export default defineNuxtConfig({
         { property: "twitter:image", content: `${siteUrl}/og-image-2026.webp` },
       ],
       link: [
-        { rel: "icon", type: "image/png", href: "/icon.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/icons/favicon-32.png" },
+        { rel: "icon", type: "image/png", sizes: "192x192", href: "/icons/icon-192.png" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
         { rel: "manifest", href: "/manifest.webmanifest" },
       ],
       script: [
