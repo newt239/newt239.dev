@@ -186,7 +186,9 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - `script-src` の `{{inline-script-hashes}}` はビルド時に置換されるプレースホルダ。[scripts/write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) がプリレンダ済み HTML のインラインスクリプトから sha256 を集め、`.output/public/_headers` へ書き込む。対象は `<script type="importmap">` と `window.__NUXT_SITE_CONFIG__` / `window.__NUXT__.config` の 3 つで、`application/json`（`__NUXT_DATA__`）と `application/ld+json` は CSP の対象外なので除外する
 - 呼び出しは [nuxt.config.ts](nuxt.config.ts) の Nitro `close` フック。`public/` の資産が `.output/public` へコピーされるのは prerender より後なので、`prerender:done` では `_headers` がまだ存在せず失敗する。`pnpm run generate` に後続コマンドを足す形にしないのは、Workers Builds が実行するコマンドに依存させないため
 - `style-src` の `'unsafe-inline'` は残す。Observatory は `csp-implemented-with-unsafe-inline-in-style-src-only` を満点として扱う
+- **Adobe Fonts は `connect-src` と `font-src data:` の両方が要る。** kit の動的サブセットはフォントを `<link>` や `url()` ではなく XHR で取得し、`data:` URI として `@font-face` に注入する。`font-src https://use.typekit.net` だけ許可してもフォントは適用されず、Web Font Loader が `html` に `wf-inactive` を付けて終わる（PR #159 で 1 度踏んだ）。`p.typekit.net` へのビーコンも XHR なので `connect-src` に要る。CSS は 1 枚も読まないので `style-src` に typekit のオリジンは不要
 - 外部オリジンの許可根拠: `use.typekit.net` / `p.typekit.net` は Adobe Fonts、`www.googletagmanager.com` と `*.google-analytics.com` / `*.analytics.google.com` は GA、`api.newt239.dev` は [ThemeChanger.vue](components/ThemeChanger.vue) と [MyTopTrackList.vue](components/MyTopTrackList.vue)、`fernweh.newt239.dev` は [LatestAlbumList.vue](components/LatestAlbumList.vue)、`img.newt239.dev` は fernweh が返すサムネイル、`i.scdn.co` は Spotify のジャケット画像
+- ローカルでフォントの可否を判定してはいけない。Chrome の HTTP キャッシュは localhost のポートをまたいで共有されるため、CSP 無しで開いた結果が CSP 有りの検証に混ざる。判定は `html` 要素の `wf-active` / `wf-inactive` で行い、プレビューデプロイで確認する
 - subresource-integrity は対応しない。Typekit の kit JS と gtag.js は配信側が内容を更新するため `integrity` を固定するとサイトが壊れる
 - 検証は `pnpm run generate` してから `pnpm exec wrangler dev` で行う。`pnpm run serve:static` の `serve` は `_headers` を解釈しない
 
