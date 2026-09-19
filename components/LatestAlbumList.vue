@@ -27,7 +27,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 
 <template>
   <div class="latest-album-list">
-    <h2 v-colorful-heading lang="en">Photos</h2>
+    <h2 v-colorful-heading>写真</h2>
     <div class="card-grid">
       <a
         v-for="album in albums"

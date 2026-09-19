@@ -8,7 +8,7 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
 
 <template>
   <div class="latest-article-list">
-    <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
+    <h2 v-colorful-heading class="category-title">記事</h2>
     <div class="card-grid">
       <ArticleItem
         v-for="article in articles"

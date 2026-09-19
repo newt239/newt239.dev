@@ -17,7 +17,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 
 <template>
   <div class="timeline">
-    <h2 v-colorful-heading lang="en">Timeline</h2>
+    <h2 v-colorful-heading>経歴</h2>
     <div class="timeline-body">
       <div v-for="year in years" :key="year.year" class="year-section">
         <div class="year-header">

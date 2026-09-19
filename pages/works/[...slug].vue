@@ -263,7 +263,6 @@ const closeLightbox = async () => {
       font-weight: 800;
       line-height: var(--line-height-tight);
       color: rgb(var(--text-muted));
-      letter-spacing: 0.05em;
 
       &:first-of-type {
         margin-top: 0;
@@ -421,7 +420,6 @@ const closeLightbox = async () => {
       margin: 1rem 0 0;
       font-size: 1.25rem;
       color: rgb(var(--bg));
-      letter-spacing: 0;
       background-color: rgb(var(--text));
     }
 

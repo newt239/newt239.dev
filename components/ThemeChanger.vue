@@ -8,8 +8,8 @@ import {
   type ThemeGenerationResponse,
 } from "~/libs/theme";
 
-const defaultMessage = "Caution: All prompts are recorded.";
-const fallbackMessage = "Something went wrong. Please try another word.";
+const defaultMessage = "入力したプロンプトは記録されます";
+const fallbackMessage = "うまくいきませんでした。別の言葉で試してください";
 
 const dialogId = useId();
 const descriptionId = useId();
@@ -22,7 +22,7 @@ const responseMessage = ref(defaultMessage);
 const generateTheme = async () => {
   if (isGenerating.value) return;
   if (!themePrompt.value) {
-    themePrompt.value = "fairy tale";
+    themePrompt.value = "おとぎ話";
   }
   isGenerating.value = true;
   try {
@@ -83,12 +83,11 @@ const onDialogClose = () => {
     @pointerup.self="isBackdropPress && modalRef?.close()"
     @close="onDialogClose"
   >
-    <div class="modal-content" lang="en">
+    <div class="modal-content">
       <div class="modal-header">
         <button
           type="button"
           class="modal-close-button"
-          lang="ja"
           aria-label="閉じる"
           command="close"
           :commandfor="dialogId"
@@ -96,13 +95,13 @@ const onDialogClose = () => {
           <IconX aria-hidden="true" />
         </button>
       </div>
-      <p :id="descriptionId" class="modal-description">Enter a prompt to generate a new theme.</p>
+      <p :id="descriptionId" class="modal-description">プロンプトを入力して新しいテーマをつくります</p>
       <div class="theme-change-form">
         <input
           v-model="themePrompt"
           class="theme-change-input"
           type="text"
-          placeholder="fairy tale"
+          placeholder="おとぎ話"
           :aria-labelledby="descriptionId"
           autofocus
           @keydown.enter="!$event.isComposing && generateTheme()"
@@ -116,7 +115,7 @@ const onDialogClose = () => {
         >
           <IconSparkles v-if="!isGenerating" class="button-icon" aria-hidden="true" />
           <IconLoader2 v-else class="button-icon loading-icon" aria-hidden="true" />
-          Generate
+          生成する
         </button>
       </div>
       <p class="modal-message" aria-live="polite">{{ responseMessage }}</p>

@@ -136,7 +136,7 @@
   --external-link-icon-shift: -0.05em;
   --tap-target-size: clamp(32px, 15vw, 44px);
   --tap-target-icon-size: calc(var(--tap-target-size) * 0.45);
-  --font-size-display: clamp(2rem, 1.25rem + 2vw, 2.5rem);
+  --font-size-display: clamp(1.5rem, 1rem + 1.5vw, 2rem);
   --font-size-title: 1.75rem;
   --list-header-row-gap: 0.75rem;
   --corner-shape: round;
@@ -256,7 +256,7 @@ h1,
 h2,
 .category-name {
   width: fit-content;
-  padding: 1rem 0 0.5rem;
+  padding: 1rem 0;
   margin: 0;
   font-size: var(--font-size-display);
   font-weight: 800;
@@ -272,8 +272,7 @@ h2,
   h2,
   .category-name {
     text-box: trim-both text text;
-    padding-block:
-      calc(1rem + var(--heading-half-leading)) calc(0.5rem + var(--heading-half-leading));
+    padding-block: calc(1rem + var(--heading-half-leading));
   }
 }
 

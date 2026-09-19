@@ -74,7 +74,7 @@ const sortedWorks = computed(() => {
   <div>
     <div class="container list-page">
       <div class="list-header">
-        <h1 v-colorful-heading class="category-name" lang="en">Works</h1>
+        <h1 v-colorful-heading class="category-name">作品</h1>
 
         <ListControlBar
           filter-label="絞り込み"
