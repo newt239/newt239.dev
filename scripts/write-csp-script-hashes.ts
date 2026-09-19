@@ -29,5 +29,5 @@ export const writeCspScriptHashes = async (publicDir: string) => {
     throw new Error("プリレンダ HTML からインラインスクリプトを検出できませんでした");
   }
 
-  await writeFile(headersPath, headers.replace(placeholder, [...hashes].sort().join(" ")));
+  await writeFile(headersPath, headers.replaceAll(placeholder, [...hashes].sort().join(" ")));
 };
