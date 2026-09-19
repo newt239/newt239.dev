@@ -4,6 +4,12 @@
   Link: <https://api.newt239.dev/docs/openapi.json>; rel="service-desc"; type="application/json"
   Link: <https://api.newt239.dev/docs>; rel="service-doc"; type="text/html"
   Link: </llms.txt>; rel="describedby"
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'self'; script-src 'self' {{inline-script-hashes}} https://use.typekit.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net; font-src 'self' https://use.typekit.net https://p.typekit.net; img-src 'self' data: https://img.newt239.dev https://i.scdn.co https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://api.newt239.dev https://fernweh.newt239.dev https://p.typekit.net https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
 /.well-known/api-catalog
   Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
