@@ -157,7 +157,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
   - 計測するのは `newt239.dev` を開いた実ブラウザだけ。localhost とプレビューデプロイ、`navigator.webdriver` が立つ自動化ブラウザ、ヘッドレスやボットの UA では gtag.js を読み込まない
   - `?analytics=off` を付けてアクセスすると `sessionStorage` にオプトアウトを記録する。同じタブ内ならフルページ遷移を跨いでも維持され、別タブとタブを閉じたあとには影響しない。`?analytics=on` で解除する
   - Claude in Chrome は `navigator.webdriver` が false で UA も通常の Chrome と同一のため、ページ側から自動検出できない。上のオプトアウトで除外する
-- **Adobe Fonts**: [nuxt.config.ts](nuxt.config.ts) の `app.head.script` で Typekit を読み込み
+- **Adobe Fonts**: [plugins/typekit.client.ts](plugins/typekit.client.ts) が `useHead` で Typekit の kit を注入し、`onload` で `Typekit.load()` を呼ぶ。CSP の `script-src` からインラインイベントハンドラを排除するためにプラグインへ寄せてあり、`nuxt.config.ts` の `app.head.script` へ戻してはいけない
 
 ### SEO メタ
 
@@ -178,6 +178,19 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しは `pnpm run generate` して `pnpm run serve:static` を起動し、Chrome を `--remote-debugging-port` 付きで立ち上げて CDP の `Emulation.setDeviceMetricsOverride` と `Page.captureScreenshot` で撮る。`--headless --window-size` では Chrome のウィンドウ幅の下限 500px が効いてしまい、390px 指定でも 500px でレイアウトした結果を切り取った画像になる
   - Chrome のリッチインストール UI の制約は、JPEG か PNG・320〜3840px・最大辺が最小辺の 2.3 倍以内・`form_factor` ごとに同一アスペクト比。現在は narrow が 780x1688（390x844 を DPR 2 で撮影）、wide が 1280x800
 - Lighthouse 12 で PWA カテゴリごと `installable-manifest` / `maskable-icon` の audit が削除されたため、[lighthouserc.json](lighthouserc.json) に manifest 関連の assertion は置けない。確認は Chrome DevTools の Application > Manifest で行う
+
+### セキュリティヘッダ
+
+[public/_headers](public/_headers) の `/*` で CSP と各種セキュリティヘッダを返す。MDN HTTP Observatory で A+ を取るための構成（issue #149）。
+
+- `script-src` の `{{inline-script-hashes}}` はビルド時に置換されるプレースホルダ。[scripts/write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) がプリレンダ済み HTML のインラインスクリプトから sha256 を集め、`.output/public/_headers` へ書き込む。対象は `<script type="importmap">` と `window.__NUXT_SITE_CONFIG__` / `window.__NUXT__.config` の 3 つで、`application/json`（`__NUXT_DATA__`）と `application/ld+json` は CSP の対象外なので除外する
+- 呼び出しは [nuxt.config.ts](nuxt.config.ts) の Nitro `close` フック。`public/` の資産が `.output/public` へコピーされるのは prerender より後なので、`prerender:done` では `_headers` がまだ存在せず失敗する。`pnpm run generate` に後続コマンドを足す形にしないのは、Workers Builds が実行するコマンドに依存させないため
+- `style-src` の `'unsafe-inline'` は残す。Observatory は `csp-implemented-with-unsafe-inline-in-style-src-only` を満点として扱う
+- **Adobe Fonts は `connect-src` と `font-src data:` の両方が要る。** kit の動的サブセットはフォントを `<link>` や `url()` ではなく XHR で取得し、`data:` URI として `@font-face` に注入する。`font-src https://use.typekit.net` だけ許可してもフォントは適用されず、Web Font Loader が `html` に `wf-inactive` を付けて終わる（PR #159 で 1 度踏んだ）。`p.typekit.net` へのビーコンも XHR なので `connect-src` に要る。CSS は 1 枚も読まないので `style-src` に typekit のオリジンは不要
+- 外部オリジンの許可根拠: `use.typekit.net` / `p.typekit.net` は Adobe Fonts、`www.googletagmanager.com` と `*.google-analytics.com` / `*.analytics.google.com` は GA、`api.newt239.dev` は [ThemeChanger.vue](components/ThemeChanger.vue) と [MyTopTrackList.vue](components/MyTopTrackList.vue)、`fernweh.newt239.dev` は [LatestAlbumList.vue](components/LatestAlbumList.vue)、`img.newt239.dev` は fernweh が返すサムネイル、`i.scdn.co` は Spotify のジャケット画像
+- ローカルでフォントの可否を判定してはいけない。Chrome の HTTP キャッシュは localhost のポートをまたいで共有されるため、CSP 無しで開いた結果が CSP 有りの検証に混ざる。判定は `html` 要素の `wf-active` / `wf-inactive` で行い、プレビューデプロイで確認する
+- subresource-integrity は対応しない。Typekit の kit JS と gtag.js は配信側が内容を更新するため `integrity` を固定するとサイトが壊れる
+- 検証は `pnpm run generate` してから `pnpm exec wrangler dev` で行う。`pnpm run serve:static` の `serve` は `_headers` を解釈しない
 
 ### エージェント向けディスカバラビリティ
 

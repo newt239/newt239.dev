@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs";
 
 import { shikiTheme } from "./libs/shiki-theme";
 import { siteName, siteUrl } from "./libs/site";
+import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
 
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
 const originalImageRoutes = readdirSync("public/images").map(
@@ -43,13 +44,6 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
         { rel: "manifest", href: "/manifest.webmanifest" },
       ],
-      script: [
-        {
-          src: "https://use.typekit.net/ylu0yhm.js",
-          defer: true,
-          onload: "Typekit.load({async:true})",
-        },
-      ],
     },
     pageTransition: false,
   },
@@ -58,6 +52,15 @@ export default defineNuxtConfig({
     prerender: {
       autoSubfolderIndex: false,
       routes: originalImageRoutes,
+    },
+  },
+
+  hooks: {
+    "nitro:init": (nitro) => {
+      if (!nitro.options.static) return;
+      nitro.hooks.hook("close", () =>
+        writeCspScriptHashes(nitro.options.output.publicDir)
+      );
     },
   },
 
