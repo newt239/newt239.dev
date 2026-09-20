@@ -19,7 +19,7 @@ const trackList = computed(() => data.value?.slice(0, 12) ?? []);
 
 <template>
   <div v-show="trackList.length !== 0" class="my-top-track-list">
-    <h2 v-colorful-heading>音楽</h2>
+    <h2 v-colorful-heading lang="en">My Top Tracks</h2>
     <div class="card-grid">
       <a
         v-for="track in trackList"

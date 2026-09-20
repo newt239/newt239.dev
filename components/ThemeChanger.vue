@@ -22,7 +22,7 @@ const responseMessage = ref(defaultMessage);
 const generateTheme = async () => {
   if (isGenerating.value) return;
   if (!themePrompt.value) {
-    themePrompt.value = "おとぎ話";
+    themePrompt.value = "fairy tale";
   }
   isGenerating.value = true;
   try {
@@ -101,7 +101,7 @@ const onDialogClose = () => {
           v-model="themePrompt"
           class="theme-change-input"
           type="text"
-          placeholder="おとぎ話"
+          placeholder="fairy tale"
           :aria-labelledby="descriptionId"
           autofocus
           @keydown.enter="!$event.isComposing && generateTheme()"

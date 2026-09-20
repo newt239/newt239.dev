@@ -80,7 +80,7 @@ const filteredArticles = computed(() => {
   <div>
     <div class="container list-page">
       <div class="list-header">
-        <h1 v-colorful-heading class="category-name">記事</h1>
+        <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
 
         <ListControlBar
           filter-label="サイト"
