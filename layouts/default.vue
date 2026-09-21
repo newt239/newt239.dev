@@ -51,9 +51,9 @@ if (import.meta.client) {
   left: 0.5rem;
   z-index: 200;
   padding: 0.5rem 1rem;
-  color: rgb(var(--text));
-  background-color: rgb(var(--bg));
-  border: var(--border-width) solid rgb(var(--text));
+  color: oklch(var(--text));
+  background-color: oklch(var(--bg));
+  border: var(--border-width) solid oklch(var(--text));
   border-radius: var(--radius-sm);
   translate: 0 -200%;
   transition: var(--transition);

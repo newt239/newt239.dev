@@ -71,7 +71,7 @@ usePageSeo({ title: "プライバシーポリシー" });
 
   .privacy-intro {
     margin-bottom: 2rem;
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
   }
 
   .privacy-sections {
@@ -99,7 +99,7 @@ usePageSeo({ title: "プライバシーポリシー" });
   .last-updated {
     margin-top: 2rem;
     font-size: 1rem;
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
     text-align: right;
   }
 }

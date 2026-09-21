@@ -104,7 +104,7 @@ const apply = async () => {
   padding-inline: 0.75rem;
   margin-block-start: 0;
   overflow: hidden;
-  border: var(--border-width) solid rgb(var(--surface));
+  border: var(--border-width) solid oklch(var(--surface));
   border-radius: var(--radius-md);
   opacity: 0;
   translate: 0 -0.25rem;
@@ -160,7 +160,7 @@ const apply = async () => {
 .control-label {
   flex-shrink: 0;
   font-size: 0.75rem;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 
 .filter-chips {
@@ -180,13 +180,13 @@ const apply = async () => {
 .control-divider {
   flex-shrink: 0;
   align-self: stretch;
-  border-left: var(--border-width) solid rgb(var(--surface));
+  border-left: var(--border-width) solid oklch(var(--surface));
 
   @media (width <= 37.5rem) {
     grid-column: 1 / -1;
     align-self: auto;
     width: 100%;
-    border-top: var(--border-width) solid rgb(var(--surface));
+    border-top: var(--border-width) solid oklch(var(--surface));
     border-left: none;
   }
 }
@@ -205,8 +205,8 @@ const apply = async () => {
 .control-button {
   padding: 0 1rem;
   font-weight: 800;
-  color: rgb(var(--bg));
-  background: rgb(var(--text));
+  color: oklch(var(--bg));
+  background: oklch(var(--text));
   border-radius: var(--radius-sm);
 
   @media (hover: hover) {
@@ -216,9 +216,9 @@ const apply = async () => {
   }
 
   &:disabled {
-    color: rgb(var(--text-faint));
+    color: oklch(var(--text-faint));
     cursor: default;
-    background: rgb(var(--surface));
+    background: oklch(var(--surface));
   }
 }
 </style>

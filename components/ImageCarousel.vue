@@ -191,7 +191,7 @@ const onTouchEnd = () => {
   border-radius: var(--radius-md);
 
   &:has(.carousel-image-button:focus-visible) {
-    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline: var(--focus-ring-width) solid oklch(var(--focus-ring));
     outline-offset: var(--focus-ring-offset);
   }
 }
@@ -295,9 +295,9 @@ const onTouchEnd = () => {
 
 .carousel-page-btn.active {
   font-weight: 800;
-  color: rgb(var(--bg));
-  background: rgb(var(--text));
-  border-color: rgb(var(--text));
+  color: oklch(var(--bg));
+  background: oklch(var(--text));
+  border-color: oklch(var(--text));
 
   @media (hover: hover) {
     &:hover {

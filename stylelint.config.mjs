@@ -29,6 +29,9 @@ export default {
       },
     ],
     "declaration-property-value-allowed-list": { "font-weight": ["400", "800"] },
+    // 色トークンは @property に <number>+ で登録するため % と deg を使えない。リテラル側も数値で揃える
+    "lightness-notation": "number",
+    "hue-degree-notation": "number",
     "declaration-property-value-disallowed-list": [
       { "/.+/": [/\d*\.(?!(?:25|5|50|75|0)(?![0-9]))\d+rem/] },
       { message: "rem は 0.25 刻みで指定してください" },

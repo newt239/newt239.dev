@@ -123,54 +123,55 @@ const themeFonts: ThemeFont[] = [
 export const themeVariables: ThemeVariable[] = [
   {
     name: "--text",
-    description: "Main text color. Must contrast well against --bg and --surface.",
-    defaultValue: "48 42 37",
+    description:
+      "Main text color, as OKLCH channels `L C H`. Must contrast well against --bg and --surface.",
+    defaultValue: "0.29 0.014 70",
   },
   {
     name: "--text-muted",
     description: "Secondary text color. Must be readable on --bg and --surface.",
-    defaultValue: "110 100 90",
+    defaultValue: "0.51 0.018 70",
   },
   {
     name: "--text-faint",
     description: "Tertiary text color. Must be slightly visible on --bg and --surface.",
-    defaultValue: "122 114 104",
+    defaultValue: "0.556 0.018 70",
   },
   {
     name: "--bg",
     description: "Page background color. Must contrast well against --text.",
-    defaultValue: "255 248 240",
+    defaultValue: "0.982 0.012 70",
   },
   {
     name: "--accent",
     description: "Primary accent color for links. Must stand out on --bg and --surface.",
-    defaultValue: "36 107 209",
+    defaultValue: "0.542 0.17 255",
   },
   {
     name: "--accent-dark",
     description: "Dark accent color. Must contrast against --bg.",
-    defaultValue: "26 72 120",
+    defaultValue: "0.396 0.095 255",
   },
   {
     name: "--highlight",
     description: "Highlight/emphasis color. Must differ from --accent and stand out on --bg.",
-    defaultValue: "162 132 32",
+    defaultValue: "0.625 0.118 90",
   },
   {
     name: "--surface",
     description:
       "Card/section background. Should be close to --bg but visibly distinct. --text-muted must be readable on it.",
-    defaultValue: "246 240 232",
+    defaultValue: "0.958 0.014 70",
   },
   {
     name: "--surface-hover",
     description: "Hover state background. Should be noticeably darker/lighter than --surface.",
-    defaultValue: "236 230 222",
+    defaultValue: "0.928 0.014 70",
   },
   {
     name: "--border",
     description: "Subtle border color. Must be visible against --bg and --surface.",
-    defaultValue: "240 234 228",
+    defaultValue: "0.94 0.012 70",
   },
   {
     name: "--radius-scale",

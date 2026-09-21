@@ -163,7 +163,7 @@ const links = [
 
   .sub {
     font-size: 50%;
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
   }
 
   .about-hero {
@@ -207,7 +207,7 @@ const links = [
           padding-top: 0.25rem;
           font-size: 0.75rem;
           font-weight: 800;
-          color: rgb(var(--text-muted));
+          color: oklch(var(--text-muted));
         }
 
         dd {
@@ -269,14 +269,14 @@ const links = [
       align-items: center;
       padding: 0.75rem 1.5rem;
       font-weight: 800;
-      color: rgb(var(--accent));
+      color: oklch(var(--accent));
       text-decoration: underline;
       text-decoration-style: dashed;
       text-underline-offset: 0.25rem;
       transition: var(--transition);
 
       &:not(:last-child) {
-        border-bottom: var(--border-width-hairline) solid rgb(var(--border));
+        border-bottom: var(--border-width-hairline) solid oklch(var(--border));
       }
 
       /* 親の .link-list が overflow: hidden なので外側に描くとリングが完全に隠れる */
@@ -287,14 +287,14 @@ const links = [
       @media (hover: hover) {
         &:hover {
           text-decoration-color: transparent;
-          background: rgb(var(--surface));
+          background: oklch(var(--surface));
           opacity: var(--hover-opacity);
         }
       }
 
       @media (hover: none) {
         &:active {
-          background: rgb(var(--surface));
+          background: oklch(var(--surface));
         }
       }
     }

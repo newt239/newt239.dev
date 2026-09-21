@@ -262,7 +262,7 @@ const closeLightbox = async () => {
       font-size: 0.75rem;
       font-weight: 800;
       line-height: var(--line-height-tight);
-      color: rgb(var(--text-muted));
+      color: oklch(var(--text-muted));
       letter-spacing: 0.05em;
 
       &:first-of-type {
@@ -287,8 +287,8 @@ const closeLightbox = async () => {
       padding: 0.25rem 0.75rem;
       font-size: 1rem;
       line-height: var(--line-height-tight);
-      color: rgb(var(--text));
-      background: rgb(var(--surface));
+      color: oklch(var(--text));
+      background: oklch(var(--surface));
       border-radius: var(--radius-xs);
 
       @supports (text-box-trim: trim-both) {
@@ -369,7 +369,7 @@ const closeLightbox = async () => {
   .work-nav-label {
     font-size: 0.75rem;
     line-height: var(--line-height-tight);
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
   }
 
   .work-nav-title {
@@ -420,9 +420,9 @@ const closeLightbox = async () => {
       padding: 0.25rem 0.75rem;
       margin: 1rem 0 0;
       font-size: 1.25rem;
-      color: rgb(var(--bg));
+      color: oklch(var(--bg));
       letter-spacing: 0;
-      background-color: rgb(var(--text));
+      background-color: oklch(var(--text));
     }
 
     h3 {
@@ -436,7 +436,7 @@ const closeLightbox = async () => {
       margin: 1rem 0 0;
       font-size: 1rem;
       font-weight: 800;
-      border-left: var(--border-width) solid rgb(var(--accent));
+      border-left: var(--border-width) solid oklch(var(--accent));
     }
 
     h2 a {
@@ -447,7 +447,7 @@ const closeLightbox = async () => {
     h4,
     h5 {
       a {
-        color: rgb(var(--text));
+        color: oklch(var(--text));
       }
     }
 
@@ -464,7 +464,7 @@ const closeLightbox = async () => {
       }
 
       th {
-        border-bottom: var(--border-width-hairline) rgb(var(--text)) solid;
+        border-bottom: var(--border-width-hairline) oklch(var(--text)) solid;
       }
     }
 
@@ -477,7 +477,7 @@ const closeLightbox = async () => {
       overflow-wrap: anywhere;
       cursor: text;
       background-color: var(--code-bg);
-      border: var(--border-width-hairline) solid rgb(var(--border));
+      border: var(--border-width-hairline) solid oklch(var(--border));
       border-radius: var(--radius-xs);
     }
 
@@ -490,7 +490,7 @@ const closeLightbox = async () => {
       white-space: pre-wrap;
       cursor: text;
       background-color: var(--code-bg);
-      border: var(--border-width-hairline) solid rgb(var(--border));
+      border: var(--border-width-hairline) solid oklch(var(--border));
       border-radius: var(--radius-sm);
 
       code {

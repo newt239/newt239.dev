@@ -52,7 +52,7 @@ const externalLinks = [
   flex-direction: column;
   gap: 1.25rem;
   padding-top: 1.5rem;
-  border-top: var(--border-width-hairline) solid rgb(var(--text-muted) / 15%);
+  border-top: var(--border-width-hairline) solid oklch(var(--text-muted) / 15%);
 
   ul {
     display: flex;
@@ -83,6 +83,6 @@ const externalLinks = [
 
 .copyright {
   font-size: 0.75rem;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 </style>

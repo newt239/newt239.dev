@@ -33,6 +33,7 @@ const generateTheme = async () => {
       },
       body: JSON.stringify({
         prompt: themePrompt.value,
+        colorFormat: "oklch",
         requiredVariables: themeVariables,
         constraints: themeConstraints,
       }),
@@ -155,9 +156,9 @@ dialog {
     container: theme-modal / inline-size;
     overflow-y: auto;
     overscroll-behavior: contain;
-    color: rgb(var(--text));
-    background-color: rgb(var(--bg));
-    border: var(--border-width) solid rgb(var(--border));
+    color: oklch(var(--text));
+    background-color: oklch(var(--bg));
+    border: var(--border-width) solid oklch(var(--border));
     border-radius: var(--radius-lg);
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
@@ -200,7 +201,7 @@ dialog {
   display: flex;
   justify-content: flex-end;
   margin: calc(var(--modal-padding) * -1) calc(var(--modal-padding) * -1) 0.5rem;
-  background-color: rgb(var(--bg));
+  background-color: oklch(var(--bg));
 }
 
 .modal-close-button {
@@ -209,7 +210,7 @@ dialog {
   justify-content: center;
   width: var(--tap-target-size);
   height: var(--tap-target-size);
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   cursor: pointer;
   background: none;
   border: var(--border-width) solid transparent;
@@ -223,13 +224,13 @@ dialog {
 
   @media (hover: hover) {
     &:hover {
-      border-color: rgb(var(--text));
+      border-color: oklch(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      border-color: rgb(var(--text));
+      border-color: oklch(var(--text));
     }
   }
 }
@@ -250,12 +251,12 @@ dialog {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: stretch;
-  background-color: rgb(var(--bg));
-  border: var(--border-width) solid rgb(var(--text));
+  background-color: oklch(var(--bg));
+  border: var(--border-width) solid oklch(var(--text));
   border-radius: var(--radius-pill);
 
   &:has(.theme-change-input:focus-visible) {
-    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline: var(--focus-ring-width) solid oklch(var(--focus-ring));
     outline-offset: var(--focus-ring-offset);
   }
 }
@@ -266,13 +267,13 @@ dialog {
   padding-left: 1rem;
   font-family: unset;
   font-size: var(--font-size-title);
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   background: none;
   border: none;
   border-radius: inherit;
 
   &::placeholder {
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
   }
 
   &:focus-visible {
@@ -291,23 +292,23 @@ dialog {
   margin-inline-start: 0;
   font-family: unset;
   font-size: var(--font-size-title);
-  color: rgb(var(--bg));
+  color: oklch(var(--bg));
   cursor: pointer;
-  background-color: rgb(var(--text));
-  border: var(--border-width) solid rgb(var(--text));
+  background-color: oklch(var(--text));
+  border: var(--border-width) solid oklch(var(--text));
   border-radius: var(--radius-pill);
   transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      color: rgb(var(--text));
-      background-color: rgb(var(--bg));
+      color: oklch(var(--text));
+      background-color: oklch(var(--bg));
     }
   }
 
   &.is-generating {
-    color: rgb(var(--text));
-    background-color: rgb(var(--bg));
+    color: oklch(var(--text));
+    background-color: oklch(var(--bg));
   }
 
   &::before {
@@ -320,8 +321,8 @@ dialog {
     background: conic-gradient(
       from var(--theme-beam-angle),
       transparent 0%,
-      rgb(var(--accent)) 8%,
-      rgb(var(--highlight)) 16%,
+      oklch(var(--accent)) 8%,
+      oklch(var(--highlight)) 16%,
       transparent 28%,
       transparent 100%
     );
@@ -400,12 +401,12 @@ dialog {
     padding-left: 0.5rem;
     font-size: 1rem;
     text-align: center;
-    background-color: rgb(var(--bg));
-    border: var(--border-width) solid rgb(var(--text));
+    background-color: oklch(var(--bg));
+    border: var(--border-width) solid oklch(var(--text));
     border-radius: var(--radius-pill);
 
     &:focus-visible {
-      outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+      outline: var(--focus-ring-width) solid oklch(var(--focus-ring));
       outline-offset: var(--focus-ring-offset);
     }
   }

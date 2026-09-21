@@ -73,11 +73,11 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 
 <style scoped>
 .thumb-card-image {
-  background: rgb(var(--surface-hover));
+  background: oklch(var(--surface-hover));
 }
 
 .thumb-card-title .external-icon {
   margin-left: var(--external-link-icon-gap-heading);
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 </style>

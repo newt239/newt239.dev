@@ -76,9 +76,9 @@ header {
   z-index: 100;
   width: 100%;
   padding: 0.75rem 0;
-  color: rgb(var(--text));
-  background-color: rgb(var(--bg) / 72%);
-  border-color: rgb(var(--border));
+  color: oklch(var(--text));
+  background-color: oklch(var(--bg) / 72%);
+  border-color: oklch(var(--border));
   border-style: solid;
   border-width: 0 0 var(--border-width-hairline);
   backdrop-filter: blur(12px) saturate(1.4);
@@ -101,7 +101,7 @@ header {
     align-items: center;
     justify-content: space-between;
     min-width: 0;
-    color: rgb(var(--text));
+    color: oklch(var(--text));
     border-radius: var(--radius-sm);
 
     .logo {
@@ -166,7 +166,7 @@ header {
 
 @supports not (backdrop-filter: blur(1px)) {
   header {
-    background-color: rgb(var(--bg));
+    background-color: oklch(var(--bg));
   }
 }
 
