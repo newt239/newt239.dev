@@ -187,7 +187,3 @@ Worker スクリプトを持たないため、レスポンスヘッダを付け�
 - Pages 側の Git 連携と自動ビルドは停止済み。Pages プロジェクトはロールバック先として残してある
 - `nitro.compressPublicAssets` は使わない。Workers Static Assets は事前圧縮ファイルを利用せず自前で圧縮するため、`.br` / `.gz` はアップロード対象が増えるだけの無駄になる
 - `public/_headers` は Workers Static Assets でもそのまま解釈される。ファイル自体は配信されない
-
-## 言語とコードレビューの方針
-
-レビューコメントの方針は [.github/copilot-instructions.md](.github/copilot-instructions.md) を参照。
