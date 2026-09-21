@@ -23,11 +23,7 @@ jobs:
           node-version-file: "package.json"
           cache: pnpm
       - name: Setup dependencies
-        run: |
-          if [ -n "$CHROMEWEBDRIVER" ]; then
-            export CHROMEDRIVER_FILEPATH="$CHROMEWEBDRIVER/chromedriver"
-          fi
-          pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Generate
         run: pnpm run generate
       - name: Run Lighthouse CI
@@ -36,8 +32,3 @@ jobs:
           configPath: ./lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-      - name: Run axe
-        run: |
-          pnpm run serve:static &
-          curl --retry 30 --retry-all-errors --retry-delay 1 -sf -o /dev/null http://localhost:3100/
-          pnpm run a11y

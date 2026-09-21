@@ -11,7 +11,7 @@ const originalImageRoutes = readdirSync("public/images").map(
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint"],
+  modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint", "@nuxt/a11y"],
   site: {
     url: siteUrl,
     name: siteName,
