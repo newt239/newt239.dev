@@ -70,8 +70,6 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 
 `scripts/` の TypeScript は Node のネイティブ実行（型の除去）で動かします。**相対 import には `.ts` 拡張子が必須**です。省略すると `ERR_MODULE_NOT_FOUND` になります。
 
-`CLAUDE.md` は `AGENTS.md` へのシンボリックリンクです。編集は `AGENTS.md` に対して行い、実ファイルへ置き換えないでください。
-
 ## アーキテクチャ
 
 ### コンテンツ管理
