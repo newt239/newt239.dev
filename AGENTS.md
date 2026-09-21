@@ -51,11 +51,8 @@ pnpm run llms
 # PWA アイコンの生成（public/icon.png を差し替えたら実行する）
 pnpm run icons
 
-# .output/public を localhost:3100 で配信（アクセシビリティ検査用）
+# .output/public を localhost:3100 で配信（PWA スクリーンショットの撮り直し用）
 pnpm run serve:static
-
-# axe によるアクセシビリティ検査（serve:static を起動した状態で実行する）
-pnpm run a11y
 ```
 
 パッケージマネージャは **pnpm**、ランタイムは **Node.js** です。`npm` / `yarn` / `bun` は使いません。
@@ -181,12 +178,19 @@ Worker スクリプトを持たないため、レスポンスヘッダを付け�
 - Markdown for Agents（`Accept: text/markdown` でのネゴシエーション）は Cloudflare の Pro 以上のゾーン設定で、Free プランでは有効化できない
 - [public/robots.txt](public/robots.txt) の `Content-Signal: ai-train=no` と学習クローラの Disallow は維持する。利用者の代理で動くエージェントのフェッチは `User-agent: *` の Allow に含まれる
 
+### アクセシビリティ検査
+
+- 開発時は [@nuxt/a11y](https://github.com/nuxt/a11y) の DevTools タブで見る。ページ遷移ごとに axe-core が走り違反が一覧される。モジュールの `enabled` は既定で `dev` のみで、production の `setup` は即 return するため `nuxt generate` の出力に axe-core は入らない
+- CI で検査するのは Lighthouse CI の `categories:accessibility` だけ。`minScore: 1` を維持する
+- `@nuxt/a11y` のビルド時レポート（Nitro の `prerender:generate` でプリレンダ済み全ルートを検査し `failOnViolation` で落とす）は upstream の main にあるが **npm 未公開**。公開されている `1.0.0-alpha.1` には含まれない。公開されたら `a11y.report` を有効にして `pnpm run generate` に同居させる（issue #156）
+- `@axe-core/cli` は廃止した。70 ルールのうち 50 は Lighthouse も実行しており、`color-contrast` と `target-size` も Lighthouse が実ブラウザで見る。検査対象 URL を `package.json` に手書きする保守コストの方が重い
+
 ### CI
 
 - [lint.yml](.github/workflows/lint.yml) - PR で `pnpm run build` / `typecheck` / ESLint / Stylelint / textlint
-- [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `pnpm run generate` してから Lighthouse CI と axe
+- [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `pnpm run generate` してから Lighthouse CI
   - しきい値は [lighthouserc.json](lighthouserc.json)。`meta-description` と `robots-txt` は off にしている（description を持たない方針と、`robots.txt` の Content-Signal 行を Lighthouse が不明なディレクティブとみなすため）
-  - axe と Lighthouse が見るのは**ライトのデフォルトテーマだけ**。ヘッドレス Chrome の既定が `prefers-color-scheme: light` のためダーク配色は検査されない。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
+  - Lighthouse が見るのは**ライトのデフォルトテーマだけ**。ヘッドレス Chrome の既定が `prefers-color-scheme: light` のためダーク配色は検査されない。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
 - [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) - 週次 cron と手動実行でデプロイ
 
 ### デプロイ
