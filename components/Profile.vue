@@ -72,8 +72,6 @@ const snsLinks = [
   }
 
   .top-card {
-    --top-card-blob: var(--text-muted);
-
     position: relative;
     display: flex;
     flex-direction: column;
@@ -84,46 +82,33 @@ const snsLinks = [
     background-color: oklch(var(--text));
     background-image: radial-gradient(
         ellipse 90% 125% at 88% 6%,
-        oklch(var(--top-card-blob) / 95%) 0%,
-        oklch(var(--top-card-blob) / 60%) 28%,
-        oklch(var(--top-card-blob) / 25%) 52%,
-        oklch(var(--top-card-blob) / 7%) 68%,
-        oklch(var(--top-card-blob) / 0%) 82%
+        oklch(var(--text-muted) / 95%) 0%,
+        oklch(var(--text-muted) / 60%) 28%,
+        oklch(var(--text-muted) / 25%) 52%,
+        oklch(var(--text-muted) / 7%) 68%,
+        oklch(var(--text-muted) / 0%) 82%
       ),
       radial-gradient(
         ellipse 75% 105% at 6% 98%,
-        oklch(var(--top-card-blob) / 60%) 0%,
-        oklch(var(--top-card-blob) / 30%) 34%,
-        oklch(var(--top-card-blob) / 8%) 58%,
-        oklch(var(--top-card-blob) / 0%) 76%
+        oklch(var(--text-muted) / 60%) 0%,
+        oklch(var(--text-muted) / 30%) 34%,
+        oklch(var(--text-muted) / 8%) 58%,
+        oklch(var(--text-muted) / 0%) 76%
       ),
       radial-gradient(
         ellipse 65% 85% at 52% 44%,
-        oklch(var(--top-card-blob) / 32%) 0%,
-        oklch(var(--top-card-blob) / 12%) 45%,
-        oklch(var(--top-card-blob) / 0%) 74%
+        oklch(var(--text-muted) / 32%) 0%,
+        oklch(var(--text-muted) / 12%) 45%,
+        oklch(var(--text-muted) / 0%) 74%
       );
     border-radius: var(--radius-md);
     transition: var(--transition);
-
-    @media (prefers-color-scheme: dark) {
-      --top-card-blob: var(--bg);
-
-      color: oklch(var(--text));
-      background-color: oklch(var(--surface));
-      border: var(--border-width) solid oklch(var(--border));
-    }
 
     @media (hover: hover) {
       &:hover {
         .more-detail-button {
           color: oklch(var(--text));
           background-color: oklch(var(--bg));
-
-          @media (prefers-color-scheme: dark) {
-            color: oklch(var(--surface));
-            background-color: oklch(var(--text));
-          }
         }
       }
     }
@@ -133,11 +118,6 @@ const snsLinks = [
         .more-detail-button {
           color: oklch(var(--text));
           background-color: oklch(var(--bg));
-
-          @media (prefers-color-scheme: dark) {
-            color: oklch(var(--surface));
-            background-color: oklch(var(--text));
-          }
         }
       }
     }
@@ -175,11 +155,6 @@ const snsLinks = [
     border: var(--border-width) solid oklch(var(--bg));
     border-radius: var(--radius-pill);
     transition: var(--transition);
-
-    @media (prefers-color-scheme: dark) {
-      color: oklch(var(--text));
-      border-color: oklch(var(--text));
-    }
   }
 
   .sns-links {
