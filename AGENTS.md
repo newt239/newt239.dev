@@ -33,34 +33,9 @@ Nuxt 4 で構築された個人のポートフォリオサイトです。日本�
 
 ## 開発コマンド
 
+`dev` / `build` / `typecheck` / `generate` / `preview` / `lint` / `lint:fix` / `lint:css` / `lint:css:fix` は `package.json` の `scripts` のとおり。実行タイミングに条件があるものだけ以下に挙げる。
+
 ```bash
-# 開発サーバーを起動
-pnpm dev
-
-# 本番用ビルド
-pnpm run build
-
-# 型チェック
-pnpm run typecheck
-
-# 静的サイト生成
-pnpm run generate
-
-# 本番ビルドのプレビュー
-pnpm run preview
-
-# コードのリント
-pnpm run lint
-
-# リントと自動修正
-pnpm run lint:fix
-
-# CSS のリント
-pnpm run lint:css
-
-# CSS のリントと自動修正
-pnpm run lint:css:fix
-
 # content 配下の Markdown の文章チェック
 pnpm run lint:text
 
@@ -119,16 +94,6 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - 並び順は配列の記述順に依存させず、使う側で日付の降順に並べ替える
 - 日付の表示は `toLocaleDateString("ja-JP", …)` を使い、`timeZone: "UTC"` を必ず指定する。指定しないと `YYYY-MM` の UTC 解釈と実行環境のタイムゾーンがずれて月が1つ戻る。`slice` と `Number` で組み立てない
 
-### ルーティングとページ構成
-
-- `pages/` 内のファイルベースルーティング:
-  - `index.vue` - ホームページ
-  - `about.vue` - プロフィールページ
-  - `privacy.vue` - プライバシーポリシー
-  - `articles/index.vue` - 記事一覧
-  - `works/index.vue` - 作品一覧
-  - `works/[...slug].vue` - `queryCollection('works')` を使用した動的な作品詳細ページ
-
 ### スタイリング
 
 - [assets/styles/main.css](assets/styles/main.css) に CSS カスタムプロパティを使用したグローバルスタイルを配置
@@ -175,8 +140,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
   - `maskable` はセーフゾーン（中心の直径 80% の円）に収めるため 72% に縮小して中央へ合成する。`public/icon.png` は被写体が端まで広がっており（余白は上 6% / 下 0%）、原寸のままでは円マスクで欠ける。アイコンを差し替えたら縮小率を見直す
 - `theme_color` と `background_color` は `--bg` の既定値 `#fff8f0` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON で [libs/theme.ts](libs/theme.ts) を参照できないため導出しておらず、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタと合わせて 3 箇所（`main.css` の standalone ブロックを含む）が連動する。`--bg` を変えたらこれらも直す
   - インストール済み PWA では `--bg` が AccentColor と `color-mix` されるため、実際の背景は `theme_color` と厳密には一致しない。manifest は静的値しか持てないので素の既定値に合わせている
-- `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しは `pnpm run generate` して `pnpm run serve:static` を起動し、Chrome を `--remote-debugging-port` 付きで立ち上げて CDP の `Emulation.setDeviceMetricsOverride` と `Page.captureScreenshot` で撮る。`--headless --window-size` では Chrome のウィンドウ幅の下限 500px が効いてしまい、390px 指定でも 500px でレイアウトした結果を切り取った画像になる
-  - Chrome のリッチインストール UI の制約は、JPEG か PNG・320〜3840px・最大辺が最小辺の 2.3 倍以内・`form_factor` ごとに同一アスペクト比。現在は narrow が 780x1688（390x844 を DPR 2 で撮影）、wide が 1280x800
+- `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しの手順と Chrome のリッチインストール UI の制約は `pwa-screenshots` スキルにある
 - Lighthouse 12 で PWA カテゴリごと `installable-manifest` / `maskable-icon` の audit が削除されたため、[lighthouserc.json](lighthouserc.json) に manifest 関連の assertion は置けない。確認は Chrome DevTools の Application > Manifest で行う
 
 ### セキュリティヘッダ
@@ -228,8 +192,4 @@ Worker スクリプトを持たないため、レスポンスヘッダを付け�
 
 ## 言語とコードレビューの方針
 
-[.github/copilot-instructions.md](.github/copilot-instructions.md) より:
-
-- 日本語で回答してください
-- レビューコメントは以下のプレフィックスを使用: `[must]`（必須）、`[recommend]`（推奨）、`[nits]`（軽微）
-- 重点チェック項目: セキュリティ、パフォーマンス、可読性、保守性、テストカバレッジ、言語固有のベストプラクティス
+レビューコメントの方針は [.github/copilot-instructions.md](.github/copilot-instructions.md) を参照。
