@@ -21,67 +21,67 @@
   @property --text {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 48 42 37;
+    initial-value: 0.29 0.014 70;
   }
 
   @property --text-muted {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 110 100 90;
+    initial-value: 0.51 0.018 70;
   }
 
   @property --text-faint {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 122 114 104;
+    initial-value: 0.556 0.018 70;
   }
 
   @property --bg {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 255 248 240;
+    initial-value: 0.982 0.012 70;
   }
 
   @property --accent {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 36 107 209;
+    initial-value: 0.542 0.17 255;
   }
 
   @property --accent-dark {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 26 72 120;
+    initial-value: 0.396 0.095 255;
   }
 
   @property --highlight {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 162 132 32;
+    initial-value: 0.625 0.118 90;
   }
 
   @property --surface {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 246 240 232;
+    initial-value: 0.958 0.014 70;
   }
 
   @property --surface-hover {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 236 230 222;
+    initial-value: 0.928 0.014 70;
   }
 
   @property --border {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 240 234 228;
+    initial-value: 0.94 0.012 70;
   }
 
   @property --focus-ring {
     syntax: "<number>+";
     inherits: true;
-    initial-value: 0 95 204;
+    initial-value: 0.507 0.165 255;
   }
 }
 
@@ -96,17 +96,17 @@
   interpolate-size: allow-keywords;
 
   --text-scale: 1;
-  --text: 48 42 37;
-  --text-muted: 110 100 90;
-  --text-faint: 122 114 104;
-  --bg: 255 248 240;
-  --accent: 36 107 209;
-  --accent-dark: 26 72 120;
-  --highlight: 162 132 32;
-  --surface: 246 240 232;
-  --surface-hover: 236 230 222;
-  --border: 240 234 228;
-  --focus-ring: 0 95 204;
+  --text: 0.29 0.014 70;
+  --text-muted: 0.51 0.018 70;
+  --text-faint: 0.556 0.018 70;
+  --bg: 0.982 0.012 70;
+  --accent: 0.542 0.17 255;
+  --accent-dark: 0.396 0.095 255;
+  --highlight: 0.625 0.118 90;
+  --surface: 0.958 0.014 70;
+  --surface-hover: 0.928 0.014 70;
+  --border: 0.94 0.012 70;
+  --focus-ring: 0.507 0.165 255;
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
   --transition-duration: 0.2s;
@@ -143,10 +143,10 @@
   --font-family: fot-udkakugo-large-pr6n;
   --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", -apple-system, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
-  --code-text: rgb(var(--text));
-  --code-bg: rgb(var(--surface));
-  --code-accent: rgb(var(--accent-dark));
-  --code-subtle: rgb(var(--text-muted));
+  --code-text: oklch(var(--text));
+  --code-bg: oklch(var(--surface));
+  --code-accent: oklch(var(--accent-dark));
+  --code-subtle: oklch(var(--text-muted));
   --theme-transition-duration: 0.6s;
   --theme-transition-easing: ease;
   --header-icon-size: clamp(28px, 10vw, 56px);
@@ -174,15 +174,15 @@
 @media (display-mode: standalone) {
   /* プラグインが相対カラー構文を検出せず @supports を不要と誤判定するため無効化する */
   /* stylelint-disable-next-line plugin/use-baseline */
-  @supports (color: rgb(from AccentColor r g b)) {
+  @supports (color: oklch(from AccentColor l c h)) {
     :root {
-      --accent: from oklch(from AccentColor clamp(0.45, l, 0.62) clamp(0.08, c, 0.25) h) r g b;
-      --accent-dark: from oklch(from AccentColor calc(l * 0.55) c h) r g b;
-      --highlight: from oklch(from AccentColor clamp(0.5, l, 0.6) clamp(0.1, c, 0.2) calc(h + 120)) r g b;
-      --bg: from color-mix(in oklch, AccentColor 6%, rgb(255 248 240)) r g b;
-      --surface: from color-mix(in oklch, AccentColor 10%, rgb(246 240 232)) r g b;
-      --surface-hover: from color-mix(in oklch, AccentColor 14%, rgb(236 230 222)) r g b;
-      --border: from color-mix(in oklch, AccentColor 12%, rgb(240 234 228)) r g b;
+      --accent: from oklch(from AccentColor clamp(0.45, l, 0.62) clamp(0.08, c, 0.25) h) l c h;
+      --accent-dark: from oklch(from AccentColor calc(l * 0.55) c h) l c h;
+      --highlight: from oklch(from AccentColor clamp(0.5, l, 0.6) clamp(0.1, c, 0.2) calc(h + 120)) l c h;
+      --bg: from color-mix(in oklch, AccentColor 6%, oklch(0.982 0.012 70)) l c h;
+      --surface: from color-mix(in oklch, AccentColor 10%, oklch(0.958 0.014 70)) l c h;
+      --surface-hover: from color-mix(in oklch, AccentColor 14%, oklch(0.928 0.014 70)) l c h;
+      --border: from color-mix(in oklch, AccentColor 12%, oklch(0.94 0.012 70)) l c h;
     }
   }
 }
@@ -209,8 +209,8 @@
   box-sizing: border-box;
 
   &::selection {
-    color: rgb(var(--bg));
-    background-color: rgb(var(--text));
+    color: oklch(var(--bg));
+    background-color: oklch(var(--text));
   }
 }
 
@@ -222,7 +222,7 @@
 
 a, button, input, [tabindex]:not([tabindex="-1"]) {
   &:focus-visible{
-    outline: var(--focus-ring-width) solid rgb(var(--focus-ring));
+    outline: var(--focus-ring-width) solid oklch(var(--focus-ring));
     outline-offset: var(--focus-ring-offset);
   }
 }
@@ -247,9 +247,9 @@ body {
   margin: 0;
   font-family: var(--font-family), var(--font-fallback);
   line-height: var(--line-height-body);
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   cursor: default;
-  background-color: rgb(var(--bg));
+  background-color: oklch(var(--bg));
 }
 
 h1,
@@ -291,15 +291,15 @@ h2,
 
 @keyframes heading-color-wave {
   0% {
-    color: rgb(var(--accent) / 0%);
+    color: oklch(var(--accent) / 0%);
   }
 
   40% {
-    color: rgb(var(--highlight));
+    color: oklch(var(--highlight));
   }
 
   70% {
-    color: rgb(var(--accent-dark));
+    color: oklch(var(--accent-dark));
   }
 
   100% {
@@ -331,7 +331,7 @@ a {
 
 .underline,
 :is(p, li, table) a {
-  color: rgb(var(--accent));
+  color: oklch(var(--accent));
   text-decoration: underline;
   text-decoration-style: dashed;
   text-underline-offset: 0.25rem;
@@ -399,14 +399,14 @@ ul {
 
 .empty-state {
   padding: 3rem 1rem;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
   text-align: center;
 }
 
 .record-list {
   container-type: inline-size;
   overflow: hidden;
-  background: rgb(var(--surface));
+  background: oklch(var(--surface));
   border-radius: var(--radius-md);
 }
 
@@ -423,7 +423,7 @@ ul {
   }
 
   &:not(:last-child) {
-    border-bottom: var(--border-width-hairline) solid rgb(var(--border));
+    border-bottom: var(--border-width-hairline) solid oklch(var(--border));
   }
 }
 
@@ -431,7 +431,7 @@ ul {
   flex-shrink: 0;
   min-width: var(--record-term-width);
   font-size: 0.75rem;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
   white-space: nowrap;
 }
 
@@ -450,7 +450,7 @@ ul {
   min-height: var(--tap-target-size);
   font-family: inherit;
   font-size: 1rem;
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   white-space: nowrap;
   cursor: pointer;
   border: none;
@@ -459,20 +459,20 @@ ul {
 
 .surface-card,
 .surface-button {
-  color: rgb(var(--text));
-  background: rgb(var(--surface));
+  color: oklch(var(--text));
+  background: oklch(var(--surface));
   border: var(--border-width) solid transparent;
   transition: var(--transition);
 
   @media (hover: hover) {
     &:hover {
-      border-color: rgb(var(--text));
+      border-color: oklch(var(--text));
     }
   }
 
   @media (hover: none) {
     &:active {
-      border-color: rgb(var(--text));
+      border-color: oklch(var(--text));
     }
   }
 }
@@ -519,7 +519,7 @@ ul {
   font-size: 1.25rem;
   font-weight: 800;
   line-height: var(--line-height-tight);
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   overflow-wrap: anywhere;
   text-box: normal;
 }
@@ -528,7 +528,7 @@ ul {
   margin: 0;
   font-size: 1rem;
   line-height: var(--line-height-tight);
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 
 .see-all-card {
@@ -575,7 +575,7 @@ ul {
 .section-body {
   padding: 1rem min(1.5rem, 5vw);
   overflow-wrap: anywhere;
-  background: rgb(var(--surface));
+  background: oklch(var(--surface));
   border-radius: var(--radius-md);
 
   ul {

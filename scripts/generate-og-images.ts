@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { modeOklch, modeRgb, toGamut, useMode } from "culori/fn";
 import { existsSync } from "node:fs";
 import { readdir, readFile, mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -10,6 +11,10 @@ import { parse } from "yaml";
 
 import { formatPeriod } from "../libs/period.ts";
 import { themeVariables } from "../libs/theme.ts";
+
+useMode(modeRgb);
+useMode(modeOklch);
+const toDisplayable = toGamut("rgb", "oklch");
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
@@ -33,7 +38,8 @@ const themeColor = (name: string) => {
   if (!variable) {
     throw new Error(`テーマ変数が見つかりません: ${name}`);
   }
-  return `rgb(${variable.defaultValue.split(" ").join(", ")})`;
+  const { r, g, b } = toDisplayable(`oklch(${variable.defaultValue})`);
+  return `rgb(${[r, g, b].map((channel) => Math.round(channel * 255)).join(", ")})`;
 };
 
 const COLORS = {

@@ -64,7 +64,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
   margin: 0;
   font-size: var(--font-size-title);
   font-weight: 800;
-  color: rgb(var(--text));
+  color: oklch(var(--text));
 }
 
 .year-items {
@@ -76,7 +76,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 }
 
 .timeline-item {
-  color: rgb(var(--text));
+  color: oklch(var(--text));
   text-decoration: none;
   transition: var(--transition);
 
@@ -89,7 +89,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
     }
 
     .item-title {
-      color: rgb(var(--accent));
+      color: oklch(var(--accent));
       text-decoration: underline;
       text-decoration-style: dashed;
       text-underline-offset: 0.25rem;
@@ -97,7 +97,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 
     @media (hover: hover) {
       &:hover {
-        background: rgb(var(--surface));
+        background: oklch(var(--surface));
 
         .item-title {
           text-decoration-color: transparent;
@@ -108,7 +108,7 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 
     @media (hover: none) {
       &:active {
-        background: rgb(var(--surface));
+        background: oklch(var(--surface));
       }
     }
   }

@@ -24,7 +24,7 @@ export default defineNuxtConfig({
       },
       title: siteName,
       meta: [
-        { name: "theme-color", content: "#fff8f0" },
+        { name: "theme-color", content: "#fff8f1" },
         { name: "text-scale", content: "scale" },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: siteName },

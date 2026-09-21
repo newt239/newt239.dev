@@ -16,12 +16,12 @@ defineProps<{
 <style scoped>
 .filter-chip {
   padding: 0 1rem;
-  background: rgb(var(--surface));
+  background: oklch(var(--surface));
   border-radius: var(--radius-sm);
 
   @media (hover: hover) {
     &:not(.active):hover {
-      background: rgb(var(--surface-hover));
+      background: oklch(var(--surface-hover));
     }
 
     &.active:hover {
@@ -30,8 +30,8 @@ defineProps<{
   }
 
   &.active {
-    color: rgb(var(--bg));
-    background: rgb(var(--text));
+    color: oklch(var(--bg));
+    background: oklch(var(--text));
   }
 
   .filter-chip-icon {

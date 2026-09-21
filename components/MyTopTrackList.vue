@@ -79,7 +79,7 @@ const trackList = computed(() => data.value?.slice(0, 12) ?? []);
 
   .external-icon {
     margin-left: var(--external-link-icon-gap-heading);
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
   }
 }
 
@@ -89,7 +89,7 @@ const trackList = computed(() => data.value?.slice(0, 12) ?? []);
   margin: 0;
   font-size: 0.75rem;
   line-height: var(--line-height-tight);
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
   overflow-wrap: anywhere;
 }
 </style>

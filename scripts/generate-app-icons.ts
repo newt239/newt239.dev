@@ -1,10 +1,15 @@
 /// <reference types="node" />
 
+import { modeOklch, modeRgb, toGamut, useMode } from "culori/fn";
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
 
 import { themeVariables } from "../libs/theme.ts";
+
+useMode(modeRgb);
+useMode(modeOklch);
+const toDisplayable = toGamut("rgb", "oklch");
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const SOURCE_PATH = join(ROOT_DIR, "public", "icon.png");
@@ -17,8 +22,13 @@ const background = themeVariables.find((candidate) => candidate.name === "--bg")
 if (!background) {
   throw new Error("テーマ変数が見つかりません: --bg");
 }
-const [r, g, b] = background.defaultValue.split(" ").map(Number);
-const backgroundColor = { r, g, b, alpha: 1 };
+const { r, g, b } = toDisplayable(`oklch(${background.defaultValue})`);
+const backgroundColor = {
+  r: Math.round(r * 255),
+  g: Math.round(g * 255),
+  b: Math.round(b * 255),
+  alpha: 1,
+};
 
 const transparentIcons = [
   { file: "icon-192.png", size: 192 },

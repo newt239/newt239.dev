@@ -99,6 +99,11 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - テーマ用の CSS 変数（`ThemeChanger` コンポーネント経由で動的に変更可能）
 - アクセシビリティ重視: focus-visible 状態、prefers-reduced-motion 対応
 - 色は必ず `:root` のトークン経由で指定する。固定値を書くと AI テーマ生成に追従しない
+- 色トークンは **OKLCH のチャンネル断片**（`--text: 0.29 0.014 70` = `L C H`）で持ち、利用側は `oklch(var(--text))` / `oklch(var(--text) / 72%)` と書く。完全な色値にすると `/ N%` のアルファ指定と `@property` の補間が壊れる
+- `@property` に `syntax: "<number>+"` で登録する都合上、トークンは **`%` と `deg` を使えない**。リテラルの `oklch()` も数値表記で揃える（[stylelint.config.mjs](stylelint.config.mjs) の `lightness-notation` / `hue-degree-notation` で強制）
+- 既定パレットは色相を 3 系統に統一している。ニュートラル 70 / アクセント 255 / ハイライト 90
+- **11 トークンすべてを sRGB ガマット内に保つ。** 外れるとブラウザが CSS Color 4 のガマットマッピングで別の色へ写すため、宣言値とコントラストの実測が食い違う
+- `oklch()` を sRGB へ落とす必要があるのは [scripts/generate-og-images.ts](scripts/generate-og-images.ts) と [scripts/generate-app-icons.ts](scripts/generate-app-icons.ts) だけ。satori（→ SVG → librsvg）も sharp も `oklch()` を解釈しないため `culori` で変換する。`culori` はビルド時のみの devDependency で、クライアントバンドルには入れない
 - 本文に載る文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で `--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - コードブロックの配色は [libs/shiki-theme.ts](libs/shiki-theme.ts) の Shiki テーマが `--code-*` トークン経由で参照する。Shiki の組み込みテーマは固定 hex を出力しテーマ追従しないため使わない
 - 16:9 のサムネイルを持つカードは `main.css` の `.thumb-card` / `.thumb-card-image` / `.thumb-card-body` / `.thumb-card-title` / `.thumb-card-text` を使う。見出しは要素セレクタに頼らず `.thumb-card-title` を直接付ける。付けないと `h1, h2` などのグローバル規則に負ける
@@ -111,7 +116,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 
 ### 主要機能
 
-- **テーマ生成**: [ThemeChanger.vue](components/ThemeChanger.vue) は AI を使用してユーザーのプロンプトから CSS カスタムプロパティを生成（`api.newt239.dev/ai/generate-theme` 経由）
+- **テーマ生成**: [ThemeChanger.vue](components/ThemeChanger.vue) は AI を使用してユーザーのプロンプトから CSS カスタムプロパティを生成（`api.newt239.dev/ai/generate-theme` 経由）。リクエストの `colorFormat` で値の形式を明示する（`oklch` を送る）。ガマットマッピングとコントラスト検証はサーバー側が担う
 - **View Transitions**: [nuxt.config.ts](nuxt.config.ts) の `experimental.viewTransition` で有効化
 - **ページトランジション**: View Transition 非対応ブラウザ向けのフォールバック。[middleware/page-transition.global.ts](middleware/page-transition.global.ts) が `document.startViewTransition` の無いときだけ Vue の `pageTransition` を有効化し、[app.vue](app.vue) の `@supports not (view-transition-name: none)` 内でブラー + 不透明度を定義する
 - **スクロール復元**: [app/router.options.ts](app/router.options.ts) は Nuxt 既定の `scrollBehavior` とほぼ同じだが、View Transition のスナップショット取得より前にスクロール位置を確定させるため rAF を挟まない（PR #119）。Nuxt 側の改善に追従する際はこの差分だけを維持する
@@ -136,7 +141,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - アイコンは [scripts/generate-app-icons.ts](scripts/generate-app-icons.ts) が `public/icon.png` を元に `public/icons/` へ生成する。OG 画像と同じくローカルで `pnpm run icons` を実行し、生成物ごとコミットする
   - `purpose: "any"`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon だけ `--bg` の既定色で不透明化する。iOS は透過を黒で合成し、maskable はマスクが全面を塗る前提のため
   - `maskable` はセーフゾーン（中心の直径 80% の円）に収めるため 72% に縮小して中央へ合成する。`public/icon.png` は被写体が端まで広がっており（余白は上 6% / 下 0%）、原寸のままでは円マスクで欠ける。アイコンを差し替えたら縮小率を見直す
-- `theme_color` と `background_color` は `--bg` の既定値 `#fff8f0` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON で [libs/theme.ts](libs/theme.ts) を参照できないため導出しておらず、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタと合わせて 3 箇所（`main.css` の standalone ブロックを含む）が連動する。`--bg` を変えたらこれらも直す
+- `theme_color` と `background_color` は `--bg` の既定値 `#fff8f1` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON で [libs/theme.ts](libs/theme.ts) を参照できないため導出しておらず、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタと合わせて 3 箇所（`main.css` の standalone ブロックを含む）が連動する。`--bg` を変えたらこれらも直す
   - インストール済み PWA では `--bg` が AccentColor と `color-mix` されるため、実際の背景は `theme_color` と厳密には一致しない。manifest は静的値しか持てないので素の既定値に合わせている
 - `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しの手順と Chrome のリッチインストール UI の制約は `pwa-screenshots` スキルにある
 - Lighthouse 12 で PWA カテゴリごと `installable-manifest` / `maskable-icon` の audit が削除されたため、[lighthouserc.json](lighthouserc.json) に manifest 関連の assertion は置けない。確認は Chrome DevTools の Application > Manifest で行う

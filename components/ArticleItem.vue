@@ -68,7 +68,7 @@ const formattedDate = computed(() =>
 
 .site-name {
   font-size: 0.75rem;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 
 .article-card-body {
@@ -85,7 +85,7 @@ const formattedDate = computed(() =>
 
     .external-icon {
       margin-left: var(--external-link-icon-gap-heading);
-      color: rgb(var(--text-muted));
+      color: oklch(var(--text-muted));
     }
   }
 }
@@ -102,6 +102,6 @@ const formattedDate = computed(() =>
 .article-date {
   font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
-  color: rgb(var(--text-muted));
+  color: oklch(var(--text-muted));
 }
 </style>

@@ -41,7 +41,7 @@ const emit = defineEmits<{
   display: inline-flex;
   flex-wrap: wrap;
   max-width: 100%;
-  background: rgb(var(--surface));
+  background: oklch(var(--surface));
   border-radius: var(--radius-sm);
 }
 
@@ -61,7 +61,7 @@ const emit = defineEmits<{
 
   @media (hover: hover) {
     &:not(.active):hover {
-      background: rgb(var(--surface-hover));
+      background: oklch(var(--surface-hover));
     }
 
     &.active:hover {
@@ -71,8 +71,8 @@ const emit = defineEmits<{
 
   &.active {
     font-weight: 800;
-    color: rgb(var(--bg));
-    background: rgb(var(--text));
+    color: oklch(var(--bg));
+    background: oklch(var(--text));
   }
 
   .sort-segment-icon {

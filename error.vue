@@ -48,7 +48,7 @@ useSeoMeta({ robots: "noindex" });
     font-size: clamp(min(4rem, 20vw), 2rem + 5vw, 6rem);
     font-weight: 800;
     line-height: 1;
-    color: rgb(var(--text-faint));
+    color: oklch(var(--text-faint));
   }
 
   .error-heading {
@@ -60,7 +60,7 @@ useSeoMeta({ robots: "noindex" });
 
   .error-description {
     margin: 0;
-    color: rgb(var(--text-muted));
+    color: oklch(var(--text-muted));
     text-wrap: balance;
   }
 

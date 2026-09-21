@@ -78,28 +78,28 @@ const snsLinks = [
     gap: 1rem;
     justify-content: space-between;
     width: 70%;
-    color: rgb(var(--bg));
-    background-color: rgb(var(--text));
+    color: oklch(var(--bg));
+    background-color: oklch(var(--text));
     background-image: radial-gradient(
         ellipse 90% 125% at 88% 6%,
-        rgb(var(--text-muted) / 95%) 0%,
-        rgb(var(--text-muted) / 60%) 28%,
-        rgb(var(--text-muted) / 25%) 52%,
-        rgb(var(--text-muted) / 7%) 68%,
-        rgb(var(--text-muted) / 0%) 82%
+        oklch(var(--text-muted) / 95%) 0%,
+        oklch(var(--text-muted) / 60%) 28%,
+        oklch(var(--text-muted) / 25%) 52%,
+        oklch(var(--text-muted) / 7%) 68%,
+        oklch(var(--text-muted) / 0%) 82%
       ),
       radial-gradient(
         ellipse 75% 105% at 6% 98%,
-        rgb(var(--text-muted) / 60%) 0%,
-        rgb(var(--text-muted) / 30%) 34%,
-        rgb(var(--text-muted) / 8%) 58%,
-        rgb(var(--text-muted) / 0%) 76%
+        oklch(var(--text-muted) / 60%) 0%,
+        oklch(var(--text-muted) / 30%) 34%,
+        oklch(var(--text-muted) / 8%) 58%,
+        oklch(var(--text-muted) / 0%) 76%
       ),
       radial-gradient(
         ellipse 65% 85% at 52% 44%,
-        rgb(var(--text-muted) / 32%) 0%,
-        rgb(var(--text-muted) / 12%) 45%,
-        rgb(var(--text-muted) / 0%) 74%
+        oklch(var(--text-muted) / 32%) 0%,
+        oklch(var(--text-muted) / 12%) 45%,
+        oklch(var(--text-muted) / 0%) 74%
       );
     border-radius: var(--radius-md);
     transition: var(--transition);
@@ -107,8 +107,8 @@ const snsLinks = [
     @media (hover: hover) {
       &:hover {
         .more-detail-button {
-          color: rgb(var(--text));
-          background-color: rgb(var(--bg));
+          color: oklch(var(--text));
+          background-color: oklch(var(--bg));
         }
       }
     }
@@ -116,8 +116,8 @@ const snsLinks = [
     @media (hover: none) {
       &:active {
         .more-detail-button {
-          color: rgb(var(--text));
-          background-color: rgb(var(--bg));
+          color: oklch(var(--text));
+          background-color: oklch(var(--bg));
         }
       }
     }
@@ -150,9 +150,9 @@ const snsLinks = [
     padding: 0.5rem 1rem;
     font-size: 1rem;
     font-weight: 800;
-    color: rgb(var(--bg));
+    color: oklch(var(--bg));
     cursor: pointer;
-    border: var(--border-width) solid rgb(var(--bg));
+    border: var(--border-width) solid oklch(var(--bg));
     border-radius: var(--radius-pill);
     transition: var(--transition);
   }
