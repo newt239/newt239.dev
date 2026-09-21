@@ -87,7 +87,7 @@
 
 :root {
   font-size: calc(100% * var(--text-scale));
-  color-scheme: light;
+  color-scheme: light dark;
   transition-timing-function: var(--theme-transition-easing);
   transition-duration: var(--theme-transition-duration);
   transition-property:
@@ -171,6 +171,23 @@
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
 }
 
+/* standalone の AccentColor 追随に後勝ちさせるため、display-mode のブロックより前に置く */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: 0.935 0.012 70;
+    --text-muted: 0.775 0.016 70;
+    --text-faint: 0.655 0.016 70;
+    --bg: 0.205 0.012 70;
+    --accent: 0.76 0.115 255;
+    --accent-dark: 0.845 0.075 255;
+    --highlight: 0.81 0.13 90;
+    --surface: 0.245 0.012 70;
+    --surface-hover: 0.295 0.012 70;
+    --border: 0.285 0.01 70;
+    --focus-ring: 0.79 0.105 255;
+  }
+}
+
 @media (display-mode: standalone) {
   /* プラグインが相対カラー構文を検出せず @supports を不要と誤判定するため無効化する */
   /* stylelint-disable-next-line plugin/use-baseline */
@@ -183,6 +200,18 @@
       --surface: from color-mix(in oklch, AccentColor 10%, oklch(0.958 0.014 70)) l c h;
       --surface-hover: from color-mix(in oklch, AccentColor 14%, oklch(0.928 0.014 70)) l c h;
       --border: from color-mix(in oklch, AccentColor 12%, oklch(0.94 0.012 70)) l c h;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: from oklch(from AccentColor clamp(0.7, l, 0.82) clamp(0.06, c, 0.16) h) l c h;
+        --accent-dark: from oklch(from AccentColor clamp(0.8, l, 0.9) clamp(0.04, c, 0.12) h) l c h;
+        --highlight: from oklch(from AccentColor clamp(0.75, l, 0.86) clamp(0.08, c, 0.18) calc(h + 120)) l c h;
+        --bg: from color-mix(in oklch, AccentColor 6%, oklch(0.205 0.012 70)) l c h;
+        --surface: from color-mix(in oklch, AccentColor 10%, oklch(0.245 0.012 70)) l c h;
+        --surface-hover: from color-mix(in oklch, AccentColor 14%, oklch(0.295 0.012 70)) l c h;
+        --border: from color-mix(in oklch, AccentColor 12%, oklch(0.285 0.01 70)) l c h;
+      }
     }
   }
 }
