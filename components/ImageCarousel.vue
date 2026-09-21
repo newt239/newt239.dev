@@ -20,6 +20,8 @@ const imageButtons = useTemplateRef<HTMLButtonElement[]>("imageButtons");
 const pageButtons = useTemplateRef<HTMLButtonElement[]>("pageButtons");
 const slideIdBase = useId();
 
+const SWIPE_THRESHOLD = 50;
+
 const hasMultiple = computed(() => props.images.length > 1);
 
 // ライトボックスはカルーセルより大きい variant を読むため、表示中の 1 枚だけ先に取得しておく
@@ -91,7 +93,7 @@ const onTouchMove = (e: TouchEvent) => {
 };
 
 const onTouchEnd = () => {
-  if (Math.abs(touchDeltaX) > 50) {
+  if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
     goTo(index.value + (touchDeltaX < 0 ? 1 : -1));
   }
   touchDeltaX = 0;
