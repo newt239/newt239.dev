@@ -104,6 +104,11 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - 既定パレットは色相を 3 系統に統一している。ニュートラル 70 / アクセント 255 / ハイライト 90
 - **11 トークンすべてを sRGB ガマット内に保つ。** 外れるとブラウザが CSS Color 4 のガマットマッピングで別の色へ写すため、宣言値とコントラストの実測が食い違う
 - `oklch()` を sRGB へ落とす必要があるのは [scripts/generate-og-images.ts](scripts/generate-og-images.ts) と [scripts/generate-app-icons.ts](scripts/generate-app-icons.ts) だけ。satori（→ SVG → librsvg）も sharp も `oklch()` を解釈しないため `culori` で変換する。`culori` はビルド時のみの devDependency で、クライアントバンドルには入れない
+- **ダークモードは `@media (prefers-color-scheme: dark)` による OS 追従のみ。** 明示トグルも永続化も持たない。ダークの `:root` は **`@media (display-mode: standalone)` より前**に置く。後ろに置くと PR #85 の AccentColor 追随が丸ごと負ける
+- standalone のブロックはライトとダークの 2 系統を持つ。ダークの基準色は `color-mix()` の第 2 引数にリテラルで入っているので、ダークの `--bg` などを変えたら `:root` と両方直す
+- ダークでは `--accent-dark` が「明るい方のアクセント」になり名前の意味が反転する。`--code-accent` がここから派生し `--surface` に対し 4.5:1 を要求するため意図的にそうしている
+- [Profile.vue](components/Profile.vue) の `.top-card` はダークでもライトと同じ配色（濃い地・明るい文字）を保つ。トークンをそのまま入れ替えると明るいカードへ反転するため、地は `--surface-hover`（ライトの `--text` とほぼ同じ色）を使う
+- ダークパレットは AI に生成させず手で決め、`themeConstraints` の 14 件を手動で実測して確認する。リポジトリに検証スクリプトは置かない
 - 本文に載る文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で `--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - コードブロックの配色は [libs/shiki-theme.ts](libs/shiki-theme.ts) の Shiki テーマが `--code-*` トークン経由で参照する。Shiki の組み込みテーマは固定 hex を出力しテーマ追従しないため使わない
 - 16:9 のサムネイルを持つカードは `main.css` の `.thumb-card` / `.thumb-card-image` / `.thumb-card-body` / `.thumb-card-title` / `.thumb-card-text` を使う。見出しは要素セレクタに頼らず `.thumb-card-title` を直接付ける。付けないと `h1, h2` などのグローバル規則に負ける
@@ -141,7 +146,7 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - アイコンは [scripts/generate-app-icons.ts](scripts/generate-app-icons.ts) が `public/icon.png` を元に `public/icons/` へ生成する。OG 画像と同じくローカルで `pnpm run icons` を実行し、生成物ごとコミットする
   - `purpose: "any"`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon だけ `--bg` の既定色で不透明化する。iOS は透過を黒で合成し、maskable はマスクが全面を塗る前提のため
   - `maskable` はセーフゾーン（中心の直径 80% の円）に収めるため 72% に縮小して中央へ合成する。`public/icon.png` は被写体が端まで広がっており（余白は上 6% / 下 0%）、原寸のままでは円マスクで欠ける。アイコンを差し替えたら縮小率を見直す
-- `theme_color` と `background_color` は `--bg` の既定値 `#fff8f1` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON で [libs/theme.ts](libs/theme.ts) を参照できないため導出しておらず、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタと合わせて 3 箇所（`main.css` の standalone ブロックを含む）が連動する。`--bg` を変えたらこれらも直す
+- `theme_color` と `background_color` は**ライトの** `--bg` の既定値 `#fff8f1` のリテラル。[manifest.webmanifest](public/manifest.webmanifest) は静的 JSON なので `prefers-color-scheme` で分岐できず、ダーク用の値は持てない。[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタは `media` 付きでライトとダークの 2 本を出す（unhead のデデュープを避けるため `key` を付ける）。`main.css` の `:root`・ダークの `:root`・standalone の 2 系統と合わせて連動するので、`--bg` を変えたらすべて直す
   - インストール済み PWA では `--bg` が AccentColor と `color-mix` されるため、実際の背景は `theme_color` と厳密には一致しない。manifest は静的値しか持てないので素の既定値に合わせている
 - `public/screenshots/` は手動撮影で、生成スクリプトは持たない。撮り直しの手順と Chrome のリッチインストール UI の制約は `pwa-screenshots` スキルにある
 - Lighthouse 12 で PWA カテゴリごと `installable-manifest` / `maskable-icon` の audit が削除されたため、[lighthouserc.json](lighthouserc.json) に manifest 関連の assertion は置けない。確認は Chrome DevTools の Application > Manifest で行う
@@ -175,7 +180,7 @@ Worker スクリプトを持たないため、レスポンスヘッダを付け�
 - [lint.yml](.github/workflows/lint.yml) - PR で `pnpm run build` / `typecheck` / ESLint / Stylelint / textlint
 - [quality.yml](.github/workflows/quality.yml) - PR と手動実行で `pnpm run generate` してから Lighthouse CI と axe
   - しきい値は [lighthouserc.json](lighthouserc.json)。`meta-description` と `robots-txt` は off にしている（description を持たない方針と、`robots.txt` の Content-Signal 行を Lighthouse が不明なディレクティブとみなすため）
-  - axe と Lighthouse が見るのは**デフォルトテーマだけ**。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
+  - axe と Lighthouse が見るのは**ライトのデフォルトテーマだけ**。ヘッドレス Chrome の既定が `prefers-color-scheme: light` のためダーク配色は検査されない。AI 生成テーマのコントラストは `themeConstraints` を通じてサーバー側（api.newt239.dev）が検証する
 - [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) - 週次 cron と手動実行でデプロイ
 
 ### デプロイ
