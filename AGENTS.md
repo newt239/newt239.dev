@@ -125,6 +125,12 @@ pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置きます。`
 - **View Transitions**: [nuxt.config.ts](nuxt.config.ts) の `experimental.viewTransition` で有効化
 - **ページトランジション**: View Transition 非対応ブラウザ向けのフォールバック。[middleware/page-transition.global.ts](middleware/page-transition.global.ts) が `document.startViewTransition` の無いときだけ Vue の `pageTransition` を有効化し、[app.vue](app.vue) の `@supports not (view-transition-name: none)` 内でブラー + 不透明度を定義する
 - **スクロール復元**: [app/router.options.ts](app/router.options.ts) は Nuxt 既定の `scrollBehavior` とほぼ同じだが、View Transition のスナップショット取得より前にスクロール位置を確定させるため rAF を挟まない（PR #119）。Nuxt 側の改善に追従する際はこの差分だけを維持する
+- **作品画像のジェスチャ**: [ImageLightbox.vue](components/ImageLightbox.vue) はピンチ・ダブルタップ・ホイール・スワイプを Pointer Events で自前実装する。`.lightbox-content` の `touch-action: none` を緩めてブラウザのピンチに任せてはいけない。`transform` の `scale` / `translate` と二重管理になり、`clampTranslate` とズーム率表示が実状とずれる
+  - ポインタハンドラは画像ではなく `.lightbox-content` に付ける。ピンチの 2 本目の指はレターボックス部分に降りるため、画像に付けたままではジェスチャが開始しない
+  - `setPointerCapture` は拡大中に画像上で押されたときだけ呼ぶ。キャプチャ中は互換 `click` もキャプチャ要素へリターゲットされるため、等倍で呼ぶと画像をタップしただけでライトボックスが閉じる。同じ理由で画像上のタップは `didDrag` を立てて背景クリック判定から外す
+  - ズームは焦点固定。`scale(S) translate(T)` は中心基準なので、焦点 `f` を保つには `T += f * (1/S' - 1/S)` を使う（`zoomAt`）。ピンチとホイールの最中は `.is-gesturing` で `transition` を切る。補間の途中値では焦点が保たれず、カーソル下の点が滑る
+  - ジェスチャを足しても SC 2.5.1 / 2.5.7 の単一ポインタ代替（± ボタン・パンボタン・前後ボタン）は消さない
+  - 閉じるときに `pointers` をクリアする。指を置いたまま閉じると `pointerup` が届かず、次に開いたとき 1 本指でピンチ判定になる
 - **一覧のフィルタとソート**: [composables/useListControls.ts](composables/useListControls.ts) が URL クエリと下書き状態の同期、適用時の View Transition を担う。[usePageSeo.ts](composables/usePageSeo.ts) はページ固有の title / og:image を設定する
 - **アナリティクス**: [plugins/vue-gtag.client.ts](plugins/vue-gtag.client.ts) で vue-gtag-next を使用した Google Analytics
   - 計測するのは `newt239.dev` を開いた実ブラウザだけ。localhost とプレビューデプロイ、`navigator.webdriver` が立つ自動化ブラウザ、ヘッドレスやボットの UA では gtag.js を読み込まない

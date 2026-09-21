@@ -18,6 +18,17 @@ const MIN_SCALE = 1;
 const MAX_SCALE = 5;
 const SCALE_STEP = 0.5;
 const PAN_STEP = 40;
+const DRAG_SLOP = 3;
+const TAP_SLOP = 10;
+const TAP_MAX_MS = 500;
+const DOUBLE_TAP_SCALE = 2;
+const DOUBLE_TAP_MS = 300;
+const DOUBLE_TAP_DISTANCE = 32;
+const SWIPE_THRESHOLD = 50;
+const SWIPE_MAX_MS = 600;
+const WHEEL_ZOOM_SENSITIVITY = 0.002;
+const PINCH_WHEEL_ZOOM_SENSITIVITY = 0.01;
+const WHEEL_IDLE_MS = 180;
 const PAN_KEYS: Record<string, [number, number]> = {
   ArrowLeft: [1, 0],
   ArrowRight: [-1, 0],
@@ -39,12 +50,28 @@ const scale = ref(1);
 const translateX = ref(0);
 const translateY = ref(0);
 const isDragging = ref(false);
+const isGesturing = ref(false);
+const hintId = useId();
 
+const pointers = new Map<number, { x: number; y: number }>();
+let gesture: "none" | "drag" | "swipe" | "pinch" = "none";
+let startedOnImage = false;
+let multiTouched = false;
+let lastDistance = 0;
+let lastCenterX = 0;
+let lastCenterY = 0;
+let gestureStartX = 0;
+let gestureStartY = 0;
+let gestureStartTime = 0;
+let lastTapTime = 0;
+let lastTapX = 0;
+let lastTapY = 0;
 let dragStartX = 0;
 let dragStartY = 0;
 let dragStartTranslateX = 0;
 let dragStartTranslateY = 0;
 let didDrag = false;
+let wheelIdleTimer: ReturnType<typeof setTimeout> | undefined;
 
 const hasMultiple = computed(() => props.images.length > 1);
 const currentImage = computed(() => props.images[index.value]);
@@ -72,6 +99,12 @@ onMounted(() => {
 const canZoomIn = computed(() => scale.value < MAX_SCALE);
 const isZoomed = computed(() => scale.value > MIN_SCALE);
 const scalePercent = computed(() => `${Math.round(scale.value * 100)}%`);
+const keyboardHint = computed(() =>
+  [
+    hasMultiple.value ? "矢印キーで前後の画像を表示します。" : "",
+    "拡大中は矢印キーで表示位置を移動します。プラスキーで拡大、マイナスキーで縮小、0キーで等倍に戻します。",
+  ].join("")
+);
 
 const imageTransform = computed(() => {
   if (scale.value === 1 && translateX.value === 0 && translateY.value === 0) {
@@ -96,6 +129,21 @@ const clampTranslate = () => {
     Math.max(0, image.offsetHeight * scale.value - content.clientHeight) / 2 / scale.value;
   translateX.value = Math.min(limitX, Math.max(-limitX, translateX.value));
   translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
+};
+
+// scale(S) translate(T) は中心基準なので、焦点 f を固定したまま S を変えるには T += f * (1/S' - 1/S)
+const zoomAt = (nextScale: number, clientX: number, clientY: number) => {
+  const content = contentRef.value;
+  if (!content) return;
+  const rect = content.getBoundingClientRect();
+  const next = Math.min(MAX_SCALE, Math.max(MIN_SCALE, nextScale));
+  const focusX = clientX - (rect.left + rect.width / 2);
+  const focusY = clientY - (rect.top + rect.height / 2);
+  const delta = 1 / next - 1 / scale.value;
+  translateX.value += focusX * delta;
+  translateY.value += focusY * delta;
+  scale.value = next;
+  clampTranslate();
 };
 
 const panBy = (directionX: number, directionY: number) => {
@@ -135,9 +183,15 @@ const next = () => {
 const onKeydown = (e: KeyboardEvent) => {
   const direction = PAN_KEYS[e.key];
   if (direction) {
-    if (!isZoomed.value) return;
+    if (isZoomed.value) {
+      e.preventDefault();
+      panBy(direction[0], direction[1]);
+      return;
+    }
+    if (!hasMultiple.value || direction[1] !== 0) return;
     e.preventDefault();
-    panBy(direction[0], direction[1]);
+    if (direction[0] > 0) prev();
+    else next();
   } else if (e.key === "+" || e.key === "=") {
     e.preventDefault();
     zoomIn();
@@ -158,37 +212,166 @@ const onBackdropClick = (e: MouseEvent) => {
 };
 
 const onPointerDown = (e: PointerEvent) => {
-  if (!isZoomed.value) return;
-  if (e.pointerType === "touch" && !e.isPrimary) return;
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
-  isDragging.value = true;
-  didDrag = false;
-  dragStartX = e.clientX;
-  dragStartY = e.clientY;
-  dragStartTranslateX = translateX.value;
-  dragStartTranslateY = translateY.value;
+  if (pointers.size === 1) {
+    startedOnImage = e.target === imageRef.value?.imgEl;
+    multiTouched = false;
+    didDrag = false;
+    gestureStartX = e.clientX;
+    gestureStartY = e.clientY;
+    gestureStartTime = e.timeStamp;
+    if (isZoomed.value && startedOnImage) {
+      gesture = "drag";
+      isDragging.value = true;
+      isGesturing.value = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragStartTranslateX = translateX.value;
+      dragStartTranslateY = translateY.value;
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+      e.preventDefault();
+    } else {
+      // 等倍でキャプチャすると互換 click までキャプチャ要素へリターゲットされ、背景クリック判定が壊れる
+      gesture = hasMultiple.value && e.pointerType !== "mouse" ? "swipe" : "none";
+    }
+    return;
+  }
 
-  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  if (pointers.size !== 2) return;
+
+  const [a, b] = [...pointers.values()];
+  if (!a || !b) return;
+  const distance = Math.hypot(b.x - a.x, b.y - a.y);
+  if (distance < 1) {
+    pointers.delete(e.pointerId);
+    return;
+  }
+  lastDistance = distance;
+  lastCenterX = (a.x + b.x) / 2;
+  lastCenterY = (a.y + b.y) / 2;
+  gesture = "pinch";
+  multiTouched = true;
+  didDrag = true;
+  isDragging.value = false;
+  isGesturing.value = true;
+  const target = e.currentTarget as HTMLElement;
+  for (const id of pointers.keys()) target.setPointerCapture(id);
   e.preventDefault();
 };
 
 const onPointerMove = (e: PointerEvent) => {
-  if (!isDragging.value) return;
+  const point = pointers.get(e.pointerId);
+  if (!point) return;
+  point.x = e.clientX;
+  point.y = e.clientY;
 
-  const dx = (e.clientX - dragStartX) / scale.value;
-  const dy = (e.clientY - dragStartY) / scale.value;
+  if (gesture === "pinch") {
+    const [a, b] = [...pointers.values()];
+    if (!a || !b) return;
+    const distance = Math.hypot(b.x - a.x, b.y - a.y);
+    if (distance < 1) return;
+    const centerX = (a.x + b.x) / 2;
+    const centerY = (a.y + b.y) / 2;
+    zoomAt(scale.value * (distance / lastDistance), centerX, centerY);
+    translateX.value += (centerX - lastCenterX) / scale.value;
+    translateY.value += (centerY - lastCenterY) / scale.value;
+    clampTranslate();
+    lastDistance = distance;
+    lastCenterX = centerX;
+    lastCenterY = centerY;
+    return;
+  }
 
-  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+  if (Math.abs(e.clientX - gestureStartX) > DRAG_SLOP || Math.abs(e.clientY - gestureStartY) > DRAG_SLOP) {
     didDrag = true;
   }
 
-  translateX.value = dragStartTranslateX + dx;
-  translateY.value = dragStartTranslateY + dy;
+  if (gesture !== "drag") return;
+  translateX.value = dragStartTranslateX + (e.clientX - dragStartX) / scale.value;
+  translateY.value = dragStartTranslateY + (e.clientY - dragStartY) / scale.value;
   clampTranslate();
 };
 
-const onPointerUp = () => {
+const onPointerUp = (e: PointerEvent) => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.delete(e.pointerId);
+
+  if (gesture === "swipe" && e.type === "pointerup" && !multiTouched) {
+    const dx = e.clientX - gestureStartX;
+    const dy = e.clientY - gestureStartY;
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) && e.timeStamp - gestureStartTime < SWIPE_MAX_MS) {
+      didDrag = true;
+      if (dx < 0) next();
+      else prev();
+    }
+  }
+
+  if (pointers.size === 1) {
+    const [rest] = [...pointers.values()];
+    if (!rest) return;
+    dragStartX = rest.x;
+    dragStartY = rest.y;
+    dragStartTranslateX = translateX.value;
+    dragStartTranslateY = translateY.value;
+    gestureStartX = rest.x;
+    gestureStartY = rest.y;
+    gesture = isZoomed.value ? "drag" : "none";
+    isDragging.value = gesture === "drag";
+    didDrag = true;
+    return;
+  }
+
+  if (pointers.size > 0) return;
+
   isDragging.value = false;
+  isGesturing.value = false;
+  // 画像上のタップは拡大縮小に使うので、背景クリックによるクローズへ落とさない
+  if (startedOnImage) didDrag = true;
+
+  const isTap =
+    e.type === "pointerup" &&
+    e.button === 0 &&
+    !multiTouched &&
+    startedOnImage &&
+    gesture !== "pinch" &&
+    Math.abs(e.clientX - gestureStartX) <= TAP_SLOP &&
+    Math.abs(e.clientY - gestureStartY) <= TAP_SLOP &&
+    e.timeStamp - gestureStartTime < TAP_MAX_MS;
+  gesture = "none";
+
+  if (!isTap) {
+    lastTapTime = 0;
+    return;
+  }
+
+  if (
+    e.timeStamp - lastTapTime < DOUBLE_TAP_MS &&
+    Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY) < DOUBLE_TAP_DISTANCE
+  ) {
+    lastTapTime = 0;
+    if (isZoomed.value) resetZoom();
+    else zoomAt(DOUBLE_TAP_SCALE, e.clientX, e.clientY);
+    return;
+  }
+
+  lastTapTime = e.timeStamp;
+  lastTapX = e.clientX;
+  lastTapY = e.clientY;
+};
+
+const onWheel = (e: WheelEvent) => {
+  const content = contentRef.value;
+  if (!content) return;
+  // Firefox の物理ホイールは DOM_DELTA_LINE で deltaY が 3 程度しかないため単位を揃える
+  const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? content.clientHeight : 1;
+  const sensitivity = e.ctrlKey ? PINCH_WHEEL_ZOOM_SENSITIVITY : WHEEL_ZOOM_SENSITIVITY;
+  zoomAt(scale.value * Math.exp(-e.deltaY * unit * sensitivity), e.clientX, e.clientY);
+  isGesturing.value = true;
+  clearTimeout(wheelIdleTimer);
+  wheelIdleTimer = setTimeout(() => {
+    isGesturing.value = false;
+  }, WHEEL_IDLE_MS);
 };
 
 watch(
@@ -198,11 +381,23 @@ watch(
       nextTick(() => {
         dialogRef.value?.showModal();
       });
-    } else {
-      resetZoom();
+      return;
     }
+    // 指を置いたまま閉じると pointerup が届かず pointers に ID が残り、次に開いたとき 1 本でピンチ判定になる
+    resetZoom();
+    pointers.clear();
+    gesture = "none";
+    startedOnImage = false;
+    multiTouched = false;
+    didDrag = false;
+    lastTapTime = 0;
+    isDragging.value = false;
+    isGesturing.value = false;
+    clearTimeout(wheelIdleTimer);
   }
 );
+
+onScopeDispose(() => clearTimeout(wheelIdleTimer));
 </script>
 
 <template>
@@ -213,15 +408,22 @@ watch(
         ref="dialog"
         class="lightbox-overlay"
         aria-label="画像拡大表示"
+        :aria-describedby="hintId"
         @cancel.prevent="close"
         @keydown="onKeydown"
         @click="onBackdropClick"
       >
+        <p :id="hintId" class="visually-hidden">{{ keyboardHint }}</p>
         <div
           ref="content"
           class="lightbox-content"
           :class="{ 'is-zoomed': isZoomed }"
           @click="onBackdropClick"
+          @pointerdown="onPointerDown"
+          @pointermove="onPointerMove"
+          @pointerup="onPointerUp"
+          @pointercancel="onPointerUp"
+          @wheel.prevent="onWheel"
         >
           <NuxtImg
             v-if="currentImage"
@@ -229,13 +431,9 @@ watch(
             :src="`/images/${currentImage.src}`"
             :alt="currentImage.alt"
             class="lightbox-image"
-            :class="{ 'is-dragging': isDragging }"
+            :class="{ 'is-dragging': isDragging, 'is-gesturing': isGesturing }"
             :style="{ transform: imageTransform, viewTransitionName: 'lightbox-img' }"
             draggable="false"
-            @pointerdown="onPointerDown"
-            @pointermove="onPointerMove"
-            @pointerup="onPointerUp"
-            @pointercancel="onPointerUp"
           />
         </div>
         <button type="button" class="lightbox-close" aria-label="閉じる" @click="close">
@@ -338,6 +536,8 @@ watch(
   width: 100%;
   min-height: 0;
   padding: 1rem;
+  touch-action: none;
+  user-select: none;
 }
 
 .lightbox-content.is-zoomed {
@@ -348,7 +548,6 @@ watch(
   max-width: 100%;
   max-height: 100%;
   touch-action: none;
-  user-select: none;
   object-fit: contain;
   border-radius: var(--radius-sm);
   transition: transform var(--lightbox-zoom-duration) ease;
@@ -356,6 +555,10 @@ watch(
 
 .lightbox-image.is-dragging {
   cursor: grabbing;
+}
+
+/* ピンチとホイールは指やカーソルに追従させる。補間の途中値では焦点が固定されない */
+.lightbox-image.is-gesturing {
   transition: none;
 }
 
