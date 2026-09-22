@@ -216,6 +216,36 @@
   }
 }
 
+@media (prefers-contrast: more) {
+  :root {
+    --text-muted: 0.436 0.018 70;
+    --text-faint: 0.539 0.018 70;
+    --accent: 0.438 0.144 255;
+    --highlight: 0.539 0.11 90;
+    --border: 0.638 0.012 70;
+    --focus-ring: 0.438 0.144 255;
+    --focus-ring-width: 3px;
+    --border-width-hairline: 2px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-muted: 0.775 0.016 70;
+      --text-faint: 0.739 0.016 70;
+      --accent: 0.76 0.115 255;
+      --highlight: 0.81 0.13 90;
+      --border: 0.525 0.01 70;
+      --focus-ring: 0.79 0.105 255;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --border-width-hairline: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
@@ -392,6 +422,12 @@ a {
   mask-size: contain;
 }
 
+@media (forced-colors: active) {
+  :is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+    background-color: LinkText;
+  }
+}
+
 ul {
   padding-left: 1rem;
 }
@@ -515,6 +551,72 @@ ul {
   font-size: 1rem;
   cursor: pointer;
   border-radius: var(--radius-sm);
+}
+
+@media (prefers-contrast: more) {
+  .surface-card,
+  .surface-button {
+    border-color: oklch(var(--text-muted));
+    border-width: max(var(--border-width), 2px);
+  }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+  }
+
+  .underline,
+  :is(p, li, table) a {
+    text-decoration-thickness: 2px;
+    text-decoration-style: solid;
+  }
+}
+
+@media (forced-colors: active) {
+  .surface-card {
+    border-color: CanvasText;
+  }
+
+  .surface-button {
+    border-color: ButtonBorder;
+  }
+
+  .chip-button {
+    border: max(var(--border-width), 2px) solid ButtonBorder;
+  }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid CanvasText;
+  }
+
+  .record-item:not(:last-child) {
+    border-bottom-color: CanvasText;
+  }
+
+  [aria-pressed="true"],
+  [aria-selected="true"] {
+    outline: max(var(--border-width), 2px) solid ButtonText;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
+  }
+
+  ::selection {
+    color: HighlightText;
+    background-color: Highlight;
+  }
+}
+
+@media (forced-colors: active) and (hover: hover) {
+  .surface-card:hover,
+  .surface-button:hover {
+    outline: max(var(--border-width), 2px) solid Highlight;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
+  }
+
+  .underline:hover,
+  :is(p, li, table) a:hover {
+    text-decoration-style: solid;
+  }
 }
 
 .thumb-card {

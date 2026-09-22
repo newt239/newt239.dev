@@ -114,6 +114,17 @@ const snsLinks = [
       background-color: oklch(var(--surface-hover));
     }
 
+    @media (prefers-contrast: more) {
+      border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+    }
+
+    @media (forced-colors: active) {
+      color: CanvasText;
+      background-color: Canvas;
+      background-image: none;
+      border: max(var(--border-width), 2px) solid CanvasText;
+    }
+
     @media (hover: hover) {
       &:hover {
         .more-detail-button {
@@ -123,6 +134,11 @@ const snsLinks = [
           @media (prefers-color-scheme: dark) {
             color: oklch(var(--surface-hover));
             background-color: oklch(var(--text));
+          }
+
+          @media (forced-colors: active) {
+            outline: max(var(--border-width), 2px) solid Highlight;
+            outline-offset: var(--focus-ring-offset);
           }
         }
       }

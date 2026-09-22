@@ -681,4 +681,78 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
 .lightbox-leave-to {
   opacity: 0;
 }
+
+/* stylelint-disable-next-line plugin/use-baseline */
+@media (prefers-reduced-transparency: reduce) {
+  .lightbox-overlay,
+  .lightbox-controls {
+    background: rgb(0 0 0);
+  }
+
+  .lightbox-close {
+    background: rgb(48 48 48);
+  }
+
+  .lightbox-btn {
+    background: rgb(64 64 64);
+  }
+
+  .lightbox-btn[aria-disabled="true"] {
+    color: rgb(140 140 140);
+    opacity: 1;
+  }
+
+  .lightbox-counter,
+  .lightbox-zoom-level {
+    color: rgb(255 255 255);
+  }
+
+  @media (hover: hover) {
+    .lightbox-close:hover {
+      background: rgb(72 72 72);
+    }
+
+    .lightbox-btn:hover:not([aria-disabled="true"]) {
+      background: rgb(96 96 96);
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .lightbox-overlay {
+    background: Canvas;
+  }
+
+  .lightbox-controls {
+    background: Canvas;
+    border: max(var(--border-width), 2px) solid CanvasText;
+  }
+
+  .lightbox-close,
+  .lightbox-btn {
+    color: ButtonText;
+    background: ButtonFace;
+    border: max(var(--border-width), 2px) solid ButtonBorder;
+  }
+
+  .lightbox-btn[aria-disabled="true"] {
+    color: GrayText;
+    border-color: GrayText;
+    opacity: 1;
+  }
+
+  .lightbox-counter,
+  .lightbox-zoom-level {
+    color: CanvasText;
+  }
+
+  @media (hover: hover) {
+    .lightbox-close:hover,
+    .lightbox-btn:hover:not([aria-disabled="true"]) {
+      outline: max(var(--border-width), 2px) solid Highlight;
+      outline-offset: calc(max(var(--border-width), 2px) * -3);
+    }
+  }
+}
+
 </style>

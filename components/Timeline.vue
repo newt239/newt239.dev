@@ -111,6 +111,19 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
         background: oklch(var(--surface));
       }
     }
+
+    @media (prefers-contrast: more) {
+      .item-title {
+        text-decoration-thickness: 2px;
+        text-decoration-style: solid;
+      }
+    }
+
+    @media (forced-colors: active) and (hover: hover) {
+      &:hover .item-title {
+        text-decoration-style: solid;
+      }
+    }
   }
 }
 </style>

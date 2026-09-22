@@ -170,6 +170,21 @@ header {
   }
 }
 
+/* stylelint-disable-next-line plugin/use-baseline */
+@media (prefers-reduced-transparency: reduce) {
+  header {
+    background-color: oklch(var(--bg));
+    backdrop-filter: none;
+  }
+}
+
+@media (forced-colors: active) {
+  header {
+    background-color: Canvas;
+    backdrop-filter: none;
+  }
+}
+
 @keyframes header-icon-spin {
   to {
     rotate: var(--header-icon-spin-turns);

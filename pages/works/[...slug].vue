@@ -291,6 +291,14 @@ const closeLightbox = async () => {
       background: oklch(var(--surface));
       border-radius: var(--radius-xs);
 
+      @media (prefers-contrast: more) {
+        border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+      }
+
+      @media (forced-colors: active) {
+        border: max(var(--border-width), 2px) solid CanvasText;
+      }
+
       @supports (text-box-trim: trim-both) {
         text-box: trim-both text text;
         padding-block: 0.5rem;
