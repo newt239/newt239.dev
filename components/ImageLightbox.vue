@@ -725,14 +725,14 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
 
   .lightbox-controls {
     background: Canvas;
-    border: var(--border-width-hairline) solid CanvasText;
+    border: max(var(--border-width), 2px) solid CanvasText;
   }
 
   .lightbox-close,
   .lightbox-btn {
     color: ButtonText;
     background: ButtonFace;
-    border: var(--border-width-hairline) solid ButtonBorder;
+    border: max(var(--border-width), 2px) solid ButtonBorder;
   }
 
   .lightbox-btn[aria-disabled="true"] {
@@ -749,8 +749,8 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
   @media (hover: hover) {
     .lightbox-close:hover,
     .lightbox-btn:hover:not([aria-disabled="true"]) {
-      color: HighlightText;
-      background: Highlight;
+      outline: max(var(--border-width), 2px) solid Highlight;
+      outline-offset: calc(max(var(--border-width), 2px) * -3);
     }
   }
 }

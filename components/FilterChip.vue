@@ -32,12 +32,6 @@ defineProps<{
   &.active {
     color: oklch(var(--bg));
     background: oklch(var(--text));
-
-    @media (forced-colors: active) {
-      color: HighlightText;
-      background: Highlight;
-      border-color: Highlight;
-    }
   }
 
   .filter-chip-icon {

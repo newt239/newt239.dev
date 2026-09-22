@@ -306,11 +306,5 @@ const onTouchEnd = () => {
       opacity: var(--hover-opacity);
     }
   }
-
-  @media (forced-colors: active) {
-    color: HighlightText;
-    background: Highlight;
-    border-color: Highlight;
-  }
 }
 </style>

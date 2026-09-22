@@ -561,8 +561,18 @@ ul {
   }
 
   .chip-button {
-    outline: var(--border-width-hairline) solid ButtonBorder;
-    outline-offset: calc(var(--border-width-hairline) * -1);
+    border: max(var(--border-width), 2px) solid ButtonBorder;
+  }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid CanvasText;
+  }
+
+  [aria-pressed="true"],
+  [aria-selected="true"] {
+    outline: max(var(--border-width), 2px) solid ButtonText;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
   }
 
   ::selection {
@@ -574,7 +584,8 @@ ul {
 @media (forced-colors: active) and (hover: hover) {
   .surface-card:hover,
   .surface-button:hover {
-    border-color: Highlight;
+    outline: max(var(--border-width), 2px) solid Highlight;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
   }
 }
 

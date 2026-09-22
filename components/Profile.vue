@@ -118,7 +118,7 @@ const snsLinks = [
       color: CanvasText;
       background-color: Canvas;
       background-image: none;
-      border: var(--border-width-hairline) solid CanvasText;
+      border: max(var(--border-width), 2px) solid CanvasText;
     }
 
     @media (hover: hover) {
