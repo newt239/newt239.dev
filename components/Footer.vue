@@ -63,6 +63,10 @@ const externalLinks = [
     border-top-color: oklch(var(--border));
   }
 
+  @media print {
+    display: none;
+  }
+
   ul {
     display: flex;
     flex-wrap: wrap;

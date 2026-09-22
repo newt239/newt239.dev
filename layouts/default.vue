@@ -33,12 +33,21 @@ if (import.meta.client) {
   @media (prefers-reduced-motion: reduce) {
     display: none;
   }
+
+  @media print {
+    display: none;
+  }
 }
 
 .wrapper {
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
+
+  /* ページメディアでは vh がページボックス高になり、main だけで 1 ページを占有する */
+  @media print {
+    min-height: auto;
+  }
 }
 
 #main-content:focus {
@@ -61,5 +70,11 @@ if (import.meta.client) {
 
 .skip-link:focus {
   translate: 0 0;
+}
+
+@media print {
+  .skip-link {
+    display: none;
+  }
 }
 </style>

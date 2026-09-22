@@ -58,6 +58,17 @@ const formattedDate = computed(() =>
   gap: 0;
   overflow: hidden;
   view-transition-class: list-card;
+
+  /* subgrid のままだと ::after が 3 つ目のグリッドアイテムとして入り崩れる */
+  @media print {
+    display: block;
+    break-inside: avoid;
+
+    &::after {
+      display: block;
+      padding: 0 1rem 0.75rem;
+    }
+  }
 }
 
 .site-info {

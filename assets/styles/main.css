@@ -246,6 +246,22 @@
   }
 }
 
+/* AI テーマが :root へインラインで書き込むため、紙面用パレットは !important でしか戻せない */
+@media print {
+  :root {
+    --text: 0.22 0.014 70 !important;
+    --text-muted: 0.436 0.018 70 !important;
+    --text-faint: 0.539 0.018 70 !important;
+    --bg: 1 0 0 !important;
+    --accent: 0.438 0.144 255 !important;
+    --accent-dark: 0.396 0.095 255 !important;
+    --highlight: 0.539 0.11 90 !important;
+    --surface: 1 0 0 !important;
+    --surface-hover: 1 0 0 !important;
+    --border: 0.638 0.012 70 !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
@@ -409,17 +425,20 @@ a {
   }
 }
 
-:is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
-  display: inline-block;
-  width: var(--external-link-icon-size);
-  height: var(--external-link-icon-size);
-  margin-left: var(--external-link-icon-gap);
-  vertical-align: var(--external-link-icon-shift);
-  content: "";
-  background-color: currentcolor;
-  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
-  mask-repeat: no-repeat;
-  mask-size: contain;
+/* 印刷では同じ役割を URL 併記が担うため、アイコンは画面に限定する */
+@media screen {
+  :is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+    display: inline-block;
+    width: var(--external-link-icon-size);
+    height: var(--external-link-icon-size);
+    margin-left: var(--external-link-icon-gap);
+    vertical-align: var(--external-link-icon-shift);
+    content: "";
+    background-color: currentcolor;
+    mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M12%206h-6a2%202%200%200%200%20-2%202v10a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-6'/%3E%3Cpath%20d='M11%2013l9%20-9'/%3E%3Cpath%20d='M15%204h5v5'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
 }
 
 @media (forced-colors: active) {
@@ -729,6 +748,66 @@ ul {
   white-space: nowrap;
   border: 0;
   clip-path: inset(50%);
+}
+
+@media print {
+  .surface-card,
+  .surface-button {
+    border-color: oklch(var(--border));
+  }
+
+  .record-list,
+  .section-body {
+    border: var(--border-width-hairline) solid oklch(var(--border));
+  }
+
+  .surface-card,
+  .record-item {
+    break-inside: avoid;
+  }
+
+  .line-clamp {
+    display: block;
+    overflow: visible;
+  }
+
+  .see-all-card {
+    display: none;
+  }
+
+  /* 交差前は color: transparent、交差後も animation-delay 消化前は 0% フレームが透明 */
+  .colorful-heading:not(.is-visible) .colorful-heading__char,
+  .colorful-heading.is-visible .colorful-heading__char {
+    color: inherit;
+    animation: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  /* 画面のアイコンと違い newt239.dev のサブドメインも除外しない。紙面では自サイトでも辿れないため */
+  a[href^="http"]::after {
+    font-size: 0.75rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    content: " (" attr(href) ")";
+  }
+
+  .thumb-card::after {
+    padding: 0 1rem 0.75rem;
+  }
+
+  .record-item {
+    flex-wrap: wrap;
+
+    &::after {
+      flex-basis: 100%;
+    }
+  }
 }
 
 ::view-transition-group(*),

@@ -48,6 +48,14 @@ const trackList = computed(() => data.value?.slice(0, 12) ?? []);
   display: flex;
   gap: 0.75rem;
   padding: 0.75rem;
+
+  @media print {
+    flex-wrap: wrap;
+
+    &::after {
+      flex-basis: 100%;
+    }
+  }
 }
 
 .track-thumbnail {

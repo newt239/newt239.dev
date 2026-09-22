@@ -312,6 +312,17 @@ const links = [
           text-decoration-style: solid;
         }
       }
+
+      @media print {
+        display: block;
+
+        /* inline-block にしないと .link-card の下線が ::after にも伝播する */
+        &::after {
+          display: inline-block;
+          width: 100%;
+          color: oklch(var(--text-muted));
+        }
+      }
     }
   }
 }

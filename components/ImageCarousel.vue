@@ -113,7 +113,7 @@ const onTouchEnd = () => {
         ref="track"
         class="carousel-track"
         :class="{ 'no-transition': instant }"
-        :style="{ transform: `translateX(-${index * 100}%)` }"
+        :style="{ '--carousel-offset': `-${index * 100}%` }"
         @touchstart.passive="onTouchStart"
         @touchmove.passive="onTouchMove"
         @touchend="onTouchEnd"
@@ -201,6 +201,7 @@ const onTouchEnd = () => {
 .carousel-track {
   display: flex;
   height: 100%;
+  transform: translateX(var(--carousel-offset, 0%));
   transition: transform var(--carousel-slide-duration) ease;
 
   &.no-transition {
@@ -305,6 +306,45 @@ const onTouchEnd = () => {
     &:hover {
       opacity: var(--hover-opacity);
     }
+  }
+}
+
+@media print {
+  .carousel-viewport {
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .carousel-track {
+    display: block;
+    height: auto;
+    transform: none;
+  }
+
+  .carousel-slide {
+    height: auto;
+    break-inside: avoid;
+
+    &:not(:first-child) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .carousel-image-button {
+    height: auto;
+  }
+
+  .carousel-image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+
+  .carousel-controls {
+    display: none;
   }
 }
 </style>

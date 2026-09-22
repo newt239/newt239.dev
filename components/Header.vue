@@ -185,6 +185,14 @@ header {
   }
 }
 
+@media print {
+  header {
+    position: static;
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+}
+
 @keyframes header-icon-spin {
   to {
     rotate: var(--header-icon-spin-turns);

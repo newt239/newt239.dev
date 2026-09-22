@@ -125,6 +125,13 @@ const snsLinks = [
       border: max(var(--border-width), 2px) solid CanvasText;
     }
 
+    @media print {
+      color: oklch(var(--text));
+      background-color: transparent;
+      background-image: none;
+      border: var(--border-width-hairline) solid oklch(var(--border));
+    }
+
     @media (hover: hover) {
       &:hover {
         .more-detail-button {
@@ -196,6 +203,10 @@ const snsLinks = [
       color: oklch(var(--text));
       border-color: oklch(var(--text));
     }
+
+    @media print {
+      display: none;
+    }
   }
 
   .sns-links {
@@ -219,6 +230,12 @@ const snsLinks = [
       justify-content: space-between;
       padding: 0.5rem 1rem;
       font-weight: 800;
+
+      @media print {
+        &::after {
+          width: 100%;
+        }
+      }
     }
   }
 
