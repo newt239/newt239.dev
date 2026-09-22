@@ -559,6 +559,17 @@ ul {
     border-color: oklch(var(--text-muted));
     border-width: max(var(--border-width), 2px);
   }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+  }
+
+  .underline,
+  :is(p, li, table) a {
+    text-decoration-thickness: 2px;
+    text-decoration-style: solid;
+  }
 }
 
 @media (forced-colors: active) {

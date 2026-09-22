@@ -302,6 +302,11 @@ const links = [
         }
       }
 
+      @media (prefers-contrast: more) {
+        text-decoration-thickness: 2px;
+        text-decoration-style: solid;
+      }
+
       @media (forced-colors: active) and (hover: hover) {
         &:hover {
           text-decoration-style: solid;

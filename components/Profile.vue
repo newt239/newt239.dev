@@ -114,6 +114,10 @@ const snsLinks = [
       background-color: oklch(var(--surface-hover));
     }
 
+    @media (prefers-contrast: more) {
+      border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+    }
+
     @media (forced-colors: active) {
       color: CanvasText;
       background-color: Canvas;
