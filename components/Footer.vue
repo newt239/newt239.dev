@@ -54,6 +54,15 @@ const externalLinks = [
   padding-top: 1.5rem;
   border-top: var(--border-width-hairline) solid oklch(var(--text-muted) / 15%);
 
+  /* stylelint-disable-next-line plugin/use-baseline */
+  @media (prefers-reduced-transparency: reduce) {
+    border-top-color: oklch(var(--text-muted));
+  }
+
+  @media (prefers-contrast: more) {
+    border-top-color: oklch(var(--border));
+  }
+
   ul {
     display: flex;
     flex-wrap: wrap;

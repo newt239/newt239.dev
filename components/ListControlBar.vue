@@ -128,6 +128,10 @@ const apply = async () => {
     border-block-width: var(--border-width);
   }
 
+  @media (prefers-contrast: more) {
+    border-color: oklch(var(--border));
+  }
+
   @media (width <= 37.5rem) {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -188,6 +192,10 @@ const apply = async () => {
     width: 100%;
     border-top: var(--border-width) solid oklch(var(--surface));
     border-left: none;
+  }
+
+  @media (prefers-contrast: more) {
+    border-color: oklch(var(--border));
   }
 }
 

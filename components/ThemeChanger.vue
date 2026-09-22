@@ -192,6 +192,21 @@ dialog {
       }
     }
   }
+
+  /* stylelint-disable-next-line plugin/use-baseline */
+  @media (prefers-reduced-transparency: reduce) {
+    &[open]::backdrop {
+      background-color: oklch(var(--text));
+      backdrop-filter: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    &[open]::backdrop {
+      background-color: Canvas;
+      backdrop-filter: none;
+    }
+  }
 }
 
 .modal-header {
@@ -342,6 +357,12 @@ dialog {
   @media (prefers-reduced-motion: no-preference) {
     &.is-generating::before {
       animation: theme-generating-beam var(--theme-beam-duration) linear infinite;
+    }
+  }
+
+  @media (forced-colors: active) {
+    &::before {
+      display: none;
     }
   }
 

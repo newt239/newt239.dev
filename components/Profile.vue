@@ -114,6 +114,13 @@ const snsLinks = [
       background-color: oklch(var(--surface-hover));
     }
 
+    @media (forced-colors: active) {
+      color: CanvasText;
+      background-color: Canvas;
+      background-image: none;
+      border: var(--border-width-hairline) solid CanvasText;
+    }
+
     @media (hover: hover) {
       &:hover {
         .more-detail-button {

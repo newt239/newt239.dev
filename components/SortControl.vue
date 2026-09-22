@@ -73,6 +73,12 @@ const emit = defineEmits<{
     font-weight: 800;
     color: oklch(var(--bg));
     background: oklch(var(--text));
+
+    @media (forced-colors: active) {
+      color: HighlightText;
+      background: Highlight;
+      border-color: Highlight;
+    }
   }
 
   .sort-segment-icon {

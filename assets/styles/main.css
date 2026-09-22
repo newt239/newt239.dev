@@ -216,6 +216,26 @@
   }
 }
 
+@media (prefers-contrast: more) {
+  :root {
+    --text-muted: 0.436 0.018 70;
+    --text-faint: 0.539 0.018 70;
+    --accent: 0.438 0.144 255;
+    --highlight: 0.539 0.11 90;
+    --border: 0.638 0.012 70;
+    --focus-ring: 0.438 0.144 255;
+    --focus-ring-width: 3px;
+    --border-width-hairline: 2px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-faint: 0.739 0.016 70;
+      --border: 0.525 0.01 70;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition: none;
@@ -392,6 +412,12 @@ a {
   mask-size: contain;
 }
 
+@media (forced-colors: active) {
+  :is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+    background-color: LinkText;
+  }
+}
+
 ul {
   padding-left: 1rem;
 }
@@ -515,6 +541,41 @@ ul {
   font-size: 1rem;
   cursor: pointer;
   border-radius: var(--radius-sm);
+}
+
+@media (prefers-contrast: more) {
+  .surface-card,
+  .surface-button {
+    border-color: oklch(var(--text-muted));
+    border-width: max(var(--border-width), 2px);
+  }
+}
+
+@media (forced-colors: active) {
+  .surface-card {
+    border-color: CanvasText;
+  }
+
+  .surface-button {
+    border-color: ButtonBorder;
+  }
+
+  .chip-button {
+    outline: var(--border-width-hairline) solid ButtonBorder;
+    outline-offset: calc(var(--border-width-hairline) * -1);
+  }
+
+  ::selection {
+    color: HighlightText;
+    background-color: Highlight;
+  }
+}
+
+@media (forced-colors: active) and (hover: hover) {
+  .surface-card:hover,
+  .surface-button:hover {
+    border-color: Highlight;
+  }
 }
 
 .thumb-card {
