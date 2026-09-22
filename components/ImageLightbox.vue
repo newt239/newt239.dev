@@ -525,6 +525,10 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
   &::backdrop {
     background: none;
   }
+
+  @media print {
+    display: none;
+  }
 }
 
 /* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */

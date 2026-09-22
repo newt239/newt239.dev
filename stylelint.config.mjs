@@ -17,6 +17,8 @@ export default {
           "/^view-transition-/": anyValue,
           "/^overscroll-behavior/": anyValue,
           "backdrop-filter": anyValue,
+          // @media print だけで使う。非対応ブラウザでは見出しの孤立が残るだけで紙面は壊れない
+          "break-after": ["avoid"],
           "corner-shape": anyValue,
           "scrollbar-gutter": anyValue,
           "text-box": anyValue,

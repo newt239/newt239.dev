@@ -43,6 +43,10 @@ useSeoMeta({ robots: "noindex" });
   min-height: calc(100dvh - var(--header-height));
   text-align: center;
 
+  @media print {
+    min-height: auto;
+  }
+
   .status-code {
     margin: 0;
     font-size: clamp(min(4rem, 20vw), 2rem + 5vw, 6rem);
@@ -67,6 +71,10 @@ useSeoMeta({ robots: "noindex" });
   .error-actions {
     width: 100%;
     padding: 1rem 0 0;
+
+    @media print {
+      display: none;
+    }
   }
 }
 </style>

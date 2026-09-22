@@ -80,6 +80,10 @@ const apply = async () => {
 <style scoped>
 .list-controls {
   display: contents;
+
+  @media print {
+    display: none;
+  }
 }
 
 .list-controls-toggle {

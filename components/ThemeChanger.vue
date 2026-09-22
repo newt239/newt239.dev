@@ -132,6 +132,10 @@ const onDialogClose = () => {
   width: var(--tap-target-size);
   height: var(--tap-target-size);
 
+  @media print {
+    display: none;
+  }
+
   svg {
     width: var(--tap-target-icon-size);
     height: var(--tap-target-icon-size);
@@ -142,6 +146,10 @@ dialog {
   padding: 0;
   transition: all var(--dialog-transition-duration);
   transition-behavior: allow-discrete;
+
+  @media print {
+    display: none;
+  }
 
   .modal-content {
     --modal-padding: min(2rem, 5vw);

@@ -239,7 +239,8 @@ const closeLightbox = async () => {
       }
     }
 
-    @media (width <= 48rem) {
+    /* A4 縦の印刷幅は約 49.6rem で 48rem にマッチしない */
+    @media print, (width <= 48rem) {
       flex-direction: column;
       gap: 1rem;
 
@@ -299,6 +300,10 @@ const closeLightbox = async () => {
         border: max(var(--border-width), 2px) solid CanvasText;
       }
 
+      @media print {
+        border: var(--border-width-hairline) solid oklch(var(--border));
+      }
+
       @supports (text-box-trim: trim-both) {
         text-box: trim-both text text;
         padding-block: 0.5rem;
@@ -312,6 +317,10 @@ const closeLightbox = async () => {
     gap: 1rem;
     align-items: stretch;
     padding: 2rem 0 1rem;
+
+    @media print {
+      display: none;
+    }
 
     @media (width <= 48rem) {
       grid-template-columns: auto minmax(0, 1fr) auto;
@@ -431,6 +440,13 @@ const closeLightbox = async () => {
       color: oklch(var(--bg));
       letter-spacing: 0;
       background-color: oklch(var(--text));
+
+      @media print {
+        padding: 0 0 0.25rem;
+        color: oklch(var(--text));
+        background-color: transparent;
+        border-bottom: var(--border-width) solid oklch(var(--text));
+      }
     }
 
     h3 {

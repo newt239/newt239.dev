@@ -15,5 +15,9 @@ import { IconChevronLeft } from "@tabler/icons-vue";
 .back-to-top {
   padding: 2rem 0 1rem;
   text-align: center;
+
+  @media print {
+    display: none;
+  }
 }
 </style>
