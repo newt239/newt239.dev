@@ -230,9 +230,19 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
+      --text-muted: 0.775 0.016 70;
       --text-faint: 0.739 0.016 70;
+      --accent: 0.76 0.115 255;
+      --highlight: 0.81 0.13 90;
       --border: 0.525 0.01 70;
+      --focus-ring: 0.79 0.105 255;
     }
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --border-width-hairline: 2px;
   }
 }
 
@@ -569,6 +579,10 @@ ul {
     border: max(var(--border-width), 2px) solid CanvasText;
   }
 
+  .record-item:not(:last-child) {
+    border-bottom-color: CanvasText;
+  }
+
   [aria-pressed="true"],
   [aria-selected="true"] {
     outline: max(var(--border-width), 2px) solid ButtonText;
@@ -586,6 +600,11 @@ ul {
   .surface-button:hover {
     outline: max(var(--border-width), 2px) solid Highlight;
     outline-offset: calc(max(var(--border-width), 2px) * -3);
+  }
+
+  .underline:hover,
+  :is(p, li, table) a:hover {
+    text-decoration-style: solid;
   }
 }
 

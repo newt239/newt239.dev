@@ -131,6 +131,11 @@ const snsLinks = [
             color: oklch(var(--surface-hover));
             background-color: oklch(var(--text));
           }
+
+          @media (forced-colors: active) {
+            outline: max(var(--border-width), 2px) solid Highlight;
+            outline-offset: var(--focus-ring-offset);
+          }
         }
       }
     }

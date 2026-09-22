@@ -277,6 +277,10 @@ const links = [
 
       &:not(:last-child) {
         border-bottom: var(--border-width-hairline) solid oklch(var(--border));
+
+        @media (forced-colors: active) {
+          border-bottom-color: CanvasText;
+        }
       }
 
       /* 親の .link-list が overflow: hidden なので外側に描くとリングが完全に隠れる */
@@ -295,6 +299,12 @@ const links = [
       @media (hover: none) {
         &:active {
           background: oklch(var(--surface));
+        }
+      }
+
+      @media (forced-colors: active) and (hover: hover) {
+        &:hover {
+          text-decoration-style: solid;
         }
       }
     }
