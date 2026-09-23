@@ -14,7 +14,7 @@ AI Agents がこのリポジトリで作業するときのガイダンス。
 - 本番 <https://newt239.dev> をブラウザで開くときは `?analytics=off` 付きの URL から始める（同じタブ内なら 1 回でよい）
 - 関数はアロー関数で定義する
 - 関数を不用意に増やさない。3 行以下、または呼び出しが 3 回以下の関数はインライン化を検討する。テストのためだけに切り出すことは禁止で、テストは公開インターフェースに対して書く
-- ファイル名は中身と一致させる（`constants.ts` に関数を置かない）
+- ファイル名は中身と一致させる
 
 ## プロジェクト概要
 
@@ -33,11 +33,10 @@ pnpm run icons         # PWA アイコンの生成（public/icon.png の差し�
 pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA スクリーンショット用）
 ```
 
-`og` / `llms` / `icons` は CI では実行しない。ローカルで実行し、生成物ごとコミットする。
+`og` / `llms` / `icons` はローカルで実行し、生成物ごとコミットする。
 
-- pnpm と Node.js を使う。`npm` / `yarn` / `bun` は使わない
-- バージョンは `package.json` の `packageManager` と `devEngines.runtime` だけで固定する。`.node-version` や `mise.toml` は置かない
-- pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置く（`.npmrc` は使わない）
+- pnpm と Node のバージョンは `package.json` の `packageManager` と `devEngines.runtime` だけで固定する
+- pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置く
   - `saveExact` で完全固定する。`minimumReleaseAge` は 7 日
   - postinstall を持つ依存は `allowBuilds` に足す。足さないと `ERR_PNPM_IGNORED_BUILDS` になる
 - `scripts/` の TS は Node のネイティブ実行で動く。相対 import には `.ts` 拡張子が必須
@@ -55,7 +54,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - [site.ts](libs/site.ts) は `siteUrl` / `siteName`。直書きしない
   - [period.ts](libs/period.ts) は `period` の表示整形（OG 画像生成でも使う）
 - 並び順は配列の記述順に頼らず、使う側で日付の降順に並べ替える
-- 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる。`slice` と `Number` で組み立てない
+- 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる
 
 ## スタイリング
 
@@ -69,15 +68,15 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - 既定パレットの色相は、ニュートラル 70、アクセント 255、ハイライト 90 の 3 系統
 - 11 トークンすべてを sRGB ガマット内に保つ。外れるとガマットマッピングで別の色になり、コントラストの実測が宣言値と食い違う
 - `oklch()` の sRGB 変換は、OG 画像とアイコンの生成スクリプトでだけ `culori`（devDependency）を使って行う。satori も sharp も `oklch()` を解釈しないため
-- ダークモードは `prefers-color-scheme` への追従のみ。トグルや永続化は持たない
+- ダークモードは `prefers-color-scheme` で切り替える
   - ダークの `:root` は `@media (display-mode: standalone)` より前に置く。後ろに置くと AccentColor 追随が負ける
   - standalone のブロックはライトとダークの 2 系統ある。ダークの基準色は `color-mix()` の第 2 引数にリテラルで入っている
   - ダークでは `--accent-dark` が明るい方のアクセントになる（`--code-accent` が `--surface` に対し 4.5:1 を要するため、意図的）
   - [Profile.vue](components/Profile.vue) の `.top-card` はダークでも濃い地と明るい文字を保つ。地には `--surface-hover` を使う
-  - ダークパレットは手で決める。`themeConstraints` の 14 件は手動で実測し、検証スクリプトはリポジトリに置かない
+  - ダークパレットは手で決め、`themeConstraints` の 14 件を手動で実測する
 - 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
-- コードブロックは [libs/shiki-theme.ts](libs/shiki-theme.ts) の `--code-*` トークンで配色する。Shiki の組み込みテーマ（固定 hex）は使わない
+- コードブロックは [libs/shiki-theme.ts](libs/shiki-theme.ts) の `--code-*` トークンで配色する
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
 - stylelint（[stylelint.config.mjs](stylelint.config.mjs)）で強制している規則
   - 長さは 0.25 の倍数の rem
@@ -111,19 +110,18 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 ## PWA
 
-- インストール可能にする最小構成で、Service Worker は持たない（オフラインで白紙になることは許容している）
 - `display` は `standalone` から変えない。変えると AccentColor 追随の `@media (display-mode: standalone)` が効かなくなる
 - アイコンは `public/icon.png` を元に `public/icons/` へ生成する
   - `any`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon は `--bg` の既定色で不透明にする
   - `maskable` はセーフゾーンに収めるため 72% に縮小する。元画像を差し替えたら縮小率を見直す
 - `public/screenshots/` は手動で撮影する。手順は `pwa-screenshots` スキルにある
-- Lighthouse 12 には PWA の audit が無い。manifest は DevTools の Application > Manifest で確認する
+- manifest は DevTools の Application > Manifest で確認する
 
 ## セキュリティヘッダ
 
 [public/_headers](public/_headers) の `/*` で CSP などを返す（Observatory A+、issue #149）。
 
-- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config` の 3 つ。`prerender:done` の時点では `_headers` がまだ無い。`generate` の後続コマンドにしないのは、Workers Builds のコマンドに依存させないため
+- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config` の 3 つ。`prerender:done` の時点では `_headers` がまだ無い
 - `style-src 'unsafe-inline'` は残す（Observatory で満点扱い）
 - Adobe Fonts には `connect-src` と `font-src data:` の両方が要る。フォントは XHR で取得され、`data:` URI として注入されるため。CSS は読まないので `style-src` は不要
 - 外部オリジンと、それを使う箇所
@@ -134,7 +132,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - `img.newt239.dev`：fernweh のサムネイル
   - `i.scdn.co`：Spotify のジャケット画像
 - フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する
-- SRI は付けない。Typekit と gtag.js は配信側で内容が更新されるため
 - 検証は `pnpm run generate` のあと `pnpm exec wrangler dev` で行う（`serve:static` は `_headers` を解釈しない）
 
 ## エージェント向けディスカバラビリティ
@@ -143,14 +140,12 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - `Link` で `sitemap` / `api-catalog` / `service-desc` / `service-doc` / `describedby` を返す
 - [api-catalog](public/.well-known/api-catalog) は RFC 9727 と RFC 9264 に従う。リレーション名をオブジェクトのキーにする（`links` 配列ではない）。`Content-Type` は `_headers` で指定する
 - [server-card.json](public/.well-known/mcp/server-card.json) は、api.newt239.dev の MCP サーバーの `initialize` 応答に合わせる（SEP-1649 が確定したら追従する）
-- OAuth/OIDC のディスカバリ、`oauth-protected-resource`、`auth.md` は置かない。保護リソースが存在しないため
-- Markdown for Agents は Free プランでは使えない
 - [robots.txt](public/robots.txt) の `Content-Signal: ai-train=no` と学習クローラの Disallow は維持する
 
 ## アクセシビリティ検査
 
 - 開発時は @nuxt/a11y の DevTools タブで見る（dev 限定で、`generate` の出力には入らない）
-- CI の検査は Lighthouse CI の `categories:accessibility`（`minScore: 1`）だけ。`@axe-core/cli` は Lighthouse と重複するため廃止した。戻さない
+- CI の検査は Lighthouse CI の `categories:accessibility`（`minScore: 1`）だけ
 - @nuxt/a11y のビルド時レポートは npm で公開されたら `a11y.report` で有効にする（issue #156）
 
 ## CI
@@ -163,7 +158,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 ## デプロイ
 
-- Workers Static Assets で配信する。Worker スクリプトは持たず、[wrangler.jsonc](wrangler.jsonc) の `assets` だけで設定する
+- Workers Static Assets で配信し、[wrangler.jsonc](wrangler.jsonc) の `assets` だけで設定する
   - `assets.directory` は `.output/public` を指す（`dist` は絶対パスのシンボリックリンク）
   - `html_handling` と `not_found_handling` は明示する。`autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
   - 末尾スラッシュのリダイレクトは 307 になる（Pages は 308）。回避手段はない
@@ -174,4 +169,3 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - Workers Builds：push ごとにビルドし、main は本番、それ以外のブランチはプレビューへ出す
   - GitHub Actions：週次 cron で実行する
 - Workers Builds のシステム Node は pnpm を起動するだけ（スクリプトは `devEngines.runtime` の Node で動く）
-- `nitro.compressPublicAssets` は使わない（Workers が自前で圧縮する）
