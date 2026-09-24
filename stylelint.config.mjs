@@ -35,8 +35,8 @@ export default {
     "lightness-notation": "number",
     "hue-degree-notation": "number",
     "declaration-property-value-disallowed-list": [
-      { "/.+/": [/\d*\.(?!(?:25|5|50|75|0)(?![0-9]))\d+rem/] },
-      { message: "rem は 0.25 刻みで指定してください" },
+      { "/.+/": [/\d*\.(?!(?:25|5|50|75|875|0)(?![0-9]))\d+rem/] },
+      { message: "rem は 0.25 刻み（例外として 0.875）で指定してください" },
     ],
     "declaration-property-value-no-unknown": [true, { ignoreProperties: { "/^--/": [/^from /] } }],
     "property-no-unknown": [true, { ignoreProperties: ["corner-shape"] }],

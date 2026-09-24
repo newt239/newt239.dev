@@ -41,8 +41,12 @@ const formattedDate = computed(() =>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
-        <NuxtImg v-if="site.icon" :src="site.icon" alt="" width="16" height="16" />
-        <IconBook2 v-else :size="16" aria-hidden="true" />
+        <template v-if="site.icon && site.iconOnDark">
+          <NuxtImg :src="site.icon" alt="" width="24" height="24" class="site-icon-light" />
+          <NuxtImg :src="site.iconOnDark" alt="" width="24" height="24" class="site-icon-dark" />
+        </template>
+        <NuxtImg v-else-if="site.icon" :src="site.icon" alt="" width="24" height="24" />
+        <IconBook2 v-else :size="24" aria-hidden="true" />
         <span class="site-name">{{ site.name }}</span>
       </div>
       <time class="article-date" :datetime="date">{{ formattedDate }}</time>
@@ -77,8 +81,32 @@ const formattedDate = computed(() =>
   align-items: center;
 }
 
+.site-icon-dark {
+  display: none;
+}
+
+@media screen {
+  :root[data-theme-tone="dark"] .site-icon-light {
+    display: none;
+  }
+
+  :root[data-theme-tone="dark"] .site-icon-dark {
+    display: revert;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme-tone="light"]) .site-icon-light {
+      display: none;
+    }
+
+    :root:not([data-theme-tone="light"]) .site-icon-dark {
+      display: revert;
+    }
+  }
+}
+
 .site-name {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: oklch(var(--text-muted));
 }
 
@@ -111,7 +139,7 @@ const formattedDate = computed(() =>
 }
 
 .article-date {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
   color: oklch(var(--text-muted));
 }

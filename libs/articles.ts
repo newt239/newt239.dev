@@ -4,12 +4,12 @@ type Article = {
   date: string;
 };
 
-type ArticleSite = { name: string; icon?: string };
+type ArticleSite = { name: string; icon?: string; iconOnDark?: string };
 
 const articleSites: (ArticleSite & { prefix: string })[] = [
   { prefix: "https://qiita.com/", name: "Qiita", icon: "/qiita.webp" },
   { prefix: "https://zenn.dev/", name: "Zenn", icon: "/zenn.png" },
-  { prefix: "https://newt239.hatenablog.com/", name: "はてな", icon: "/hatena.webp" },
+  { prefix: "https://newt239.hatenablog.com/", name: "はてな", icon: "/hatena.svg", iconOnDark: "/hatena-white.svg" },
   { prefix: "https://developers.cyberagent.co.jp/", name: "CyberAgent" },
 ];
 

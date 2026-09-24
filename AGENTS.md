@@ -79,7 +79,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - コードブロックは [libs/shiki-theme.ts](libs/shiki-theme.ts) の `--code-*` トークンで配色する
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
 - stylelint（[stylelint.config.mjs](stylelint.config.mjs)）で強制している規則
-  - 長さは 0.25 の倍数の rem
+  - 長さは 0.25 の倍数の rem。例外として 0.875rem だけ許可する
   - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
   - Baseline widely available の範囲で書く。そうでない機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
   - プロパティの並び順は recess-order

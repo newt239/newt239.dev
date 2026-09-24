@@ -257,6 +257,10 @@ export const applyTheme = (variables: { name: string; value: string }[]) => {
       applyThemeFont(value);
       continue;
     }
+    if (name === "--surface") {
+      // OKLCH の L が約 0.63 を下回ると、#333 より白のほうがコントラストが高くなる
+      document.documentElement.dataset.themeTone = Number.parseFloat(value) < 0.63 ? "dark" : "light";
+    }
     document.documentElement.style.setProperty(name, value);
   }
 };
