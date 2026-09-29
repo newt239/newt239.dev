@@ -132,7 +132,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - `img.newt239.dev`：fernweh のサムネイル
   - `i.scdn.co`：Spotify のジャケット画像
 - フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する
-- 検証は `pnpm run generate` のあと `pnpm exec wrangler dev` で行う（`serve:static` は `_headers` を解釈しない）
+- 検証は `pnpm run generate` のあと `node node_modules/wrangler/bin/cf-wrangler.js dev` で行う（`serve:static` は `_headers` を解釈しない）
 
 ## エージェント向けディスカバラビリティ
 
@@ -158,11 +158,13 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 ## デプロイ
 
-- Workers Static Assets で配信し、[wrangler.jsonc](wrangler.jsonc) の `assets` だけで設定する
-  - `assets.directory` は `.output/public` を指す（`dist` は絶対パスのシンボリックリンク）
-  - `html_handling` と `not_found_handling` は明示する。`autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
+- Workers Static Assets で配信し、cf CLI で操作する。設定は 2 ファイルに分かれる
+  - [cloudflare.config.ts](cloudflare.config.ts)：Worker の設定。`assets.htmlHandling` と `assets.notFoundHandling` は明示する。`autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
+  - [wrangler.config.ts](wrangler.config.ts)：`assetsDirectory` で `.output/public` を指す（`dist` は絶対パスのシンボリックリンク）
   - 末尾スラッシュのリダイレクトは 307 になる（Pages は 308）。回避手段はない
-- `newt239.dev/*` は Workers Route で配信する。route を外せば Pages の配信に戻る。カスタムドメインへ切り替えるとダウンタイムが出る
+- cf はビルドを Wrangler に委譲するので、`wrangler` は 4.136.0 以上を残す
+- `cf build` / `cf dev` は Nuxt を検出して `nuxt build` / `nuxt dev` を実行してしまう。Build Output は `node node_modules/wrangler/bin/cf-wrangler.js build` で作り、`cf deploy --prebuilt` で出す
+- `newt239.dev` は Workers Custom Domain（`domains`）で配信する
 - Pages は Git 連携と自動ビルドを停止済みで、ロールバック先として残してある
 - `public/_headers` は Workers Static Assets でも解釈される。ファイル自体は配信されない
 - デプロイ経路
