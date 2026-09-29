@@ -24,9 +24,10 @@ logs
 .env.*
 !.env.example
 
-# Wrangler
+# Cloudflare
 wrangler.toml
 .wrangler/
+.cloudflare/
 
 # AI
 .claude/settings.local.json
