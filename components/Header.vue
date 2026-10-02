@@ -135,6 +135,9 @@ header {
           @media (prefers-reduced-motion: no-preference) {
             animation-name: header-icon-spin;
             animation-timing-function: var(--header-icon-spin-easing);
+
+            /* Android WebView ではメインスレッドで回り、レイヤーを分けないとスクロールがカクつく */
+            will-change: rotate;
             animation-timeline: scroll(root block);
           }
         }
