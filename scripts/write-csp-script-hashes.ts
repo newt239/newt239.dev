@@ -2,9 +2,9 @@ import { createHash } from "node:crypto";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-const scriptTag = /<script([^>]*)>([\s\S]*?)<\/script>/g;
-const externalScript = /\ssrc=/;
-const dataBlock = /type=["']application\/(ld\+)?json["']/;
+const scriptTag = /<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi;
+const externalScript = /\ssrc=/i;
+const dataBlock = /type=["']application\/(ld\+)?json["']/i;
 const placeholder = "{{inline-script-hashes}}";
 
 export const writeCspScriptHashes = async (publicDir: string) => {
