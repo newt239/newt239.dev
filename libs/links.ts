@@ -12,6 +12,7 @@ export const socialLinks = {
   hatena: { name: "はてなブログ", href: "https://newt239.hatenablog.com/" },
   mixi2: { name: "mixi2", href: "https://mixi.social/@newt" },
   annict: { name: "Annict", href: "https://annict.com/@newt" },
+  booklog: { name: "ブクログ", href: "https://booklog.jp/users/newt239" },
   linkedin: { name: "LinkedIn", href: "https://www.linkedin.com/in/newt239/" },
   fernweh: { name: "fernweh", href: "https://fernweh.newt239.dev/" },
 } as const satisfies Record<string, SocialLink>;
@@ -24,5 +25,6 @@ export const profileSameAs = [
   socialLinks.hatena,
   socialLinks.mixi2,
   socialLinks.annict,
+  socialLinks.booklog,
   socialLinks.linkedin,
 ].map((link) => link.href);

@@ -10,13 +10,6 @@ const age =
   new Date(person.birthDate).getUTCFullYear() -
   (today.toISOString().slice(5, 10) < person.birthDate.slice(5) ? 1 : 0);
 
-const profile: { text: string; lang?: string }[] = [
-  { text: `${age}yo`, lang: "en" },
-  { text: "すきなもの: Webフロントエンド, UI/UX" },
-  { text: "言語: TypeScript" },
-  { text: "趣味: アニメ, ボカロ, 旅行, カメラ" },
-];
-
 const snsLinks = [
   { ...socialLinks.x, icon: IconBrandX },
   { ...socialLinks.github, icon: IconBrandGithub },
@@ -30,11 +23,13 @@ const snsLinks = [
     <NuxtLink to="/about" class="top-card">
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
-        <ul>
-          <li v-for="item in profile" :key="item.text" :lang="item.lang">
-            {{ item.text }}
-          </li>
-        </ul>
+        <p>
+          {{ age }}歳の大学生で、Webフロントエンド領域を得意としています。<br>
+          デザインシステムやWeb標準、Webアクセシビリティなどに関心があります。<br>
+          主にTypeScriptを使い、必要に応じてGoやPythonなども書きます。<br>
+          趣味は旅行したり、カメラで写真を撮ったりすることで、<br>
+          アニメをみたり、ボカロを聴くことも好きです。
+        </p>
       </div>
       <div class="more-detail-button">
         わたしについて
@@ -177,7 +172,7 @@ const snsLinks = [
   .card-content {
     margin: 3vh min(3vh, 5vw) 5rem;
 
-    ul {
+    p {
       margin: 0;
       line-height: var(--line-height-body);
     }
