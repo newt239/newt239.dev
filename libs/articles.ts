@@ -19,6 +19,8 @@ export const articleSite = (url: string): ArticleSite =>
   articleSites.find((site) => url.startsWith(site.prefix)) ?? otherSite;
 
 export const articleList: Article[] = [
+  { title: "ピクシブのサマーインターンに参加しました", url: "https://newt239.hatenablog.com/entry/2026/10/19/201138", date: "2026-10-19" },
+  { title: "様々なツールで導入が進んでいるクールダウン設定の機能や挙動を比較", url: "https://zenn.dev/newt_st21/articles/package-manager-cooldown", date: "2026-10-01" },
   { title: "最近育てているフロントエンド開発用テンプレートの話", url: "https://zenn.dev/newt_st21/articles/next-template-2026", date: "2026-08-24" },
   { title: "MIXIのインターンに参加しました", url: "https://newt239.hatenablog.com/entry/2026/06/18/185837", date: "2026-06-18" },
   { title: "2025年のふりかえり", url: "https://newt239.hatenablog.com/entry/2025/12/31/223530", date: "2025-12-31" },
