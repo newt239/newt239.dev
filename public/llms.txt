@@ -6,7 +6,7 @@
 
 - [プロフィール](https://newt239.dev/about): 経歴・資格・所属・SNSアカウント
 - [作品一覧](https://newt239.dev/works): 19件
-- [記事一覧](https://newt239.dev/articles): 30件
+- [記事一覧](https://newt239.dev/articles): 32件
 
 ## 作品
 
@@ -32,6 +32,8 @@
 
 ## 記事
 
+- [ピクシブのサマーインターンに参加しました](https://newt239.hatenablog.com/entry/2026/10/19/201138): はてな / 2026-10-19
+- [様々なツールで導入が進んでいるクールダウン設定の機能や挙動を比較](https://zenn.dev/newt_st21/articles/package-manager-cooldown): Zenn / 2026-10-01
 - [最近育てているフロントエンド開発用テンプレートの話](https://zenn.dev/newt_st21/articles/next-template-2026): Zenn / 2026-08-24
 - [MIXIのインターンに参加しました](https://newt239.hatenablog.com/entry/2026/06/18/185837): はてな / 2026-06-18
 - [2025年のふりかえり](https://newt239.hatenablog.com/entry/2025/12/31/223530): はてな / 2025-12-31

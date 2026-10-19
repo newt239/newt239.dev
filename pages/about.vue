@@ -36,8 +36,8 @@ const contacts = [
 ] as const;
 
 const interests = [
-  { category: "Webフロントエンド", items: ["Webアクセシビリティ", "Web 標準化", "Web API"] },
-  { category: "UI/UX, デザイン", items: ["フォント"] },
+  { category: "Webフロントエンド", items: ["Webアクセシビリティ", "Web標準化"] },
+  { category: "UI/UX, デザイン", items: ["フォント", "デザインシステム"] },
 ] as const;
 
 const hobbies = [
@@ -46,10 +46,8 @@ const hobbies = [
     items: [
       "響け！ユーフォニアム",
       "色づく世界の明日から",
-      "リコリス・リコイル",
-      "アオのハコ",
-      "正反対な君と僕",
       "Charlotte",
+      "君が死ぬまで恋をしたい",
     ],
   },
   {
@@ -66,6 +64,7 @@ const links = [
   socialLinks.hatena,
   socialLinks.mixi2,
   socialLinks.annict,
+  socialLinks.booklog,
   socialLinks.linkedin,
 ];
 </script>
