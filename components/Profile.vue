@@ -2,13 +2,6 @@
 import { IconBrandGithub, IconBrandX, IconChevronRight } from "@tabler/icons-vue";
 
 import { socialLinks } from "~/libs/links";
-import { person } from "~/libs/person";
-
-const today = new Date();
-const age =
-  today.getUTCFullYear() -
-  new Date(person.birthDate).getUTCFullYear() -
-  (today.toISOString().slice(5, 10) < person.birthDate.slice(5) ? 1 : 0);
 
 const snsLinks = [
   { ...socialLinks.x, icon: IconBrandX },
