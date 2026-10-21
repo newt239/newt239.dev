@@ -24,11 +24,9 @@ const snsLinks = [
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <p>
-          {{ age }}歳の大学生で、Webフロントエンド領域を得意としています。<br>
-          デザインシステムやWeb標準、Webアクセシビリティなどに関心があります。<br>
-          主にTypeScriptを使い、必要に応じてGoやPythonなども書きます。<br>
-          趣味は旅行したり、カメラで写真を撮ったりすることで、<br>
-          アニメをみたり、ボカロを聴くことも好きです。
+          Webフロントエンド領域が好きです。<br>
+          Web標準やデザインシステムなどに関心があります。<br>
+          最近は旅行に行ったり、読書をしたりするのが好きです。
         </p>
       </div>
       <div class="more-detail-button">
