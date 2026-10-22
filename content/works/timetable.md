@@ -1,5 +1,6 @@
 ---
 title: 時間割検索システム
+url: https://timetbl.sic.shibaura-it.ac.jp/
 order: 3
 period: 2026.03
 tech:

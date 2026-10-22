@@ -1,5 +1,6 @@
 ---
 title: SIT Bus
+url: https://sit-bus.vercel.app/
 github: newt239/sit-bus
 period: 2024.04
 tech:

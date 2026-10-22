@@ -1,5 +1,6 @@
 ---
 title: Icondle
+url: https://icondle.newt239.dev/
 github: newt239/icondle
 period: 2026.07
 tech:

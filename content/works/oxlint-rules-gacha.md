@@ -1,5 +1,6 @@
 ---
 title: oxlint rules gacha
+url: https://oxlint-gacha.newt239.dev/
 github: newt239/oxlint-rules-gacha
 period: 2026.09
 tech:
