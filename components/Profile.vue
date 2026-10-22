@@ -166,6 +166,7 @@ const snsLinks = [
     p {
       margin: 0;
       line-height: var(--line-height-body);
+      text-wrap: pretty;
     }
   }
 
