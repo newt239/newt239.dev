@@ -39,7 +39,38 @@ useSeoMeta({
   twitterData1: formatPeriod(work.period),
   twitterLabel2: "技術構成",
   twitterData2: work.tech.join(", "),
+  ogUrl: `${siteUrl}${work.path}`,
 });
+
+const img = useImage();
+useDiscordEmbed([
+  {
+    type: 10,
+    content: [
+      `## [${work.title}](${siteUrl}${work.path})`,
+      work.description,
+      `-# ${formatPeriod(work.period)}・${work.tech.join(" / ")}`,
+    ].join("\n"),
+  },
+  {
+    type: 12,
+    items: [
+      {
+        media: { url: `${siteUrl}${img(`/images/${work.images[0].src}`, { width: 1200 })}` },
+        description: work.images[0].alt,
+      },
+    ],
+  },
+  {
+    type: 1,
+    components: [
+      ...(work.url ? [{ type: 2, style: 5, label: `${work.title} を開く`, url: work.url } as const] : []),
+      ...(work.github
+        ? [{ type: 2, style: 5, label: "GitHub", url: `https://github.com/${work.github}` } as const]
+        : []),
+    ],
+  },
+]);
 
 useHead({
   script: [

@@ -2,6 +2,7 @@
 import { IconBrandGithub, IconBrandX, IconChevronRight } from "@tabler/icons-vue";
 
 import { socialLinks } from "~/libs/links";
+import { bioLines } from "~/libs/person";
 
 const snsLinks = [
   { ...socialLinks.x, icon: IconBrandX },
@@ -17,9 +18,9 @@ const snsLinks = [
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <p>
-          フロントエンドエンジニアです。<br>
-          Web標準やデザインシステムなどに<span class="phrase">関心があります。</span><br>
-          最近は旅行に行ったり、<span class="phrase">読書をしたりするのが好きです。</span>
+          <template v-for="([lead, phrase], index) in bioLines" :key="lead">
+            <br v-if="index > 0">{{ lead }}<span v-if="phrase" class="phrase">{{ phrase }}</span>
+          </template>
         </p>
       </div>
       <div class="more-detail-button">

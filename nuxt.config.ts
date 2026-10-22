@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs";
 
 import { shikiTheme } from "./libs/shiki-theme";
 import { siteName, siteUrl } from "./libs/site";
+import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
 
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
@@ -70,9 +71,10 @@ export default defineNuxtConfig({
   hooks: {
     "nitro:init": (nitro) => {
       if (!nitro.options.static) return;
-      nitro.hooks.hook("close", () =>
-        writeCspScriptHashes(nitro.options.output.publicDir)
-      );
+      nitro.hooks.hook("close", async () => {
+        await writeCspScriptHashes(nitro.options.output.publicDir);
+        await checkDiscordEmbeds(nitro.options.output.publicDir);
+      });
     },
   },
 

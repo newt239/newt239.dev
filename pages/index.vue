@@ -1,6 +1,46 @@
 <script lang="ts" setup>
-import { personId } from "~/libs/person";
+import { articleList, articleSite } from "~/libs/articles";
+import { bio, personId } from "~/libs/person";
 import { siteName, siteUrl } from "~/libs/site";
+
+useSeoMeta({
+  description: bio,
+  ogDescription: bio,
+  ogUrl: `${siteUrl}/`,
+});
+
+const recentArticles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+
+useDiscordEmbed([
+  {
+    type: 9,
+    components: [{ type: 10, content: `# [${siteName}](${siteUrl}/)\n${bio}` }],
+    accessory: {
+      type: 11,
+      media: { url: `${siteUrl}/icons/icon-192.png` },
+      description: "newt239 のアイコン。麦わら帽子をかぶった青い髪のキャラクターのイラスト",
+    },
+  },
+  { type: 14 },
+  {
+    type: 10,
+    content: [
+      "### 最近の記事",
+      ...recentArticles.map((article) => {
+        const date = new Date(article.date).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" });
+        return `[${article.title}](${article.url})\n-# ${articleSite(article.url).name}・${date}`;
+      }),
+    ].join("\n"),
+  },
+  {
+    type: 1,
+    components: [
+      { type: 2, style: 5, label: "わたしについて", url: `${siteUrl}/about` },
+      { type: 2, style: 5, label: "作品一覧", url: `${siteUrl}/works` },
+      { type: 2, style: 5, label: "記事一覧", url: `${siteUrl}/articles` },
+    ],
+  },
+]);
 
 useHead({
   script: [

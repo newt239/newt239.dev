@@ -91,7 +91,12 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## SEO メタ
 
 - サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に静的に置く。ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
-- `description` を設定するのは作品詳細だけ（frontmatter の値）
+- `description` を設定するのはトップ（[person.ts](libs/person.ts) の `bio`）と作品詳細（frontmatter の値）だけ
+- **Discord Component Embed**：トップと作品詳細は [useDiscordEmbed.ts](composables/useDiscordEmbed.ts) で `<head>` にペイロードを出す（[仕様](https://docs.discord.com/developers/link-previews/component-embeds)）
+  - 3,000 バイト以内（`<` もその長さで数える）、Container は 1 つで入れ子なし、コンポーネントは 40 個まで
+  - Button はリンクスタイルだけ。許可キー以外が 1 つでもあるとペイロード全体が無効になる
+  - [check-discord-embeds.ts](scripts/check-discord-embeds.ts) が `close` フックで全ページを検証し、違反があればビルドを失敗させる
+  - 作品の公開 URL は frontmatter の `url` に書く
 
 ## PWA
 
