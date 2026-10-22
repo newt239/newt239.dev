@@ -5,7 +5,7 @@ import type { ImageCarousel } from "#components";
 
 import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");
@@ -71,6 +71,8 @@ useDiscordEmbed([
         : []),
     ],
   },
+  { type: 14 },
+  { type: 10, content: `-# [${siteName}](${siteUrl}/)` },
 ]);
 
 useHead({

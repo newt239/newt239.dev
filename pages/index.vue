@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { articleList, articleSite } from "~/libs/articles";
-import { formatPeriod } from "~/libs/period";
 import { bio, personId } from "~/libs/person";
 import { siteName, siteUrl } from "~/libs/site";
 
@@ -16,8 +15,8 @@ const { data: featuredWorks, error: featuredWorksError } = await useAsyncData("d
   queryCollection("works")
     .where("order", "IS NOT NULL")
     .order("order", "ASC")
-    .select("path", "title", "period", "images")
-    .limit(3)
+    .select("path", "title", "images")
+    .limit(4)
     .all()
 );
 if (featuredWorksError.value) throw featuredWorksError.value;
@@ -34,20 +33,20 @@ useDiscordEmbed([
       description: "newt239 のアイコン。麦わら帽子をかぶった青い髪のキャラクターのイラスト",
     },
   },
-  { type: 14 },
-  { type: 10, content: "### ピックアップ作品" },
-  ...(featuredWorks.value ?? []).map((work) => ({
-    type: 9 as const,
-    components: [
-      { type: 10 as const, content: `[${work.title}](${siteUrl}${work.path})\n-# ${formatPeriod(work.period)}` },
-    ],
-    accessory: {
-      type: 11 as const,
-      media: { url: img(`/images/${work.images[0].src}`, { width: 400 }) },
+  {
+    type: 10,
+    content: [
+      "### ピックアップ作品",
+      ...(featuredWorks.value ?? []).map((work) => `- [${work.title}](${siteUrl}${work.path})`),
+    ].join("\n"),
+  },
+  {
+    type: 12,
+    items: (featuredWorks.value ?? []).map((work) => ({
+      media: { url: img(`/images/${work.images[0].src}`, { width: 640 }) },
       description: `${work.title} のスクリーンショット`,
-    },
-  })),
-  { type: 14 },
+    })),
+  },
   {
     type: 10,
     content: [

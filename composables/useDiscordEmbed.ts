@@ -1,5 +1,3 @@
-import { siteName, siteUrl } from "~/libs/site";
-
 // https://docs.discord.com/developers/link-previews/component-embeds
 // メディアの url は / 始まりのパスで渡し、絶対 URL への解決はここで行う
 type UnfurledMedia = { url: string };
@@ -20,20 +18,11 @@ export const useDiscordEmbed = (components: ContainerChild[]) => {
   const { discordEmbedAssetOrigin } = useRuntimeConfig().public;
   const resolveMedia = (media: UnfurledMedia) => ({ url: `${discordEmbedAssetOrigin}${media.url}` });
 
-  const footer: ContainerChild[] = [
-    { type: 14 },
-    {
-      type: 9,
-      components: [{ type: 10, content: `-# [${siteName}](${siteUrl}/)` }],
-      accessory: { type: 11, media: { url: "/logo.png" }, description: `${siteName} のロゴ` },
-    },
-  ];
-
   const payload = {
     component: {
       type: 17,
       accent_color: accentColor,
-      components: [...components, ...footer]
+      components: components
         .map((component) => {
           switch (component.type) {
             case 1:
