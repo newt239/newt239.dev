@@ -17,9 +17,9 @@ const snsLinks = [
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <p>
-          Webフロントエンド領域が好きです。<br>
-          Web標準やデザインシステムなどに関心があります。<br>
-          最近は旅行に行ったり、読書をしたりするのが好きです。
+          フロントエンドエンジニアです。<br>
+          Web標準やデザインシステムなどに<span class="phrase">関心があります。</span><br>
+          最近は旅行に行ったり、<span class="phrase">読書をしたりするのが好きです。</span>
         </p>
       </div>
       <div class="more-detail-button">
@@ -90,7 +90,29 @@ const snsLinks = [
         oklch(var(--top-card-blob) / 0%) 74%
       );
     border-radius: var(--radius-md);
+    isolation: isolate;
     transition: var(--transition);
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      background-image: radial-gradient(circle, currentcolor 1px, transparent 1.5px);
+      background-size: 14px 14px;
+      border-radius: inherit;
+      opacity: 0.28;
+      mask-image: radial-gradient(ellipse 85% 110% at 100% 0%, #000 0%, transparent 75%);
+
+      @media (forced-colors: active) {
+        display: none;
+      }
+
+      @media print {
+        display: none;
+      }
+    }
 
     /* ダークでも濃いカードのまま見せる。--surface-hover はライトの --text とほぼ同じ色になる */
     @media (prefers-color-scheme: dark) {
@@ -153,6 +175,10 @@ const snsLinks = [
 
     h2 {
       padding: 0 0 1rem;
+
+      @media screen and (width > 43.75rem) {
+        padding-bottom: 1.5rem;
+      }
     }
 
     @media screen and (width <= 43.75rem) {
@@ -165,7 +191,12 @@ const snsLinks = [
 
     p {
       margin: 0;
-      line-height: var(--line-height-body);
+      line-height: var(--line-height-loose);
+      text-wrap: pretty;
+    }
+
+    .phrase {
+      display: inline-block;
     }
   }
 
