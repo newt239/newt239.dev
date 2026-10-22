@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -7,7 +8,15 @@ const maxBytes = 3000;
 const maxComponents = 40;
 const allowedButtonKeys = new Set(["id", "type", "url", "style", "label", "emoji", "disabled"]);
 
-type Component = { type: number; components?: Component[]; accessory?: Component; [key: string]: unknown };
+type Media = { url: string };
+type Component = {
+  type: number;
+  components?: Component[];
+  accessory?: Component;
+  media?: Media;
+  items?: { media: Media }[];
+  [key: string]: unknown;
+};
 
 export const checkDiscordEmbeds = async (publicDir: string) => {
   const workFiles = (await readdir(join(publicDir, "works"))).filter((file) => file.endsWith(".html"));
@@ -42,6 +51,12 @@ export const checkDiscordEmbeds = async (publicDir: string) => {
     if (component.type !== 17) errors.push(`${page}: トップレベルが Container ではありません`);
     if (all.filter((node) => node.type === 17).length > 1) errors.push(`${page}: Container が入れ子になっています`);
     if (all.length > maxComponents) errors.push(`${page}: コンポーネントが ${all.length} 個あります`);
+    const mediaUrls = all.flatMap((node) => [node.media, ...(node.items ?? []).map((item) => item.media)]);
+    for (const media of mediaUrls) {
+      if (media && !existsSync(join(publicDir, decodeURIComponent(new URL(media.url).pathname)))) {
+        errors.push(`${page}: ${media.url} がビルド出力にありません`);
+      }
+    }
     for (const button of all.filter((node) => node.type === 2)) {
       const extraKeys = Object.keys(button).filter((key) => !allowedButtonKeys.has(key));
       if (button.style !== 5 || !button.url || extraKeys.length > 0) {

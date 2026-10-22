@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { articleList, articleSite } from "~/libs/articles";
+import { formatPeriod } from "~/libs/period";
 import { bio, personId } from "~/libs/person";
 import { siteName, siteUrl } from "~/libs/site";
 
@@ -11,16 +12,41 @@ useSeoMeta({
 
 const recentArticles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
+const { data: featuredWorks, error: featuredWorksError } = await useAsyncData("discord-featured-works", () =>
+  queryCollection("works")
+    .where("order", "IS NOT NULL")
+    .order("order", "ASC")
+    .select("path", "title", "period", "images")
+    .limit(3)
+    .all()
+);
+if (featuredWorksError.value) throw featuredWorksError.value;
+
+const img = useImage();
+
 useDiscordEmbed([
   {
     type: 9,
     components: [{ type: 10, content: `# [${siteName}](${siteUrl}/)\n${bio}` }],
     accessory: {
       type: 11,
-      media: { url: `${siteUrl}/icons/icon-192.png` },
+      media: { url: "/icons/icon-192.png" },
       description: "newt239 のアイコン。麦わら帽子をかぶった青い髪のキャラクターのイラスト",
     },
   },
+  { type: 14 },
+  { type: 10, content: "### ピックアップ作品" },
+  ...(featuredWorks.value ?? []).map((work) => ({
+    type: 9 as const,
+    components: [
+      { type: 10 as const, content: `[${work.title}](${siteUrl}${work.path})\n-# ${formatPeriod(work.period)}` },
+    ],
+    accessory: {
+      type: 11 as const,
+      media: { url: img(`/images/${work.images[0].src}`, { width: 400 }) },
+      description: `${work.title} のスクリーンショット`,
+    },
+  })),
   { type: 14 },
   {
     type: 10,

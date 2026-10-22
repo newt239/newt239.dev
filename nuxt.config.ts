@@ -10,6 +10,14 @@ const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
 );
 
+// Workers Builds のブランチプレビューには本番に無い画像があるため、Discord の埋め込み画像はプレビューのホストから読ませる
+// エイリアスと Worker 名の連結が 63 文字を超えるとハッシュ付きに切り詰められ、URL を算出できないので本番を使う
+const previewAlias = process.env.WORKERS_CI_BRANCH?.toLowerCase().replace(/[^a-z0-9]/g, "-");
+const discordEmbedAssetOrigin =
+  previewAlias && previewAlias !== "main" && /^[a-z]/.test(previewAlias) && `${previewAlias}-newt239`.length <= 63
+    ? `https://${previewAlias}-newt239.newtpia.workers.dev`
+    : siteUrl;
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint", "@nuxt/a11y"],
@@ -59,6 +67,10 @@ export default defineNuxtConfig({
       ],
     },
     pageTransition: false,
+  },
+
+  runtimeConfig: {
+    public: { discordEmbedAssetOrigin },
   },
 
   nitro: {

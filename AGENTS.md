@@ -97,6 +97,8 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - Button はリンクスタイルだけ。許可キー以外が 1 つでもあるとペイロード全体が無効になる
   - [check-discord-embeds.ts](scripts/check-discord-embeds.ts) が `close` フックで全ページを検証し、違反があればビルドを失敗させる
   - 作品の公開 URL は frontmatter の `url` に書く
+  - フッター（サイト名とロゴ）は helper が全ページに付ける。トップのピックアップ作品は `order` の上位 3 件で、5 件だと 3,000 バイトを超える
+  - メディアの `url` は `/` 始まりのパスで渡す。Workers Builds の非本番ブランチではプレビューのホストに解決される（[nuxt.config.ts](nuxt.config.ts) の `discordEmbedAssetOrigin`）
 
 ## PWA
 

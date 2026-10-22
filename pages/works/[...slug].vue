@@ -49,18 +49,19 @@ useDiscordEmbed([
     content: [
       `## [${work.title}](${siteUrl}${work.path})`,
       work.description,
-      `-# ${formatPeriod(work.period)}・${work.tech.join(" / ")}`,
     ].join("\n"),
   },
   {
     type: 12,
     items: [
       {
-        media: { url: `${siteUrl}${img(`/images/${work.images[0].src}`, { width: 1200 })}` },
+        media: { url: img(`/images/${work.images[0].src}`, { width: 1200 }) },
         description: work.images[0].alt,
       },
     ],
   },
+  { type: 10, content: `-# 期間\n${formatPeriod(work.period)}` },
+  { type: 10, content: `-# 技術構成\n${work.tech.join(" / ")}` },
   {
     type: 1,
     components: [
