@@ -17,9 +17,9 @@ const snsLinks = [
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <p>
-          Webフロントエンド領域が好きです。<br>
-          Web標準やデザインシステムなどに関心があります。<br>
-          最近は旅行に行ったり、読書をしたりするのが好きです。
+          フロントエンドエンジニアです。<br>
+          Web標準やデザインシステムなどに<span class="phrase">関心があります。</span><br>
+          最近は旅行に行ったり、<span class="phrase">読書をしたりするのが好きです。</span>
         </p>
       </div>
       <div class="more-detail-button">
@@ -153,6 +153,10 @@ const snsLinks = [
 
     h2 {
       padding: 0 0 1rem;
+
+      @media screen and (width > 43.75rem) {
+        padding-bottom: 1.5rem;
+      }
     }
 
     @media screen and (width <= 43.75rem) {
@@ -165,8 +169,12 @@ const snsLinks = [
 
     p {
       margin: 0;
-      line-height: var(--line-height-body);
+      line-height: var(--line-height-loose);
       text-wrap: pretty;
+    }
+
+    .phrase {
+      display: inline-block;
     }
   }
 
