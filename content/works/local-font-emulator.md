@@ -1,5 +1,6 @@
 ---
 title: Local Font Emulator
+url: https://newt239.github.io/local-font-emulator/
 github: newt239/local-font-emulator
 period: 2023.04 - 2023.05
 tech:

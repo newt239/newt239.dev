@@ -1,5 +1,6 @@
 ---
 title: 第29回大宮祭ウェブサイト
+url: https://29th.oomiya-fes-sit.net/
 period: 2025.05
 tech:
   - Next.js

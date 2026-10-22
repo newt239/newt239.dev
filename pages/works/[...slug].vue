@@ -5,7 +5,7 @@ import type { ImageCarousel } from "#components";
 
 import { formatPeriod } from "~/libs/period";
 import { personId } from "~/libs/person";
-import { siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/libs/site";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");
@@ -39,7 +39,42 @@ useSeoMeta({
   twitterData1: formatPeriod(work.period),
   twitterLabel2: "技術構成",
   twitterData2: work.tech.join(", "),
+  ogUrl: `${siteUrl}${work.path}`,
 });
+
+const img = useImage();
+// Discord のギャラリーは 2 枚と 4 枚で 2 列になる。奇数枚や 6 枚以上だと列数が崩れるため偶数枚・最大 4 枚に絞る
+const galleryImages =
+  work.images.length === 1 ? work.images : work.images.slice(0, Math.min(work.images.length - (work.images.length % 2), 4));
+useDiscordEmbed([
+  {
+    type: 10,
+    content: [
+      `## [${work.title}](${siteUrl}${work.path})`,
+      work.description,
+    ].join("\n"),
+  },
+  {
+    type: 12,
+    items: galleryImages.map((image) => ({
+      media: { url: img(`/images/${image.src}`, { width: galleryImages.length === 1 ? 1200 : 640 }) },
+      description: image.alt,
+    })),
+  },
+  { type: 10, content: `-# 期間\n${formatPeriod(work.period)}` },
+  { type: 10, content: `-# 技術構成\n${work.tech.join(" / ")}` },
+  {
+    type: 1,
+    components: [
+      ...(work.url ? [{ type: 2, style: 5, label: `${work.title} を開く`, url: work.url } as const] : []),
+      ...(work.github
+        ? [{ type: 2, style: 5, label: "GitHub", url: `https://github.com/${work.github}` } as const]
+        : []),
+    ],
+  },
+  { type: 14 },
+  { type: 10, content: `-# [${siteName}](${siteUrl}/)` },
+]);
 
 useHead({
   script: [

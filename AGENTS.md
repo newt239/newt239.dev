@@ -91,7 +91,14 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## SEO メタ
 
 - サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に静的に置く。ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
-- `description` を設定するのは作品詳細だけ（frontmatter の値）
+- `description` を設定するのはトップ（[person.ts](libs/person.ts) の `bio`）と作品詳細（frontmatter の値）だけ
+- **Discord Component Embed**：トップと作品詳細は [useDiscordEmbed.ts](composables/useDiscordEmbed.ts) で `<head>` にペイロードを出す（[仕様](https://docs.discord.com/developers/link-previews/component-embeds)）
+  - 3,000 バイト以内（`<` もその長さで数える）、Container は 1 つで入れ子なし、コンポーネントは 40 個まで
+  - Button はリンクスタイルだけ。許可キー以外が 1 つでもあるとペイロード全体が無効になる
+  - [check-discord-embeds.ts](scripts/check-discord-embeds.ts) が `close` フックで全ページを検証し、違反があればビルドを失敗させる
+  - 作品の公開 URL は frontmatter の `url` に書く
+  - 画像は Thumbnail（固定の小サイズ）と Media Gallery（全幅、4 枚で 2×2）の 2 種類しかない。トップのピックアップ作品は `order` の上位 4 件をギャラリーで並べる
+  - メディアの `url` は `/` 始まりのパスで渡す。Workers Builds の非本番ブランチではプレビューのホストに解決される（[nuxt.config.ts](nuxt.config.ts) の `discordEmbedAssetOrigin`）
 
 ## PWA
 

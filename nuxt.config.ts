@@ -2,12 +2,21 @@ import { readdirSync } from "node:fs";
 
 import { shikiTheme } from "./libs/shiki-theme";
 import { siteName, siteUrl } from "./libs/site";
+import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
 
 // ライトボックスはクライアントでのみ描画されるため、変換なしの IPX ルートを明示的に prerender する
 const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
 );
+
+// Workers Builds のブランチプレビューには本番に無い画像があるため、Discord の埋め込み画像はプレビューのホストから読ませる
+// エイリアスと Worker 名の連結が 63 文字を超えるとハッシュ付きに切り詰められ、URL を算出できないので本番を使う
+const previewAlias = process.env.WORKERS_CI_BRANCH?.toLowerCase().replace(/[^a-z0-9]/g, "-");
+const discordEmbedAssetOrigin =
+  previewAlias && previewAlias !== "main" && /^[a-z]/.test(previewAlias) && `${previewAlias}-newt239`.length <= 63
+    ? `https://${previewAlias}-newt239.newtpia.workers.dev`
+    : siteUrl;
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -60,6 +69,10 @@ export default defineNuxtConfig({
     pageTransition: false,
   },
 
+  runtimeConfig: {
+    public: { discordEmbedAssetOrigin },
+  },
+
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
@@ -70,9 +83,10 @@ export default defineNuxtConfig({
   hooks: {
     "nitro:init": (nitro) => {
       if (!nitro.options.static) return;
-      nitro.hooks.hook("close", () =>
-        writeCspScriptHashes(nitro.options.output.publicDir)
-      );
+      nitro.hooks.hook("close", async () => {
+        await writeCspScriptHashes(nitro.options.output.publicDir);
+        await checkDiscordEmbeds(nitro.options.output.publicDir);
+      });
     },
   },
 

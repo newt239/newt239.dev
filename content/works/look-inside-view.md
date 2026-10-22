@@ -1,5 +1,6 @@
 ---
 title: Look Inside View
+url: https://look-inside-view.web.app/
 order: 5
 github: newt239/look-inside-view
 period: 2021.06 - 2021.09

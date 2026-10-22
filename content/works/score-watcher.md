@@ -1,5 +1,6 @@
 ---
 title: Score Watcher
+url: https://score-watcher.com/
 order: 2
 github: newt239/next-score-watcher
 period: 2022.10 - 2023.05
@@ -51,4 +52,4 @@ images:
 
 最終バージョンは以下のリンクからインストールできます。
 
-- <a href="https://github.com/newt239/score-watcher/releases" target="_blank" rel="noopener noreferrer">Releases ・ newtt239/score-watcher</a>
+- <a href="https://github.com/newt239/score-watcher/releases" target="_blank" rel="noopener noreferrer">Releases ・ newt239/score-watcher</a>

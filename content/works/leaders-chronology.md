@@ -1,5 +1,6 @@
 ---
 title: 首脳在任年表
+url: https://leaders-chronology.newt239.deno.net/ja/
 github: newt239/leaders-chronology
 period: 2026.09
 tech:
