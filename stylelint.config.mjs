@@ -21,6 +21,7 @@ export default {
           "break-after": ["avoid"],
           "corner-shape": anyValue,
           "scrollbar-gutter": anyValue,
+          "text-autospace": anyValue,
           "text-box": anyValue,
           "text-wrap": anyValue,
           "transition-behavior": anyValue,
