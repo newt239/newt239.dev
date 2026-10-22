@@ -37,35 +37,26 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 - pnpm と Node のバージョンは `package.json` の `packageManager` と `devEngines.runtime` だけで固定する
 - pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置く
-  - `saveExact` で完全固定する。`minimumReleaseAge` は 7 日
   - postinstall を持つ依存は `allowBuilds` に足す。足さないと `ERR_PNPM_IGNORED_BUILDS` になる
 - `scripts/` の TS は Node のネイティブ実行で動く。相対 import には `.ts` 拡張子が必須
 
 ## コンテンツとデータ
 
-- Nuxt Content v3 で管理するのは `content/works/` の作品だけ。スキーマは [content.config.ts](content.config.ts)
-  - 必須は `images`（1 件以上、先頭がサムネイル兼 OG 画像）、`tech`、`period`。任意は `order`、`github`、`description`
+- Nuxt Content v3 で管理するのは `content/works/` の作品だけ。`images` の先頭がサムネイル兼 OG 画像になる
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
-- `public/llms.txt` は [scripts/generate-llms-txt.ts](scripts/generate-llms-txt.ts) が作品と [libs/articles.ts](libs/articles.ts) から生成する
 - 作品以外のデータは `libs/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
-  - [articles.ts](libs/articles.ts) は外部ブログ、[timeline.ts](libs/timeline.ts) は経歴（年ごとの集計は [Timeline.vue](components/Timeline.vue) で行う）、[certifications.ts](libs/certifications.ts) は資格
-  - [person.ts](libs/person.ts) は JSON-LD の Person（`sameAs` は links から組み立てる）
-  - [links.ts](libs/links.ts) は外部リンク。URL を直書きせずここを参照する（アイコンは各コンポーネント側）
-  - [site.ts](libs/site.ts) は `siteUrl` / `siteName`。直書きしない
-  - [period.ts](libs/period.ts) は `period` の表示整形（OG 画像生成でも使う）
+- 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](libs/links.ts) と [site.ts](libs/site.ts) を参照する
 - 並び順は配列の記述順に頼らず、使う側で日付の降順に並べ替える
 - 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる
 
 ## スタイリング
 
-- グローバルスタイルは [assets/styles/main.css](assets/styles/main.css)、コンポーネントのスタイルは `.vue` 内に書く
 - **カスケードレイヤー**：`main.css` の既定スタイルは `@layer base`（要素や全体の規則）と `@layer components`（共通クラス）に入れる。コンポーネントの CSS はレイヤー外に置くので、詳細度や読み込み順に関係なく常にこれらに勝つ
   - トークン（`:root`）、利用者設定（`prefers-contrast` / `forced-colors` / `print`）の上書き、`.visually-hidden`、`::view-transition-*` はレイヤー外に置く。コンポーネントに負けてはいけないため
   - コンポーネントでは `@layer` を書かない。SSR のインライン `<style>` が `entry.css` より前に出るため、レイヤーの順序が崩れる
 - 色は必ず `:root` のトークン経由で指定する。固定値では AI テーマに追従しない
 - 色トークンは OKLCH のチャンネル断片（`--text: 0.29 0.014 70`）で持ち、`oklch(var(--text))` や `oklch(var(--text) / 72%)` の形で使う
   - `@property` に `<number>+` で登録しているので、トークンに `%` と `deg` は使えない。リテラルの `oklch()` も数値表記に揃える（stylelint で強制）
-- 既定パレットの色相は、ニュートラル 70、アクセント 255、ハイライト 90 の 3 系統
 - 11 トークンすべてを sRGB ガマット内に保つ。外れるとガマットマッピングで別の色になり、コントラストの実測が宣言値と食い違う
 - `oklch()` の sRGB 変換は、OG 画像とアイコンの生成スクリプトでだけ `culori`（devDependency）を使って行う。satori も sharp も `oklch()` を解釈しないため
 - ダークモードは `prefers-color-scheme` で切り替える
@@ -76,17 +67,13 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - ダークパレットは手で決め、`themeConstraints` の 14 件を手動で実測する
 - 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
-- コードブロックは [libs/shiki-theme.ts](libs/shiki-theme.ts) の `--code-*` トークンで配色する
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
-- stylelint（[stylelint.config.mjs](stylelint.config.mjs)）で強制している規則
-  - 長さは 0.25 の倍数の rem。例外として 0.875rem だけ許可する
-  - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
-  - Baseline widely available の範囲で書く。そうでない機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
-  - プロパティの並び順は recess-order
+- `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
+- Baseline widely available 外の機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
 
 ## 主要機能
 
-- **テーマ生成**：[ThemeChanger.vue](components/ThemeChanger.vue) が `api.newt239.dev/ai/generate-theme` に `colorFormat: "oklch"` を付けて送る。ガマットマッピングとコントラスト検証はサーバー側が担う
+- **テーマ生成**：ガマットマッピングとコントラスト検証は api.newt239.dev 側が担う
 - **View Transitions**：`experimental.viewTransition` で有効化している。非対応ブラウザでは [page-transition.global.ts](middleware/page-transition.global.ts) が Vue の `pageTransition` を有効にし、[app.vue](app.vue) の `@supports not` でブラーを定義する
 - **スクロール復元**：[router.options.ts](app/router.options.ts) は Nuxt 既定の実装から rAF を抜いたもの。スナップショット前にスクロールを確定させるためで、Nuxt に追従するときもこの差分は残す
 - **作品画像のジェスチャ**：[ImageLightbox.vue](components/ImageLightbox.vue) はピンチ、ダブルタップ、ホイール、スワイプを Pointer Events で自前実装している
@@ -96,7 +83,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - ズームは焦点固定で `T += f * (1/S' - 1/S)`（`zoomAt`）を使う。ジェスチャ中は `.is-gesturing` で `transition` を切る
   - 単一ポインタの代替（± ボタン、パンボタン、前後ボタン）は消さない（SC 2.5.1 / 2.5.7）
   - 閉じるときに `pointers` をクリアする
-- **一覧のフィルタとソート**：[useListControls.ts](composables/useListControls.ts) が URL クエリの同期と View Transition を担う。ページ固有の title / og:image は [usePageSeo.ts](composables/usePageSeo.ts) で設定する
 - **アナリティクス**：[vue-gtag.client.ts](plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
@@ -105,7 +91,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## SEO メタ
 
 - サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に静的に置く。ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
-- canonical と og:url は [app.vue](app.vue) で `useRoute()` から組み立てる
 - `description` を設定するのは作品詳細だけ（frontmatter の値）
 
 ## PWA
@@ -115,7 +100,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - `any`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon は `--bg` の既定色で不透明にする
   - `maskable` はセーフゾーンに収めるため 72% に縮小する。元画像を差し替えたら縮小率を見直す
 - `public/screenshots/` は手動で撮影する。手順は `pwa-screenshots` スキルにある
-- manifest は DevTools の Application > Manifest で確認する
 
 ## セキュリティヘッダ
 
@@ -124,13 +108,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config` の 3 つ。`prerender:done` の時点では `_headers` がまだ無い
 - `style-src 'unsafe-inline'` は残す（Observatory で満点扱い）
 - Adobe Fonts には `connect-src` と `font-src data:` の両方が要る。フォントは XHR で取得され、`data:` URI として注入されるため。CSS は読まないので `style-src` は不要
-- 外部オリジンと、それを使う箇所
-  - `use.typekit.net` / `p.typekit.net`：Adobe Fonts
-  - `www.googletagmanager.com` / `*.google-analytics.com` / `*.analytics.google.com`：GA
-  - `api.newt239.dev`：ThemeChanger と MyTopTrackList
-  - `fernweh.newt239.dev`：LatestAlbumList
-  - `img.newt239.dev`：fernweh のサムネイル
-  - `i.scdn.co`：Spotify のジャケット画像
 - フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する
 - 検証は `pnpm run generate` のあと `pnpm exec wrangler dev` で行う（`serve:static` は `_headers` を解釈しない）
 
@@ -144,28 +121,24 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 ## アクセシビリティ検査
 
-- 開発時は @nuxt/a11y の DevTools タブで見る（dev 限定で、`generate` の出力には入らない）
 - CI の検査は Lighthouse CI の `categories:accessibility`（`minScore: 1`）だけ
 - @nuxt/a11y のビルド時レポートは npm で公開されたら `a11y.report` で有効にする（issue #156）
 
 ## CI
 
-- [lint.yml](.github/workflows/lint.yml)：PR で build、typecheck、ESLint、Stylelint、textlint を実行する
-- [quality.yml](.github/workflows/quality.yml)：`generate` のあと Lighthouse CI を実行する（しきい値は [lighthouserc.json](lighthouserc.json)）
+- [lighthouserc.json](lighthouserc.json)
   - `meta-description`（description を持たない方針のため）と `robots-txt`（Content-Signal が不明なディレクティブ扱いになるため）は off にしている
   - ライトの既定テーマだけを検査する。ダークは検査されない
-- [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml)：週次 cron（月曜 0 時）と手動実行でデプロイする。Spotify の My Top Tracks を更新するため
+- [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) の週次デプロイは Spotify の My Top Tracks を更新するため
 
 ## デプロイ
 
-- Workers Static Assets で配信し、[wrangler.jsonc](wrangler.jsonc) の `assets` だけで設定する
+- Workers Static Assets で配信する（[wrangler.jsonc](wrangler.jsonc)）
   - `assets.directory` は `.output/public` を指す（`dist` は絶対パスのシンボリックリンク）
-  - `html_handling` と `not_found_handling` は明示する。`autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
+  - `autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
   - 末尾スラッシュのリダイレクトは 307 になる（Pages は 308）。回避手段はない
 - `newt239.dev/*` は Workers Route で配信する。route を外せば Pages の配信に戻る。カスタムドメインへ切り替えるとダウンタイムが出る
 - Pages は Git 連携と自動ビルドを停止済みで、ロールバック先として残してある
 - `public/_headers` は Workers Static Assets でも解釈される。ファイル自体は配信されない
-- デプロイ経路
-  - Workers Builds：push ごとにビルドし、main は本番、それ以外のブランチはプレビューへ出す
-  - GitHub Actions：週次 cron で実行する
+- Workers Builds が push ごとにビルドし、main は本番、それ以外のブランチはプレビューへ出す
 - Workers Builds のシステム Node は pnpm を起動するだけ（スクリプトは `devEngines.runtime` の Node で動く）
