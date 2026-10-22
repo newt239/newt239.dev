@@ -90,7 +90,29 @@ const snsLinks = [
         oklch(var(--top-card-blob) / 0%) 74%
       );
     border-radius: var(--radius-md);
+    isolation: isolate;
     transition: var(--transition);
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      background-image: radial-gradient(circle, currentcolor 1px, transparent 1.5px);
+      background-size: 14px 14px;
+      border-radius: inherit;
+      opacity: 0.28;
+      mask-image: radial-gradient(ellipse 85% 110% at 100% 0%, #000 0%, transparent 75%);
+
+      @media (forced-colors: active) {
+        display: none;
+      }
+
+      @media print {
+        display: none;
+      }
+    }
 
     /* ダークでも濃いカードのまま見せる。--surface-hover はライトの --text とほぼ同じ色になる */
     @media (prefers-color-scheme: dark) {
