@@ -15,7 +15,7 @@ const { data: featuredWorks, error: featuredWorksError } = await useAsyncData("d
   queryCollection("works")
     .where("order", "IS NOT NULL")
     .order("order", "ASC")
-    .select("path", "title", "images")
+    .select("path", "title", "description", "images")
     .limit(4)
     .all()
 );
@@ -37,7 +37,7 @@ useDiscordEmbed([
     type: 10,
     content: [
       "### ピックアップ作品",
-      ...(featuredWorks.value ?? []).map((work) => `- [${work.title}](${siteUrl}${work.path})`),
+      ...(featuredWorks.value ?? []).map((work) => `- [${work.title}](${siteUrl}${work.path}): ${work.description}`),
     ].join("\n"),
   },
   {

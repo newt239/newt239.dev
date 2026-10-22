@@ -43,6 +43,9 @@ useSeoMeta({
 });
 
 const img = useImage();
+// Discord のギャラリーは 2 枚と 4 枚で 2 列になる。奇数枚や 6 枚以上だと列数が崩れるため偶数枚・最大 4 枚に絞る
+const galleryImages =
+  work.images.length === 1 ? work.images : work.images.slice(0, Math.min(work.images.length - (work.images.length % 2), 4));
 useDiscordEmbed([
   {
     type: 10,
@@ -53,12 +56,10 @@ useDiscordEmbed([
   },
   {
     type: 12,
-    items: [
-      {
-        media: { url: img(`/images/${work.images[0].src}`, { width: 1200 }) },
-        description: work.images[0].alt,
-      },
-    ],
+    items: galleryImages.map((image) => ({
+      media: { url: img(`/images/${image.src}`, { width: galleryImages.length === 1 ? 1200 : 640 }) },
+      description: image.alt,
+    })),
   },
   { type: 10, content: `-# 期間\n${formatPeriod(work.period)}` },
   { type: 10, content: `-# 技術構成\n${work.tech.join(" / ")}` },
