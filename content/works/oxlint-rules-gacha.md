@@ -33,7 +33,8 @@ oxlintに搭載された870個のリントルールを、ガチャを引く感�
 
 ## 関連リンク
 
-- 公開サイト
-  - [oxlint rules gacha](https://oxlint-gacha.newt239.dev/)
-- GitHubリポジトリ
-  - [newt239/oxlint-rules-gacha](https://github.com/newt239/oxlint-rules-gacha)
+::link-card{url="https://oxlint-gacha.newt239.dev/"}
+::
+
+::link-card{url="https://github.com/newt239/oxlint-rules-gacha"}
+::

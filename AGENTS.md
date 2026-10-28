@@ -27,13 +27,12 @@ Nuxt 4 製の個人ポートフォリオ（lang: "ja"）。SSG の出力を Clou
 ```bash
 pnpm run lint:text     # content 配下の Markdown の文章チェック
 pnpm run compress      # public/images を WebP へ圧縮
-pnpm run og            # OG 画像の生成（作品の追加、タイトル・期間・画像の変更時）
-pnpm run llms          # llms.txt の生成（作品または libs/articles.ts の変更時）
+pnpm run content       # 作品・記事の生成物を更新（OG 画像、llms.txt、リンクカード）
 pnpm run icons         # PWA アイコンの生成（public/icon.png の差し替え時）
 pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA スクリーンショット用）
 ```
 
-`og` / `llms` / `icons` はローカルで実行し、生成物ごとコミットする。
+`content` と `icons` はローカルで実行し、生成物ごとコミットする。リンクカードは未取得の URL だけ取りに行く。取り直すときは `node scripts/generate-link-cards.ts --refresh` を使う。
 
 - pnpm と Node のバージョンは `package.json` の `packageManager` と `devEngines.runtime` だけで固定する
 - pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置く
@@ -43,6 +42,8 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## コンテンツとデータ
 
 - Nuxt Content v3 で管理するのは `content/works/` の作品だけ。`images` の先頭がサムネイル兼 OG 画像になる
+- 作品の「リンク」節は `::link-card{url="…"}` でカードにする。OGP と画像は `libs/link-cards.json` と `public/link-cards/` に保存したものを表示する
+  - 取得できないリンク（bot を弾く、リンク切れ）はテキストリンクのまま残す
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
 - 作品以外のデータは `libs/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
 - 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](libs/links.ts) と [site.ts](libs/site.ts) を参照する

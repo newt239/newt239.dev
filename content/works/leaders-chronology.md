@@ -32,5 +32,5 @@ G20の国々の元首と首相が、いつからいつまで在任していた�
 
 ## 関連リンク
 
-- 公開サイト
-  - [首脳在任年表](https://leaders-chronology.newt239.deno.net/ja/)
+::link-card{url="https://leaders-chronology.newt239.deno.net/ja/"}
+::

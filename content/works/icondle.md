@@ -34,7 +34,8 @@ Tabler IconsやMaterial Symbolsなど、主要なUIアイコンセット15種を
 
 ## 関連リンク
 
-- 公開サイト
-  - [Icondle](https://icondle.newt239.dev/)
-- GitHubリポジトリ
-  - [newt239/icondle](https://github.com/newt239/icondle)
+::link-card{url="https://icondle.newt239.dev/"}
+::
+
+::link-card{url="https://github.com/newt239/icondle"}
+::

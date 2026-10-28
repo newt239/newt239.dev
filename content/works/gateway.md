@@ -22,4 +22,5 @@ images:
 
 このシステムについて、詳細をZennで記事として公開しています。
 
-- <a href="https://zenn.dev/newt_st21/articles/gateway-stay-status-record-system" target="_blank" rel="noopener noreferrer">文化祭で滞在状況記録システムを運用しました</a>
+::link-card{url="https://zenn.dev/newt_st21/articles/gateway-stay-status-record-system"}
+::

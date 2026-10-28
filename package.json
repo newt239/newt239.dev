@@ -13,6 +13,7 @@
   "scripts": {
     "build": "nuxt build",
     "compress": "node scripts/compress-images.ts",
+    "content": "node scripts/generate-og-images.ts && node scripts/generate-llms-txt.ts && node scripts/generate-link-cards.ts",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "icons": "node scripts/generate-app-icons.ts",
@@ -22,8 +23,6 @@
     "lint:fix": "eslint . --fix",
     "lint:text": "textlint \"content/**/*.md\" \"README.md\"",
     "lint:text:fix": "textlint --fix \"content/**/*.md\" \"README.md\"",
-    "llms": "node scripts/generate-llms-txt.ts",
-    "og": "node scripts/generate-og-images.ts",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
     "serve:static": "serve .output/public --listen 3100 --no-port-switching",

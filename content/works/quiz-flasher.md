@@ -68,4 +68,5 @@ https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95t
 
 ### abcLINEQUIZ [LINE bot]
 
-- <a href="https://lin.ee/DidtKli" target="_blank" rel="noopener noreferrer">LINE Add Friend</a>
+::link-card{url="https://lin.ee/DidtKli"}
+::

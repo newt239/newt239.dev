@@ -41,15 +41,20 @@ images:
 
 ## リンク
 
-- <a href="https://score-watcher.com/" target="_blank" rel="noopener noreferrer">Score Watcher</a>
-- <a href="https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app" target="_blank" rel="noopener noreferrer">競技クイズ用得点表示ソフト「Score Watcher」を開発しました</a>
+::link-card{url="https://score-watcher.com/"}
+::
+
+::link-card{url="https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app"}
+::
 
 ## Score Watcher （旧バージョン）
 
-- <a href="https://github.com/newt239/score-watcher" target="_blank" rel="noopener noreferrer">newt239/score-watcher - GitHub</a>
+::link-card{url="https://github.com/newt239/score-watcher"}
+::
 
 このWebアプリケーションの前身となったソフトです。Electron, Vue.js (v2)で開発していました。
 
 最終バージョンは以下のリンクからインストールできます。
 
-- <a href="https://github.com/newt239/score-watcher/releases" target="_blank" rel="noopener noreferrer">Releases ・ newt239/score-watcher</a>
+::link-card{url="https://github.com/newt239/score-watcher/releases"}
+::

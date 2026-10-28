@@ -24,4 +24,5 @@ Next.jsでフロントエンドを構築し、コンテンツはNewt CMSで管�
 
 ## リンク
 
-- <a href="https://29th.oomiya-fes-sit.net/" target="_blank" rel="noopener noreferrer">第29回大宮祭ウェブサイト（29th.oomiya-fes-sit.net）</a>
+::link-card{url="https://29th.oomiya-fes-sit.net/"}
+::

@@ -17,7 +17,8 @@ images:
 
 ## リンク
 
-- <a href="https://newt239.github.io/local-font-emulator/" target="_blank" rel="noopener noreferrer">Local Font Emulator</a>
+::link-card{url="https://newt239.github.io/local-font-emulator/"}
+::
 
 ## 機能について
 
