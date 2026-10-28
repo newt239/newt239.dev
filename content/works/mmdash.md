@@ -17,5 +17,5 @@ images:
 
 ## 関連リンク
 
-- GitHubリポジトリ
-  - [SIT-DigiCre/mmdash](https://github.com/SIT-DigiCre/mmdash)
+::link-card{url="https://github.com/SIT-DigiCre/mmdash"}
+::

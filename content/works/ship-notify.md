@@ -38,7 +38,8 @@ DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用し�
 
 ### SHIP-Assistant on Web
 
-- <a href="https://ship-assistant.web.app/" target="_blank" rel="noopener noreferrer">SHIP-Asisstant</a>
+::link-card{url="https://ship-assistant.web.app/"}
+::
 
 ### Notion 上で利用方法を説明したページ
 

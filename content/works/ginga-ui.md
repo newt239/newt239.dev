@@ -25,10 +25,14 @@ NICT（情報通信研究機構）のセキュリティイノベータ育成プ�
 
 ## 関連リンク
 
-- GitHubリポジトリ
-  - [newt239/ginga-ui](https://github.com/newt239/ginga-ui)
-- npm
-  - [@ginga-ui/core](https://www.npmjs.com/package/@ginga-ui/core)
-- 紹介記事
-  - [GingaUI—LLM を活用し文脈に合わせたテーマを生成する UI コンポーネントライブラリ—](https://zenn.dev/newt_st21/articles/introducing-ginga-ui)
-  - [レイアウトを維持したまま LLM に外面的なデザインを生成させる UI コンポーネントライブラリを開発している話](https://qiita.com/newt239/items/203ab81778d0852d2bbf)
+::link-card{url="https://github.com/newt239/ginga-ui"}
+::
+
+::link-card{url="https://www.npmjs.com/package/@ginga-ui/core"}
+::
+
+::link-card{url="https://zenn.dev/newt_st21/articles/introducing-ginga-ui"}
+::
+
+::link-card{url="https://qiita.com/newt239/items/203ab81778d0852d2bbf"}
+::
