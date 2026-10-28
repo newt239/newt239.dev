@@ -158,7 +158,7 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
   const npmPackage = domain === "npmjs.com" ? url.pathname.match(/^\/package\/((?:@[^/]+\/)?[^/]+)/)?.[1] : undefined;
   if (npmPackage) {
     const registry = (await (
-      await fetchOk(`https://registry.npmjs.org/${npmPackage.replace("/", "%2f")}`)
+      await fetchOk(`https://registry.npmjs.org/${npmPackage.replaceAll("/", "%2f")}`)
     ).json()) as { name: string; description?: string };
     const iconResponse = await fetchIcon("", url);
     return {
@@ -244,11 +244,11 @@ if (refresh) {
 await mkdir(IMAGE_DIR, { recursive: true });
 
 const writeCards = (cards: Record<string, LinkCard>) =>
-  writeFile(DATA_FILE, `${JSON.stringify(cards, null, 2)}\n`, "utf8");
+  writeFile(DATA_FILE, `${JSON.stringify(Object.fromEntries(Object.entries(cards).toSorted(([a], [b]) => (a < b ? -1 : 1))), null, 2)}\n`, "utf8");
 
 // レート制限で途中で止まっても、再実行で続きから取得できるよう 1 件ごとに書き出す
 const cards: Record<string, LinkCard> = Object.fromEntries(
-  [...urls].sort().flatMap((url) => (existing[url] ? [[url, existing[url]]] : []))
+  [...urls].flatMap((url) => (existing[url] ? [[url, existing[url]]] : []))
 );
 for (const url of [...urls].sort().filter((url) => !cards[url])) {
   console.log(`取得中: ${url}`);

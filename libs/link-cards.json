@@ -35,6 +35,15 @@
     "image": "/link-cards/0ae2e896b520-image.webp",
     "icon": "/link-cards/icon-github.com.webp"
   },
+  "https://github.com/newt239/mojimachi/releases": {
+    "kind": "generic",
+    "title": "Releases · newt239/mojimachi",
+    "description": "Contribute to newt239/mojimachi development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/27cad40084b2-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
   "https://github.com/newt239/oxlint-rules-gacha": {
     "kind": "generic",
     "title": "GitHub - newt239/oxlint-rules-gacha",
@@ -42,6 +51,24 @@
     "siteName": "GitHub",
     "domain": "github.com",
     "image": "/link-cards/8cb04a822603-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/score-watcher": {
+    "kind": "generic",
+    "title": "GitHub - newt239/score-watcher-vue: Display Quiz games Player, Score, Status, and more.",
+    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/ef2ecdf910ca-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/score-watcher/releases": {
+    "kind": "generic",
+    "title": "Releases · newt239/score-watcher-vue",
+    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/69556a1d61fd-image.webp",
     "icon": "/link-cards/icon-github.com.webp"
   },
   "https://icondle.newt239.dev/": {
@@ -110,49 +137,6 @@
     "title": "SHIP-Assistant",
     "domain": "ship-assistant.web.app"
   },
-  "https://zenn.dev/newt_st21/articles/introducing-ginga-ui": {
-    "kind": "generic",
-    "title": "GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—",
-    "siteName": "Zenn",
-    "domain": "zenn.dev",
-    "image": "/link-cards/583a4317fa0a-image.webp",
-    "icon": "/link-cards/icon-zenn.dev.webp"
-  },
-  "https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app": {
-    "kind": "generic",
-    "title": "競技クイズ用得点表示ソフト「Score Watcher」を開発しました",
-    "siteName": "Zenn",
-    "domain": "zenn.dev",
-    "image": "/link-cards/4f35638dd2c2-image.webp",
-    "icon": "/link-cards/icon-zenn.dev.webp"
-  },
-  "https://github.com/newt239/mojimachi/releases": {
-    "kind": "generic",
-    "title": "Releases · newt239/mojimachi",
-    "description": "Contribute to newt239/mojimachi development by creating an account on GitHub.",
-    "siteName": "GitHub",
-    "domain": "github.com",
-    "image": "/link-cards/27cad40084b2-image.webp",
-    "icon": "/link-cards/icon-github.com.webp"
-  },
-  "https://github.com/newt239/score-watcher": {
-    "kind": "generic",
-    "title": "GitHub - newt239/score-watcher-vue: Display Quiz games Player, Score, Status, and more.",
-    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
-    "siteName": "GitHub",
-    "domain": "github.com",
-    "image": "/link-cards/ef2ecdf910ca-image.webp",
-    "icon": "/link-cards/icon-github.com.webp"
-  },
-  "https://github.com/newt239/score-watcher/releases": {
-    "kind": "generic",
-    "title": "Releases · newt239/score-watcher-vue",
-    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
-    "siteName": "GitHub",
-    "domain": "github.com",
-    "image": "/link-cards/69556a1d61fd-image.webp",
-    "icon": "/link-cards/icon-github.com.webp"
-  },
   "https://sit-bus.vercel.app/": {
     "kind": "generic",
     "title": "SIT Bus",
@@ -184,6 +168,22 @@
     "siteName": "Zenn",
     "domain": "zenn.dev",
     "image": "/link-cards/2255fcd698b8-image.webp",
+    "icon": "/link-cards/icon-zenn.dev.webp"
+  },
+  "https://zenn.dev/newt_st21/articles/introducing-ginga-ui": {
+    "kind": "generic",
+    "title": "GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—",
+    "siteName": "Zenn",
+    "domain": "zenn.dev",
+    "image": "/link-cards/583a4317fa0a-image.webp",
+    "icon": "/link-cards/icon-zenn.dev.webp"
+  },
+  "https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app": {
+    "kind": "generic",
+    "title": "競技クイズ用得点表示ソフト「Score Watcher」を開発しました",
+    "siteName": "Zenn",
+    "domain": "zenn.dev",
+    "image": "/link-cards/4f35638dd2c2-image.webp",
     "icon": "/link-cards/icon-zenn.dev.webp"
   }
 }
