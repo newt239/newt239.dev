@@ -1,0 +1,189 @@
+{
+  "https://29th.oomiya-fes-sit.net/": {
+    "kind": "generic",
+    "title": "第29回芝浦工業大学学園祭「大宮祭」",
+    "description": "大宮祭は、2025年5月18日(日)に芝浦工業大学大宮キャンパスで開催いたします。",
+    "siteName": "第29回芝浦工業大学学園祭「大宮祭」",
+    "domain": "29th.oomiya-fes-sit.net",
+    "image": "/link-cards/e9ee115e8497-image.webp",
+    "icon": "/link-cards/icon-29th.oomiya-fes-sit.net.webp"
+  },
+  "https://github.com/SIT-DigiCre/mmdash": {
+    "kind": "generic",
+    "title": "GitHub - SIT-DigiCre/mmdash: Dashboard of Digicre Mattermost",
+    "description": "Dashboard of Digicre Mattermost. Contribute to SIT-DigiCre/mmdash development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/cadc586d4045-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/ginga-ui": {
+    "kind": "generic",
+    "title": "GitHub - newt239/ginga-ui: brand-new UI component library for React",
+    "description": "brand-new UI component library for React. Contribute to newt239/ginga-ui development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/313879e6364e-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/icondle": {
+    "kind": "generic",
+    "title": "GitHub - newt239/icondle: Guess the icon set",
+    "description": "Guess the icon set. Contribute to newt239/icondle development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/0ae2e896b520-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/oxlint-rules-gacha": {
+    "kind": "generic",
+    "title": "GitHub - newt239/oxlint-rules-gacha",
+    "description": "Contribute to newt239/oxlint-rules-gacha development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/8cb04a822603-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://icondle.newt239.dev/": {
+    "kind": "generic",
+    "title": "Icondle",
+    "description": "UIアイコンライブラリの識別クイズ。表示されたアイコンからセット名を、セット名から合うアイコンを4択で当てよう。",
+    "siteName": "Icondle",
+    "domain": "icondle.newt239.dev",
+    "image": "/link-cards/7a6c67570ba4-image.webp",
+    "icon": "/link-cards/icon-icondle.newt239.dev.webp"
+  },
+  "https://leaders-chronology.newt239.deno.net/ja/": {
+    "kind": "generic",
+    "title": "首脳在任年表",
+    "description": "1945年9月2日以降の各国の元首と首相の在任期間。",
+    "siteName": "首脳在任年表",
+    "domain": "leaders-chronology.newt239.deno.net",
+    "image": "/link-cards/4846bc80c286-image.webp",
+    "icon": "/link-cards/icon-leaders-chronology.newt239.deno.net.webp"
+  },
+  "https://lin.ee/DidtKli": {
+    "kind": "generic",
+    "title": "Add LINE friend",
+    "domain": "lin.ee",
+    "image": "/link-cards/6ddd3e4a47c3-image.webp",
+    "icon": "/link-cards/icon-lin.ee.webp"
+  },
+  "https://newt239.github.io/local-font-emulator/": {
+    "kind": "generic",
+    "title": "Local Font Emulator",
+    "description": "デバイス上にインストールされたフォントの一覧を表示します。",
+    "siteName": "Local Font Emulator",
+    "domain": "newt239.github.io",
+    "image": "/link-cards/c46459286099-image.webp",
+    "icon": "/link-cards/icon-newt239.github.io.webp"
+  },
+  "https://oxlint-gacha.newt239.dev/": {
+    "kind": "generic",
+    "title": "oxlint rules gacha",
+    "description": "Draw one of the 870 oxlint rules, one capsule at a time.",
+    "siteName": "oxlint rules gacha",
+    "domain": "oxlint-gacha.newt239.dev",
+    "image": "/link-cards/63a3c23f9f3f-image.webp",
+    "icon": "/link-cards/icon-oxlint-gacha.newt239.dev.webp"
+  },
+  "https://qiita.com/newt239/items/203ab81778d0852d2bbf": {
+    "kind": "generic",
+    "title": "レイアウトを維持したままLLMに外面的なデザインを生成させるUIコンポーネントライブラリを開発している話 - Qiita",
+    "description": "この記事は SecHack365 Advent Calendar 2024 の 9 日目の記事です。 SecHack365'24 開発駆動コース仲山ゼミ トレーニーの @newt239 です。有志トレーニー（&amp;アシスタント）によるアドカレということで、今年度 SecHack...",
+    "siteName": "Qiita",
+    "domain": "qiita.com",
+    "image": "/link-cards/644621e6a85b-image.webp",
+    "icon": "/link-cards/icon-qiita.com.webp"
+  },
+  "https://score-watcher.com/": {
+    "kind": "generic",
+    "title": "Score Watcher",
+    "description": "競技クイズ用の得点表示ソフトです。プレイヤーの得点状況を可視化します。",
+    "siteName": "Score Watcher",
+    "domain": "score-watcher.com",
+    "image": "/link-cards/3711cab15570-image.webp",
+    "icon": "/link-cards/icon-score-watcher.com.webp"
+  },
+  "https://ship-assistant.web.app/": {
+    "kind": "generic",
+    "title": "SHIP-Assistant",
+    "domain": "ship-assistant.web.app"
+  },
+  "https://zenn.dev/newt_st21/articles/introducing-ginga-ui": {
+    "kind": "generic",
+    "title": "GingaUI—LLMを活用し文脈に合わせたテーマを生成するUIコンポーネントライブラリ—",
+    "siteName": "Zenn",
+    "domain": "zenn.dev",
+    "image": "/link-cards/583a4317fa0a-image.webp",
+    "icon": "/link-cards/icon-zenn.dev.webp"
+  },
+  "https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app": {
+    "kind": "generic",
+    "title": "競技クイズ用得点表示ソフト「Score Watcher」を開発しました",
+    "siteName": "Zenn",
+    "domain": "zenn.dev",
+    "image": "/link-cards/4f35638dd2c2-image.webp",
+    "icon": "/link-cards/icon-zenn.dev.webp"
+  },
+  "https://github.com/newt239/mojimachi/releases": {
+    "kind": "generic",
+    "title": "Releases · newt239/mojimachi",
+    "description": "Contribute to newt239/mojimachi development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/27cad40084b2-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/score-watcher": {
+    "kind": "generic",
+    "title": "GitHub - newt239/score-watcher-vue: Display Quiz games Player, Score, Status, and more.",
+    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/ef2ecdf910ca-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://github.com/newt239/score-watcher/releases": {
+    "kind": "generic",
+    "title": "Releases · newt239/score-watcher-vue",
+    "description": "Display Quiz games Player, Score, Status, and more. - newt239/score-watcher-vue",
+    "siteName": "GitHub",
+    "domain": "github.com",
+    "image": "/link-cards/69556a1d61fd-image.webp",
+    "icon": "/link-cards/icon-github.com.webp"
+  },
+  "https://sit-bus.vercel.app/": {
+    "kind": "generic",
+    "title": "SIT Bus",
+    "description": "東大宮駅・岩槻駅と大宮キャンパスの間を走る学バスが次に来る時間を表示します。",
+    "siteName": "SIT Bus",
+    "domain": "sit-bus.vercel.app",
+    "image": "/link-cards/ac0952f53a83-image.webp",
+    "icon": "/link-cards/icon-sit-bus.vercel.app.webp"
+  },
+  "https://timetbl.sic.shibaura-it.ac.jp/": {
+    "kind": "generic",
+    "title": "芝浦工業大学 時間割検索システム",
+    "description": "芝浦工業大学の公式時間割を学部・学科・年度・学期から検索できます。",
+    "domain": "timetbl.sic.shibaura-it.ac.jp",
+    "image": "/link-cards/02d5943fcf4a-image.webp",
+    "icon": "/link-cards/icon-timetbl.sic.shibaura-it.ac.jp.webp"
+  },
+  "https://www.npmjs.com/package/@ginga-ui/core": {
+    "kind": "generic",
+    "title": "@ginga-ui/core",
+    "description": "brand-new UI component library for web",
+    "siteName": "npm",
+    "domain": "npmjs.com",
+    "icon": "/link-cards/icon-npmjs.com.webp"
+  },
+  "https://zenn.dev/newt_st21/articles/gateway-stay-status-record-system": {
+    "kind": "generic",
+    "title": "文化祭で滞在状況記録システムを運用しました",
+    "siteName": "Zenn",
+    "domain": "zenn.dev",
+    "image": "/link-cards/2255fcd698b8-image.webp",
+    "icon": "/link-cards/icon-zenn.dev.webp"
+  }
+}
