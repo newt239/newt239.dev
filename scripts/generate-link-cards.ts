@@ -178,7 +178,11 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
   }
   const description = firstOf(meta, "og:description", "twitter:description", "description");
   const imageSource = firstOf(meta, "og:image", "og:image:url", "twitter:image");
-  const imageUrl = imageSource && new URL(imageSource, finalUrl).href;
+  const image = imageSource ? new URL(imageSource, finalUrl) : undefined;
+  // 移転したサイトは og:url と og:image が旧ドメインのまま残りやすいので、実際のホストに付け替える
+  const ogUrl = meta.get("og:url");
+  if (image && ogUrl && new URL(ogUrl, finalUrl).host === image.host) image.host = finalUrl.host;
+  const imageUrl = image?.href;
 
   // X は「名前 (@ID) on X」形式のタイトルを返す。削除済みなどで形式が違えば通常のカードにする
   const xAuthor =

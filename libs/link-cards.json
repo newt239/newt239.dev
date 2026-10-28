@@ -96,6 +96,14 @@
     "image": "/link-cards/6ddd3e4a47c3-image.webp",
     "icon": "/link-cards/icon-lin.ee.webp"
   },
+  "https://look-inside-view.web.app/": {
+    "kind": "generic",
+    "title": "施設一覧 ｜ Look Inside View - shfes'21",
+    "description": "「栄東校内探検ツアー」へようこそ！校内の気になる施設を選んでパノラマ画像をチェックしてみましょう！",
+    "domain": "look-inside-view.web.app",
+    "image": "/link-cards/88e4184e4efd-image.webp",
+    "icon": "/link-cards/icon-look-inside-view.web.app.webp"
+  },
   "https://newt239.github.io/local-font-emulator/": {
     "kind": "generic",
     "title": "Local Font Emulator",
