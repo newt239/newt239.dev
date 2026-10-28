@@ -8,7 +8,7 @@ const props = defineProps<{ url: string }>();
 
 const card = (linkCards as Record<string, LinkCard>)[props.url];
 if (!card) {
-  throw new Error(`${props.url} のリンクカードがありません。pnpm run link-cards を実行してください`);
+  throw new Error(`${props.url} のリンクカードがありません。pnpm run content を実行してください`);
 }
 
 const duration = (() => {
