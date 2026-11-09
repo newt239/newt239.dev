@@ -14,9 +14,6 @@ updates:
     ignore:
       - dependency-name: "typescript"
         versions: [">=6.1.0"]
-      # @nuxt/content が同梱する zod v3 を defineSitemapSchema に渡すため、ホイストされる版を v3 に保つ
-      - dependency-name: "zod"
-        versions: [">=4"]
     groups:
       npm-dependencies:
         patterns:
