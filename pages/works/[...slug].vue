@@ -269,8 +269,8 @@ const closeLightbox = async () => {
         margin: 0 0 0.75rem;
         font-size: var(--font-size-title);
         font-weight: 800;
-        view-transition-class: list-title;
         text-box: normal;
+        view-transition-class: list-title;
       }
     }
 
@@ -340,8 +340,8 @@ const closeLightbox = async () => {
       }
 
       @supports (text-box-trim: trim-both) {
-        text-box: trim-both text text;
         padding-block: 0.5rem;
+        text-box: trim-both text text;
       }
     }
   }

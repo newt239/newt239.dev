@@ -359,9 +359,9 @@
     h1,
     h2,
     .category-name {
-      text-box: trim-both text text;
       padding-block:
         calc(1rem + var(--heading-half-leading)) calc(0.5rem + var(--heading-half-leading));
+      text-box: trim-both text text;
     }
   }
 
@@ -686,9 +686,9 @@
     font-size: 1.25rem;
     font-weight: 800;
     line-height: var(--line-height-tight);
+    text-box: normal;
     color: oklch(var(--text));
     overflow-wrap: anywhere;
-    text-box: normal;
   }
 
   .thumb-card-text {
