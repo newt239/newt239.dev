@@ -58,8 +58,8 @@ useSeoMeta({ robots: "noindex" });
   .error-heading {
     width: auto;
     padding: 0;
-    text-box: normal;
     line-height: var(--line-height-heading);
+    text-box: normal;
   }
 
   .error-description {

@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     url: siteUrl,
     name: siteName,
   },
+  sitemap: {
+    xsl: false,
+  },
   css: ["@/assets/styles/main.css"],
   app: {
     head: {

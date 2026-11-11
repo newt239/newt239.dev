@@ -351,15 +351,20 @@ dialog {
     );
     border-radius: inherit;
     opacity: 0;
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask-composite: exclude;
     transition: opacity var(--dialog-transition-duration);
   }
 
-  &.is-generating::before {
-    opacity: 1;
+  @supports (mask: content-box) {
+    &::before {
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+    }
+
+    &.is-generating::before {
+      opacity: 1;
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

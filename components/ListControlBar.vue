@@ -109,6 +109,7 @@ const apply = async () => {
   margin-block-start: 0;
   overflow: hidden;
   border: var(--border-width) solid oklch(var(--surface));
+  border-block-width: 0;
   border-radius: var(--radius-md);
   opacity: 0;
   translate: 0 -0.25rem;
@@ -120,16 +121,15 @@ const apply = async () => {
     opacity var(--transition-duration) var(--transition-easing),
     translate var(--transition-duration) var(--transition-easing),
     visibility var(--transition-duration);
-  border-block-width: 0;
 
   &.is-open {
     visibility: visible;
     height: auto;
     padding-block: 0.5rem;
     margin-block-start: var(--list-header-row-gap);
+    border-block-width: var(--border-width);
     opacity: 1;
     translate: 0 0;
-    border-block-width: var(--border-width);
   }
 
   @media (prefers-contrast: more) {
