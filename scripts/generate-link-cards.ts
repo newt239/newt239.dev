@@ -52,7 +52,6 @@ const parseAttributes = (tag: string) =>
     ])
   );
 
-// chat の collectMeta と同じく、最初に出現した値だけを残す
 const collectMeta = (html: string) => {
   const meta = new Map<string, string>();
   const setOnce = (key: string | undefined, value: string | undefined) => {

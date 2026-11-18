@@ -22,7 +22,6 @@ export const person = {
   sameAs: profileSameAs,
 };
 
-// 2 要素目は Profile.vue で途中改行させない文節
 export const bioLines: [string, string?][] = [
   ["フロントエンドエンジニアです。"],
   ["Web標準やデザインシステムなどに", "関心があります。"],
