@@ -1,12 +1,10 @@
 // https://docs.discord.com/developers/link-previews/component-embeds
-// メディアの url は / 始まりのパスで渡し、絶対 URL への解決はここで行う
 type UnfurledMedia = { url: string };
 type TextDisplay = { type: 10; content: string };
 type Thumbnail = { type: 11; media: UnfurledMedia; description: string };
 type Section = { type: 9; components: TextDisplay[]; accessory: Thumbnail };
 type MediaGallery = { type: 12; items: { media: UnfurledMedia; description: string }[] };
 type Separator = { type: 14 };
-// 許可されたキー以外を含むとペイロード全体が無効になる
 type LinkButton = { type: 2; style: 5; label: string; url: string };
 type ActionRow = { type: 1; components: LinkButton[] };
 type ContainerChild = TextDisplay | Section | MediaGallery | Separator | ActionRow;

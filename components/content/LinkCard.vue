@@ -111,7 +111,6 @@ const duration = (() => {
   color: oklch(var(--text-muted));
 }
 
-/* タイトルは 2 行まで、説明と合わせて 3 行に収める。タイトルが 1 行なら説明を 2 行にし、高さはタイトル 2 行と説明 1 行に固定する */
 .link-card-text {
   --line-clamp: 3;
 
@@ -167,7 +166,6 @@ const duration = (() => {
     aspect-ratio: 1.91 / 1;
   }
 
-  /* 画像のないカードも、画像のあるカードと高さを揃える */
   &:not(:has(> .link-card-image)) {
     grid-template-columns: minmax(0, 1fr);
     min-height: calc(15rem / 1.91 + 2 * var(--border-width));

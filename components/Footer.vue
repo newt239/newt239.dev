@@ -1,14 +1,12 @@
 <script lang="ts" setup>
-import { IconBrandX, IconBrandGithub, IconPhoto } from "@tabler/icons-vue";
-
 import { socialLinks } from "~/libs/links";
 
 const copyrightYear = useState("copyright-year", () => new Date().getFullYear());
 
 const externalLinks = [
-  { ...socialLinks.x, icon: IconBrandX },
-  { ...socialLinks.github, icon: IconBrandGithub },
-  { ...socialLinks.fernweh, icon: IconPhoto },
+  { ...socialLinks.x, logo: "/x.svg", logoOnDark: "/x-white.svg" },
+  { ...socialLinks.github, logo: "/github.svg", logoOnDark: "/github-white.svg" },
+  { ...socialLinks.fernweh, logo: "/fernweh.svg", logoOnDark: undefined },
 ];
 </script>
 
@@ -26,7 +24,11 @@ const externalLinks = [
         <ul>
           <li v-for="link in externalLinks" :key="link.href">
             <a :href="link.href" target="_blank" rel="noopener noreferrer">
-              <component :is="link.icon" :size="18" aria-hidden="true" />
+              <template v-if="link.logoOnDark">
+                <img :src="link.logo" alt="" width="18" height="18" class="logo-light">
+                <img :src="link.logoOnDark" alt="" width="18" height="18" class="logo-dark">
+              </template>
+              <img v-else :src="link.logo" alt="" width="18" height="18">
               {{ link.name }}
             </a>
           </li>

@@ -174,7 +174,6 @@
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
 }
 
-/* standalone の AccentColor 追随に後勝ちさせるため、display-mode のブロックより前に置く */
 @media (prefers-color-scheme: dark) {
   :root {
     --text: 0.935 0.012 70;
@@ -440,7 +439,7 @@
 
   /* 印刷では同じ役割を URL 併記が担うため、アイコンは画面に限定する */
   @media screen {
-    :is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+    :is(.underline, :is(p, li, table) a)[href^="http"]:not([href^="https://newt239.dev"], :has(svg))::after {
       display: inline-block;
       width: var(--external-link-icon-size);
       height: var(--external-link-icon-size);
@@ -455,7 +454,7 @@
   }
 
   @media (forced-colors: active) {
-    :is(.underline, :is(p, li, table) a)[href^="http"]:not([href*="newt239.dev"], :has(svg))::after {
+    :is(.underline, :is(p, li, table) a)[href^="http"]:not([href^="https://newt239.dev"], :has(svg))::after {
       background-color: LinkText;
     }
   }
@@ -585,6 +584,35 @@
     font-size: 1rem;
     cursor: pointer;
     border-radius: var(--radius-sm);
+  }
+
+  .logo-light,
+  .logo-dark {
+    object-fit: contain;
+  }
+
+  .logo-dark {
+    display: none;
+  }
+
+  @media screen {
+    :root[data-theme-tone="dark"] .logo-light {
+      display: none;
+    }
+
+    :root[data-theme-tone="dark"] .logo-dark {
+      display: revert;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme-tone="light"]) .logo-light {
+        display: none;
+      }
+
+      :root:not([data-theme-tone="light"]) .logo-dark {
+        display: revert;
+      }
+    }
   }
 }
 
@@ -807,7 +835,6 @@
     break-after: avoid;
   }
 
-  /* 画面のアイコンと違い newt239.dev のサブドメインも除外しない。紙面では自サイトでも辿れないため */
   a[href^="http"]::after {
     font-size: 0.75rem;
     font-weight: 400;
@@ -863,7 +890,6 @@
   object-fit: cover;
 }
 
-/* カードの移動アニメーションは一覧の絞り込み時のみ。ページ遷移では従来どおりルートごとクロスフェードさせる */
 :root:not(:active-view-transition-type(list-filter))::view-transition-group(.list-card) {
   animation-name: none;
 }
@@ -894,7 +920,6 @@
   animation-name: none;
 }
 
-/* ヘッダーは遷移中も居続けるので、ルートのクロスフェードから外して new だけを出す */
 ::view-transition-group(site-header) {
   z-index: 10;
 }

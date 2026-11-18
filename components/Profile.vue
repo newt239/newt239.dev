@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { IconBrandGithub, IconBrandX, IconChevronRight } from "@tabler/icons-vue";
+import { IconChevronRight } from "@tabler/icons-vue";
 
 import { socialLinks } from "~/libs/links";
 import { bioLines } from "~/libs/person";
 
 const snsLinks = [
-  { ...socialLinks.x, icon: IconBrandX },
-  { ...socialLinks.github, icon: IconBrandGithub },
-  { ...socialLinks.zenn, icon: "/zenn.png" },
-  { ...socialLinks.qiita, icon: "/qiita.webp" },
+  { ...socialLinks.x, icon: "/x.svg", iconOnDark: "/x-white.svg" },
+  { ...socialLinks.github, icon: "/github.svg", iconOnDark: "/github-white.svg" },
+  { ...socialLinks.zenn, icon: "/zenn.png", iconOnDark: undefined },
+  { ...socialLinks.qiita, icon: "/qiita.webp", iconOnDark: undefined },
 ];
 </script>
 
@@ -39,8 +39,11 @@ const snsLinks = [
       >
         <div class="sns-name">{{ link.name }}</div>
         <div>{{ link.handle }}</div>
-        <component :is="link.icon" v-if="typeof link.icon !== 'string'" aria-hidden="true" />
-        <NuxtImg v-else :src="link.icon" alt="" aria-hidden="true" width="24" height="24" class="sns-icon" />
+        <template v-if="link.iconOnDark">
+          <img :src="link.icon" alt="" width="48" height="48" class="sns-icon logo-light">
+          <img :src="link.iconOnDark" alt="" width="48" height="48" class="sns-icon logo-dark">
+        </template>
+        <NuxtImg v-else :src="link.icon" alt="" width="48" height="48" class="sns-icon" />
       </a>
     </div>
   </div>
@@ -115,7 +118,6 @@ const snsLinks = [
       }
     }
 
-    /* ダークでも濃いカードのまま見せる。--surface-hover はライトの --text とほぼ同じ色になる */
     @media (prefers-color-scheme: dark) {
       --top-card-blob: var(--bg);
 
@@ -243,29 +245,32 @@ const snsLinks = [
     }
 
     .sns-card {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 0.75rem;
+      align-items: center;
       padding: 0.5rem 1rem;
       font-weight: 800;
 
       @media print {
         &::after {
-          width: 100%;
+          grid-column: 1 / -1;
         }
       }
     }
   }
 
   .sns-name {
-    width: 100%;
     font-size: 0.75rem;
     font-weight: 400;
   }
 
   .sns-icon {
-    width: 24px;
-    height: 24px;
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
   }
 }
 </style>

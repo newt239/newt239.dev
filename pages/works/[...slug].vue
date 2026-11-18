@@ -110,7 +110,6 @@ useHead({
   ],
 });
 
-// 一覧へ戻る際、この作品のカードだけを他のカードより前面に出すために共有する
 const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
 activeWorkSlug.value = workSlug;
 

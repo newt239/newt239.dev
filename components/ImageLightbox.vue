@@ -131,7 +131,6 @@ const clampTranslate = () => {
   translateY.value = Math.min(limitY, Math.max(-limitY, translateY.value));
 };
 
-// scale(S) translate(T) は中心基準なので、焦点 f を固定したまま S を変えるには T += f * (1/S' - 1/S)
 const zoomAt = (nextScale: number, clientX: number, clientY: number) => {
   const content = contentRef.value;
   if (!content) return;
@@ -561,7 +560,6 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
   cursor: grabbing;
 }
 
-/* ピンチとホイールは指やカーソルに追従させる。補間の途中値では焦点が固定されない */
 .lightbox-image.is-gesturing {
   transition: none;
 }

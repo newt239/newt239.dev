@@ -42,8 +42,8 @@ const formattedDate = computed(() =>
     <div class="article-card-footer">
       <div class="site-info">
         <template v-if="site.icon && site.iconOnDark">
-          <NuxtImg :src="site.icon" alt="" width="24" height="24" class="site-icon-light" />
-          <NuxtImg :src="site.iconOnDark" alt="" width="24" height="24" class="site-icon-dark" />
+          <NuxtImg :src="site.icon" alt="" width="24" height="24" class="logo-light" />
+          <NuxtImg :src="site.iconOnDark" alt="" width="24" height="24" class="logo-dark" />
         </template>
         <NuxtImg v-else-if="site.icon" :src="site.icon" alt="" width="24" height="24" />
         <IconBook2 v-else :size="24" aria-hidden="true" />
@@ -79,30 +79,6 @@ const formattedDate = computed(() =>
   display: inline-flex;
   gap: 0.5rem;
   align-items: center;
-}
-
-.site-icon-dark {
-  display: none;
-}
-
-@media screen {
-  :root[data-theme-tone="dark"] .site-icon-light {
-    display: none;
-  }
-
-  :root[data-theme-tone="dark"] .site-icon-dark {
-    display: revert;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme-tone="light"]) .site-icon-light {
-      display: none;
-    }
-
-    :root:not([data-theme-tone="light"]) .site-icon-dark {
-      display: revert;
-    }
-  }
 }
 
 .site-name {

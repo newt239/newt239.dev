@@ -21,7 +21,6 @@ const WORKS_DIR = join(ROOT_DIR, "content", "works");
 const IMAGES_DIR = join(ROOT_DIR, "public", "images");
 const OUTPUT_DIR = join(ROOT_DIR, "public", "og");
 
-// サイト本文と同じ FOT-UD角ゴ_ラージ Pr6N を使うため、Adobe Fonts が同期したローカルの実体を読む
 const FONT_DIR = join(homedir(), "Library", "Fonts");
 const FONT_FILES = {
   regular: join(FONT_DIR, "FOT-UDKakugo_LargePr6N-R.otf"),

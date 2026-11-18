@@ -69,6 +69,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
+- 他社ロゴは公式配布の黒版と白版を `public/` に置き、`.logo-light` / `.logo-dark` で切り替える。テーマ色で塗るとブランドガイドラインの改変禁止に反する
 - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
 - Baseline widely available 外の機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
 
