@@ -70,7 +70,11 @@ export default defineNuxtConfig({
       ],
       script: [
         { src: "https://use.typekit.net/ylu0yhm.js", defer: true },
-        { src: "/typekit-load.js", defer: true },
+        {
+          type: "module",
+          innerHTML: "window.Typekit?.load({ async: true });",
+          tagPosition: "bodyClose",
+        },
       ],
     },
     pageTransition: false,
