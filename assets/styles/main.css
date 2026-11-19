@@ -171,7 +171,6 @@
   --heading-wave-stagger: 0.045s;
   --theme-beam-duration: 1.2s;
   --spinner-duration: 1s;
-  --font-wait-duration: 1s;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
 }
 
@@ -278,7 +277,6 @@
     --heading-wave-stagger: 0s;
     --theme-beam-duration: 0s;
     --spinner-duration: 0s;
-    --font-wait-duration: 0s;
 
     transition: none;
   }
@@ -339,18 +337,6 @@
     color: oklch(var(--text));
     cursor: default;
     background-color: oklch(var(--bg));
-  }
-
-  /* Adobe Fonts の適用まで隠す。kit が届かなくても時間切れで表示に戻る */
-  html:not(.wf-active, .wf-inactive) body {
-    animation: font-wait var(--font-wait-duration);
-  }
-
-  @keyframes font-wait {
-    from,
-    to {
-      visibility: hidden;
-    }
   }
 
   h1,
