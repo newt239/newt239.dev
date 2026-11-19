@@ -51,15 +51,10 @@ const snsLinks = [
 
 <style scoped>
 .profile {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: space-between;
-  width: 100%;
-
-  @media screen and (width <= 43.75rem) {
-    flex-direction: column;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: var(--grid-gap);
+  container-type: inline-size;
 
   .top-card {
     --top-card-blob: var(--text-muted);
@@ -67,9 +62,9 @@ const snsLinks = [
     position: relative;
     display: flex;
     flex-direction: column;
+    grid-column: 1 / -2;
     gap: 1rem;
     justify-content: space-between;
-    width: 70%;
     color: oklch(var(--bg));
     background-color: oklch(var(--text));
     background-image: radial-gradient(
@@ -177,15 +172,11 @@ const snsLinks = [
     }
 
     h2 {
-      padding: 0 0 1rem;
+      padding: 0 0 1.5rem;
 
-      @media screen and (width > 43.75rem) {
-        padding-bottom: 1.5rem;
+      @container (width < 37rem) {
+        padding-bottom: 1rem;
       }
-    }
-
-    @media screen and (width <= 43.75rem) {
-      width: 100%;
     }
   }
 
@@ -232,16 +223,13 @@ const snsLinks = [
   .sns-links {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--grid-gap);
     justify-content: space-between;
-    width: 30%;
     font-size: 1rem;
 
-    @media screen and (width <= 43.75rem) {
+    @container (width < 37rem) {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
-      gap: 0.75rem;
-      width: 100%;
     }
 
     .sns-card {

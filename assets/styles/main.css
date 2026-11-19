@@ -133,6 +133,10 @@
   --container-max-width: 1280px;
   --container-padding-inline: min(1rem, 4vw);
   --card-min-width: min(17.5rem, 100%);
+  --grid-gap: 1rem;
+  --grid-track-max: calc(
+    (var(--container-max-width) - 2 * var(--container-padding-inline) - 3 * var(--grid-gap)) / 4
+  );
   --external-link-icon-size: 0.85em;
   --external-link-icon-gap: 0.2em;
   --external-link-icon-gap-heading: 0.1em;
@@ -492,7 +496,7 @@
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-    gap: 1rem;
+    gap: var(--grid-gap);
   }
 
   .empty-state {
@@ -740,7 +744,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 320px;
+    max-width: var(--grid-track-max);
     padding: 0.75rem 1.5rem;
   }
 

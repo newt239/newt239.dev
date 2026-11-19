@@ -157,7 +157,9 @@ const links = [
 
 <style scoped>
 .about-page {
-  max-width: 800px;
+  max-width: calc(
+    3 * var(--grid-track-max) + 2 * var(--grid-gap) + 2 * var(--container-padding-inline)
+  );
   margin: 0 auto;
 
   .sub {
