@@ -4,9 +4,9 @@ import { socialLinks } from "~/libs/links";
 const copyrightYear = useState("copyright-year", () => new Date().getFullYear());
 
 const externalLinks = [
-  { ...socialLinks.x, logo: "/x.svg", logoOnDark: "/x-white.svg" },
-  { ...socialLinks.github, logo: "/github.svg", logoOnDark: "/github-white.svg" },
-  { ...socialLinks.fernweh, logo: "/fernweh.svg", logoOnDark: undefined },
+  { ...socialLinks.x, logo: "/x.svg", logoOnDark: "/x-white.svg", scale: 0.75 },
+  { ...socialLinks.github, logo: "/github.svg", logoOnDark: "/github-white.svg", scale: 1 },
+  { ...socialLinks.fernweh, logo: "/fernweh.svg", logoOnDark: undefined, scale: 1 },
 ];
 </script>
 
@@ -24,11 +24,13 @@ const externalLinks = [
         <ul>
           <li v-for="link in externalLinks" :key="link.href">
             <a :href="link.href" target="_blank" rel="noopener noreferrer">
-              <template v-if="link.logoOnDark">
-                <img :src="link.logo" alt="" width="18" height="18" class="logo-light">
-                <img :src="link.logoOnDark" alt="" width="18" height="18" class="logo-dark">
-              </template>
-              <img v-else :src="link.logo" alt="" width="18" height="18">
+              <span class="footer-logo" :style="{ scale: link.scale }">
+                <template v-if="link.logoOnDark">
+                  <img :src="link.logo" alt="" width="18" height="18" class="logo-light">
+                  <img :src="link.logoOnDark" alt="" width="18" height="18" class="logo-dark">
+                </template>
+                <img v-else :src="link.logo" alt="" width="18" height="18">
+              </span>
               {{ link.name }}
             </a>
           </li>
@@ -89,6 +91,10 @@ const externalLinks = [
     align-items: center;
     font-size: 1rem;
   }
+}
+
+.footer-logo {
+  display: inline-flex;
 }
 
 .footer-bottom {

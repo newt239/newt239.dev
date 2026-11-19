@@ -5,10 +5,10 @@ import { socialLinks } from "~/libs/links";
 import { bioLines } from "~/libs/person";
 
 const snsLinks = [
-  { ...socialLinks.x, icon: "/x.svg", iconOnDark: "/x-white.svg" },
-  { ...socialLinks.github, icon: "/github.svg", iconOnDark: "/github-white.svg" },
-  { ...socialLinks.zenn, icon: "/zenn.png", iconOnDark: undefined },
-  { ...socialLinks.qiita, icon: "/qiita.webp", iconOnDark: undefined },
+  { ...socialLinks.x, icon: "/x.svg", iconOnDark: "/x-white.svg", scale: 0.75 },
+  { ...socialLinks.github, icon: "/github.svg", iconOnDark: "/github-white.svg", scale: 1 },
+  { ...socialLinks.zenn, icon: "/zenn.png", iconOnDark: undefined, scale: 1 },
+  { ...socialLinks.qiita, icon: "/qiita.webp", iconOnDark: undefined, scale: 1 },
 ];
 </script>
 
@@ -39,11 +39,13 @@ const snsLinks = [
       >
         <div class="sns-name">{{ link.name }}</div>
         <div>{{ link.handle }}</div>
-        <template v-if="link.iconOnDark">
-          <img :src="link.icon" alt="" width="48" height="48" class="sns-icon logo-light">
-          <img :src="link.iconOnDark" alt="" width="48" height="48" class="sns-icon logo-dark">
-        </template>
-        <NuxtImg v-else :src="link.icon" alt="" width="48" height="48" class="sns-icon" />
+        <div class="sns-icon" :style="{ scale: link.scale }">
+          <template v-if="link.iconOnDark">
+            <img :src="link.icon" alt="" width="48" height="48" class="logo-light">
+            <img :src="link.iconOnDark" alt="" width="48" height="48" class="logo-dark">
+          </template>
+          <NuxtImg v-else :src="link.icon" alt="" width="48" height="48" />
+        </div>
       </a>
     </div>
   </div>
@@ -270,7 +272,12 @@ const snsLinks = [
     grid-column: 2;
     width: 2rem;
     height: 2rem;
-    object-fit: contain;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 }
 </style>
