@@ -73,7 +73,8 @@ export default defineNuxtConfig({
         {
           type: "module",
           innerHTML: "window.Typekit?.load({ async: true });",
-          tagPosition: "bodyClose",
+          // defer と同じ重みにして kit の直後、Nuxt エントリの前に並べる
+          tagPriority: 80,
         },
       ],
     },
