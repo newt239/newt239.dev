@@ -68,6 +68,8 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - ダークパレットは手で決め、`themeConstraints` の 14 件を手動で実測する
 - 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
+- 横幅は `.card-grid` のトラックに揃える。固定幅は `--grid-track-max`（4 列時の 1 枚分）と `--grid-gap` から `calc()` で作り、列数の切り替えはコンテナ内幅 37rem / 55.5rem / 74rem のコンテナクエリで行う
+- scoped な `<style>` で at-rule を二重にネストしない（`@media { @container { … } }`）。直下の宣言から `data-v` 属性が落ち、詳細度で元の規則に負ける
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
 - 他社ロゴは公式配布の黒版と白版を `public/` に置き、`.logo-light` / `.logo-dark` で切り替える。テーマ色で塗るとブランドガイドラインの改変禁止に反する
 - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）

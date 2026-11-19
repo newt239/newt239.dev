@@ -138,7 +138,7 @@ const onTouchEnd = () => {
               :src="`/images/${image.src}`"
               :alt="image.alt"
               class="carousel-image"
-              sizes="sm:100vw md:50vw lg:900px"
+              sizes="100vw md:50vw lg:66vw xl:780px"
               :style="imageStyle(slide)"
             />
             <span class="visually-hidden">（拡大表示）</span>

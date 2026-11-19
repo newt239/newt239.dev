@@ -158,7 +158,10 @@ dialog {
     top: 50dvh;
     left: 50%;
     z-index: 1000;
-    width: min(90%, 600px);
+    width: min(
+      100% - 2 * var(--container-padding-inline),
+      2 * var(--grid-track-max) + var(--grid-gap)
+    );
     max-height: calc(100dvh - var(--modal-padding) * 2);
     padding: var(--modal-padding);
     container: theme-modal / inline-size;
