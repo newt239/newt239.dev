@@ -160,7 +160,6 @@ const duration = (() => {
 
 .is-generic {
   grid-template-columns: minmax(0, 1fr) min(40%, 15rem);
-  max-width: 44rem;
 
   .link-card-image {
     aspect-ratio: 1.91 / 1;
@@ -190,14 +189,6 @@ const duration = (() => {
   }
 }
 
-.is-youtube,
-.is-x {
-  max-width: 26.25rem;
-
-  @media (width <= 48rem) {
-    max-width: none;
-  }
-}
 
 .link-card-thumb {
   position: relative;

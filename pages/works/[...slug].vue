@@ -171,7 +171,7 @@ const closeLightbox = async () => {
   <div>
     <div class="container each-work-page">
       <div class="work">
-        <div class="work-hero">
+        <div class="work-layout">
           <ImageCarousel
             ref="carousel"
             v-model:index="imageIndex"
@@ -198,9 +198,9 @@ const closeLightbox = async () => {
               </dd>
             </dl>
           </div>
-        </div>
-        <div class="content">
-          <ContentRenderer :value="work" />
+          <div class="content">
+            <ContentRenderer :value="work" />
+          </div>
         </div>
         <ImageLightbox
           v-model:index="imageIndex"
@@ -247,19 +247,19 @@ const closeLightbox = async () => {
 
 <style scoped>
 .each-work-page {
-  .work-hero {
-    display: flex;
-    gap: 2rem;
+  .work {
+    container-type: inline-size;
+  }
+
+  .work-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--grid-gap);
     align-items: start;
 
-    > .carousel {
-      flex: 1;
-      min-width: 0;
-    }
-
     > .work-sidebar {
-      flex-shrink: 0;
-      width: 360px;
+      order: -1;
+      margin-bottom: 1rem;
 
       .work-title {
         display: block;
@@ -273,14 +273,69 @@ const closeLightbox = async () => {
       }
     }
 
-    /* A4 縦の印刷幅は約 49.6rem で 48rem にマッチしない */
-    @media print, (width <= 48rem) {
-      flex-direction: column;
-      gap: 1rem;
+    @container (width >= 37rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      > .carousel {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
+      > .content {
+        grid-row: 2;
+        grid-column: 1;
+      }
 
       > .work-sidebar {
+        position: sticky;
+        top: calc(var(--header-height) + var(--grid-gap));
+        grid-row: 1 / span 2;
+        grid-column: 2;
+        order: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    @container (width >= 55.5rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      > .carousel,
+      > .content {
+        grid-column: 1 / span 2;
+      }
+
+      > .work-sidebar {
+        grid-column: 3;
+      }
+    }
+
+    @container (width >= 74rem) {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+
+      > .carousel,
+      > .content {
+        grid-column: 1 / span 5;
+      }
+
+      > .work-sidebar {
+        grid-column: 6 / -1;
+      }
+    }
+
+    /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
+    @media print {
+      grid-template-columns: minmax(0, 1fr);
+
+      > .carousel,
+      > .content,
+      > .work-sidebar {
+        grid-area: auto;
+      }
+
+      > .work-sidebar {
+        position: static;
         order: -1;
-        width: 100%;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -444,7 +499,7 @@ const closeLightbox = async () => {
     padding-bottom: 1rem;
     overflow-wrap: anywhere;
 
-    @media (width <= 48rem) {
+    @container (width < 37rem) {
       padding-top: 0;
     }
 
