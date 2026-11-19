@@ -68,6 +68,15 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
         { rel: "manifest", href: "/manifest.webmanifest" },
       ],
+      script: [
+        { src: "https://use.typekit.net/ylu0yhm.js", defer: true },
+        {
+          type: "module",
+          innerHTML: "window.Typekit?.load({ async: true });",
+          // defer と同じ重みにして kit の直後、Nuxt エントリの前に並べる
+          tagPriority: 80,
+        },
+      ],
     },
     pageTransition: false,
   },

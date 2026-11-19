@@ -88,7 +88,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - **アナリティクス**：[vue-gtag.client.ts](plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
-- **Adobe Fonts**：[typekit.client.ts](plugins/typekit.client.ts) が kit を注入し、`onload` で `Typekit.load()` を呼ぶ。CSP のため、`app.head.script` へ戻さない
+- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `app.head.script` で kit を `defer` で読み、直後のインライン module スクリプトで `Typekit.load()` を呼ぶ。module は `defer` と同じ文書順で実行されるので、`tagPriority: 80` で kit と Nuxt エントリの間に並べる（既定だと kit より前に出て空振りし、エントリより後ろだとハイドレーションを待つ）。`onload` 属性は CSP で弾かれる
 
 ## SEO メタ
 
@@ -114,7 +114,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 [public/_headers](public/_headers) の `/*` で CSP などを返す（Observatory A+、issue #149）。
 
-- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config` の 3 つ。`prerender:done` の時点では `_headers` がまだ無い
+- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config`、`Typekit.load()` の 4 つ。`prerender:done` の時点では `_headers` がまだ無い
 - `style-src 'unsafe-inline'` は残す（Observatory で満点扱い）
 - Adobe Fonts には `connect-src` と `font-src data:` の両方が要る。フォントは XHR で取得され、`data:` URI として注入されるため。CSS は読まないので `style-src` は不要
 - フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する
