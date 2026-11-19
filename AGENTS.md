@@ -88,7 +88,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - **アナリティクス**：[vue-gtag.client.ts](plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
-- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `app.head.script` で kit を `defer` で読み、`body` 末尾のインライン module スクリプトで `Typekit.load()` を呼ぶ。module は `defer` と同じ文書順で実行されるので、`head` に置くと unhead が kit より前に並べて空振りする。`onload` 属性は CSP で弾かれる
+- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `app.head.script` で kit を `defer` で読み、直後のインライン module スクリプトで `Typekit.load()` を呼ぶ。module は `defer` と同じ文書順で実行されるので、`tagPriority: 80` で kit と Nuxt エントリの間に並べる（既定だと kit より前に出て空振りし、エントリより後ろだとハイドレーションを待つ）。`onload` 属性は CSP で弾かれる
 
 ## SEO メタ
 
