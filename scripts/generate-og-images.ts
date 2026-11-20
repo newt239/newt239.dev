@@ -111,6 +111,7 @@ const workNode = (title: string, period: string, screenshot: string) => ({
             flexDirection: "column",
             justifyContent: "center",
             gap: 18,
+            boxSizing: "border-box",
             width: WIDTH,
             height: HEIGHT - SHOT_HEIGHT,
             padding: "0 56px",
