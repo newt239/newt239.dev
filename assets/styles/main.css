@@ -430,6 +430,7 @@
 
     @media (hover: hover) {
       &:hover {
+        text-decoration-color: transparent;
         opacity: var(--hover-opacity);
       }
     }
