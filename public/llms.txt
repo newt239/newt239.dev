@@ -23,7 +23,7 @@
 - [もじまち](https://newt239.dev/works/mojimachi): 2023年6月〜2023年8月 / React, Tauri, Chakra UI
 - [sh309cafe](https://newt239.dev/works/sh309cafe): 2023年6月〜2023年7月 / Remix, radix-ui, Prisma
 - [Local Font Emulator](https://newt239.dev/works/local-font-emulator): 2023年4月〜2023年5月 / React, Mantine
-- [Score Watcher](https://newt239.dev/works/score-watcher): 2022年10月〜2023年5月 / Next.js, Chakra UI, Dexie.js / クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
+- [Score Watcher](https://newt239.dev/works/score-watcher): 2022年10月〜2026年11月 / Next.js, Mantine, Dexie.js / クイズ大会におけるプレイヤーの得点状況を可視化するソフトです。
 - [Gateway](https://newt239.dev/works/gateway): 2021年12月〜2022年9月 / React, Golang, MySQL, AWS / 栄東祭2022において、来場者の滞在状況を記録するシステムを開発・運用しました。
 - [Look Inside View](https://newt239.dev/works/look-inside-view): 2021年6月〜2021年9月 / Pannellum, Firebase
 - [SHIP Notify](https://newt239.dev/works/ship-notify): 2021年1月〜2022年4月 / Discord.py, Selenium, Heroku, Firebase
