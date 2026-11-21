@@ -61,11 +61,11 @@ const hobbies = [
 ] as const;
 
 const links = [
-  socialLinks.hatena,
-  socialLinks.mixi2,
-  socialLinks.annict,
-  socialLinks.booklog,
-  socialLinks.linkedin,
+  { ...socialLinks.hatena, logo: "/hatena.svg", logoOnDark: "/hatena-white.svg" },
+  { ...socialLinks.mixi2, logo: "/mixi2.webp", logoOnDark: undefined },
+  { ...socialLinks.annict, logo: "/annict.webp", logoOnDark: undefined },
+  { ...socialLinks.booklog, logo: "/booklog.png", logoOnDark: undefined },
+  { ...socialLinks.linkedin, logo: "/linkedin.webp", logoOnDark: undefined },
 ];
 </script>
 
@@ -145,6 +145,11 @@ const links = [
               rel="noopener noreferrer"
               class="link-card"
             >
+              <template v-if="link.logoOnDark">
+                <img :src="link.logo" alt="" width="24" height="24" class="link-logo logo-light">
+                <img :src="link.logoOnDark" alt="" width="24" height="24" class="link-logo logo-dark">
+              </template>
+              <img v-else :src="link.logo" alt="" width="24" height="24" class="link-logo">
               {{ link.name }}
               <IconExternalLink class="external-icon" aria-hidden="true" />
             </a>
@@ -312,6 +317,12 @@ const links = [
         &:hover {
           text-decoration-style: solid;
         }
+      }
+
+      .link-logo {
+        flex-shrink: 0;
+        margin-right: 0.75rem;
+        object-fit: contain;
       }
 
       @media print {
