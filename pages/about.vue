@@ -2,7 +2,7 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 import { socialLinks } from "~/libs/links";
-import { person } from "~/libs/person";
+import { bioLines, person } from "~/libs/person";
 import { siteName, siteUrl } from "~/libs/site";
 
 usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
@@ -72,6 +72,7 @@ const links = [
 <template>
   <div>
     <div class="container about-page">
+      <div class="about-layout">
       <div class="about-hero">
         <img src="/icon.webp" alt="" class="profile-icon">
         <div class="hero-info">
@@ -86,6 +87,12 @@ const links = [
       </div>
 
       <div class="about-sections">
+        <p class="about-bio">
+          <template v-for="([lead, phrase], index) in bioLines" :key="lead">
+            <br v-if="index > 0">{{ lead }}<span v-if="phrase" class="phrase">{{ phrase }}</span>
+          </template>
+        </p>
+
         <section id="contact" class="about-section" tabindex="-1">
           <h2 class="section-heading">コンタクト</h2>
           <div class="section-body">
@@ -156,32 +163,33 @@ const links = [
           </div>
         </section>
       </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .about-page {
-  max-width: calc(
-    3 * var(--grid-track-max) + 2 * var(--grid-gap) + 2 * var(--container-padding-inline)
-  );
-  margin: 0 auto;
+  container-type: inline-size;
 
   .sub {
     font-size: 50%;
     color: oklch(var(--text-muted));
   }
 
-  .about-hero {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 0;
+  .about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--grid-gap);
+    align-items: start;
 
-    @media screen and (width <= 37.5rem) {
+    > .about-hero {
+      display: flex;
       flex-direction: column;
+      gap: 1rem;
       align-items: center;
+      padding: 2rem 0;
+      text-align: center;
     }
 
     .profile-icon {
@@ -191,48 +199,102 @@ const links = [
       object-fit: cover;
       border-radius: var(--radius-round);
       corner-shape: round;
-
-      @media screen and (width <= 37.5rem) {
-        align-self: center;
-      }
     }
 
     .hero-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
       h1 {
-        padding: 0 0 0.5rem;
+        padding: 0 0 0.75rem;
+      }
+    }
+
+    .basic-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      justify-items: center;
+      padding: 0;
+      margin: 0;
+
+      dt {
+        margin-top: 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        line-height: var(--line-height-tight);
+        color: oklch(var(--text-muted));
+
+        &:first-of-type {
+          margin-top: 0;
+        }
       }
 
-      .basic-info {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.25rem 1rem;
-        padding: 0;
+      dd {
         margin: 0;
+        line-height: var(--line-height-tight);
+      }
+    }
 
-        dt {
-          padding-top: 0.25rem;
-          font-size: 0.75rem;
-          font-weight: 800;
-          color: oklch(var(--text-muted));
-        }
+    @container (width >= 37rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
 
-        dd {
-          margin: 0;
-          line-height: var(--line-height-tight);
-        }
+      > .about-sections {
+        grid-row: 1;
+        grid-column: 1;
       }
 
-      @media screen and (width <= 37.5rem) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+      > .about-hero {
+        position: sticky;
+        top: calc(var(--header-height) + var(--grid-gap));
+        grid-row: 1;
+        grid-column: 2;
+        padding: 0;
+      }
 
-        .basic-info {
-          grid-template-columns: 1fr;
-          justify-items: center;
-          text-align: center;
-        }
+      .profile-icon {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    @container (width >= 55.5rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      > .about-sections {
+        grid-column: 1 / span 2;
+      }
+
+      > .about-hero {
+        grid-column: 3;
+      }
+    }
+
+    @container (width >= 74rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      > .about-sections {
+        grid-column: 1 / span 3;
+      }
+
+      > .about-hero {
+        grid-column: 4;
+      }
+    }
+
+    /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
+    @media print {
+      grid-template-columns: minmax(0, 1fr);
+
+      > .about-sections,
+      > .about-hero {
+        grid-area: auto;
+      }
+
+      > .about-hero {
+        position: static;
+        padding-bottom: 1.5rem;
       }
     }
   }
@@ -242,6 +304,18 @@ const links = [
     flex-direction: column;
     gap: 1.5rem;
     padding-bottom: 2rem;
+  }
+
+  .about-bio {
+    width: fit-content;
+    margin: 0;
+    line-height: var(--line-height-loose);
+    text-wrap: pretty;
+    view-transition-name: profile-bio;
+
+    .phrase {
+      display: inline-block;
+    }
   }
 
   .about-section {
