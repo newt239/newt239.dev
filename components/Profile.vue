@@ -184,9 +184,11 @@ const snsLinks = [
     margin: 3vh min(3vh, 5vw) 5rem;
 
     p {
+      width: fit-content;
       margin: 0;
       line-height: var(--line-height-loose);
       text-wrap: pretty;
+      view-transition-name: profile-bio;
     }
 
     .phrase {
