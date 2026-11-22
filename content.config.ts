@@ -1,6 +1,6 @@
 import { defineCollection, defineContentConfig } from "@nuxt/content";
 import { defineSitemapSchema } from "@nuxtjs/sitemap/content";
-import { z } from "zod";
+import * as z from "zod";
 
 export default defineContentConfig({
   collections: {
@@ -11,7 +11,7 @@ export default defineContentConfig({
         tech: z.array(z.string()),
         period: z.string(),
         github: z.string().optional(),
-        url: z.string().url().optional(),
+        url: z.url().optional(),
         order: z.number().optional(),
         images: z.array(
           z.object({
