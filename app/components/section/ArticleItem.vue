@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconBook2, IconExternalLink } from "@tabler/icons-vue";
 
-import { articleSite } from "~/libs/articles";
+import { articleSite } from "~/lib/articles";
 
 const props = defineProps<{
   title: string;

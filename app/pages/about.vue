@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-import { socialLinks } from "~/libs/links";
-import { bioLines, person } from "~/libs/person";
-import { siteName, siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/lib/constants";
+import { socialLinks } from "~/lib/links";
+import { bioLines, person } from "~/lib/person";
 
 usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
 
@@ -150,7 +150,7 @@ const links = [
               :href="link.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="link-card"
+              class="link-row"
             >
               <template v-if="link.logoOnDark">
                 <img :src="link.logo" alt="" width="24" height="24" class="link-logo logo-light">
@@ -343,7 +343,7 @@ const links = [
       overflow: hidden;
     }
 
-    .link-card {
+    .link-row {
       display: flex;
       gap: 0.25rem;
       align-items: center;
@@ -402,7 +402,7 @@ const links = [
       @media print {
         display: block;
 
-        /* inline-block にしないと .link-card の下線が ::after にも伝播する */
+        /* inline-block にしないと .link-row の下線が ::after にも伝播する */
         &::after {
           display: inline-block;
           width: 100%;

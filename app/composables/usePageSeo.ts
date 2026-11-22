@@ -1,4 +1,4 @@
-import { siteName } from "~/libs/site";
+import { siteName } from "~/lib/constants";
 
 export const usePageSeo = ({ title, ogImage }: { title: string; ogImage?: string }) => {
   useSeoMeta({

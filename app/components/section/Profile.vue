@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-import { socialLinks } from "~/libs/links";
-import { bioLines } from "~/libs/person";
+import { socialLinks } from "~/lib/links";
+import { bioLines } from "~/lib/person";
 
 const snsLinks = [
   { ...socialLinks.x, icon: "/x.svg", iconOnDark: "/x-white.svg" },

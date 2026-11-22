@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { articleList, articleSite } from "~/libs/articles";
-import { bio, personId } from "~/libs/person";
-import { siteName, siteUrl } from "~/libs/site";
+import { articleList, articleSite } from "~/lib/articles";
+import { siteName, siteUrl } from "~/lib/constants";
+import { bio, personId } from "~/lib/person";
 
 useSeoMeta({
   description: bio,

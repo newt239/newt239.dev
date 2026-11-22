@@ -6,11 +6,11 @@ import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import sharp, { type ResizeOptions } from "sharp";
 
-import type { LinkCard } from "../libs/link-card.ts";
+import type { LinkCard } from "../app/lib/links.ts";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
-const DATA_FILE = join(ROOT_DIR, "libs", "link-cards.json");
+const DATA_FILE = join(ROOT_DIR, "app", "lib", "link-cards.json");
 const IMAGE_DIR = join(ROOT_DIR, "public", "link-cards");
 
 // X は User-Agent に bot を含むリクエストにだけ OGP を返す

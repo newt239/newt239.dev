@@ -5,7 +5,7 @@ import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
 
-import { themeVariables } from "../libs/theme.ts";
+import { themeVariables } from "../app/lib/theme.ts";
 
 useMode(modeRgb);
 useMode(modeOklch);

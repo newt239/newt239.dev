@@ -3,9 +3,8 @@ import { IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons
 
 import type { ImageCarousel } from "#components";
 
-import { formatPeriod } from "~/libs/period";
-import { personId } from "~/libs/person";
-import { siteName, siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/lib/constants";
+import { personId } from "~/lib/person";
 
 const route = useRoute();
 const workPath = route.path.replace(/\/$/, "");

@@ -4,9 +4,9 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
 
-import { articleList, articleSite } from "../libs/articles.ts";
-import { formatPeriod } from "../libs/period.ts";
-import { siteName, siteUrl } from "../libs/site.ts";
+import { formatPeriod } from "../app/utils/period.ts";
+import { articleList, articleSite } from "../app/lib/articles.ts";
+import { siteName, siteUrl } from "../app/lib/constants.ts";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");

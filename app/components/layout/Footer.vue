@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { socialLinks } from "~/libs/links";
+import { socialLinks } from "~/lib/links";
 
 const copyrightYear = useState("copyright-year", () => new Date().getFullYear());
 

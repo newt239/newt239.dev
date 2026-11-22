@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { IconBrandX, IconBrandYoutubeFilled, IconExternalLink, IconPlayerPlayFilled } from "@tabler/icons-vue";
 
-import type { LinkCard } from "~/libs/link-card";
-import linkCards from "~/libs/link-cards.json";
+import linkCards from "~/lib/link-cards.json";
+import type { LinkCard } from "~/lib/links";
 
 const props = defineProps<{ url: string }>();
 

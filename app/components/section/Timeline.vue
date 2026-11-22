@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
-import { timeline, type TimelineItem } from "~/libs/timeline";
+import { timeline, type TimelineItem } from "~/lib/timeline";
 
 const years: { year: number; items: TimelineItem[] }[] = [];
 for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) {

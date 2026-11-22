@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs";
 
-import { shikiTheme } from "./libs/shiki-theme";
-import { siteName, siteUrl } from "./libs/site";
+import { siteName, siteUrl } from "./app/lib/constants";
+import { shikiTheme } from "./app/lib/shiki";
 import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
 
@@ -20,6 +20,7 @@ const discordEmbedAssetOrigin =
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  components: [{ path: "~/components", pathPrefix: false }],
   modules: ["@nuxtjs/sitemap", "@nuxt/content", "@nuxt/image", "@nuxt/eslint", "@nuxt/a11y"],
   site: {
     url: siteUrl,
