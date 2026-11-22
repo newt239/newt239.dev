@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IconChevronLeft } from "@tabler/icons-vue";
 
-import type { NuxtError } from "#app";
+import { clearError, type NuxtError } from "#app";
 
 const props = defineProps<{ error: NuxtError }>();
 
