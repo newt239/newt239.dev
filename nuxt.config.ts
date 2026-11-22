@@ -135,6 +135,8 @@ export default defineNuxtConfig({
 
   experimental: {
     viewTransition: true,
+    payloadExtraction: "client",
+    prerenderErrorPages: true,
     defaults: {
       nuxtLink: {
         prefetchOn: { visibility: true, interaction: true },
