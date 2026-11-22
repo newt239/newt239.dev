@@ -141,5 +141,11 @@ export default defineNuxtConfig({
     },
   },
 
+  typescript: {
+    tsConfig: {
+      compilerOptions: { noUncheckedIndexedAccess: false },
+    },
+  },
+
   compatibilityDate: "2024-07-15",
 });
