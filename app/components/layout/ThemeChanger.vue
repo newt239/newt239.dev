@@ -6,7 +6,7 @@ import {
   themeConstraints,
   themeVariables,
   type ThemeGenerationResponse,
-} from "~/libs/theme";
+} from "~/lib/theme";
 
 const defaultMessage = "入力したプロンプトは記録されます";
 const fallbackMessage = "うまくいきませんでした。別の言葉で試してください";

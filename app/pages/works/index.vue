@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { siteName, siteUrl } from "~/libs/site";
+import { siteName, siteUrl } from "~/lib/constants";
 
 const { data, error } = await useAsyncData("works-list", () =>
   queryCollection("works")

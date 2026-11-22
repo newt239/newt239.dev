@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { certifications } from "~/libs/certifications";
+import { certifications } from "~/lib/certifications";
 
 const sortedCertifications = certifications.toSorted((a, b) => b.date.localeCompare(a.date));
 </script>

@@ -1,5 +1,5 @@
 import { profileSameAs } from "./links";
-import { siteUrl } from "./site";
+import { siteUrl } from "./constants";
 
 export const personId = `${siteUrl}/about#person`;
 

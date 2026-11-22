@@ -9,8 +9,8 @@ import satori from "satori";
 import sharp from "sharp";
 import { parse } from "yaml";
 
-import { formatPeriod } from "../libs/period.ts";
-import { themeVariables } from "../libs/theme.ts";
+import { formatPeriod } from "../app/utils/period.ts";
+import { themeVariables } from "../app/lib/theme.ts";
 
 useMode(modeRgb);
 useMode(modeOklch);

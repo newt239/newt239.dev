@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { articleList, articleSite } from "~/libs/articles";
-import { personId } from "~/libs/person";
-import { siteName, siteUrl } from "~/libs/site";
+import { articleList, articleSite } from "~/lib/articles";
+import { siteName, siteUrl } from "~/lib/constants";
+import { personId } from "~/lib/person";
 
 usePageSeo({ title: "記事一覧", ogImage: `${siteUrl}/og/articles.png` });
 

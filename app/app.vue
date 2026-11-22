@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { siteUrl } from "~/libs/site";
+import { siteUrl } from "~/lib/constants";
 
 const route = useRoute();
 const canonicalUrl = computed(() => `${siteUrl}${route.path.replace(/\/+$/, "") || "/"}`);

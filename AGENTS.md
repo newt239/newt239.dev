@@ -42,11 +42,11 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## コンテンツとデータ
 
 - Nuxt Content v3 で管理するのは `content/works/` の作品だけ。`images` の先頭がサムネイル兼 OG 画像になる
-- 作品の「リンク」節は `::link-card{url="…"}` でカードにする。OGP と画像は `libs/link-cards.json` と `public/link-cards/` に保存したものを表示する
+- 作品の「リンク」節は `::link-card{url="…"}` でカードにする。OGP と画像は `app/lib/link-cards.json` と `public/link-cards/` に保存したものを表示する
   - 取得できないリンク（bot を弾く、リンク切れ）はテキストリンクのまま残す
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
-- 作品以外のデータは `libs/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
-- 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](libs/links.ts) と [site.ts](libs/site.ts) を参照する
+- 作品以外のデータは `app/lib/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
+- 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](app/lib/links.ts) と [constants.ts](app/lib/constants.ts) を参照する
 - 並び順は配列の記述順に頼らず、使う側で日付の降順に並べ替える
 - 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる
 
@@ -64,9 +64,9 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - ダークの `:root` は `@media (display-mode: standalone)` より前に置く。後ろに置くと AccentColor 追随が負ける
   - standalone のブロックはライトとダークの 2 系統ある。ダークの基準色は `color-mix()` の第 2 引数にリテラルで入っている
   - ダークでは `--accent-dark` が明るい方のアクセントになる（`--code-accent` が `--surface` に対し 4.5:1 を要するため、意図的）
-  - [Profile.vue](components/Profile.vue) の `.top-card` はダークでも濃い地と明るい文字を保つ。地には `--surface-hover` を使う
+  - [Profile.vue](app/components/section/Profile.vue) の `.top-card` はダークでも濃い地と明るい文字を保つ。地には `--surface-hover` を使う
   - ダークパレットは手で決め、`themeConstraints` の 14 件を手動で実測する
-- 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [libs/theme.ts](libs/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
+- 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [theme.ts](app/lib/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
 - 横幅は `.card-grid` のトラックに揃える。固定幅は `--grid-track-max`（4 列時の 1 枚分）と `--grid-gap` から `calc()` で作り、列数の切り替えはコンテナ内幅 37rem / 55.5rem / 74rem のコンテナクエリで行う
 - scoped な `<style>` で at-rule を二重にネストしない（`@media { @container { … } }`）。直下の宣言から `data-v` 属性が落ち、詳細度で元の規則に負ける
@@ -78,16 +78,16 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## 主要機能
 
 - **テーマ生成**：ガマットマッピングとコントラスト検証は api.newt239.dev 側が担う
-- **View Transitions**：`experimental.viewTransition` で有効化している。非対応ブラウザでは [page-transition.global.ts](middleware/page-transition.global.ts) が Vue の `pageTransition` を有効にし、[app.vue](app.vue) の `@supports not` でブラーを定義する
+- **View Transitions**：`experimental.viewTransition` で有効化している。非対応ブラウザでは [page-transition.global.ts](app/middleware/page-transition.global.ts) が Vue の `pageTransition` を有効にし、[app.vue](app/app.vue) の `@supports not` でブラーを定義する
 - **スクロール復元**：[router.options.ts](app/router.options.ts) は Nuxt 既定の実装から rAF を抜いたもの。スナップショット前にスクロールを確定させるためで、Nuxt に追従するときもこの差分は残す
-- **作品画像のジェスチャ**：[ImageLightbox.vue](components/ImageLightbox.vue) はピンチ、ダブルタップ、ホイール、スワイプを Pointer Events で自前実装している
+- **作品画像のジェスチャ**：[ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) はピンチ、ダブルタップ、ホイール、スワイプを Pointer Events で自前実装している
   - `.lightbox-content` の `touch-action: none` を緩めない。ブラウザのピンチと `transform` の二重管理になる
   - ハンドラは画像ではなく `.lightbox-content` に付ける。2 本目の指はレターボックスに降りるため
   - `setPointerCapture` は拡大中に画像上で押されたときだけ呼ぶ。等倍で呼ぶと、タップでライトボックスが閉じる。画像上のタップは `didDrag` を立てて背景クリック扱いから外す
   - ズームは焦点固定で `T += f * (1/S' - 1/S)`（`zoomAt`）を使う。ジェスチャ中は `.is-gesturing` で `transition` を切る
   - 単一ポインタの代替（± ボタン、パンボタン、前後ボタン）は消さない（SC 2.5.1 / 2.5.7）
   - 閉じるときに `pointers` をクリアする
-- **アナリティクス**：[vue-gtag.client.ts](plugins/vue-gtag.client.ts)
+- **アナリティクス**：[vue-gtag.client.ts](app/plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
 - **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `app.head.script` で kit を `defer` で読み、直後のインライン module スクリプトで `Typekit.load()` を呼ぶ。module は `defer` と同じ文書順で実行されるので、`tagPriority: 80` で kit と Nuxt エントリの間に並べる（既定だと kit より前に出て空振りし、エントリより後ろだとハイドレーションを待つ）。`onload` 属性は CSP で弾かれる
@@ -95,8 +95,8 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## SEO メタ
 
 - サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に静的に置く。ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
-- `description` を設定するのはトップ（[person.ts](libs/person.ts) の `bio`）と作品詳細（frontmatter の値）だけ
-- **Discord Component Embed**：トップと作品詳細は [useDiscordEmbed.ts](composables/useDiscordEmbed.ts) で `<head>` にペイロードを出す（[仕様](https://docs.discord.com/developers/link-previews/component-embeds)）
+- `description` を設定するのはトップ（[person.ts](app/lib/person.ts) の `bio`）と作品詳細（frontmatter の値）だけ
+- **Discord Component Embed**：トップと作品詳細は [useDiscordEmbed.ts](app/composables/useDiscordEmbed.ts) で `<head>` にペイロードを出す（[仕様](https://docs.discord.com/developers/link-previews/component-embeds)）
   - 3,000 バイト以内（`<` もその長さで数える）、Container は 1 つで入れ子なし、コンポーネントは 40 個まで
   - Button はリンクスタイルだけ。許可キー以外が 1 つでもあるとペイロード全体が無効になる
   - [check-discord-embeds.ts](scripts/check-discord-embeds.ts) が `close` フックで全ページを検証し、違反があればビルドを失敗させる

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-import { articleList } from "~/libs/articles";
+import { articleList } from "~/lib/articles";
 
 const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
 </script>
