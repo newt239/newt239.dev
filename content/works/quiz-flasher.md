@@ -12,15 +12,15 @@ images:
 
 <!--more-->
 
-# API
+## API
 
 クイズ出題の部分はAPI化してあるので仕様を載せておきます。メソッドは全てGETです。メンテナンスはしていないためずっと使える保証はないです。なおLINE botの方はこのAPIを利用しています。
 
-## Base URL
+### Base URL
 
 `https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec`
 
-### Parameter
+#### Parameter
 
 | Property | Type    | Description                                                                                               |
 | :------- | ------- | :-------------------------------------------------------------------------------------------------------- |
@@ -29,15 +29,15 @@ images:
 | s        | Number  | シートの番号。0 を始点として何個目のシートか                                                              |
 | o        | Boolean | オプショナル。 true にすると 4 列目の文字を回答の末尾に出力。作問者情報を入れたいときなどに使ってください |
 
-## Example
+### Example
 
-### Request: `GET`
+#### Request: `GET`
 
 ```
 https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95taRE7kAZ9a9Q/exec?t=show&p=1lnZuqxrFkku0qcfhe_ugUcH05qh7If1jV_g67WzlgH0&s=0
 ```
 
-### Response
+#### Response
 
 ```json
 [
@@ -60,13 +60,13 @@ https://script.google.com/macros/s/AKfycbzOi_ACgcxDldiJ-8kVS5Hxxe8i37O168mubm95t
 ]
 ```
 
-# 関連リンク
+## 関連リンク
 
-## Quiz Flasher
+### Quiz Flasher
 
 - <a href="https://script.google.com/macros/s/AKfycby0uoGf4OGDKWBvfDNUERpDD2M7sny83k9Oj9D69RjDTub4E_o/exec" target="_blank" rel="noopener noreferrer">ホーム｜ Quiz Flasher</a>
 
-## abcLINEQUIZ [LINE bot]
+### abcLINEQUIZ [LINE bot]
 
 ::link-card{url="https://lin.ee/DidtKli"}
 ::

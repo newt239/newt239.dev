@@ -26,7 +26,7 @@ images:
 
 栄東例会2023に合わせて開発し、一般公開したのちも大規模なアップデートを重ねており、現在では週に100人程度のユーザーからアクセスがあります。
 
-# 対応している形式
+## 対応している形式
 
 - スコア計算
 - N○M✕
@@ -47,7 +47,7 @@ images:
 - AQL
 - アタック25
 
-# リンク
+## リンク
 
 ::link-card{url="https://score-watcher.com/"}
 ::
@@ -55,7 +55,7 @@ images:
 ::link-card{url="https://zenn.dev/newt_st21/articles/score-watcher-quiz-scoreboard-app"}
 ::
 
-# Score Watcher （旧バージョン）
+## Score Watcher （旧バージョン）
 
 ::link-card{url="https://github.com/newt239/score-watcher"}
 ::

@@ -15,12 +15,12 @@ images:
 
 ※ ブラウザの <a href="https://developer.mozilla.org/en-US/docs/Web/API/Local_Font_Access_API" target="_blank" rel="noopener noreferrer">`Local Font Access API`</a> を利用しているため、デスクトップ版のGoogle Chromeでのみ利用できます。
 
-# リンク
+## リンク
 
 ::link-card{url="https://newt239.github.io/local-font-emulator/"}
 ::
 
-# 機能について
+## 機能について
 
 和文フォントフィルターを搭載しています。
 
