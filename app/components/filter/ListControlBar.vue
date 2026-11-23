@@ -142,13 +142,12 @@ const apply = async () => {
     gap: 0.75rem 0.5rem;
     align-items: center;
     justify-self: stretch;
-
-    @container (max-width: 16em) {
-      grid-template-columns: 1fr;
-      row-gap: 0.5rem;
-    }
   }
 
+  @container (max-width: 16em) {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
 }
 
 .control-row {
