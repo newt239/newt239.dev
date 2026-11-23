@@ -25,7 +25,13 @@ export default <RouterConfig>{
 
     if (to.path.replace(/\/$/, "") === from.path.replace(/\/$/, "")) {
       if (from.hash && !to.hash) return savedPosition ?? { left: 0, top: 0 };
-      if (to.hash) return { el: to.hash, top: hashScrollMarginTop(to.hash) };
+      if (to.hash) {
+        return {
+          el: to.hash,
+          top: hashScrollMarginTop(to.hash),
+          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        };
+      }
       return false;
     }
 
