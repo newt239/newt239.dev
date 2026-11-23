@@ -2,7 +2,7 @@
 import { IconExternalLink } from "@tabler/icons-vue";
 
 import { siteName, siteUrl } from "~/lib/constants";
-import { socialLinks } from "~/lib/links";
+import { discordInviteUrl, socialLinks, type SocialLink } from "~/lib/links";
 import { bioLines, person } from "~/lib/person";
 
 usePageSeo({ title: "わたしについて", ogImage: `${siteUrl}/og/about.png` });
@@ -29,8 +29,8 @@ const contacts = [
   { label: "メール", href: `mailto:${person.email}`, text: person.email, external: false },
   {
     label: "Discordサーバー",
-    href: "https://discord.gg/rct5sx6rbZ",
-    text: "https://discord.gg/rct5sx6rbZ",
+    href: discordInviteUrl,
+    text: discordInviteUrl,
     external: true,
   },
 ] as const;
@@ -60,24 +60,24 @@ const hobbies = [
   },
 ] as const;
 
-const links = [
-  { ...socialLinks.hatena, logo: "/hatena.svg", logoOnDark: "/hatena-white.svg" },
-  { ...socialLinks.mixi2, logo: "/mixi2.webp", logoOnDark: undefined },
-  { ...socialLinks.annict, logo: "/annict.webp", logoOnDark: undefined },
-  { ...socialLinks.booklog, logo: "/booklog.png", logoOnDark: undefined },
-  { ...socialLinks.linkedin, logo: "/linkedin.webp", logoOnDark: undefined },
+const links: SocialLink[] = [
+  socialLinks.hatena,
+  socialLinks.mixi2,
+  socialLinks.annict,
+  socialLinks.booklog,
+  socialLinks.linkedin,
 ];
 </script>
 
 <template>
   <div>
     <div class="container about-page">
-      <div class="about-layout">
-      <div class="about-hero">
+      <div class="about-layout sidebar-layout">
+      <div class="about-hero sidebar-layout-aside">
         <img src="/icon.webp" alt="" class="profile-icon">
         <div class="hero-info">
           <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
-          <dl class="basic-info">
+          <dl class="basic-info meta-list">
             <dt>誕生日</dt>
             <dd>{{ new Date(person.birthDate).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</dd>
             <dt>所属</dt>
@@ -86,7 +86,7 @@ const links = [
         </div>
       </div>
 
-      <div class="about-sections">
+      <div class="about-sections sidebar-layout-main">
         <p class="about-bio">
           <template v-for="([lead, phrase], index) in bioLines" :key="lead">
             <br v-if="index > 0">{{ lead }}<span v-if="phrase" class="phrase">{{ phrase }}</span>
@@ -152,11 +152,7 @@ const links = [
               rel="noopener noreferrer"
               class="link-row"
             >
-              <template v-if="link.logoOnDark">
-                <img :src="link.logo" alt="" width="24" height="24" class="link-logo logo-light">
-                <img :src="link.logoOnDark" alt="" width="24" height="24" class="link-logo logo-dark">
-              </template>
-              <img v-else :src="link.logo" alt="" width="24" height="24" class="link-logo">
+              <BrandLogo :logo="link.logo" :logo-on-dark="link.logoOnDark" :size="24" class="link-logo" />
               {{ link.name }}
               <IconExternalLink class="external-icon" aria-hidden="true" />
             </a>
@@ -178,11 +174,6 @@ const links = [
   }
 
   .about-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    column-gap: var(--grid-gap);
-    align-items: start;
-
     > .about-hero {
       display: flex;
       flex-direction: column;
@@ -212,44 +203,11 @@ const links = [
     }
 
     .basic-info {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
       justify-items: center;
-      padding: 0;
-      margin: 0;
-
-      dt {
-        margin-top: 0.75rem;
-        font-size: 0.75rem;
-        font-weight: 800;
-        line-height: var(--line-height-tight);
-        color: oklch(var(--text-muted));
-
-        &:first-of-type {
-          margin-top: 0;
-        }
-      }
-
-      dd {
-        margin: 0;
-        line-height: var(--line-height-tight);
-      }
     }
 
     @container (width >= 37rem) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      > .about-sections {
-        grid-row: 1;
-        grid-column: 1;
-      }
-
       > .about-hero {
-        position: sticky;
-        top: calc(var(--header-height) + var(--grid-gap));
-        grid-row: 1;
-        grid-column: 2;
         padding: 0;
       }
 
@@ -259,41 +217,8 @@ const links = [
       }
     }
 
-    @container (width >= 55.5rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      > .about-sections {
-        grid-column: 1 / span 2;
-      }
-
-      > .about-hero {
-        grid-column: 3;
-      }
-    }
-
-    @container (width >= 74rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-
-      > .about-sections {
-        grid-column: 1 / span 3;
-      }
-
-      > .about-hero {
-        grid-column: 4;
-      }
-    }
-
-    /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
     @media print {
-      grid-template-columns: minmax(0, 1fr);
-
-      > .about-sections,
       > .about-hero {
-        grid-area: auto;
-      }
-
-      > .about-hero {
-        position: static;
         padding-bottom: 1.5rem;
       }
     }
@@ -393,7 +318,7 @@ const links = [
         }
       }
 
-      .link-logo {
+      &:deep(.link-logo) {
         flex-shrink: 0;
         margin-right: 0.75rem;
         object-fit: contain;

@@ -1,8 +1,5 @@
-type ColorfulHeadingEl = HTMLElement & {
-  __colorfulHeadingObserver?: IntersectionObserver;
-};
-
-const splitTextNodes = (root: HTMLElement, counter: { index: number }) => {
+const splitTextNodes = (root: HTMLElement) => {
+  let index = 0;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const textNodes: Text[] = [];
   let current = walker.nextNode();
@@ -25,8 +22,8 @@ const splitTextNodes = (root: HTMLElement, counter: { index: number }) => {
       span.className = "colorful-heading__char";
       span.ariaHidden = "true";
       span.textContent = char;
-      span.style.setProperty("--char-index", String(counter.index));
-      counter.index += 1;
+      span.style.setProperty("--char-index", String(index));
+      index += 1;
       fragment.appendChild(span);
     }
     node.parentNode?.replaceChild(fragment, node);
@@ -34,31 +31,32 @@ const splitTextNodes = (root: HTMLElement, counter: { index: number }) => {
 };
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.directive<ColorfulHeadingEl>("colorful-heading", {
+  const observer = import.meta.client
+    ? new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add("is-visible");
+            observer?.unobserve(entry.target);
+          }
+        },
+        { threshold: 0.3 }
+      )
+    : undefined;
+
+  nuxtApp.vueApp.directive<HTMLElement>("colorful-heading", {
     mounted(el) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const label = el.textContent?.trim() ?? "";
-      splitTextNodes(el, { index: 0 });
+      splitTextNodes(el);
       if (label) el.setAttribute("aria-label", label);
       el.classList.add("colorful-heading");
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              el.classList.add("is-visible");
-              observer.unobserve(el);
-            }
-          }
-        },
-        { threshold: 0.3 }
-      );
-      observer.observe(el);
-      el.__colorfulHeadingObserver = observer;
+      observer?.observe(el);
     },
     unmounted(el) {
-      el.__colorfulHeadingObserver?.disconnect();
+      observer?.unobserve(el);
     },
     getSSRProps() {
       return { class: "colorful-heading" };

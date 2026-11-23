@@ -2,13 +2,10 @@
 import { IconCheck } from "@tabler/icons-vue";
 
 defineProps<{
-  sortAsc: boolean;
   labelId: string;
 }>();
 
-const emit = defineEmits<{
-  "update:sortAsc": [boolean];
-}>();
+const sortAsc = defineModel<boolean>("sortAsc", { required: true });
 </script>
 
 <template>
@@ -16,9 +13,8 @@ const emit = defineEmits<{
     <button
       type="button"
       class="chip-button sort-segment"
-      :class="{ active: !sortAsc }"
       :aria-pressed="!sortAsc"
-      @click="sortAsc && emit('update:sortAsc', false)"
+      @click="sortAsc = false"
     >
       <IconCheck v-if="!sortAsc" :size="16" class="sort-segment-icon" aria-hidden="true" />
       <span>新しい順</span>
@@ -26,9 +22,8 @@ const emit = defineEmits<{
     <button
       type="button"
       class="chip-button sort-segment"
-      :class="{ active: sortAsc }"
       :aria-pressed="sortAsc"
-      @click="!sortAsc && emit('update:sortAsc', true)"
+      @click="sortAsc = true"
     >
       <IconCheck v-if="sortAsc" :size="16" class="sort-segment-icon" aria-hidden="true" />
       <span>古い順</span>
@@ -47,7 +42,6 @@ const emit = defineEmits<{
 
 .sort-segment {
   padding: 0 min(1rem, 3vw);
-  background: transparent;
 
   &:first-child {
     border-start-start-radius: var(--radius-sm);
@@ -59,20 +53,8 @@ const emit = defineEmits<{
     border-end-end-radius: var(--radius-sm);
   }
 
-  @media (hover: hover) {
-    &:not(.active):hover {
-      background: oklch(var(--surface-hover));
-    }
-
-    &.active:hover {
-      opacity: var(--hover-opacity);
-    }
-  }
-
-  &.active {
+  &[aria-pressed="true"] {
     font-weight: 800;
-    color: oklch(var(--bg));
-    background: oklch(var(--text));
   }
 
   .sort-segment-icon {

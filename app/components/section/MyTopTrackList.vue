@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
+import { apiUrl } from "~/lib/links";
+
 type TrackListProp = {
   name: string;
   artists: string[];
@@ -10,9 +12,7 @@ type TrackListProp = {
   link: string;
 };
 
-const { data } = useLazyFetch<TrackListProp[]>(
-  "https://api.newt239.dev/spotify/my-top-tracks"
-);
+const { data } = useLazyFetch<TrackListProp[]>(`${apiUrl}/spotify/my-top-tracks`);
 
 const trackList = computed(() => data.value?.slice(0, 12) ?? []);
 </script>

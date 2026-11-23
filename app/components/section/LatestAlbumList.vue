@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { IconExternalLink } from "@tabler/icons-vue";
 
+import { socialLinks } from "~/lib/links";
+
 type AlbumListResponse = {
   albums: {
     period: string;
@@ -12,7 +14,7 @@ type AlbumListResponse = {
 };
 
 const { data, error } = await useAsyncData("fernweh-albums", () =>
-  $fetch<AlbumListResponse>("https://fernweh.newt239.dev/api/albums.json", {
+  $fetch<AlbumListResponse>(`${socialLinks.fernweh.href}api/albums.json`, {
     timeout: 5000,
     retry: 1,
   })
@@ -56,7 +58,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         </div>
       </a>
       <a
-        href="https://fernweh.newt239.dev/"
+        :href="socialLinks.fernweh.href"
         target="_blank"
         rel="noopener noreferrer"
         class="see-all-card surface-card"

@@ -6,7 +6,7 @@ import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import sharp, { type ResizeOptions } from "sharp";
 
-import type { LinkCard } from "../app/lib/links.ts";
+import type { LinkCard } from "../app/lib/link-card.ts";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
@@ -164,7 +164,6 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
       kind: "generic",
       title: registry.name,
       description: registry.description,
-      siteName: "npm",
       domain,
       icon: iconResponse && (await saveImage(iconResponse, `icon-${domain}.webp`, { width: ICON_SIZE, height: ICON_SIZE, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })),
     };
@@ -213,7 +212,6 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
     kind: "generic",
     title,
     description,
-    siteName: meta.get("og:site_name"),
     domain,
     image:
       imageUrl &&

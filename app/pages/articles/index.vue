@@ -83,11 +83,10 @@ const filteredArticles = computed(() => {
         <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
 
         <ListControlBar
+          v-model:sort-asc="draft.sortAsc"
           filter-label="サイト"
-          :sort-asc="draft.sortAsc"
           :has-conditions="hasConditions"
           :dirty="dirty"
-          @update:sort-asc="draft.sortAsc = $event"
           @apply="apply"
         >
           <FilterChip

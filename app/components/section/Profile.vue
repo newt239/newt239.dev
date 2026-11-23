@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
 
-import { socialLinks } from "~/lib/links";
+import { socialLinks, type SocialLink } from "~/lib/links";
 import { bioLines } from "~/lib/person";
 
-const snsLinks = [
-  { ...socialLinks.x, icon: "/x.svg", iconOnDark: "/x-white.svg" },
-  { ...socialLinks.github, icon: "/github.svg", iconOnDark: "/github-white.svg" },
-  { ...socialLinks.zenn, icon: "/zenn.png", iconOnDark: undefined },
-  { ...socialLinks.qiita, icon: "/qiita.webp", iconOnDark: undefined },
-];
+const snsLinks: SocialLink[] = [socialLinks.x, socialLinks.github, socialLinks.zenn, socialLinks.qiita];
 </script>
 
 <template>
@@ -39,11 +34,7 @@ const snsLinks = [
       >
         <div class="sns-name">{{ link.name }}</div>
         <div>{{ link.handle }}</div>
-        <template v-if="link.iconOnDark">
-          <img :src="link.icon" alt="" width="48" height="48" class="sns-icon logo-light">
-          <img :src="link.iconOnDark" alt="" width="48" height="48" class="sns-icon logo-dark">
-        </template>
-        <NuxtImg v-else :src="link.icon" alt="" width="48" height="48" class="sns-icon" />
+        <BrandLogo :logo="link.logo" :logo-on-dark="link.logoOnDark" :size="48" class="sns-icon" />
       </a>
     </div>
   </div>
@@ -255,7 +246,7 @@ const snsLinks = [
     font-weight: 400;
   }
 
-  .sns-icon {
+  &:deep(.sns-icon) {
     grid-row: 1 / span 2;
     grid-column: 2;
     width: 2rem;

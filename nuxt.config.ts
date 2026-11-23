@@ -1,6 +1,7 @@
 import { readdirSync } from "node:fs";
 
 import { siteName, siteUrl } from "./app/lib/constants";
+import { socialLinks } from "./app/lib/links";
 import { shikiTheme } from "./app/lib/shiki";
 import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
@@ -58,8 +59,8 @@ export default defineNuxtConfig({
         { property: "og:image:alt", content: siteName },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:site", content: "@newt239" },
-        { property: "twitter:creator", content: "@newt239" },
+        { property: "twitter:site", content: socialLinks.x.handle },
+        { property: "twitter:creator", content: socialLinks.x.handle },
         { property: "twitter:domain", content: siteName },
         { property: "twitter:image", content: `${siteUrl}/og-image-2026.webp` },
       ],

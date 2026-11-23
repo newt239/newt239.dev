@@ -10,6 +10,7 @@ import sharp from "sharp";
 import { parse } from "yaml";
 
 import { formatPeriod } from "../app/utils/period.ts";
+import { siteName } from "../app/lib/constants.ts";
 import { themeVariables } from "../app/lib/theme.ts";
 
 useMode(modeRgb);
@@ -151,7 +152,7 @@ const workNode = (title: string, period: string, screenshot: string) => ({
                         fontSize: 26,
                         color: COLORS.muted,
                       },
-                      children: "newt239.dev",
+                      children: siteName,
                     },
                   },
                 ],
@@ -200,7 +201,7 @@ const defaultNode = (title: string, icon: string) => ({
                   type: "div",
                   props: {
                     style: { display: "flex", fontSize: 34, fontWeight: 700, color: COLORS.text },
-                    children: "newt239.dev",
+                    children: siteName,
                   },
                 },
               ],

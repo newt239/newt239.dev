@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { IconSparkles, IconLoader2, IconX } from "@tabler/icons-vue";
 
+import { apiUrl } from "~/lib/links";
 import {
   applyTheme,
   themeConstraints,
@@ -26,7 +27,7 @@ const generateTheme = async () => {
   }
   isGenerating.value = true;
   try {
-    const res = await fetch("https://api.newt239.dev/ai/generate-theme", {
+    const res = await fetch(`${apiUrl}/ai/generate-theme`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
