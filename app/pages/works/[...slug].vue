@@ -109,6 +109,9 @@ useHead({
   ],
 });
 
+const tocItems = work.body.toc?.links ?? [];
+const contentRef = useTemplateRef<HTMLElement>("content");
+
 const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
 activeWorkSlug.value = workSlug;
 
@@ -196,8 +199,14 @@ const closeLightbox = async () => {
                 <span v-for="tech in work.tech" :key="tech" class="tech-tag">{{ tech }}</span>
               </dd>
             </dl>
+            <TableOfContents
+              v-if="tocItems.length > 0"
+              class="work-toc"
+              :items="tocItems"
+              :container="contentRef?.firstElementChild"
+            />
           </div>
-          <div class="content">
+          <div ref="content" class="content">
             <ContentRenderer :value="work" />
           </div>
         </div>
@@ -257,6 +266,8 @@ const closeLightbox = async () => {
     align-items: start;
 
     > .work-sidebar {
+      --ring-space: calc(var(--focus-ring-offset) + var(--focus-ring-width));
+
       order: -1;
       margin-bottom: 1rem;
 
@@ -268,7 +279,17 @@ const closeLightbox = async () => {
         font-size: var(--font-size-title);
         font-weight: 800;
         text-box: normal;
+        line-break: strict;
+
+        /* auto-phrase は 1 行に収まらない文節の手前で折り返し、先頭に 1 文字だけ残る */
+        word-break: normal;
+        text-wrap: balance;
         view-transition-class: list-title;
+      }
+
+      .work-toc {
+        display: none;
+        margin-top: 1.5rem;
       }
     }
 
@@ -287,11 +308,20 @@ const closeLightbox = async () => {
 
       > .work-sidebar {
         position: sticky;
-        top: calc(var(--header-height) + var(--grid-gap));
+        top: calc(var(--header-height) + var(--grid-gap) - var(--ring-space));
         grid-row: 1 / span 2;
         grid-column: 2;
         order: 0;
-        margin-bottom: 0;
+        max-height: calc(100dvh - var(--header-height) - 2 * var(--grid-gap) + 2 * var(--ring-space));
+
+        /* スクロール領域の端でフォーカスリングが切れないよう、リングの分だけ内側に余白を取る */
+        padding: var(--ring-space);
+        margin: calc(var(--ring-space) * -1);
+        overflow-y: auto;
+
+        .work-toc {
+          display: block;
+        }
       }
     }
 
@@ -309,15 +339,15 @@ const closeLightbox = async () => {
     }
 
     @container (width >= 74rem) {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
 
       > .carousel,
       > .content {
-        grid-column: 1 / span 5;
+        grid-column: 1 / span 3;
       }
 
       > .work-sidebar {
-        grid-column: 6 / -1;
+        grid-column: 4;
       }
     }
 
@@ -334,7 +364,14 @@ const closeLightbox = async () => {
       > .work-sidebar {
         position: static;
         order: -1;
-        margin-bottom: 1rem;
+        max-height: none;
+        padding: 0;
+        margin: 0 0 1rem;
+        overflow-y: visible;
+
+        .work-toc {
+          display: none;
+        }
       }
     }
   }
