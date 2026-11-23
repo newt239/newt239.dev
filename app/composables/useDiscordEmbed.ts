@@ -1,4 +1,3 @@
-// https://docs.discord.com/developers/link-previews/component-embeds
 type UnfurledMedia = { url: string };
 type TextDisplay = { type: 10; content: string };
 type Thumbnail = { type: 11; media: UnfurledMedia; description: string };

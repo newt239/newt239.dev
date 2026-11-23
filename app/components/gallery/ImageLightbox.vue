@@ -234,7 +234,6 @@ const onPointerDown = (e: PointerEvent) => {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       e.preventDefault();
     } else {
-      // 等倍でキャプチャすると互換 click までキャプチャ要素へリターゲットされ、背景クリック判定が壊れる
       gesture.kind = hasMultiple.value && e.pointerType !== "mouse" ? "swipe" : "none";
     }
     return;
@@ -328,7 +327,6 @@ const onPointerUp = (e: PointerEvent) => {
 
   isDragging.value = false;
   isGesturing.value = false;
-  // 画像上のタップは拡大縮小に使うので、背景クリックによるクローズへ落とさない
   if (gesture.startedOnImage) gesture.didDrag = true;
 
   const isTap =
@@ -385,7 +383,6 @@ watch(
       });
       return;
     }
-    // 指を置いたまま閉じると pointerup が届かず pointers に ID が残り、次に開いたとき 1 本でピンチ判定になる
     resetZoom();
     pointers.clear();
     Object.assign(gesture, initialGesture);
@@ -529,7 +526,6 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
   }
 }
 
-/* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */
 .lightbox-content {
   display: flex;
   flex: 1;

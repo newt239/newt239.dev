@@ -44,7 +44,6 @@ if (import.meta.client) {
   min-height: 100vh;
   margin: 0 auto;
 
-  /* ページメディアでは vh がページボックス高になり、main だけで 1 ページを占有する */
   @media print {
     min-height: auto;
   }

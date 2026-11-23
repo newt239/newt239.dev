@@ -24,7 +24,6 @@ const SWIPE_THRESHOLD = 50;
 
 const hasMultiple = computed(() => props.images.length > 1);
 
-// ライトボックスはカルーセルより大きい variant を読むため、表示中の 1 枚だけ先に取得しておく
 const img = useImage();
 useHead({
   link: computed(() => {

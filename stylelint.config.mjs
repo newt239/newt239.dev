@@ -17,7 +17,6 @@ export default {
           "/^view-transition-/": anyValue,
           "/^overscroll-behavior/": anyValue,
           "backdrop-filter": anyValue,
-          // @media print だけで使う。非対応ブラウザでは見出しの孤立が残るだけで紙面は壊れない
           "break-after": ["avoid"],
           "corner-shape": anyValue,
           "scrollbar-gutter": anyValue,
@@ -32,7 +31,6 @@ export default {
       },
     ],
     "declaration-property-value-allowed-list": { "font-weight": ["400", "800"] },
-    // 色トークンは @property に <number>+ で登録するため % と deg を使えない。リテラル側も数値で揃える
     "lightness-notation": "number",
     "hue-degree-notation": "number",
     "declaration-property-value-disallowed-list": [

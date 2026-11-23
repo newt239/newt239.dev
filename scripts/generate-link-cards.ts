@@ -23,7 +23,6 @@ const YOUTUBE_HOSTS = new Set(["youtube.com", "www.youtube.com", "m.youtube.com"
 
 const fetchOk = async (url: string, retried = false): Promise<Response> => {
   const response = await fetch(url, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(30_000) });
-  // opengraph.githubassets.com は回数制限があり、Retry-After に従えば取得できる。待っても解けなければ止める
   const retryAfter = Number(response.headers.get("Retry-After"));
   if (response.status === 429 && !retried && retryAfter > 0 && retryAfter <= 900) {
     console.log(`レート制限のため ${retryAfter} 秒待ちます: ${url}`);
@@ -113,7 +112,6 @@ const fetchIcon = async (html: string, pageUrl: URL) => {
   if (href) return fetchOk(new URL(href, pageUrl).href);
   const fallbackUrl = `https://www.google.com/s2/favicons?domain=${pageUrl.hostname}&sz=${ICON_SIZE}`;
   const response = await fetch(fallbackUrl, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(15_000) });
-  // favicon を持たないサイトには 404 が返るので、アイコンなしのカードにする
   if (response.status === 404) return undefined;
   if (!response.ok) {
     throw new Error(`${fallbackUrl} の取得に失敗しました: HTTP ${response.status}`);
@@ -132,7 +130,6 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
     const { meta } = await fetchMeta(watchUrl);
     let title = firstOf(meta, "og:title", "title");
     let channelName = meta.get("author:name");
-    // 同意画面などで動画ページのメタデータが取れない場合に備える
     if (!title) {
       const oembed = (await (
         await fetchOk(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(watchUrl.href)}`)
@@ -182,7 +179,6 @@ const buildCard = async (rawUrl: string): Promise<LinkCard> => {
   if (image && ogUrl && new URL(ogUrl, finalUrl).host === image.host) image.host = finalUrl.host;
   const imageUrl = image?.href;
 
-  // X は「名前 (@ID) on X」形式のタイトルを返す。削除済みなどで形式が違えば通常のカードにする
   const xAuthor =
     X_HOSTS.has(url.hostname.toLowerCase()) && /^\/\w{1,15}\/status\/\d+/.test(url.pathname)
       ? title.match(/^(.*) \(@(\w{1,15})\) on X$/)

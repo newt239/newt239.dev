@@ -105,7 +105,6 @@ watchPostEffect((onCleanup) => {
       border-left-color: oklch(var(--accent));
     }
 
-    /* スクロール領域の端で外側のリングが切れる */
     &:focus-visible {
       outline-offset: calc(var(--focus-ring-offset) * -1);
     }

@@ -293,8 +293,6 @@ const closeLightbox = async () => {
         top: calc(var(--header-height) + var(--grid-gap) - var(--ring-space));
         order: 0;
         max-height: calc(100dvh - var(--header-height) - 2 * var(--grid-gap) + 2 * var(--ring-space));
-
-        /* スクロール領域の端でフォーカスリングが切れないよう、リングの分だけ内側に余白を取る */
         padding: var(--ring-space);
         margin: calc(var(--ring-space) * -1);
         overflow-y: auto;
@@ -557,7 +555,6 @@ const closeLightbox = async () => {
       }
     }
 
-    /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
     table {
       margin: 0;
       overflow-wrap: normal;

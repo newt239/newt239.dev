@@ -195,7 +195,6 @@
 }
 
 @media (display-mode: standalone) {
-  /* プラグインが相対カラー構文を検出せず @supports を不要と誤判定するため無効化する */
   /* stylelint-disable-next-line plugin/use-baseline */
   @supports (color: oklch(from AccentColor l c h)) {
     :root {
@@ -328,7 +327,6 @@
     }
   }
 
-  /* 等幅のコードは桁がずれるため外す */
   pre,
   code {
     text-autospace: no-autospace;
@@ -357,7 +355,6 @@
     overflow-wrap: anywhere;
   }
 
-  /* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
   @supports (text-box-trim: trim-both) {
     h1,
     h2,
@@ -442,7 +439,6 @@
     }
   }
 
-  /* 印刷では同じ役割を URL 併記が担うため、アイコンは画面に限定する */
   @media screen {
     :is(.underline, :is(p, li, table) a)[href^="http"]:not([href^="https://newt239.dev"], :has(svg))::after {
       display: inline-block;
@@ -895,7 +891,6 @@
     display: none;
   }
 
-  /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
   .sidebar-layout {
     grid-template-columns: minmax(0, 1fr);
 
@@ -909,7 +904,6 @@
     }
   }
 
-  /* 交差前は color: transparent、交差後も animation-delay 消化前は 0% フレームが透明 */
   .colorful-heading:not(.is-visible) .colorful-heading__char,
   .colorful-heading.is-visible .colorful-heading__char {
     color: inherit;

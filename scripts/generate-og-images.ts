@@ -79,7 +79,6 @@ const render = async (node: unknown, fonts: Awaited<ReturnType<typeof loadFonts>
     fonts,
   });
   const pipeline = sharp(Buffer.from(svg));
-  // スクリーンショットを載せる作品用は写真的なので JPEG、平坦な汎用テンプレートは PNG が小さく綺麗
   await (outputPath.endsWith(".jpg")
     ? pipeline.jpeg({ quality: 88, chromaSubsampling: "4:4:4" })
     : pipeline.png({ compressionLevel: 9 })
