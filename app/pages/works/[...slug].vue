@@ -279,6 +279,11 @@ const closeLightbox = async () => {
         font-size: var(--font-size-title);
         font-weight: 800;
         text-box: normal;
+        line-break: strict;
+
+        /* auto-phrase は 1 行に収まらない文節の手前で折り返し、先頭に 1 文字だけ残る */
+        word-break: normal;
+        text-wrap: balance;
         view-transition-class: list-title;
       }
 
