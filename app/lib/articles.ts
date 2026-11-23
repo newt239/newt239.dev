@@ -1,15 +1,22 @@
+import { socialLinks } from "./links.ts";
+
 type Article = {
   title: string;
   url: string;
   date: string;
 };
 
-type ArticleSite = { name: string; icon?: string; iconOnDark?: string };
+type ArticleSite = { name: string; logo?: string; logoOnDark?: string };
 
 const articleSites: (ArticleSite & { prefix: string })[] = [
-  { prefix: "https://qiita.com/", name: "Qiita", icon: "/qiita.webp" },
-  { prefix: "https://zenn.dev/", name: "Zenn", icon: "/zenn.png" },
-  { prefix: "https://newt239.hatenablog.com/", name: "はてな", icon: "/hatena.svg", iconOnDark: "/hatena-white.svg" },
+  { prefix: "https://qiita.com/", name: "Qiita", logo: socialLinks.qiita.logo },
+  { prefix: "https://zenn.dev/", name: "Zenn", logo: socialLinks.zenn.logo },
+  {
+    prefix: socialLinks.hatena.href,
+    name: "はてな",
+    logo: socialLinks.hatena.logo,
+    logoOnDark: socialLinks.hatena.logoOnDark,
+  },
   { prefix: "https://developers.cyberagent.co.jp/", name: "CyberAgent" },
 ];
 

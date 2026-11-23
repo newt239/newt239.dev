@@ -16,15 +16,15 @@ const sectionList = useTemplateRef<HTMLElement>("sectionList");
 <template>
   <div>
     <div class="container privacy-page">
-      <div class="privacy-layout">
-      <div class="privacy-header">
+      <div class="privacy-layout sidebar-layout">
+      <div class="privacy-header sidebar-layout-main">
         <h1 v-colorful-heading>プライバシーポリシー</h1>
         <p class="privacy-intro">newt239.dev（以下、「当サイト」といいます）では、ユーザーの皆様の個人情報の取扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
       </div>
 
-      <TableOfContents class="privacy-toc" :items="tocItems" :container="sectionList" />
+      <TableOfContents class="privacy-toc sidebar-layout-aside" :items="tocItems" :container="sectionList" />
 
-      <div ref="sectionList" class="privacy-sections">
+      <div ref="sectionList" class="privacy-sections sidebar-layout-main">
         <section id="analytics" class="privacy-section" tabindex="-1">
           <h2 class="section-heading">{{ sections.analytics }}</h2>
           <div class="section-body">
@@ -79,74 +79,19 @@ const sectionList = useTemplateRef<HTMLElement>("sectionList");
   overflow-wrap: anywhere;
 
   .privacy-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    column-gap: var(--grid-gap);
-    align-items: start;
-
     > .privacy-toc {
       display: none;
     }
 
     @container (width >= 37rem) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      > .privacy-header {
-        grid-row: 1;
-        grid-column: 1;
-      }
-
-      > .privacy-sections {
-        grid-row: 2;
-        grid-column: 1;
-      }
-
       > .privacy-toc {
-        position: sticky;
-        top: calc(var(--header-height) + var(--grid-gap));
         display: block;
-        grid-row: 1 / span 2;
-        grid-column: 2;
         max-height: calc(100dvh - var(--header-height) - 2 * var(--grid-gap));
         overflow-y: auto;
       }
     }
 
-    @container (width >= 55.5rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      > .privacy-header,
-      > .privacy-sections {
-        grid-column: 1 / span 2;
-      }
-
-      > .privacy-toc {
-        grid-column: 3;
-      }
-    }
-
-    @container (width >= 74rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-
-      > .privacy-header,
-      > .privacy-sections {
-        grid-column: 1 / span 3;
-      }
-
-      > .privacy-toc {
-        grid-column: 4;
-      }
-    }
-
-    /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
     @media print {
-      grid-template-columns: minmax(0, 1fr);
-
-      > .privacy-header,
-      > .privacy-sections {
-        grid-area: auto;
-      }
-
       > .privacy-toc {
         display: none;
       }

@@ -6,20 +6,20 @@ import { bio, personId } from "~/lib/person";
 useSeoMeta({
   description: bio,
   ogDescription: bio,
-  ogUrl: `${siteUrl}/`,
 });
 
 const recentArticles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
-const { data: featuredWorks, error: featuredWorksError } = await useAsyncData("discord-featured-works", () =>
+const { data, error } = await useAsyncData("featured-works", () =>
   queryCollection("works")
     .where("order", "IS NOT NULL")
     .order("order", "ASC")
     .select("path", "title", "description", "images")
-    .limit(4)
     .all()
 );
-if (featuredWorksError.value) throw featuredWorksError.value;
+if (error.value) throw error.value;
+const featuredWorks = data.value ?? [];
+const embedWorks = featuredWorks.slice(0, 4);
 
 const img = useImage();
 
@@ -37,12 +37,12 @@ useDiscordEmbed([
     type: 10,
     content: [
       "### ピックアップ作品",
-      ...(featuredWorks.value ?? []).map((work) => `- [${work.title}](${siteUrl}${work.path}): ${work.description}`),
+      ...embedWorks.map((work) => `- [${work.title}](${siteUrl}${work.path}): ${work.description}`),
     ].join("\n"),
   },
   {
     type: 12,
-    items: (featuredWorks.value ?? []).map((work) => ({
+    items: embedWorks.map((work) => ({
       media: { url: img(`/images/${work.images[0].src}`, { width: 640 }) },
       description: `${work.title} のスクリーンショット`,
     })),
@@ -89,12 +89,12 @@ useHead({
 
 <template>
   <div>
-    <h1 class="visually-hidden" lang="en">newt239.dev</h1>
+    <h1 class="visually-hidden" lang="en">{{ siteName }}</h1>
     <div class="container">
       <Profile />
     </div>
     <div class="container">
-      <FeaturedWorkList />
+      <FeaturedWorkList :works="featuredWorks" />
     </div>
     <div class="container">
       <LatestArticleList />

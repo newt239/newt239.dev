@@ -48,6 +48,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
 - 作品以外のデータは `app/lib/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
 - 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](app/lib/links.ts) と [constants.ts](app/lib/constants.ts) を参照する
+- SNS のロゴは `socialLinks` の `logo` / `logoOnDark` に持たせ、[BrandLogo.vue](app/components/BrandLogo.vue) で表示する
 - 並び順は配列の記述順に頼らず、使う側で日付の降順に並べ替える
 - 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる
 
@@ -57,6 +58,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - トークン（`:root`）、利用者設定（`prefers-contrast` / `forced-colors` / `print`）の上書き、`.visually-hidden`、`::view-transition-*` はレイヤー外に置く。コンポーネントに負けてはいけないため
   - コンポーネントでは `@layer` を書かない。SSR のインライン `<style>` が `entry.css` より前に出るため、レイヤーの順序が崩れる
 - 色は必ず `:root` のトークン経由で指定する。固定値では AI テーマに追従しない
+  - [ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) はテーマによらず暗いオーバーレイにするため、固定の `rgb()` を使う
 - 色トークンは OKLCH のチャンネル断片（`--text: 0.29 0.014 70`）で持ち、`oklch(var(--text))` や `oklch(var(--text) / 72%)` の形で使う
   - `@property` に `<number>+` で登録しているので、トークンに `%` と `deg` は使えない。リテラルの `oklch()` も数値表記に揃える（stylelint で強制）
 - 11 トークンすべてを sRGB ガマット内に保つ。外れるとガマットマッピングで別の色になり、コントラストの実測が宣言値と食い違う
@@ -70,9 +72,12 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [theme.ts](app/lib/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
 - **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
 - 横幅は `.card-grid` のトラックに揃える。固定幅は `--grid-track-max`（4 列時の 1 枚分）と `--grid-gap` から `calc()` で作り、列数の切り替えはコンテナ内幅 37rem / 55.5rem / 74rem のコンテナクエリで行う
+- 本文とサイドバーの段組みは `.sidebar-layout` / `-main` / `-aside` を使う。コンテナは各ページ側で `container-type: inline-size` を付ける
+- 見出しと値を縦に並べる `dl` は `.meta-list` を使う
 - scoped な `<style>` で at-rule を二重にネストしない（`@media { @container { … } }`）。直下の宣言から `data-v` 属性が落ち、詳細度で元の規則に負ける
 - 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
 - 他社ロゴは公式配布の黒版と白版を `public/` に置き、`.logo-light` / `.logo-dark` で切り替える。テーマ色で塗るとブランドガイドラインの改変禁止に反する
+  - `BrandLogo` はルートが複数あるので、渡したクラスへのスタイルは scoped では `&:deep(.クラス名)` で書く
 - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
 - Baseline widely available 外の機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
 
@@ -87,7 +92,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
   - `setPointerCapture` は拡大中に画像上で押されたときだけ呼ぶ。等倍で呼ぶと、タップでライトボックスが閉じる。画像上のタップは `didDrag` を立てて背景クリック扱いから外す
   - ズームは焦点固定で `T += f * (1/S' - 1/S)`（`zoomAt`）を使う。ジェスチャ中は `.is-gesturing` で `transition` を切る
   - 単一ポインタの代替（± ボタン、パンボタン、前後ボタン）は消さない（SC 2.5.1 / 2.5.7）
-  - 閉じるときに `pointers` をクリアする
+  - 閉じるときに `pointers` をクリアし、`gesture` を `initialGesture` で戻す
 - **アナリティクス**：[vue-gtag.client.ts](app/plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する

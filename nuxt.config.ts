@@ -1,6 +1,7 @@
 import { readdirSync } from "node:fs";
 
 import { siteName, siteUrl } from "./app/lib/constants";
+import { socialLinks } from "./app/lib/links";
 import { shikiTheme } from "./app/lib/shiki";
 import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
@@ -10,7 +11,6 @@ const originalImageRoutes = readdirSync("public/images").map(
   (file) => `/_ipx/_/images/${file}`
 );
 
-// Workers Builds のブランチプレビューには本番に無い画像があるため、Discord の埋め込み画像はプレビューのホストから読ませる
 // エイリアスと Worker 名の連結が 63 文字を超えるとハッシュ付きに切り詰められ、URL を算出できないので本番を使う
 const previewAlias = process.env.WORKERS_CI_BRANCH?.toLowerCase().replace(/[^a-z0-9]/g, "-");
 const discordEmbedAssetOrigin =
@@ -58,8 +58,8 @@ export default defineNuxtConfig({
         { property: "og:image:alt", content: siteName },
         { property: "og:locale", content: "ja_JP" },
         { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:site", content: "@newt239" },
-        { property: "twitter:creator", content: "@newt239" },
+        { property: "twitter:site", content: socialLinks.x.handle },
+        { property: "twitter:creator", content: socialLinks.x.handle },
         { property: "twitter:domain", content: siteName },
         { property: "twitter:image", content: `${siteUrl}/og-image-2026.webp` },
       ],
@@ -74,7 +74,6 @@ export default defineNuxtConfig({
         {
           type: "module",
           innerHTML: "window.Typekit?.load({ async: true });",
-          // defer と同じ重みにして kit の直後、Nuxt エントリの前に並べる
           tagPriority: 80,
         },
       ],

@@ -54,23 +54,26 @@ const isGesturing = ref(false);
 const hintId = useId();
 
 const pointers = new Map<number, { x: number; y: number }>();
-let gesture: "none" | "drag" | "swipe" | "pinch" = "none";
-let startedOnImage = false;
-let multiTouched = false;
-let lastDistance = 0;
-let lastCenterX = 0;
-let lastCenterY = 0;
-let gestureStartX = 0;
-let gestureStartY = 0;
-let gestureStartTime = 0;
-let lastTapTime = 0;
-let lastTapX = 0;
-let lastTapY = 0;
-let dragStartX = 0;
-let dragStartY = 0;
-let dragStartTranslateX = 0;
-let dragStartTranslateY = 0;
-let didDrag = false;
+const initialGesture = {
+  kind: "none" as "none" | "drag" | "swipe" | "pinch",
+  startedOnImage: false,
+  multiTouched: false,
+  didDrag: false,
+  lastDistance: 0,
+  lastCenterX: 0,
+  lastCenterY: 0,
+  startX: 0,
+  startY: 0,
+  startTime: 0,
+  lastTapTime: 0,
+  lastTapX: 0,
+  lastTapY: 0,
+  dragStartX: 0,
+  dragStartY: 0,
+  dragStartTranslateX: 0,
+  dragStartTranslateY: 0,
+};
+const gesture = { ...initialGesture };
 let wheelIdleTimer: ReturnType<typeof setTimeout> | undefined;
 
 const hasMultiple = computed(() => props.images.length > 1);
@@ -82,11 +85,11 @@ useHead({
   link: computed(() => {
     if (!props.open || !hasMultiple.value) return [];
     const total = props.images.length;
-    const next = (index.value + 1) % total;
-    const prev = (index.value - 1 + total) % total;
-    const neighbors = next === prev ? [next] : [next, prev];
-    return neighbors.flatMap((index) => {
-      const image = props.images[index];
+    const nextIndex = (index.value + 1) % total;
+    const prevIndex = (index.value - 1 + total) % total;
+    const neighbors = nextIndex === prevIndex ? [nextIndex] : [nextIndex, prevIndex];
+    return neighbors.flatMap((neighbor) => {
+      const image = props.images[neighbor];
       if (!image) return [];
       return [{ rel: "prefetch", as: "image", href: img(`/images/${image.src}`) }];
     });
@@ -204,35 +207,34 @@ const onKeydown = (e: KeyboardEvent) => {
 };
 
 const onBackdropClick = (e: MouseEvent) => {
-  if (e.target === e.currentTarget && !didDrag) {
+  if (e.target === e.currentTarget && !gesture.didDrag) {
     close();
   }
-  didDrag = false;
+  gesture.didDrag = false;
 };
 
 const onPointerDown = (e: PointerEvent) => {
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
   if (pointers.size === 1) {
-    startedOnImage = e.target === imageRef.value?.imgEl;
-    multiTouched = false;
-    didDrag = false;
-    gestureStartX = e.clientX;
-    gestureStartY = e.clientY;
-    gestureStartTime = e.timeStamp;
-    if (isZoomed.value && startedOnImage) {
-      gesture = "drag";
+    gesture.startedOnImage = e.target === imageRef.value?.imgEl;
+    gesture.multiTouched = false;
+    gesture.didDrag = false;
+    gesture.startX = e.clientX;
+    gesture.startY = e.clientY;
+    gesture.startTime = e.timeStamp;
+    if (isZoomed.value && gesture.startedOnImage) {
+      gesture.kind = "drag";
       isDragging.value = true;
       isGesturing.value = true;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      dragStartTranslateX = translateX.value;
-      dragStartTranslateY = translateY.value;
+      gesture.dragStartX = e.clientX;
+      gesture.dragStartY = e.clientY;
+      gesture.dragStartTranslateX = translateX.value;
+      gesture.dragStartTranslateY = translateY.value;
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       e.preventDefault();
     } else {
-      // 等倍でキャプチャすると互換 click までキャプチャ要素へリターゲットされ、背景クリック判定が壊れる
-      gesture = hasMultiple.value && e.pointerType !== "mouse" ? "swipe" : "none";
+      gesture.kind = hasMultiple.value && e.pointerType !== "mouse" ? "swipe" : "none";
     }
     return;
   }
@@ -246,12 +248,12 @@ const onPointerDown = (e: PointerEvent) => {
     pointers.delete(e.pointerId);
     return;
   }
-  lastDistance = distance;
-  lastCenterX = (a.x + b.x) / 2;
-  lastCenterY = (a.y + b.y) / 2;
-  gesture = "pinch";
-  multiTouched = true;
-  didDrag = true;
+  gesture.lastDistance = distance;
+  gesture.lastCenterX = (a.x + b.x) / 2;
+  gesture.lastCenterY = (a.y + b.y) / 2;
+  gesture.kind = "pinch";
+  gesture.multiTouched = true;
+  gesture.didDrag = true;
   isDragging.value = false;
   isGesturing.value = true;
   const target = e.currentTarget as HTMLElement;
@@ -265,30 +267,30 @@ const onPointerMove = (e: PointerEvent) => {
   point.x = e.clientX;
   point.y = e.clientY;
 
-  if (gesture === "pinch") {
+  if (gesture.kind === "pinch") {
     const [a, b] = [...pointers.values()];
     if (!a || !b) return;
     const distance = Math.hypot(b.x - a.x, b.y - a.y);
     if (distance < 1) return;
     const centerX = (a.x + b.x) / 2;
     const centerY = (a.y + b.y) / 2;
-    zoomAt(scale.value * (distance / lastDistance), centerX, centerY);
-    translateX.value += (centerX - lastCenterX) / scale.value;
-    translateY.value += (centerY - lastCenterY) / scale.value;
+    zoomAt(scale.value * (distance / gesture.lastDistance), centerX, centerY);
+    translateX.value += (centerX - gesture.lastCenterX) / scale.value;
+    translateY.value += (centerY - gesture.lastCenterY) / scale.value;
     clampTranslate();
-    lastDistance = distance;
-    lastCenterX = centerX;
-    lastCenterY = centerY;
+    gesture.lastDistance = distance;
+    gesture.lastCenterX = centerX;
+    gesture.lastCenterY = centerY;
     return;
   }
 
-  if (Math.abs(e.clientX - gestureStartX) > DRAG_SLOP || Math.abs(e.clientY - gestureStartY) > DRAG_SLOP) {
-    didDrag = true;
+  if (Math.abs(e.clientX - gesture.startX) > DRAG_SLOP || Math.abs(e.clientY - gesture.startY) > DRAG_SLOP) {
+    gesture.didDrag = true;
   }
 
-  if (gesture !== "drag") return;
-  translateX.value = dragStartTranslateX + (e.clientX - dragStartX) / scale.value;
-  translateY.value = dragStartTranslateY + (e.clientY - dragStartY) / scale.value;
+  if (gesture.kind !== "drag") return;
+  translateX.value = gesture.dragStartTranslateX + (e.clientX - gesture.dragStartX) / scale.value;
+  translateY.value = gesture.dragStartTranslateY + (e.clientY - gesture.dragStartY) / scale.value;
   clampTranslate();
 };
 
@@ -296,11 +298,11 @@ const onPointerUp = (e: PointerEvent) => {
   if (!pointers.has(e.pointerId)) return;
   pointers.delete(e.pointerId);
 
-  if (gesture === "swipe" && e.type === "pointerup" && !multiTouched) {
-    const dx = e.clientX - gestureStartX;
-    const dy = e.clientY - gestureStartY;
-    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) && e.timeStamp - gestureStartTime < SWIPE_MAX_MS) {
-      didDrag = true;
+  if (gesture.kind === "swipe" && e.type === "pointerup" && !gesture.multiTouched) {
+    const dx = e.clientX - gesture.startX;
+    const dy = e.clientY - gesture.startY;
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) && e.timeStamp - gesture.startTime < SWIPE_MAX_MS) {
+      gesture.didDrag = true;
       if (dx < 0) next();
       else prev();
     }
@@ -309,15 +311,15 @@ const onPointerUp = (e: PointerEvent) => {
   if (pointers.size === 1) {
     const [rest] = [...pointers.values()];
     if (!rest) return;
-    dragStartX = rest.x;
-    dragStartY = rest.y;
-    dragStartTranslateX = translateX.value;
-    dragStartTranslateY = translateY.value;
-    gestureStartX = rest.x;
-    gestureStartY = rest.y;
-    gesture = isZoomed.value ? "drag" : "none";
-    isDragging.value = gesture === "drag";
-    didDrag = true;
+    gesture.dragStartX = rest.x;
+    gesture.dragStartY = rest.y;
+    gesture.dragStartTranslateX = translateX.value;
+    gesture.dragStartTranslateY = translateY.value;
+    gesture.startX = rest.x;
+    gesture.startY = rest.y;
+    gesture.kind = isZoomed.value ? "drag" : "none";
+    isDragging.value = gesture.kind === "drag";
+    gesture.didDrag = true;
     return;
   }
 
@@ -325,38 +327,37 @@ const onPointerUp = (e: PointerEvent) => {
 
   isDragging.value = false;
   isGesturing.value = false;
-  // 画像上のタップは拡大縮小に使うので、背景クリックによるクローズへ落とさない
-  if (startedOnImage) didDrag = true;
+  if (gesture.startedOnImage) gesture.didDrag = true;
 
   const isTap =
     e.type === "pointerup" &&
     e.button === 0 &&
-    !multiTouched &&
-    startedOnImage &&
-    gesture !== "pinch" &&
-    Math.abs(e.clientX - gestureStartX) <= TAP_SLOP &&
-    Math.abs(e.clientY - gestureStartY) <= TAP_SLOP &&
-    e.timeStamp - gestureStartTime < TAP_MAX_MS;
-  gesture = "none";
+    !gesture.multiTouched &&
+    gesture.startedOnImage &&
+    gesture.kind !== "pinch" &&
+    Math.abs(e.clientX - gesture.startX) <= TAP_SLOP &&
+    Math.abs(e.clientY - gesture.startY) <= TAP_SLOP &&
+    e.timeStamp - gesture.startTime < TAP_MAX_MS;
+  gesture.kind = "none";
 
   if (!isTap) {
-    lastTapTime = 0;
+    gesture.lastTapTime = 0;
     return;
   }
 
   if (
-    e.timeStamp - lastTapTime < DOUBLE_TAP_MS &&
-    Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY) < DOUBLE_TAP_DISTANCE
+    e.timeStamp - gesture.lastTapTime < DOUBLE_TAP_MS &&
+    Math.hypot(e.clientX - gesture.lastTapX, e.clientY - gesture.lastTapY) < DOUBLE_TAP_DISTANCE
   ) {
-    lastTapTime = 0;
+    gesture.lastTapTime = 0;
     if (isZoomed.value) resetZoom();
     else zoomAt(DOUBLE_TAP_SCALE, e.clientX, e.clientY);
     return;
   }
 
-  lastTapTime = e.timeStamp;
-  lastTapX = e.clientX;
-  lastTapY = e.clientY;
+  gesture.lastTapTime = e.timeStamp;
+  gesture.lastTapX = e.clientX;
+  gesture.lastTapY = e.clientY;
 };
 
 const onWheel = (e: WheelEvent) => {
@@ -382,14 +383,9 @@ watch(
       });
       return;
     }
-    // 指を置いたまま閉じると pointerup が届かず pointers に ID が残り、次に開いたとき 1 本でピンチ判定になる
     resetZoom();
     pointers.clear();
-    gesture = "none";
-    startedOnImage = false;
-    multiTouched = false;
-    didDrag = false;
-    lastTapTime = 0;
+    Object.assign(gesture, initialGesture);
     isDragging.value = false;
     isGesturing.value = false;
     clearTimeout(wheelIdleTimer);
@@ -530,7 +526,6 @@ onScopeDispose(() => clearTimeout(wheelIdleTimer));
   }
 }
 
-/* 拡大した画像を画像枠でクリップしないため、はみ出しはオーバーレイ側だけで止める */
 .lightbox-content {
   display: flex;
   flex: 1;

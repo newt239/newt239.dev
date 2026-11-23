@@ -41,11 +41,7 @@ const formattedDate = computed(() =>
     </div>
     <div class="article-card-footer">
       <div class="site-info">
-        <template v-if="site.icon && site.iconOnDark">
-          <NuxtImg :src="site.icon" alt="" width="24" height="24" class="logo-light" />
-          <NuxtImg :src="site.iconOnDark" alt="" width="24" height="24" class="logo-dark" />
-        </template>
-        <NuxtImg v-else-if="site.icon" :src="site.icon" alt="" width="24" height="24" />
+        <BrandLogo v-if="site.logo" :logo="site.logo" :logo-on-dark="site.logoOnDark" :size="24" />
         <IconBook2 v-else :size="24" aria-hidden="true" />
         <span class="site-name">{{ site.name }}</span>
       </div>

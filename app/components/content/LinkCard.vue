@@ -2,7 +2,7 @@
 import { IconBrandX, IconBrandYoutubeFilled, IconExternalLink, IconPlayerPlayFilled } from "@tabler/icons-vue";
 
 import linkCards from "~/lib/link-cards.json";
-import type { LinkCard } from "~/lib/links";
+import type { LinkCard } from "~/lib/link-card";
 
 const props = defineProps<{ url: string }>();
 

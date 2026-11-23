@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { IconChevronRight } from "@tabler/icons-vue";
+import type { WorksCollectionItem } from "@nuxt/content";
 
-const { data: works, error } = await useAsyncData("featured-works", () =>
-  queryCollection("works")
-    .where("order", "IS NOT NULL")
-    .order("order", "ASC")
-    .select("path", "title", "description", "images", "order")
-    .all()
-);
-if (error.value) throw error.value;
+defineProps<{
+  works: Pick<WorksCollectionItem, "path" | "title" | "images" | "description">[];
+}>();
 </script>
 
 <template>
-  <div v-show="works && works.length !== 0" class="work-list">
+  <div v-show="works.length !== 0" class="work-list">
     <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
     <div class="card-grid">
       <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />

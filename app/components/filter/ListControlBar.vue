@@ -3,15 +3,15 @@ import { IconAdjustmentsHorizontal, IconFilterCheck } from "@tabler/icons-vue";
 
 const props = defineProps<{
   filterLabel: string;
-  sortAsc: boolean;
   hasConditions: boolean;
   dirty: boolean;
 }>();
 
 const emit = defineEmits<{
-  "update:sortAsc": [boolean];
   apply: [];
 }>();
+
+const sortAsc = defineModel<boolean>("sortAsc", { required: true });
 
 const panelId = useId();
 const filterLabelId = useId();
@@ -56,11 +56,7 @@ const apply = async () => {
       <div class="control-divider" aria-hidden="true" />
       <div class="control-row sort-row">
         <span :id="sortLabelId" class="control-label">並び替え</span>
-        <SortControl
-          :sort-asc="sortAsc"
-          :label-id="sortLabelId"
-          @update:sort-asc="emit('update:sortAsc', $event)"
-        />
+        <SortControl v-model:sort-asc="sortAsc" :label-id="sortLabelId" />
       </div>
       <div class="control-actions">
         <button
@@ -142,13 +138,12 @@ const apply = async () => {
     gap: 0.75rem 0.5rem;
     align-items: center;
     justify-self: stretch;
-
-    @container (max-width: 16em) {
-      grid-template-columns: 1fr;
-      row-gap: 0.5rem;
-    }
   }
 
+  @container (max-width: 16em) {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
 }
 
 .control-row {

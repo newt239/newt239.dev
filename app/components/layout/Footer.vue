@@ -1,13 +1,9 @@
 <script lang="ts" setup>
-import { socialLinks } from "~/lib/links";
+import { socialLinks, type SocialLink } from "~/lib/links";
 
 const copyrightYear = useState("copyright-year", () => new Date().getFullYear());
 
-const externalLinks = [
-  { ...socialLinks.x, logo: "/x.svg", logoOnDark: "/x-white.svg" },
-  { ...socialLinks.github, logo: "/github.svg", logoOnDark: "/github-white.svg" },
-  { ...socialLinks.fernweh, logo: "/fernweh.svg", logoOnDark: undefined },
-];
+const externalLinks: SocialLink[] = [socialLinks.x, socialLinks.github, socialLinks.fernweh];
 </script>
 
 <template>
@@ -24,11 +20,7 @@ const externalLinks = [
         <ul>
           <li v-for="link in externalLinks" :key="link.href">
             <a :href="link.href" target="_blank" rel="noopener noreferrer">
-              <template v-if="link.logoOnDark">
-                <img :src="link.logo" alt="" width="18" height="18" class="logo-light">
-                <img :src="link.logoOnDark" alt="" width="18" height="18" class="logo-dark">
-              </template>
-              <img v-else :src="link.logo" alt="" width="18" height="18">
+              <BrandLogo :logo="link.logo" :logo-on-dark="link.logoOnDark" :size="18" />
               {{ link.name }}
             </a>
           </li>

@@ -2,7 +2,6 @@ name: Cloudflare Workers
 
 on:
   schedule:
-    # 毎週月曜日 00時00分
     - cron: "0 0 * * 1"
   workflow_dispatch:
 

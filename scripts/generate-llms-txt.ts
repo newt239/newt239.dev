@@ -7,6 +7,7 @@ import { parse } from "yaml";
 import { formatPeriod } from "../app/utils/period.ts";
 import { articleList, articleSite } from "../app/lib/articles.ts";
 import { siteName, siteUrl } from "../app/lib/constants.ts";
+import { apiUrl } from "../app/lib/links.ts";
 
 const ROOT_DIR = join(import.meta.dirname, "..");
 const WORKS_DIR = join(ROOT_DIR, "content", "works");
@@ -74,8 +75,8 @@ ${articleLines.join("\n")}
 
 ## API
 
-- [OpenAPI仕様](https://api.newt239.dev/docs/openapi.json): api.newt239.devのREST API。人間向けのドキュメントは https://api.newt239.dev/docs
-- [MCPサーバー](https://api.newt239.dev/mcp): Streamable HTTP。Annictの視聴ライブラリとSpotifyのトップトラックを取得できる
+- [OpenAPI仕様](${apiUrl}/docs/openapi.json): api.newt239.devのREST API。人間向けのドキュメントは ${apiUrl}/docs
+- [MCPサーバー](${apiUrl}/mcp): Streamable HTTP。Annictの視聴ライブラリとSpotifyのトップトラックを取得できる
 
 ## Optional
 

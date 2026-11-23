@@ -16,6 +16,8 @@ if (!data.value) {
 }
 const work = data.value;
 const workSlug = work.path.split("/")[2] ?? "";
+const workUrl = `${siteUrl}${work.path}`;
+const githubUrl = work.github ? `https://github.com/${work.github}` : undefined;
 
 const { data: worksOrder, error: worksOrderError } = await useAsyncData("works-order", () =>
   queryCollection("works").order("period", "DESC").select("path", "title").all()
@@ -38,7 +40,6 @@ useSeoMeta({
   twitterData1: formatPeriod(work.period),
   twitterLabel2: "技術構成",
   twitterData2: work.tech.join(", "),
-  ogUrl: `${siteUrl}${work.path}`,
 });
 
 const img = useImage();
@@ -49,7 +50,7 @@ useDiscordEmbed([
   {
     type: 10,
     content: [
-      `## [${work.title}](${siteUrl}${work.path})`,
+      `## [${work.title}](${workUrl})`,
       work.description,
     ].join("\n"),
   },
@@ -66,9 +67,7 @@ useDiscordEmbed([
     type: 1,
     components: [
       ...(work.url ? [{ type: 2, style: 5, label: `${work.title} を開く`, url: work.url } as const] : []),
-      ...(work.github
-        ? [{ type: 2, style: 5, label: "GitHub", url: `https://github.com/${work.github}` } as const]
-        : []),
+      ...(githubUrl ? [{ type: 2, style: 5, label: "GitHub", url: githubUrl } as const] : []),
     ],
   },
   { type: 14 },
@@ -82,16 +81,16 @@ useHead({
       innerHTML: {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
-        "@id": `${siteUrl}${work.path}#work`,
+        "@id": `${workUrl}#work`,
         name: work.title,
         description: work.description,
-        url: `${siteUrl}${work.path}`,
+        url: workUrl,
         image: `${siteUrl}/images/${work.images[0].src}`,
         datePublished: work.period.split(" ")[0]?.replaceAll(".", "-") ?? "",
         keywords: work.tech,
         inLanguage: "ja",
         author: { "@id": personId },
-        codeRepository: work.github ? `https://github.com/${work.github}` : undefined,
+        codeRepository: githubUrl,
       },
     },
     {
@@ -173,23 +172,24 @@ const closeLightbox = async () => {
   <div>
     <div class="container each-work-page">
       <div class="work">
-        <div class="work-layout">
+        <div class="work-layout sidebar-layout">
           <ImageCarousel
             ref="carousel"
             v-model:index="imageIndex"
+            class="sidebar-layout-main"
             :images="work.images"
             :work-slug="workSlug"
             :morph-index="morphIndex"
             :instant="lightboxOpen"
             @open-lightbox="openLightbox"
           />
-          <div class="work-sidebar">
+          <div class="work-sidebar sidebar-layout-aside">
             <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ work.title }}</h1>
-            <dl class="work-meta">
-              <template v-if="work.github">
+            <dl class="work-meta meta-list">
+              <template v-if="githubUrl">
                 <dt>GitHub</dt>
                 <dd>
-                  <a class="underline" :href="`https://github.com/${work.github}`" target="_blank" rel="noopener noreferrer">{{ work.github }}</a>
+                  <a class="underline" :href="githubUrl" target="_blank" rel="noopener noreferrer">{{ work.github }}</a>
                 </dd>
               </template>
               <dt>期間</dt>
@@ -206,7 +206,7 @@ const closeLightbox = async () => {
               :container="contentRef?.firstElementChild"
             />
           </div>
-          <div ref="content" class="content">
+          <div ref="content" class="content sidebar-layout-main">
             <ContentRenderer class="section-body" :value="work" />
           </div>
         </div>
@@ -260,11 +260,6 @@ const closeLightbox = async () => {
   }
 
   .work-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    column-gap: var(--grid-gap);
-    align-items: start;
-
     > .work-sidebar {
       --ring-space: calc(var(--focus-ring-offset) + var(--focus-ring-width));
 
@@ -294,27 +289,10 @@ const closeLightbox = async () => {
     }
 
     @container (width >= 37rem) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      > .carousel {
-        grid-row: 1;
-        grid-column: 1;
-      }
-
-      > .content {
-        grid-row: 2;
-        grid-column: 1;
-      }
-
       > .work-sidebar {
-        position: sticky;
         top: calc(var(--header-height) + var(--grid-gap) - var(--ring-space));
-        grid-row: 1 / span 2;
-        grid-column: 2;
         order: 0;
         max-height: calc(100dvh - var(--header-height) - 2 * var(--grid-gap) + 2 * var(--ring-space));
-
-        /* スクロール領域の端でフォーカスリングが切れないよう、リングの分だけ内側に余白を取る */
         padding: var(--ring-space);
         margin: calc(var(--ring-space) * -1);
         overflow-y: auto;
@@ -325,44 +303,8 @@ const closeLightbox = async () => {
       }
     }
 
-    @container (width >= 55.5rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      > .carousel,
-      > .content {
-        grid-column: 1 / span 2;
-      }
-
-      > .work-sidebar {
-        grid-column: 3;
-      }
-    }
-
-    @container (width >= 74rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-
-      > .carousel,
-      > .content {
-        grid-column: 1 / span 3;
-      }
-
-      > .work-sidebar {
-        grid-column: 4;
-      }
-    }
-
-    /* A4 縦の印刷幅は 37rem を超えるので 1 カラムへ戻す */
     @media print {
-      grid-template-columns: minmax(0, 1fr);
-
-      > .carousel,
-      > .content,
       > .work-sidebar {
-        grid-area: auto;
-      }
-
-      > .work-sidebar {
-        position: static;
         order: -1;
         max-height: none;
         padding: 0;
@@ -377,28 +319,8 @@ const closeLightbox = async () => {
   }
 
   .work-meta {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
-    padding: 0;
-    margin: 0;
-
     dt {
-      margin-top: 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 800;
-      line-height: var(--line-height-tight);
-      color: oklch(var(--text-muted));
       letter-spacing: 0.05em;
-
-      &:first-of-type {
-        margin-top: 0;
-      }
-    }
-
-    dd {
-      margin: 0;
-      line-height: var(--line-height-tight);
     }
 
     .tech-tags {
@@ -633,7 +555,6 @@ const closeLightbox = async () => {
       }
     }
 
-    /* 横スクロールできる表は、1 文字ずつ折り返すより桁幅を保つ方が読める */
     table {
       margin: 0;
       overflow-wrap: normal;

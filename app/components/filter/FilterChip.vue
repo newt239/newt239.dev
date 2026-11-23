@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <button type="button" class="chip-button filter-chip" :class="{ active }" :aria-pressed="active">
+  <button type="button" class="chip-button filter-chip" :aria-pressed="active">
     <IconCheck v-if="active" :size="16" class="filter-chip-icon" aria-hidden="true" />
     <span><slot /></span>
   </button>
@@ -15,24 +15,10 @@ defineProps<{
 
 <style scoped>
 .filter-chip {
+  --chip-background: oklch(var(--surface));
+
   padding: 0 1rem;
-  background: oklch(var(--surface));
   border-radius: var(--radius-sm);
-
-  @media (hover: hover) {
-    &:not(.active):hover {
-      background: oklch(var(--surface-hover));
-    }
-
-    &.active:hover {
-      opacity: var(--hover-opacity);
-    }
-  }
-
-  &.active {
-    color: oklch(var(--bg));
-    background: oklch(var(--text));
-  }
 
   .filter-chip-icon {
     flex-shrink: 0;

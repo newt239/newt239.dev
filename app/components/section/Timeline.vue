@@ -83,7 +83,6 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
   &.has-link {
     cursor: pointer;
 
-    /* 親の .year-items が overflow: hidden なので外側に描くとリングが完全に隠れる */
     &:focus-visible {
       outline-offset: calc(var(--focus-ring-offset) * -1);
     }

@@ -195,7 +195,6 @@
 }
 
 @media (display-mode: standalone) {
-  /* プラグインが相対カラー構文を検出せず @supports を不要と誤判定するため無効化する */
   /* stylelint-disable-next-line plugin/use-baseline */
   @supports (color: oklch(from AccentColor l c h)) {
     :root {
@@ -328,7 +327,6 @@
     }
   }
 
-  /* 等幅のコードは桁がずれるため外す */
   pre,
   code {
     text-autospace: no-autospace;
@@ -357,7 +355,6 @@
     overflow-wrap: anywhere;
   }
 
-  /* 半行アキを削った分を padding で戻し、書体を変えても余白が変わらないようにする */
   @supports (text-box-trim: trim-both) {
     h1,
     h2,
@@ -442,7 +439,6 @@
     }
   }
 
-  /* 印刷では同じ役割を URL 併記が担うため、アイコンは画面に限定する */
   @media screen {
     :is(.underline, :is(p, li, table) a)[href^="http"]:not([href^="https://newt239.dev"], :has(svg))::after {
       display: inline-block;
@@ -556,8 +552,24 @@
     color: oklch(var(--text));
     white-space: nowrap;
     cursor: pointer;
+    background: var(--chip-background, transparent);
     border: none;
     transition: var(--transition);
+
+    &[aria-pressed="true"] {
+      color: oklch(var(--bg));
+      background: oklch(var(--text));
+    }
+
+    @media (hover: hover) {
+      &[aria-pressed="false"]:hover {
+        background: oklch(var(--surface-hover));
+      }
+
+      &[aria-pressed="true"]:hover {
+        opacity: var(--hover-opacity);
+      }
+    }
   }
 
   .surface-card,
@@ -619,75 +631,7 @@
       }
     }
   }
-}
 
-@media (prefers-contrast: more) {
-  .surface-card,
-  .surface-button {
-    border-color: oklch(var(--text-muted));
-    border-width: max(var(--border-width), 2px);
-  }
-
-  .record-list,
-  .section-body {
-    border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
-  }
-
-  .underline,
-  :is(p, li, table) a {
-    text-decoration-thickness: 2px;
-    text-decoration-style: solid;
-  }
-}
-
-@media (forced-colors: active) {
-  .surface-card {
-    border-color: CanvasText;
-  }
-
-  .surface-button {
-    border-color: ButtonBorder;
-  }
-
-  .chip-button {
-    border: max(var(--border-width), 2px) solid ButtonBorder;
-  }
-
-  .record-list,
-  .section-body {
-    border: max(var(--border-width), 2px) solid CanvasText;
-  }
-
-  .record-item:not(:last-child) {
-    border-bottom-color: CanvasText;
-  }
-
-  [aria-pressed="true"],
-  [aria-selected="true"] {
-    outline: max(var(--border-width), 2px) solid ButtonText;
-    outline-offset: calc(max(var(--border-width), 2px) * -3);
-  }
-
-  ::selection {
-    color: HighlightText;
-    background-color: Highlight;
-  }
-}
-
-@media (forced-colors: active) and (hover: hover) {
-  .surface-card:hover,
-  .surface-button:hover {
-    outline: max(var(--border-width), 2px) solid Highlight;
-    outline-offset: calc(max(var(--border-width), 2px) * -3);
-  }
-
-  .underline:hover,
-  :is(p, li, table) a:hover {
-    text-decoration-style: solid;
-  }
-}
-
-@layer components {
   .thumb-card {
     display: flex;
     flex-direction: column;
@@ -787,6 +731,127 @@
   .tabler-icon:not(.external-icon) {
     vertical-align: -0.375em;
   }
+
+  .sidebar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--grid-gap);
+    align-items: start;
+
+    @container (width >= 37rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      > .sidebar-layout-main {
+        grid-column: 1 / -2;
+      }
+
+      > .sidebar-layout-aside {
+        position: sticky;
+        top: calc(var(--header-height) + var(--grid-gap));
+        grid-row: 1 / span 2;
+        grid-column: -2 / -1;
+      }
+    }
+
+    @container (width >= 55.5rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @container (width >= 74rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .meta-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0;
+    margin: 0;
+
+    dt {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: var(--line-height-tight);
+      color: oklch(var(--text-muted));
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    dd {
+      margin: 0;
+      line-height: var(--line-height-tight);
+    }
+  }
+}
+
+@media (prefers-contrast: more) {
+  .surface-card,
+  .surface-button {
+    border-color: oklch(var(--text-muted));
+    border-width: max(var(--border-width), 2px);
+  }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
+  }
+
+  .underline,
+  :is(p, li, table) a {
+    text-decoration-thickness: 2px;
+    text-decoration-style: solid;
+  }
+}
+
+@media (forced-colors: active) {
+  .surface-card {
+    border-color: CanvasText;
+  }
+
+  .surface-button {
+    border-color: ButtonBorder;
+  }
+
+  .chip-button {
+    border: max(var(--border-width), 2px) solid ButtonBorder;
+  }
+
+  .record-list,
+  .section-body {
+    border: max(var(--border-width), 2px) solid CanvasText;
+  }
+
+  .record-item:not(:last-child) {
+    border-bottom-color: CanvasText;
+  }
+
+  [aria-pressed="true"],
+  [aria-selected="true"] {
+    outline: max(var(--border-width), 2px) solid ButtonText;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
+  }
+
+  ::selection {
+    color: HighlightText;
+    background-color: Highlight;
+  }
+}
+
+@media (forced-colors: active) and (hover: hover) {
+  .surface-card:hover,
+  .surface-button:hover {
+    outline: max(var(--border-width), 2px) solid Highlight;
+    outline-offset: calc(max(var(--border-width), 2px) * -3);
+  }
+
+  .underline:hover,
+  :is(p, li, table) a:hover {
+    text-decoration-style: solid;
+  }
 }
 
 .visually-hidden {
@@ -826,7 +891,19 @@
     display: none;
   }
 
-  /* 交差前は color: transparent、交差後も animation-delay 消化前は 0% フレームが透明 */
+  .sidebar-layout {
+    grid-template-columns: minmax(0, 1fr);
+
+    > .sidebar-layout-main,
+    > .sidebar-layout-aside {
+      grid-area: auto;
+    }
+
+    > .sidebar-layout-aside {
+      position: static;
+    }
+  }
+
   .colorful-heading:not(.is-visible) .colorful-heading__char,
   .colorful-heading.is-visible .colorful-heading__char {
     color: inherit;
@@ -913,28 +990,18 @@
   z-index: 3;
 }
 
-::view-transition-old(.work-thumb) {
-  mix-blend-mode: normal;
-  opacity: 0;
-  animation-name: none;
-}
-
-::view-transition-new(.work-thumb) {
-  mix-blend-mode: normal;
-  opacity: 1;
-  animation-name: none;
-}
-
 ::view-transition-group(site-header) {
   z-index: 10;
 }
 
+::view-transition-old(.work-thumb),
 ::view-transition-old(site-header) {
   mix-blend-mode: normal;
   opacity: 0;
   animation-name: none;
 }
 
+::view-transition-new(.work-thumb),
 ::view-transition-new(site-header) {
   mix-blend-mode: normal;
   opacity: 1;
