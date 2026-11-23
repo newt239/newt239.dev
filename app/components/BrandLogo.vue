@@ -10,8 +10,8 @@ defineProps<{
 
 <template>
   <template v-if="logoOnDark">
-    <img v-bind="$attrs" :src="logo" alt="" :width="size" :height="size" class="logo-light">
-    <img v-bind="$attrs" :src="logoOnDark" alt="" :width="size" :height="size" class="logo-dark">
+    <NuxtImg v-bind="$attrs" :src="logo" alt="" :width="size" :height="size" class="logo-light" />
+    <NuxtImg v-bind="$attrs" :src="logoOnDark" alt="" :width="size" :height="size" class="logo-dark" />
   </template>
-  <img v-else v-bind="$attrs" :src="logo" alt="" :width="size" :height="size">
+  <NuxtImg v-else v-bind="$attrs" :src="logo" alt="" :width="size" :height="size" />
 </template>
