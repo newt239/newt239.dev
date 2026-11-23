@@ -1,6 +1,8 @@
 import { readdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import { siteName, siteUrl } from "./app/lib/constants";
+import rehypeDemoteHeadings from "./app/lib/rehype-demote-headings";
 import { shikiTheme } from "./app/lib/shiki";
 import { checkDiscordEmbeds } from "./scripts/check-discord-embeds";
 import { writeCspScriptHashes } from "./scripts/write-csp-script-hashes";
@@ -109,6 +111,14 @@ export default defineNuxtConfig({
         highlight: {
           theme: { default: shikiTheme },
         },
+        rehypePlugins: {
+          "demote-headings": {
+            instance: rehypeDemoteHeadings,
+            src: fileURLToPath(new URL("./app/lib/rehype-demote-headings.ts", import.meta.url)),
+            options: {},
+          },
+        },
+        toc: { depth: 3, searchDepth: 2 },
       },
     },
     experimental: {

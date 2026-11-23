@@ -16,7 +16,7 @@ images:
 
 <!--more-->
 
-## システム構成
+# システム構成
 
 DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用していました。Discord.pyをHeroku上で常時稼働させ、10分おきにループを回し予めセットしておいた時間になるとSHIPや栄東ニュースのスクレイピングなどを行います。
 
@@ -24,23 +24,23 @@ DiscordのサーバーとLINE公式アカウント、Twitter、Webで運用し�
 
 ![SHIP-Assistant v1.1のシステム構成図（2021年7月）。discord.pyがSeleniumで学内サイトを巡回し、Cloud Firestoreに格納後Discord等へ通知する。](/images/ship-assistant-system-map.webp)
 
-## Web 版
+# Web 版
 
 認証にFirebase Authenticationを通し学校以外のドメインのアカウントからのログインをブロックしています。
 
 ![Webアプリ「SHIP-Assistant on Web」の投稿詳細ページ。「3月営業予定(改訂版)」というエントリのタイトルや日付、PDFファイルへのリンクが表示されている。](/images/ship-assistant-web.webp)
 
-## データベース
+# データベース
 
 当初はHeroku上での利用がサポートされているHeroku Postgresを使っていました。Web版の実装に伴い、クライアント側から直接データを取得できるFirebase Cloud Firestoreへ移行しています。
 
-## 関連リンク
+# 関連リンク
 
-### SHIP-Assistant on Web
+## SHIP-Assistant on Web
 
 ::link-card{url="https://ship-assistant.web.app/"}
 ::
 
-### Notion 上で利用方法を説明したページ
+## Notion 上で利用方法を説明したページ
 
 - <a href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a" target="_blank" rel="noopener noreferrer">SHIP Assistant's Note</a>

@@ -15,7 +15,7 @@ images:
 
 直近の日別メッセージ投稿数やリアクション数ランキングなどを確認でき、チャンネルやチームの活動状況を可視化します。SvelteKitで構築し、Cloudflare Workersへデプロイしています。
 
-## 関連リンク
+# 関連リンク
 
 ::link-card{url="https://github.com/SIT-DigiCre/mmdash"}
 ::
