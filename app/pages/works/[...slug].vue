@@ -207,7 +207,7 @@ const closeLightbox = async () => {
             />
           </div>
           <div ref="content" class="content">
-            <ContentRenderer :value="work" />
+            <ContentRenderer class="section-body" :value="work" />
           </div>
         </div>
         <ImageLightbox
@@ -536,7 +536,7 @@ const closeLightbox = async () => {
     overflow-wrap: anywhere;
 
     @container (width < 37rem) {
-      padding-top: 0;
+      padding-top: 1rem;
     }
 
     p {
@@ -557,7 +557,40 @@ const closeLightbox = async () => {
       line-height: var(--line-height-body);
     }
 
+    .section-body {
+      --code-bg: oklch(var(--bg));
+      --section-padding-inline: min(1.5rem, 5vw);
+
+      padding: var(--section-padding-inline);
+
+      > :first-child {
+        margin-top: 0;
+      }
+
+      > :last-child {
+        margin-bottom: 0;
+      }
+
+      .link-card {
+        background: oklch(var(--bg));
+      }
+
+      @container (width < 37rem) {
+        --section-padding-inline: min(1rem, 4vw);
+
+        pre {
+          padding: 0.75rem;
+        }
+      }
+    }
+
     h2 {
+      padding: 0 0 0.5rem;
+      margin: 1.5rem 0 0;
+      font-size: 1.5rem;
+    }
+
+    h3 {
       display: inline-block;
       padding: 0.25rem 0.75rem;
       margin: 1rem 0 0;
@@ -574,13 +607,13 @@ const closeLightbox = async () => {
       }
     }
 
-    h3 {
+    h4 {
       padding: 1.5rem 0 0;
       font-size: 1.25rem;
       font-weight: 800;
     }
 
-    h4 {
+    h5 {
       padding: 0 0 0 0.75rem;
       margin: 1rem 0 0;
       font-size: 1rem;
@@ -588,11 +621,11 @@ const closeLightbox = async () => {
       border-left: var(--border-width) solid oklch(var(--accent));
     }
 
-    h2 a {
+    h3 a {
       color: inherit;
     }
 
-    h3,
+    h2,
     h4,
     h5 {
       a {

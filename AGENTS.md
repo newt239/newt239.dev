@@ -42,6 +42,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## コンテンツとデータ
 
 - Nuxt Content v3 で管理するのは `content/works/` の作品だけ。`images` の先頭がサムネイル兼 OG 画像になる
+- 作品の本文の見出しは `##` から書く。目次は `h2`〜`h4` を拾う
 - 作品の「リンク」節は `::link-card{url="…"}` でカードにする。OGP と画像は `app/lib/link-cards.json` と `public/link-cards/` に保存したものを表示する
   - 取得できないリンク（bot を弾く、リンク切れ）はテキストリンクのまま残す
 - OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）

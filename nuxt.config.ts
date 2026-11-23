@@ -109,6 +109,7 @@ export default defineNuxtConfig({
         highlight: {
           theme: { default: shikiTheme },
         },
+        toc: { depth: 3, searchDepth: 2 },
       },
     },
     experimental: {
