@@ -148,7 +148,8 @@
   --list-header-row-gap: 0.75rem;
   --corner-shape: round;
   --font-family: fot-udkakugo-large-pr6n;
-  --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", -apple-system, sans-serif;
+  --font-fallback: "line-seed-jp", "biz-udp-gothic", "noto-sans-jp", var(--font-system);
+  --font-system: -apple-system, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
   --code-text: oklch(var(--text));
   --code-bg: oklch(var(--surface));
@@ -170,11 +171,18 @@
   --lightbox-fade-duration: 0.25s;
   --lightbox-zoom-duration: 0.2s;
   --carousel-slide-duration: 0.4s;
-  --page-fade-duration: 0.5s;
-  --heading-wave-duration: 0.7s;
-  --heading-wave-stagger: 0.045s;
   --theme-beam-duration: 1.2s;
   --spinner-duration: 1s;
+  --reveal-duration: 0.9s;
+  --reveal-stagger: 0.06s;
+  --reveal-max-order: 8;
+  --page-leave-duration: 0.3s;
+  --page-leave-easing: cubic-bezier(0.55, 0, 1, 0.45);
+  --reveal-distance: 2rem;
+  --reveal-easing: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --loading-screen-delay: 0.4s;
+  --loading-screen-fade-duration: 0.3s;
+  --loading-screen-bounce-duration: 0.5s;
   --heading-half-leading: calc((var(--line-height-heading) - 1) / 2 * 1em);
 }
 
@@ -275,14 +283,29 @@
     --lightbox-fade-duration: 0s;
     --lightbox-zoom-duration: 0s;
     --carousel-slide-duration: 0s;
-    --page-fade-duration: 0s;
-    --heading-wave-duration: 0s;
-    --heading-wave-stagger: 0s;
     --theme-beam-duration: 0s;
     --spinner-duration: 0s;
+    --reveal-duration: 0s;
+    --reveal-stagger: 0s;
+    --page-leave-duration: 0s;
+    --loading-screen-delay: 0s;
+    --loading-screen-fade-duration: 0s;
+    --loading-screen-bounce-duration: 0s;
 
     transition: none;
   }
+}
+
+/* フォントの確定を待つ。3 秒で打ち切ったときは後から届いても差し替えない */
+@media (scripting: enabled) {
+  :root:not(.is-font-settled) {
+    --reveal-play-state: paused;
+  }
+}
+
+:root.is-font-fallback {
+  --font-family: var(--font-system);
+  --font-fallback: var(--font-system);
 }
 
 @layer base {
@@ -365,35 +388,6 @@
     }
   }
 
-  /* opacity のアニメーションは合成レイヤーに載り、ヘッダーの backdrop-filter がこの文字をぼかせなくなる */
-  @media (prefers-reduced-motion: no-preference) {
-    .colorful-heading:not(.is-visible) .colorful-heading__char {
-      color: transparent;
-    }
-  }
-
-  .colorful-heading.is-visible .colorful-heading__char {
-    animation: heading-color-wave var(--heading-wave-duration) ease both;
-    animation-delay: calc(var(--char-index, 0) * var(--heading-wave-stagger));
-  }
-
-  @keyframes heading-color-wave {
-    0% {
-      color: oklch(var(--accent) / 0%);
-    }
-
-    40% {
-      color: oklch(var(--highlight));
-    }
-
-    70% {
-      color: oklch(var(--accent-dark));
-    }
-
-    100% {
-      color: inherit;
-    }
-  }
 
   h3,
   h4 {
@@ -466,6 +460,26 @@
 }
 
 @layer components {
+  /* 待機中を一時停止のアニメーションで隠すと要素ごとに合成レイヤーができ、スクロールが重くなる */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    [data-reveal=""] {
+      opacity: 0;
+    }
+
+    [data-reveal="shown"] {
+      animation: reveal-slide-in var(--reveal-duration) var(--reveal-easing) backwards;
+      animation-delay: calc(min(var(--reveal-order, 0), var(--reveal-max-order)) * var(--reveal-stagger));
+      animation-play-state: var(--reveal-play-state, running);
+    }
+  }
+
+  @keyframes reveal-slide-in {
+    from {
+      opacity: 0;
+      translate: 0 var(--reveal-distance);
+    }
+  }
+
   .container {
     max-width: var(--container-max-width);
     padding: var(--container-padding-inline);
@@ -904,12 +918,6 @@
     }
   }
 
-  .colorful-heading:not(.is-visible) .colorful-heading__char,
-  .colorful-heading.is-visible .colorful-heading__char {
-    color: inherit;
-    animation: none;
-  }
-
   h1,
   h2,
   h3,
@@ -970,42 +978,6 @@
 
 :root:active-view-transition-type(lightbox-close)::view-transition-new(lightbox-img) {
   object-fit: cover;
-}
-
-:root:not(:active-view-transition-type(list-filter))::view-transition-group(.list-card) {
-  animation-name: none;
-}
-
-::view-transition-group(.work-thumb),
-::view-transition-group(.list-title) {
-  z-index: 1;
-}
-
-::view-transition-group(.active-card) {
-  z-index: 2;
-}
-
-::view-transition-group(.active-thumb),
-::view-transition-group(.active-title) {
-  z-index: 3;
-}
-
-::view-transition-group(site-header) {
-  z-index: 10;
-}
-
-::view-transition-old(.work-thumb),
-::view-transition-old(site-header) {
-  mix-blend-mode: normal;
-  opacity: 0;
-  animation-name: none;
-}
-
-::view-transition-new(.work-thumb),
-::view-transition-new(site-header) {
-  mix-blend-mode: normal;
-  opacity: 1;
-  animation-name: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

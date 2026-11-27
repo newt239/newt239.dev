@@ -111,9 +111,6 @@ useHead({
 const tocItems = work.body.toc?.links ?? [];
 const contentRef = useTemplateRef<HTMLElement>("content");
 
-const activeWorkSlug = useState<string | null>("active-work-slug", () => null);
-activeWorkSlug.value = workSlug;
-
 const lightboxOpen = ref(false);
 const imageIndex = ref(0);
 const morphIndex = ref<number | null>(null);
@@ -176,16 +173,16 @@ const closeLightbox = async () => {
           <ImageCarousel
             ref="carousel"
             v-model:index="imageIndex"
+            v-reveal
             class="sidebar-layout-main"
             :images="work.images"
-            :work-slug="workSlug"
             :morph-index="morphIndex"
             :instant="lightboxOpen"
             @open-lightbox="openLightbox"
           />
           <div class="work-sidebar sidebar-layout-aside">
-            <h1 class="work-title" :style="`view-transition-name: ${workSlug}-name;`">{{ work.title }}</h1>
-            <dl class="work-meta meta-list">
+            <h1 v-reveal class="work-title">{{ work.title }}</h1>
+            <dl v-reveal class="work-meta meta-list">
               <template v-if="githubUrl">
                 <dt>GitHub</dt>
                 <dd>
@@ -201,12 +198,13 @@ const closeLightbox = async () => {
             </dl>
             <TableOfContents
               v-if="tocItems.length > 0"
+              v-reveal
               class="work-toc"
               :items="tocItems"
               :container="contentRef?.firstElementChild"
             />
           </div>
-          <div ref="content" class="content sidebar-layout-main">
+          <div ref="content" v-reveal class="content sidebar-layout-main">
             <ContentRenderer class="section-body" :value="work" />
           </div>
         </div>
@@ -220,6 +218,7 @@ const closeLightbox = async () => {
       <nav class="work-nav" aria-label="作品ナビゲーション">
         <NuxtLink
           v-if="previousWork"
+          v-reveal
           :to="previousWork.path"
           rel="prev"
           :aria-label="`前の作品: ${previousWork.title}`"
@@ -231,12 +230,13 @@ const closeLightbox = async () => {
             <span class="work-nav-title">{{ previousWork.title }}</span>
           </span>
         </NuxtLink>
-        <NuxtLink to="/works" class="work-nav-link surface-button is-all" aria-label="すべての作品">
+        <NuxtLink v-reveal to="/works" class="work-nav-link surface-button is-all" aria-label="すべての作品">
           <IconLayoutGrid :size="20" aria-hidden="true" />
           <span class="work-nav-all-label">すべての作品</span>
         </NuxtLink>
         <NuxtLink
           v-if="nextWork"
+          v-reveal
           :to="nextWork.path"
           rel="next"
           :aria-label="`次の作品: ${nextWork.title}`"
@@ -279,7 +279,6 @@ const closeLightbox = async () => {
         /* auto-phrase は 1 行に収まらない文節の手前で折り返し、先頭に 1 文字だけ残る */
         word-break: normal;
         text-wrap: balance;
-        view-transition-class: list-title;
       }
 
       .work-toc {

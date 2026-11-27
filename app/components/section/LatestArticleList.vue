@@ -8,16 +8,17 @@ const articles = articleList.toSorted((a, b) => b.date.localeCompare(a.date)).sl
 
 <template>
   <div class="latest-article-list">
-    <h2 v-colorful-heading class="category-title" lang="en">Articles</h2>
+    <h2 v-reveal class="category-title" lang="en">Articles</h2>
     <div class="card-grid">
       <ArticleItem
         v-for="article in articles"
         :key="article.url"
+        v-reveal
         :title="article.title"
         :url="article.url"
         :date="article.date"
       />
-      <NuxtLink to="/articles" class="see-all-card surface-card see-all-articles">
+      <NuxtLink v-reveal to="/articles" class="see-all-card surface-card see-all-articles">
         <span>
           すべての記事を見る
           <IconChevronRight aria-hidden="true" />

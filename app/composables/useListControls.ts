@@ -27,19 +27,9 @@ export const useListControls = <T>(
   );
 
   const apply = async () => {
-    const update = async () => {
-      const query = toQuery(draft.value);
-      applied.value = fromQuery(query);
-      await router.replace({ query });
-      await nextTick();
-    };
-    if (!("startViewTransition" in document)) {
-      await update();
-      return;
-    }
-    const transition = document.startViewTransition({ types: ["list-filter"], update });
-    await Promise.allSettled([transition.ready, transition.finished]);
-    await transition.updateCallbackDone;
+    const query = toQuery(draft.value);
+    applied.value = fromQuery(query);
+    await router.replace({ query });
   };
 
   return { applied, draft, dirty, hasConditions, apply };

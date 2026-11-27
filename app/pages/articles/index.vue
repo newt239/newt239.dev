@@ -79,8 +79,8 @@ const filteredArticles = computed(() => {
 <template>
   <div>
     <div class="container list-page">
-      <div class="list-header">
-        <h1 v-colorful-heading class="category-name" lang="en">Articles</h1>
+      <div v-reveal class="list-header">
+        <h1 class="category-name" lang="en">Articles</h1>
 
         <ListControlBar
           v-model:sort-asc="draft.sortAsc"
@@ -111,6 +111,7 @@ const filteredArticles = computed(() => {
         <ArticleItem
           v-for="article in filteredArticles"
           :key="article.url"
+          v-reveal
           :title="article.title"
           :url="article.url"
           :date="article.date"
@@ -121,9 +122,3 @@ const filteredArticles = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.category-name {
-  view-transition-name: article-category-name;
-}
-</style>

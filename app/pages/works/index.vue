@@ -73,8 +73,8 @@ const sortedWorks = computed(() => {
 <template>
   <div>
     <div class="container list-page">
-      <div class="list-header">
-        <h1 v-colorful-heading class="category-name" lang="en">Works</h1>
+      <div v-reveal class="list-header">
+        <h1 class="category-name" lang="en">Works</h1>
 
         <ListControlBar
           v-model:sort-asc="draft.sortAsc"
@@ -100,15 +100,9 @@ const sortedWorks = computed(() => {
         該当する作品が見つかりませんでした。
       </div>
       <div v-else class="card-grid">
-        <WorkItem v-for="work in sortedWorks" :key="work.id" :work="work" heading-level="h2" />
+        <WorkItem v-for="work in sortedWorks" :key="work.id" v-reveal :work="work" heading-level="h2" />
       </div>
       <BackToTop />
     </div>
   </div>
 </template>
-
-<style scoped>
-.category-name {
-  view-transition-name: work-category-name;
-}
-</style>

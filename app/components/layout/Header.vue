@@ -82,7 +82,6 @@ header {
   border-style: solid;
   border-width: 0 0 var(--border-width-hairline);
   backdrop-filter: blur(12px) saturate(1.4);
-  view-transition-name: site-header;
 
   .header-inner {
     display: flex;

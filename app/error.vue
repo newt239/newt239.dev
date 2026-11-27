@@ -19,10 +19,10 @@ useSeoMeta({ robots: "noindex" });
   <NuxtLayout>
     <div>
       <div class="container error-page">
-        <p class="status-code" lang="en">{{ error.statusCode }}</p>
-        <h1 v-colorful-heading class="error-heading">{{ heading }}</h1>
-        <p class="error-description">{{ description }}</p>
-        <div class="error-actions">
+        <p v-reveal class="status-code" lang="en">{{ error.statusCode }}</p>
+        <h1 v-reveal class="error-heading">{{ heading }}</h1>
+        <p v-reveal class="error-description">{{ description }}</p>
+        <div v-reveal class="error-actions">
           <button type="button" class="back-button surface-button" @click="clearError({ redirect: '/' })">
             <IconChevronLeft aria-hidden="true" />
             トップへ戻る

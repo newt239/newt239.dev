@@ -4,7 +4,6 @@ import type { WorksCollectionItem } from "@nuxt/content";
 
 const props = defineProps<{
   images: WorksCollectionItem["images"];
-  workSlug: string;
   morphIndex?: number | null;
   instant?: boolean;
 }>();
@@ -48,11 +47,7 @@ defineExpose({ focusCurrentImage });
 
 const imageStyle = (slide: number) => {
   if (props.morphIndex === slide) {
-    return "view-transition-name: lightbox-img; view-transition-class: none;";
-  }
-  // 名前が付いた要素はビューポートの overflow クリップから外れるため、表示中のスライドにのみ付ける
-  if (slide === 0 && index.value === 0) {
-    return `view-transition-name: ${props.workSlug}-img;`;
+    return "view-transition-name: lightbox-img;";
   }
   return undefined;
 };
@@ -233,7 +228,6 @@ const onTouchEnd = () => {
   height: 100%;
   object-fit: cover;
   border-radius: var(--radius-md);
-  view-transition-class: work-thumb;
 }
 
 .carousel-controls {

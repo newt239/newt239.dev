@@ -9,7 +9,7 @@ const snsLinks: SocialLink[] = [socialLinks.x, socialLinks.github, socialLinks.z
 
 <template>
   <div class="profile">
-    <NuxtLink to="/about" class="top-card">
+    <NuxtLink v-reveal to="/about" class="top-card">
       <div class="card-content">
         <h2 lang="en">Welcome✨</h2>
         <p>
@@ -27,6 +27,7 @@ const snsLinks: SocialLink[] = [socialLinks.x, socialLinks.github, socialLinks.z
       <a
         v-for="link in snsLinks"
         :key="link.href"
+        v-reveal
         class="sns-card surface-card"
         :href="link.href"
         target="_blank"
@@ -179,7 +180,6 @@ const snsLinks: SocialLink[] = [socialLinks.x, socialLinks.github, socialLinks.z
       margin: 0;
       line-height: var(--line-height-loose);
       text-wrap: pretty;
-      view-transition-name: profile-bio;
     }
 
     .phrase {
