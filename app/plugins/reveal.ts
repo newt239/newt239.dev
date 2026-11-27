@@ -1,4 +1,20 @@
 export default defineNuxtPlugin((nuxtApp) => {
+  // ブラウザが戻るスワイプなどで遷移の演出を済ませたときは、退場も入場も重ねない
+  let skipTransition = false;
+
+  if (import.meta.client) {
+    window.addEventListener("popstate", (event) => {
+      skipTransition = event.hasUAVisualTransition;
+    });
+    // ガードは vue-router の popstate 処理の中で走りフラグより先に評価されるため、描画直前の afterEach で外す
+    nuxtApp.$router.afterEach((to) => {
+      if (skipTransition) to.meta.pageTransition = false;
+    });
+    nuxtApp.hook("page:finish", () => {
+      skipTransition = false;
+    });
+  }
+
   const observer = import.meta.client
     ? new IntersectionObserver(
         (entries) => {
@@ -23,6 +39,10 @@ export default defineNuxtPlugin((nuxtApp) => {
   // クラスだと動的な :class の再描画で消えるため data 属性で状態を持つ
   nuxtApp.vueApp.directive<HTMLElement>("reveal", {
     mounted(el) {
+      if (skipTransition) {
+        el.dataset.reveal = "skipped";
+        return;
+      }
       el.dataset.reveal ??= "";
       observer?.observe(el);
     },
