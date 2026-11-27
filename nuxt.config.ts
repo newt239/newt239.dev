@@ -18,6 +18,24 @@ const discordEmbedAssetOrigin =
     ? `https://${previewAlias}-newt239.newtpia.workers.dev`
     : siteUrl;
 
+const typekitKitUrl = "https://use.typekit.net/ylu0yhm.js";
+
+// 3 秒で確定しなければ、後から届いても差し替えないよう既定フォントに固定する
+const fontLoaderScript = `(() => {
+  const root = document.documentElement;
+  const settle = (fallback) => {
+    if (root.classList.contains("is-font-settled")) return;
+    root.classList.toggle("is-font-fallback", fallback);
+    root.classList.add("is-font-settled");
+  };
+  setTimeout(() => settle(true), 3000 - performance.now());
+  const kit = document.createElement("script");
+  kit.src = "${typekitKitUrl}";
+  kit.onload = () => window.Typekit.load({ async: true, active: () => settle(false), inactive: () => settle(true) });
+  kit.onerror = () => settle(true);
+  document.head.append(kit);
+})();`;
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   components: [{ path: "~/components", pathPrefix: false }],
@@ -68,17 +86,11 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/png", sizes: "192x192", href: "/icons/icon-192.png" },
         { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
         { rel: "manifest", href: "/manifest.webmanifest" },
+        { rel: "preload", as: "script", href: typekitKitUrl },
       ],
-      script: [
-        { src: "https://use.typekit.net/ylu0yhm.js", defer: true },
-        {
-          type: "module",
-          innerHTML: "window.Typekit?.load({ async: true });",
-          tagPriority: 80,
-        },
-      ],
+      script: [{ innerHTML: fontLoaderScript, tagPriority: "critical" }],
     },
-    pageTransition: false,
+    pageTransition: { name: "page", mode: "out-in" },
   },
 
   runtimeConfig: {
@@ -134,7 +146,6 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    viewTransition: true,
     payloadExtraction: "client",
     prerenderErrorPages: true,
     defaults: {

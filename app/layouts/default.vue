@@ -18,17 +18,64 @@ if (import.meta.client) {
 
 <template>
   <div>
+    <div class="loading-screen" aria-hidden="true">
+      <img src="/icon.webp" alt="" width="56" height="56" class="loading-screen-icon">
+    </div>
     <NuxtLoadingIndicator class="loading-indicator" />
     <a class="skip-link" href="#main-content">本文へスキップ</a>
-    <Header />
+    <Header v-reveal />
     <main id="main-content" ref="main" tabindex="-1" class="wrapper">
       <slot />
     </main>
-    <Footer />
+    <Footer v-reveal />
   </div>
 </template>
 
 <style scoped>
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  background-color: oklch(var(--bg));
+  transition:
+    opacity var(--loading-screen-fade-duration) var(--transition-easing),
+    visibility var(--loading-screen-fade-duration);
+
+  @media (scripting: none) {
+    display: none;
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+:root.is-font-settled .loading-screen {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading-screen-icon {
+  border-radius: var(--radius-round);
+  animation:
+    loading-screen-fade-in var(--loading-screen-fade-duration) var(--loading-screen-delay) backwards,
+    loading-screen-bounce var(--loading-screen-bounce-duration) var(--transition-easing) infinite alternate;
+}
+
+@keyframes loading-screen-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes loading-screen-bounce {
+  to {
+    translate: 0 calc(var(--reveal-distance) * -0.5);
+  }
+}
+
 .loading-indicator {
   @media (prefers-reduced-motion: reduce) {
     display: none;

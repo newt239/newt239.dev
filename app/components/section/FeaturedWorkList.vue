@@ -9,10 +9,10 @@ defineProps<{
 
 <template>
   <div v-show="works.length !== 0" class="work-list">
-    <h2 v-colorful-heading class="category-title" lang="en">Works</h2>
+    <h2 v-reveal class="category-title" lang="en">Works</h2>
     <div class="card-grid">
-      <WorkItem v-for="(work, index) in works" :key="work.path" :work="work" :priority="index === 0" />
-      <NuxtLink to="/works" class="see-all-card surface-card">
+      <WorkItem v-for="(work, index) in works" :key="work.path" v-reveal :work="work" :priority="index === 0" />
+      <NuxtLink v-reveal to="/works" class="see-all-card surface-card">
         <span>
           すべての作品を見る
           <IconChevronRight aria-hidden="true" />
@@ -21,9 +21,3 @@ defineProps<{
     </div>
   </div>
 </template>
-
-<style scoped>
-.category-title {
-  view-transition-name: work-category-name;
-}
-</style>

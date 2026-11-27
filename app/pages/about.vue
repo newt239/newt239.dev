@@ -74,9 +74,9 @@ const links: SocialLink[] = [
     <div class="container about-page">
       <div class="about-layout sidebar-layout">
       <div class="about-hero sidebar-layout-aside">
-        <img src="/icon.webp" alt="" class="profile-icon">
-        <div class="hero-info">
-          <h1 v-colorful-heading>newt <span class="sub">@newt239</span></h1>
+        <img v-reveal src="/icon.webp" alt="" class="profile-icon">
+        <div v-reveal class="hero-info">
+          <h1>newt <span class="sub">@newt239</span></h1>
           <dl class="basic-info meta-list">
             <dt>誕生日</dt>
             <dd>{{ new Date(person.birthDate).toLocaleDateString("ja-JP", { dateStyle: "long", timeZone: "UTC" }) }}</dd>
@@ -87,15 +87,15 @@ const links: SocialLink[] = [
       </div>
 
       <div class="about-sections sidebar-layout-main">
-        <p class="about-bio">
+        <p v-reveal class="about-bio">
           <template v-for="([lead, phrase], index) in bioLines" :key="lead">
             <br v-if="index > 0">{{ lead }}<span v-if="phrase" class="phrase">{{ phrase }}</span>
           </template>
         </p>
 
         <section id="contact" class="about-section" tabindex="-1">
-          <h2 class="section-heading">コンタクト</h2>
-          <div class="section-body">
+          <h2 v-reveal class="section-heading">コンタクト</h2>
+          <div v-reveal class="section-body">
             <ul>
               <li v-for="contact in contacts" :key="contact.label">
                 {{ contact.label }}
@@ -116,8 +116,8 @@ const links: SocialLink[] = [
         </section>
 
         <section class="about-section">
-          <h2 class="section-heading">興味・関心</h2>
-          <div class="section-body">
+          <h2 v-reveal class="section-heading">興味・関心</h2>
+          <div v-reveal class="section-body">
             <ul>
               <li v-for="interest in interests" :key="interest.category">
                 {{ interest.category }}
@@ -130,8 +130,8 @@ const links: SocialLink[] = [
         </section>
 
         <section class="about-section">
-          <h2 class="section-heading">趣味</h2>
-          <div class="section-body hobbies">
+          <h2 v-reveal class="section-heading">趣味</h2>
+          <div v-reveal class="section-body hobbies">
             <div v-for="hobby in hobbies" :key="hobby.title">
               <h3>{{ hobby.title }}</h3>
               <ul>
@@ -142,8 +142,8 @@ const links: SocialLink[] = [
         </section>
 
         <section class="about-section">
-          <h2 class="section-heading">リンク集</h2>
-          <div class="section-body link-list">
+          <h2 v-reveal class="section-heading">リンク集</h2>
+          <div v-reveal class="section-body link-list">
             <a
               v-for="link in links"
               :key="link.href"
@@ -236,7 +236,6 @@ const links: SocialLink[] = [
     margin: 0;
     line-height: var(--line-height-loose);
     text-wrap: pretty;
-    view-transition-name: profile-bio;
 
     .phrase {
       display: inline-block;

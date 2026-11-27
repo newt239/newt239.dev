@@ -10,10 +10,6 @@ const props = defineProps<{
   headingLevel?: "h2" | "h3";
 }>();
 
-const transitionKey = computed(
-  () => `article-${props.url.replace(/^https?:\/\//, "").replace(/[^a-zA-Z0-9_-]/g, "-")}`
-);
-
 const site = computed(() => articleSite(props.url));
 
 const formattedDate = computed(() =>
@@ -28,12 +24,10 @@ const formattedDate = computed(() =>
     rel="noopener noreferrer"
     class="article-card surface-card"
     :aria-label="`${title} - ${site.name} ${formattedDate}（外部サイト）`"
-    :style="`view-transition-name: ${transitionKey}-card;`"
   >
     <div class="article-card-body">
       <component
         :is="headingLevel ?? 'h3'"
-        :style="`view-transition-name: ${transitionKey}-title;`"
       >
         {{ title }}
         <IconExternalLink class="external-icon" aria-hidden="true" />
@@ -57,7 +51,6 @@ const formattedDate = computed(() =>
   grid-row: span 2;
   gap: 0;
   overflow: hidden;
-  view-transition-class: list-card;
 
   /* subgrid のままだと ::after が 3 つ目のグリッドアイテムとして入り崩れる */
   @media print {

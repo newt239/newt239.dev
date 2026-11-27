@@ -17,13 +17,13 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 
 <template>
   <div class="timeline">
-    <h2 v-colorful-heading lang="en">Timeline</h2>
+    <h2 v-reveal lang="en">Timeline</h2>
     <div class="timeline-body">
       <div v-for="year in years" :key="year.year" class="year-section">
-        <div class="year-header">
+        <div v-reveal class="year-header">
           <h3 class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
         </div>
-        <div class="year-items record-list">
+        <div v-reveal class="year-items record-list">
           <component
             :is="item.src ? 'a' : 'div'"
             v-for="item in year.items"

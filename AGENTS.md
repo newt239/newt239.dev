@@ -84,8 +84,6 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 ## 主要機能
 
 - **テーマ生成**：ガマットマッピングとコントラスト検証は api.newt239.dev 側が担う
-- **View Transitions**：`experimental.viewTransition` で有効化している。非対応ブラウザでは [page-transition.global.ts](app/middleware/page-transition.global.ts) が Vue の `pageTransition` を有効にし、[app.vue](app/app.vue) の `@supports not` でブラーを定義する
-- **スクロール復元**：[router.options.ts](app/router.options.ts) は Nuxt 既定の実装から rAF を抜いたもの。スナップショット前にスクロールを確定させるためで、Nuxt に追従するときもこの差分は残す
 - **作品画像のジェスチャ**：[ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) はピンチ、ダブルタップ、ホイール、スワイプを Pointer Events で自前実装している
   - `.lightbox-content` の `touch-action: none` を緩めない。ブラウザのピンチと `transform` の二重管理になる
   - ハンドラは画像ではなく `.lightbox-content` に付ける。2 本目の指はレターボックスに降りるため
@@ -96,7 +94,12 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - **アナリティクス**：[vue-gtag.client.ts](app/plugins/vue-gtag.client.ts)
   - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
   - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
-- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `app.head.script` で kit を `defer` で読み、直後のインライン module スクリプトで `Typekit.load()` を呼ぶ。module は `defer` と同じ文書順で実行されるので、`tagPriority: 80` で kit と Nuxt エントリの間に並べる（既定だと kit より前に出て空振りし、エントリより後ろだとハイドレーションを待つ）。`onload` 属性は CSP で弾かれる
+- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `fontLoaderScript` が `<head>` 先頭で kit を動的に読み込み、`Typekit.load()` の結果で `html` に `is-font-settled` を付ける。読み込み開始から 3 秒で確定しなければ `is-font-fallback` も付け、後から届いても既定フォントのまま固定する。`onload` 属性は CSP で弾かれるので、ハンドラはスクリプト内で代入する
+- **初期ロードの演出**：`is-font-settled` が付くまで [default.vue](app/layouts/default.vue) の全画面ローディングで覆う。`v-reveal`（[reveal.ts](app/plugins/reveal.ts)）を付けた要素は、ビューポートに入ってから時間差でスライドインする
+  - ページ遷移でも、新しいページの要素が同じように入ってくる。退場は `pageTransition`（`out-in`）と [app.vue](app/app.vue) の `.page-leave-active` で、ページ全体を上へ抜けさせる。View Transitions はライトボックスの開閉だけで使う
+  - 付けるのはカードやパネル（`.section-body`、`.record-list`）の単位。セクション全体だと大味になり、パネル内の行に付けると背景だけが先に見える
+  - 待機中は `opacity: 0` だけで隠す。一時停止のアニメーションで隠すと要素ごとに合成レイヤーができ、スクロールが重くなる
+  - 状態は data 属性で持つ。クラスだと動的な `:class` の再描画で消える
 
 ## SEO メタ
 
@@ -122,7 +125,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 
 [public/_headers](public/_headers) の `/*` で CSP などを返す（Observatory A+、issue #149）。
 
-- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config`、`Typekit.load()` の 4 つ。`prerender:done` の時点では `_headers` がまだ無い
+- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config`、フォントローダーの 4 つ。`prerender:done` の時点では `_headers` がまだ無い
 - `style-src 'unsafe-inline'` は残す（Observatory で満点扱い）
 - Adobe Fonts には `connect-src` と `font-src data:` の両方が要る。フォントは XHR で取得され、`data:` URI として注入されるため。CSS は読まないので `style-src` は不要
 - フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する

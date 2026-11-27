@@ -29,11 +29,12 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
 
 <template>
   <div class="latest-album-list">
-    <h2 v-colorful-heading lang="en">Photos</h2>
+    <h2 v-reveal lang="en">Photos</h2>
     <div class="card-grid">
       <a
         v-for="album in albums"
         :key="album.slug"
+        v-reveal
         :href="album.url"
         target="_blank"
         rel="noopener noreferrer"
@@ -58,6 +59,7 @@ const albums = computed(() => data.value?.albums.slice(0, 5) ?? []);
         </div>
       </a>
       <a
+        v-reveal
         :href="socialLinks.fernweh.href"
         target="_blank"
         rel="noopener noreferrer"

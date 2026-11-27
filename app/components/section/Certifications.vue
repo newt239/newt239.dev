@@ -6,8 +6,8 @@ const sortedCertifications = certifications.toSorted((a, b) => b.date.localeComp
 
 <template>
   <div class="certifications">
-    <h2 v-colorful-heading lang="en">Certifications</h2>
-    <div class="certification-list record-list">
+    <h2 v-reveal lang="en">Certifications</h2>
+    <div v-reveal class="certification-list record-list">
       <div v-for="item in sortedCertifications" :key="item.title" class="record-item">
         <time :datetime="item.date" class="record-term">{{ new Date(item.date).toLocaleDateString("ja-JP", { year: "numeric", month: "long", timeZone: "UTC" }) }}</time>
         <span class="record-title">{{ item.title }}</span>

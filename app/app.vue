@@ -20,16 +20,15 @@ useSeoMeta({
 </template>
 
 <style>
-@supports not (view-transition-name: none) {
-  .page-enter-active,
-  .page-leave-active {
-    transition: all var(--page-fade-duration);
-  }
+/* 入場は v-reveal が担うので退場だけ定義する */
+.page-leave-active {
+  animation: page-leave var(--page-leave-duration) var(--page-leave-easing) forwards;
+}
 
-  .page-enter-from,
-  .page-leave-to {
+@keyframes page-leave {
+  to {
     opacity: 0;
-    filter: blur(1rem);
+    translate: 0 calc(var(--reveal-distance) * -0.5);
   }
 }
 </style>
