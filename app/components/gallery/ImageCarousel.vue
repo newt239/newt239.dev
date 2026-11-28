@@ -196,7 +196,7 @@ const onTouchEnd = () => {
   display: flex;
   height: 100%;
   transform: translateX(var(--carousel-offset, 0%));
-  transition: transform var(--carousel-slide-duration) ease;
+  transition: transform var(--carousel-slide-duration) var(--transition-easing);
 
   &.no-transition {
     transition: none;
