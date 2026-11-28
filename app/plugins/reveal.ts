@@ -1,5 +1,4 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  // ブラウザが戻るスワイプなどで遷移の演出を済ませたときは、退場も入場も重ねない
   let skipTransition = false;
 
   if (import.meta.client) {

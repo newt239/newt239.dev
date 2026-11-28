@@ -298,7 +298,6 @@
   }
 }
 
-/* フォントの確定を待つ。3 秒で打ち切ったときは後から届いても差し替えない */
 @media (scripting: enabled) {
   :root:not(.is-font-settled) {
     --reveal-play-state: paused;
@@ -528,7 +527,6 @@
     list-style: none;
   }
 
-  /* 本文の書き出しを、全体のグリッドの半トラック（列数の 2 倍で割った幅）に揃える */
   .record-item {
     --record-padding-inline: 1.25rem;
     --record-column-gap: 1rem;
