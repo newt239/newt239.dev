@@ -517,35 +517,57 @@
   }
 
   .record-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
+    padding: 0;
+    margin: 0;
     container-type: inline-size;
-    overflow: hidden;
-    background: oklch(var(--surface));
-    border-radius: var(--radius-md);
+    list-style: none;
   }
 
+  /* 本文の書き出しを、全体のグリッドの半トラック（列数の 2 倍で割った幅）に揃える */
   .record-item {
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 0.75rem 1.25rem;
+    --record-padding-inline: 1.25rem;
+    --record-column-gap: 1rem;
+    --record-term-divisor: 4;
 
-    @container (max-width: 16em) {
+    display: flex;
+    gap: var(--record-column-gap);
+    align-items: baseline;
+    padding: 0.75rem var(--record-padding-inline);
+    background: oklch(var(--surface));
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-md);
+
+    @container (width < 37rem) {
       flex-direction: column;
       gap: 0.25rem;
       align-items: stretch;
     }
 
-    &:not(:last-child) {
-      border-bottom: var(--border-width-hairline) solid oklch(var(--border));
+    @container (width >= 55.5rem) {
+      --record-term-divisor: 6;
+    }
+
+    @container (width >= 74rem) {
+      --record-term-divisor: 8;
     }
   }
 
   .record-term {
     flex-shrink: 0;
-    min-width: var(--record-term-width);
+    width: calc(
+      100cqi / var(--record-term-divisor) - var(--border-width) - var(--record-padding-inline) -
+        var(--record-column-gap)
+    );
     font-size: 0.75rem;
     color: oklch(var(--text-muted));
     white-space: nowrap;
+
+    @container (width < 37rem) {
+      width: auto;
+    }
   }
 
   .record-title {
@@ -809,7 +831,7 @@
     border-width: max(var(--border-width), 2px);
   }
 
-  .record-list,
+  .record-item,
   .section-body {
     border: max(var(--border-width), 2px) solid oklch(var(--text-muted));
   }
@@ -834,13 +856,9 @@
     border: max(var(--border-width), 2px) solid ButtonBorder;
   }
 
-  .record-list,
+  .record-item,
   .section-body {
     border: max(var(--border-width), 2px) solid CanvasText;
-  }
-
-  .record-item:not(:last-child) {
-    border-bottom-color: CanvasText;
   }
 
   [aria-pressed="true"],
@@ -886,7 +904,7 @@
     border-color: oklch(var(--border));
   }
 
-  .record-list,
+  .record-item,
   .section-body {
     border: var(--border-width-hairline) solid oklch(var(--border));
   }

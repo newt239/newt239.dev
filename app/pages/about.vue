@@ -143,14 +143,15 @@ const links: SocialLink[] = [
 
         <section class="about-section">
           <h2 v-reveal class="section-heading">リンク集</h2>
-          <div v-reveal class="section-body link-list">
+          <div class="link-list">
             <a
               v-for="link in links"
               :key="link.href"
+              v-reveal
               :href="link.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="link-row"
+              class="link-row surface-card"
             >
               <BrandLogo :logo="link.logo" :logo-on-dark="link.logoOnDark" :size="24" class="link-logo" />
               {{ link.name }}
@@ -260,60 +261,37 @@ const links: SocialLink[] = [
     }
 
     .link-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 0;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--grid-gap);
+
+      @container (width >= 55.5rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @container (width >= 74rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     .link-row {
       display: flex;
       gap: 0.25rem;
       align-items: center;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       font-weight: 800;
       color: oklch(var(--accent));
       text-decoration: underline;
       text-decoration-style: dashed;
       text-underline-offset: 0.25rem;
-      transition: var(--transition);
-
-      &:not(:last-child) {
-        border-bottom: var(--border-width-hairline) solid oklch(var(--border));
-
-        @media (forced-colors: active) {
-          border-bottom-color: CanvasText;
-        }
-      }
 
       &:focus-visible {
         outline-offset: calc(var(--focus-ring-offset) * -1);
       }
 
-      @media (hover: hover) {
-        &:hover {
-          text-decoration-color: transparent;
-          background: oklch(var(--surface));
-          opacity: var(--hover-opacity);
-        }
-      }
-
-      @media (hover: none) {
-        &:active {
-          background: oklch(var(--surface));
-        }
-      }
-
       @media (prefers-contrast: more) {
         text-decoration-thickness: 2px;
         text-decoration-style: solid;
-      }
-
-      @media (forced-colors: active) and (hover: hover) {
-        &:hover {
-          text-decoration-style: solid;
-        }
       }
 
       &:deep(.link-logo) {
