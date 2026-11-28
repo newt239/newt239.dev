@@ -171,6 +171,7 @@
   --lightbox-fade-duration: 0.25s;
   --lightbox-zoom-duration: 0.2s;
   --carousel-slide-duration: 0.4s;
+  --toc-indicator-duration: 0.4s;
   --theme-beam-duration: 1.2s;
   --spinner-duration: 1s;
   --reveal-duration: 0.9s;
@@ -283,6 +284,7 @@
     --lightbox-fade-duration: 0s;
     --lightbox-zoom-duration: 0s;
     --carousel-slide-duration: 0s;
+    --toc-indicator-duration: 0s;
     --theme-beam-duration: 0s;
     --spinner-duration: 0s;
     --reveal-duration: 0s;
