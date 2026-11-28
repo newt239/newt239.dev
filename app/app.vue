@@ -20,7 +20,6 @@ useSeoMeta({
 </template>
 
 <style>
-/* 入場は v-reveal が担うので退場だけ定義する */
 .page-leave-active {
   animation: page-leave var(--page-leave-duration) var(--page-leave-easing) forwards;
 }

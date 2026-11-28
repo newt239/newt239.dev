@@ -26,7 +26,6 @@ if (import.meta.client) {
     const step = () => {
       if (!watching) return;
       const difference = startAngle - (Number.parseFloat(getComputedStyle(target).rotate) || 0);
-      // 見た目の角度は 360 度周期なので、最短の向きに回して余計な一回転を避ける
       const delta = (((difference % 360) + 540) % 360) - 180;
       if (Math.abs(delta) < 1) {
         if (performance.now() < deadline) requestAnimationFrame(step);

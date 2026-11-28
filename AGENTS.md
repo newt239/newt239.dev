@@ -18,148 +18,96 @@ AI Agents がこのリポジトリで作業するときのガイダンス。
 
 ## プロジェクト概要
 
-Nuxt 4 製の個人ポートフォリオ（lang: "ja"）。SSG の出力を Cloudflare Workers に載せて配信している。
+Nuxt 4 製の個人ポートフォリオ。SSG の出力を Cloudflare Workers に載せて配信している。
 
 ## 開発コマンド
 
-基本のスクリプトは `package.json` を参照。条件付きで実行するものは次のとおり。
+基本のスクリプトは `package.json` を参照。
 
-```bash
-pnpm run lint:text     # content 配下の Markdown の文章チェック
-pnpm run compress      # public/images を WebP へ圧縮
-pnpm run content       # 作品・記事の生成物を更新（OG 画像、llms.txt、リンクカード）
-pnpm run icons         # PWA アイコンの生成（public/icon.png の差し替え時）
-pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA スクリーンショット用）
-```
-
-`content` と `icons` はローカルで実行し、生成物ごとコミットする。リンクカードは未取得の URL だけ取りに行く。取り直すときは `node scripts/generate-link-cards.ts --refresh` を使う。
-
+- `pnpm run lint:text` は `pnpm run lint` に含まれない。content 配下を変えたら実行する
+- `pnpm run content`（OG 画像、llms.txt、リンクカード）と `pnpm run icons` はローカルで実行し、生成物ごとコミットする
+  - リンクカードは未取得の URL だけ取りに行く。取り直すときは `node scripts/generate-link-cards.ts --refresh`
 - pnpm と Node のバージョンは `package.json` の `packageManager` と `devEngines.runtime` だけで固定する
-- pnpm の設定は [pnpm-workspace.yaml](pnpm-workspace.yaml) に置く
-  - postinstall を持つ依存は `allowBuilds` に足す。足さないと `ERR_PNPM_IGNORED_BUILDS` になる
-- `scripts/` の TS は Node のネイティブ実行で動く。相対 import には `.ts` 拡張子が必須
 
 ## コンテンツとデータ
 
-- Nuxt Content v3 で管理するのは `content/works/` の作品だけ。`images` の先頭がサムネイル兼 OG 画像になる
-- 作品の本文の見出しは `##` から書く。目次は `h2`〜`h4` を拾う
-- 作品の「リンク」節は `::link-card{url="…"}` でカードにする。OGP と画像は `app/lib/link-cards.json` と `public/link-cards/` に保存したものを表示する
-  - 取得できないリンク（bot を弾く、リンク切れ）はテキストリンクのまま残す
-- OG 画像は [scripts/generate-og-images.ts](scripts/generate-og-images.ts) で生成する。`~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
-- 作品以外のデータは `app/lib/` の型付き TS モジュールに置く。日付は `YYYY-MM-DD` または `YYYY-MM` の文字列
+- 作品（`content/works/`）の `images` の先頭がサムネイル兼 OG 画像になる
+- 作品の本文の見出しは `##` から書く
+- 作品の「リンク」節は `::link-card{url="…"}` でカードにする。取得できないリンク（bot を弾く、リンク切れ）はテキストリンクのまま残す
+- OG 画像の生成には `~/Library/Fonts/FOT-UDKakugo_LargePr6N-{R,B}.otf` が必要（Adobe Fonts の同期）
 - 外部リンクの URL と `siteUrl` / `siteName` は直書きせず、[links.ts](app/lib/links.ts) と [constants.ts](app/lib/constants.ts) を参照する
-- SNS のロゴは `socialLinks` の `logo` / `logoOnDark` に持たせ、[BrandLogo.vue](app/components/BrandLogo.vue) で表示する
 - 並び順は配列の記述順に頼らず、使う側で日付の降順に並べ替える
 - 日付の表示は `toLocaleDateString("ja-JP", { timeZone: "UTC", … })` で行う。`timeZone` を省くと月が 1 つずれる
 
 ## スタイリング
 
-- **カスケードレイヤー**：`main.css` の既定スタイルは `@layer base`（要素や全体の規則）と `@layer components`（共通クラス）に入れる。コンポーネントの CSS はレイヤー外に置くので、詳細度や読み込み順に関係なく常にこれらに勝つ
-  - トークン（`:root`）、利用者設定（`prefers-contrast` / `forced-colors` / `print`）の上書き、`.visually-hidden`、`::view-transition-*` はレイヤー外に置く。コンポーネントに負けてはいけないため
+- `main.css` の既定スタイルは `@layer base` / `@layer components` に入れ、コンポーネントの CSS はレイヤー外に置く
   - コンポーネントでは `@layer` を書かない。SSR のインライン `<style>` が `entry.css` より前に出るため、レイヤーの順序が崩れる
-- 色は必ず `:root` のトークン経由で指定する。固定値では AI テーマに追従しない
-  - [ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) はテーマによらず暗いオーバーレイにするため、固定の `rgb()` を使う
-- 色トークンは OKLCH のチャンネル断片（`--text: 0.29 0.014 70`）で持ち、`oklch(var(--text))` や `oklch(var(--text) / 72%)` の形で使う
-  - `@property` に `<number>+` で登録しているので、トークンに `%` と `deg` は使えない。リテラルの `oklch()` も数値表記に揃える（stylelint で強制）
-- 11 トークンすべてを sRGB ガマット内に保つ。外れるとガマットマッピングで別の色になり、コントラストの実測が宣言値と食い違う
-- `oklch()` の sRGB 変換は、OG 画像とアイコンの生成スクリプトでだけ `culori`（devDependency）を使って行う。satori も sharp も `oklch()` を解釈しないため
-- ダークモードは `prefers-color-scheme` で切り替える
+  - トークン、利用者設定（`prefers-contrast` / `forced-colors` / `print`）の上書き、`.visually-hidden`、`::view-transition-*` はレイヤー外に置く
+- 色は必ず `:root` のトークン経由で指定する。固定値では AI テーマに追従しない（[ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) のオーバーレイだけは例外）
+- 11 トークンすべてを sRGB ガマット内に保つ。外れるとコントラストの実測が宣言値と食い違う
+- 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
+- ダークモード
   - ダークの `:root` は `@media (display-mode: standalone)` より前に置く。後ろに置くと AccentColor 追随が負ける
-  - standalone のブロックはライトとダークの 2 系統ある。ダークの基準色は `color-mix()` の第 2 引数にリテラルで入っている
-  - ダークでは `--accent-dark` が明るい方のアクセントになる（`--code-accent` が `--surface` に対し 4.5:1 を要するため、意図的）
-  - [Profile.vue](app/components/section/Profile.vue) の `.top-card` はダークでも濃い地と明るい文字を保つ。地には `--surface-hover` を使う
-  - ダークパレットは手で決め、`themeConstraints` の 14 件を手動で実測する
-- 本文の文字色は `--text` / `--text-muted` / `--accent` / `--accent-dark` から選ぶ。これらは [theme.ts](app/lib/theme.ts) の `themeConstraints` で、`--bg` と `--surface` に対し 4.5:1 が保証されている。`--text-faint` と `--highlight` は 3:1 なので装飾用にとどめる
-- **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`（ライトの値）、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本（`media` 付き、デデュープ回避の `key` 付き）
-- 横幅は `.card-grid` のトラックに揃える。固定幅は `--grid-track-max`（4 列時の 1 枚分）と `--grid-gap` から `calc()` で作り、列数の切り替えはコンテナ内幅 37rem / 55.5rem / 74rem のコンテナクエリで行う
-- 本文とサイドバーの段組みは `.sidebar-layout` / `-main` / `-aside` を使う。コンテナは各ページ側で `container-type: inline-size` を付ける
-- 見出しと値を縦に並べる `dl` は `.meta-list` を使う
-- scoped な `<style>` で at-rule を二重にネストしない（`@media { @container { … } }`）。直下の宣言から `data-v` 属性が落ち、詳細度で元の規則に負ける
-- 16:9 サムネイルのカードは `.thumb-card` / `-image` / `-body` / `-title` / `-text` を使う。見出しには `.thumb-card-title` を直接付ける
-- 他社ロゴは公式配布の黒版と白版を `public/` に置き、`.logo-light` / `.logo-dark` で切り替える。テーマ色で塗るとブランドガイドラインの改変禁止に反する
-  - `BrandLogo` はルートが複数あるので、渡したクラスへのスタイルは scoped では `&:deep(.クラス名)` で書く
+  - ダークでは `--accent-dark` が明るい方のアクセントになる。`--code-accent` が `--surface` に対し 4.5:1 を要するための意図的な反転
+  - ダークパレットは CI で検査されないので、変えたら `themeConstraints` の 14 件を手動で実測する
+- **`--bg` を変えたら次をすべて直す**：`:root`、ダークの `:root`、standalone の 2 系統（ダークは `color-mix()` の第 2 引数のリテラル）、[manifest.webmanifest](public/manifest.webmanifest) の `theme_color` / `background_color`、[nuxt.config.ts](nuxt.config.ts) の `theme-color` メタ 2 本
+- 幅と列数は `.card-grid` のトラック（`--grid-track-max` と `--grid-gap`）とそのコンテナクエリに揃える。auto-fit で決めない
+- 段組みやカードは `main.css` の `@layer components` にある共通クラスを使う
+- scoped な `<style>` で at-rule を二重にネストしない（`@media { @container { … } }`）。直下の宣言から `data-v` 属性が落ちる
+- 他社ロゴは公式配布の黒版と白版を `.logo-light` / `.logo-dark` で切り替える。テーマ色で塗るとブランドガイドラインの改変禁止に反する
 - `font-weight` は `400` と `800` のみ（Typekit の kit が 2 ウェイトしか持たない）
-- Baseline widely available 外の機能は `@supports` で囲むか、`plugin/use-baseline` の ignore に追加する
 
 ## 主要機能
 
 - **テーマ生成**：ガマットマッピングとコントラスト検証は api.newt239.dev 側が担う
-- **作品画像のジェスチャ**：[ImageLightbox.vue](app/components/gallery/ImageLightbox.vue) はピンチ、ダブルタップ、ホイール、スワイプを Pointer Events で自前実装している
+- **作品画像のジェスチャ**（[ImageLightbox.vue](app/components/gallery/ImageLightbox.vue)）
   - `.lightbox-content` の `touch-action: none` を緩めない。ブラウザのピンチと `transform` の二重管理になる
   - ハンドラは画像ではなく `.lightbox-content` に付ける。2 本目の指はレターボックスに降りるため
-  - `setPointerCapture` は拡大中に画像上で押されたときだけ呼ぶ。等倍で呼ぶと、タップでライトボックスが閉じる。画像上のタップは `didDrag` を立てて背景クリック扱いから外す
-  - ズームは焦点固定で `T += f * (1/S' - 1/S)`（`zoomAt`）を使う。ジェスチャ中は `.is-gesturing` で `transition` を切る
+  - `setPointerCapture` は拡大中に画像上で押されたときだけ呼ぶ。等倍で呼ぶと、タップでライトボックスが閉じる
   - 単一ポインタの代替（± ボタン、パンボタン、前後ボタン）は消さない（SC 2.5.1 / 2.5.7）
-  - 閉じるときに `pointers` をクリアし、`gesture` を `initialGesture` で戻す
-- **アナリティクス**：[vue-gtag.client.ts](app/plugins/vue-gtag.client.ts)
-  - gtag.js を読み込むのは `newt239.dev` の実ブラウザだけ。localhost、プレビュー、`navigator.webdriver`、ヘッドレス、ボットでは読み込まない
-  - `?analytics=off` で `sessionStorage` にオプトアウトを記録し、`?analytics=on` で解除する。Claude in Chrome は自動検出できないので、この方法で除外する
-- **Adobe Fonts**：[nuxt.config.ts](nuxt.config.ts) の `fontLoaderScript` が `<head>` 先頭で kit を動的に読み込み、`Typekit.load()` の結果で `html` に `is-font-settled` を付ける。読み込み開始から 3 秒で確定しなければ `is-font-fallback` も付け、後から届いても既定フォントのまま固定する。`onload` 属性は CSP で弾かれるので、ハンドラはスクリプト内で代入する
-- **初期ロードの演出**：`is-font-settled` が付くまで [default.vue](app/layouts/default.vue) の全画面ローディングで覆う。`v-reveal`（[reveal.ts](app/plugins/reveal.ts)）を付けた要素は、ビューポートに入ってから時間差でスライドインする
-  - ページ遷移でも、新しいページの要素が同じように入ってくる。退場は `pageTransition`（`out-in`）と [app.vue](app/app.vue) の `.page-leave-active` で、ページ全体を上へ抜けさせる。View Transitions はライトボックスの開閉だけで使う
-  - 戻るスワイプなどでブラウザが遷移の演出を済ませたとき（`hasUAVisualTransition`）は、退場も入場も省く。重ねると古いページが一度戻ってから消える
-  - 付けるのはカードやパネル（`.section-body`）、リストの行（`.record-item`）の単位。セクション全体だと大味になり、背景を共有するパネル内の行に付けると背景だけが先に見える。リストは行ごとに背景を持たせて `.record-list` で並べる
-  - 待機中は `opacity: 0` だけで隠す。一時停止のアニメーションで隠すと要素ごとに合成レイヤーができ、スクロールが重くなる
-  - 状態は data 属性で持つ。クラスだと動的な `:class` の再描画で消える
+- **Adobe Fonts**：kit は `nuxt.config.ts` の `fontLoaderScript` で読み込む。`onload` 属性は CSP で弾かれるので、ハンドラはスクリプト内で代入する
+- **入場の演出**：`v-reveal` はカードやパネル（`.section-body`）、リストの行（`.record-item`）の単位で付ける。セクション全体だと大味になり、背景を共有するパネル内の行に付けると背景だけが先に見える。View Transitions はライトボックスの開閉だけで使う
 
 ## SEO メタ
 
-- サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に静的に置く。ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
-- `description` を設定するのはトップ（[person.ts](app/lib/person.ts) の `bio`）と作品詳細（frontmatter の値）だけ
-- **Discord Component Embed**：トップと作品詳細は [useDiscordEmbed.ts](app/composables/useDiscordEmbed.ts) で `<head>` にペイロードを出す（[仕様](https://docs.discord.com/developers/link-previews/component-embeds)）
-  - 3,000 バイト以内（`<` もその長さで数える）、Container は 1 つで入れ子なし、コンポーネントは 40 個まで
-  - Button はリンクスタイルだけ。許可キー以外が 1 つでもあるとペイロード全体が無効になる
-  - [check-discord-embeds.ts](scripts/check-discord-embeds.ts) が `close` フックで全ページを検証し、違反があればビルドを失敗させる
+- サイト共通のデフォルトは `nuxt.config.ts` の `app.head` に置き、ページ固有の値は各ページの `useSeoMeta` で設定する（ミドルウェアではプリレンダに載らない）
+- `description` を設定するのはトップと作品詳細だけ
+- **Discord Component Embed**（[useDiscordEmbed.ts](app/composables/useDiscordEmbed.ts)）
+  - 仕様の制約は [check-discord-embeds.ts](scripts/check-discord-embeds.ts) がビルド時に検証する
   - 作品の公開 URL は frontmatter の `url` に書く
-  - 画像は Thumbnail（固定の小サイズ）と Media Gallery（全幅、4 枚で 2×2）の 2 種類しかない。トップのピックアップ作品は `order` の上位 4 件をギャラリーで並べる
-  - メディアの `url` は `/` 始まりのパスで渡す。Workers Builds の非本番ブランチではプレビューのホストに解決される（[nuxt.config.ts](nuxt.config.ts) の `discordEmbedAssetOrigin`）
+  - メディアの `url` は `/` 始まりのパスで渡す。非本番ブランチではプレビューのホストに解決される
 
 ## PWA
 
-- `display` は `standalone` から変えない。変えると AccentColor 追随の `@media (display-mode: standalone)` が効かなくなる
-- アイコンは `public/icon.png` を元に `public/icons/` へ生成する
-  - `any`（192 / 512）と favicon は透過のまま出す。`maskable` と apple-touch-icon は `--bg` の既定色で不透明にする
-  - `maskable` はセーフゾーンに収めるため 72% に縮小する。元画像を差し替えたら縮小率を見直す
-- `public/screenshots/` は手動で撮影する。手順は `pwa-screenshots` スキルにある
+- `display` は `standalone` から変えない。AccentColor 追随の `@media (display-mode: standalone)` が効かなくなる
+- `public/icon.png` を差し替えたら、`maskable` の縮小率（72%）がセーフゾーンに収まるか見直す
 
 ## セキュリティヘッダ
 
-[public/_headers](public/_headers) の `/*` で CSP などを返す（Observatory A+、issue #149）。
+[public/_headers](public/_headers) の `/*` で CSP などを返す（Observatory A+）。
 
-- `{{inline-script-hashes}}` は、Nitro の `close` フックで [write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) が `.output/public/_headers` に書き込む。対象は importmap、`__NUXT_SITE_CONFIG__`、`__NUXT__.config`、フォントローダーの 4 つ。`prerender:done` の時点では `_headers` がまだ無い
+- インラインスクリプトを足したら、[write-csp-script-hashes.ts](scripts/write-csp-script-hashes.ts) の対象に加える
 - `style-src 'unsafe-inline'` は残す（Observatory で満点扱い）
-- Adobe Fonts には `connect-src` と `font-src data:` の両方が要る。フォントは XHR で取得され、`data:` URI として注入されるため。CSS は読まないので `style-src` は不要
-- フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見て判定する
+- フォントが適用されるかはローカルで判定しない（Chrome の HTTP キャッシュがポートをまたいで共有される）。プレビューデプロイで `html` の `wf-active` / `wf-inactive` を見る
 - 検証は `pnpm run generate` のあと `pnpm exec wrangler dev` で行う（`serve:static` は `_headers` を解釈しない）
 
 ## エージェント向けディスカバラビリティ
 
-- レスポンスヘッダは `_headers` でしか付けられない。同名ヘッダの複数行は Cloudflare がカンマで結合する
-- `Link` で `sitemap` / `api-catalog` / `service-desc` / `service-doc` / `describedby` を返す
-- [api-catalog](public/.well-known/api-catalog) は RFC 9727 と RFC 9264 に従う。リレーション名をオブジェクトのキーにする（`links` 配列ではない）。`Content-Type` は `_headers` で指定する
-- [server-card.json](public/.well-known/mcp/server-card.json) は、api.newt239.dev の MCP サーバーの `initialize` 応答に合わせる（SEP-1649 が確定したら追従する）
+- レスポンスヘッダは `_headers` でしか付けられない
+- [api-catalog](public/.well-known/api-catalog) は RFC 9264 に従い、リレーション名をオブジェクトのキーにする（`links` 配列ではない）
+- [server-card.json](public/.well-known/mcp/server-card.json) は、api.newt239.dev の MCP サーバーの `initialize` 応答に合わせる
 - [robots.txt](public/robots.txt) の `Content-Signal: ai-train=no` と学習クローラの Disallow は維持する
-
-## アクセシビリティ検査
-
-- CI の検査は Lighthouse CI の `categories:accessibility`（`minScore: 1`）だけ
-- @nuxt/a11y のビルド時レポートは npm で公開されたら `a11y.report` で有効にする（issue #156）
 
 ## CI
 
-- [lighthouserc.json](lighthouserc.json)
-  - `meta-description`（description を持たない方針のため）と `robots-txt`（Content-Signal が不明なディレクティブ扱いになるため）は off にしている
-  - ライトの既定テーマだけを検査する。ダークは検査されない
+- アクセシビリティの検査は Lighthouse CI の `categories:accessibility`（`minScore: 1`）だけで、ライトの既定テーマしか見ない
+- [lighthouserc.json](lighthouserc.json) で `meta-description`（description を持たない方針のため）と `robots-txt`（Content-Signal が不明なディレクティブ扱いになるため）を off にしている
 - [cloudflare-workers.yml](.github/workflows/cloudflare-workers.yml) の週次デプロイは Spotify の My Top Tracks を更新するため
+- @nuxt/a11y のビルド時レポートは npm で公開されたら `a11y.report` で有効にする（issue #156）
 
 ## デプロイ
 
-- Workers Static Assets で配信する（[wrangler.jsonc](wrangler.jsonc)）
-  - `assets.directory` は `.output/public` を指す（`dist` は絶対パスのシンボリックリンク）
-  - `autoSubfolderIndex: false` と `auto-trailing-slash` で Pages と同じ URL 解決になる
-  - 末尾スラッシュのリダイレクトは 307 になる（Pages は 308）。回避手段はない
-- `newt239.dev/*` は Workers Route で配信する。route を外せば Pages の配信に戻る。カスタムドメインへ切り替えるとダウンタイムが出る
-- Pages は Git 連携と自動ビルドを停止済みで、ロールバック先として残してある
-- `public/_headers` は Workers Static Assets でも解釈される。ファイル自体は配信されない
+- Workers Static Assets で配信する。手元からデプロイするときは `.output/public` を使う（`dist` には古いビルドが残る）
+- `newt239.dev/*` は Workers Route で配信する。カスタムドメインへ切り替えるとダウンタイムが出る。route を外せば、ロールバック先として残してある Pages の配信に戻る
 - Workers Builds が push ごとにビルドし、main は本番、それ以外のブランチはプレビューへ出す
-- Workers Builds のシステム Node は pnpm を起動するだけ（スクリプトは `devEngines.runtime` の Node で動く）
