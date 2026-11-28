@@ -61,7 +61,7 @@ export const timeline: TimelineItem[] = [
     src: "https://www.shibaura-it.ac.jp/",
   },
   {
-    start: "2023-03",
+    start: "2024-03",
     end: null,
     title: "栄東高等学校 卒業",
     src: null,

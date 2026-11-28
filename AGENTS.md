@@ -98,7 +98,7 @@ pnpm run serve:static  # .output/public を localhost:3100 で配信（PWA ス�
 - **初期ロードの演出**：`is-font-settled` が付くまで [default.vue](app/layouts/default.vue) の全画面ローディングで覆う。`v-reveal`（[reveal.ts](app/plugins/reveal.ts)）を付けた要素は、ビューポートに入ってから時間差でスライドインする
   - ページ遷移でも、新しいページの要素が同じように入ってくる。退場は `pageTransition`（`out-in`）と [app.vue](app/app.vue) の `.page-leave-active` で、ページ全体を上へ抜けさせる。View Transitions はライトボックスの開閉だけで使う
   - 戻るスワイプなどでブラウザが遷移の演出を済ませたとき（`hasUAVisualTransition`）は、退場も入場も省く。重ねると古いページが一度戻ってから消える
-  - 付けるのはカードやパネル（`.section-body`、`.record-list`）の単位。セクション全体だと大味になり、パネル内の行に付けると背景だけが先に見える
+  - 付けるのはカードやパネル（`.section-body`）、リストの行（`.record-item`）の単位。セクション全体だと大味になり、背景を共有するパネル内の行に付けると背景だけが先に見える。リストは行ごとに背景を持たせて `.record-list` で並べる
   - 待機中は `opacity: 0` だけで隠す。一時停止のアニメーションで隠すと要素ごとに合成レイヤーができ、スクロールが重くなる
   - 状態は data 属性で持つ。クラスだと動的な `:class` の再描画で消える
 

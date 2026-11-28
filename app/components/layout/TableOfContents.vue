@@ -8,6 +8,25 @@ const props = defineProps<{
 
 const labelId = useId();
 const visibleIds = ref(new Set<string>());
+const listRef = useTemplateRef<HTMLOListElement>("list");
+const indicator = ref<{ top: number; height: number }>();
+
+const measureIndicator = () => {
+  const active = listRef.value?.querySelectorAll<HTMLElement>(".is-active") ?? [];
+  const first = active[0];
+  const last = active[active.length - 1];
+  indicator.value = first && last ? { top: first.offsetTop, height: last.offsetTop + last.offsetHeight - first.offsetTop } : undefined;
+};
+
+watch(visibleIds, measureIndicator, { flush: "post" });
+
+watchPostEffect((onCleanup) => {
+  const list = listRef.value;
+  if (!list) return;
+  const observer = new ResizeObserver(measureIndicator);
+  observer.observe(list);
+  onCleanup(() => observer.disconnect());
+});
 
 watchPostEffect((onCleanup) => {
   const container = props.container;
@@ -54,25 +73,37 @@ watchPostEffect((onCleanup) => {
 <template>
   <nav class="toc" :aria-labelledby="labelId">
     <h2 :id="labelId" class="section-heading">目次</h2>
-    <ol>
-      <li v-for="item in items" :key="item.id">
-        <NuxtLink :to="{ hash: `#${item.id}` }" :class="{ 'is-active': visibleIds.has(item.id) }">{{ item.text }}</NuxtLink>
-        <ol v-if="item.children">
-          <li v-for="child in item.children" :key="child.id">
-            <NuxtLink :to="{ hash: `#${child.id}` }" :class="{ 'is-active': visibleIds.has(child.id) }">{{ child.text }}</NuxtLink>
-            <ol v-if="child.children">
-              <li v-for="grandchild in child.children" :key="grandchild.id">
-                <NuxtLink :to="{ hash: `#${grandchild.id}` }" :class="{ 'is-active': visibleIds.has(grandchild.id) }">{{ grandchild.text }}</NuxtLink>
-              </li>
-            </ol>
-          </li>
-        </ol>
-      </li>
-    </ol>
+    <div class="toc-list">
+      <ol ref="list">
+        <li v-for="item in items" :key="item.id">
+          <NuxtLink :to="{ hash: `#${item.id}` }" :class="{ 'is-active': visibleIds.has(item.id) }">{{ item.text }}</NuxtLink>
+          <ol v-if="item.children">
+            <li v-for="child in item.children" :key="child.id">
+              <NuxtLink :to="{ hash: `#${child.id}` }" :class="{ 'is-active': visibleIds.has(child.id) }">{{ child.text }}</NuxtLink>
+              <ol v-if="child.children">
+                <li v-for="grandchild in child.children" :key="grandchild.id">
+                  <NuxtLink :to="{ hash: `#${grandchild.id}` }" :class="{ 'is-active': visibleIds.has(grandchild.id) }">{{ grandchild.text }}</NuxtLink>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <span
+        class="toc-indicator"
+        :class="{ 'is-visible': indicator }"
+        :style="indicator && { '--toc-indicator-top': `${indicator.top}px`, '--toc-indicator-height': `${indicator.height}px` }"
+        aria-hidden="true"
+      />
+    </div>
   </nav>
 </template>
 
 <style scoped>
+.toc-list {
+  position: relative;
+}
+
 .toc {
   ol {
     padding: 0;
@@ -102,7 +133,6 @@ watchPostEffect((onCleanup) => {
     &.is-active {
       font-weight: 800;
       color: oklch(var(--text));
-      border-left-color: oklch(var(--accent));
     }
 
     &:focus-visible {
@@ -117,11 +147,29 @@ watchPostEffect((onCleanup) => {
 
     @media (forced-colors: active) {
       border-left-color: transparent;
-
-      &.is-active {
-        border-left-color: CanvasText;
-      }
     }
+  }
+}
+
+.toc-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--toc-indicator-height, 0);
+  pointer-events: none;
+  border-left: var(--border-width) solid oklch(var(--accent));
+  opacity: 0;
+  translate: 0 var(--toc-indicator-top, 0);
+  transition-timing-function: var(--transition-easing);
+  transition-duration: var(--toc-indicator-duration);
+  transition-property: translate, height, opacity;
+
+  &.is-visible {
+    opacity: 1;
+  }
+
+  @media (forced-colors: active) {
+    border-left-color: CanvasText;
   }
 }
 </style>

@@ -19,28 +19,27 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
   <div class="timeline">
     <h2 v-reveal lang="en">Timeline</h2>
     <div class="timeline-body">
-      <div v-for="year in years" :key="year.year" class="year-section">
-        <div v-reveal class="year-header">
-          <h3 class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
-        </div>
-        <div v-reveal class="year-items record-list">
+      <section v-for="year in years" :key="year.year" class="year-section">
+        <h3 v-reveal class="year-text"><time :datetime="String(year.year)">{{ year.year }}</time></h3>
+        <div class="year-items">
           <component
             :is="item.src ? 'a' : 'div'"
             v-for="item in year.items"
             :key="item.title"
+            v-reveal
             :href="item.src || undefined"
             :target="item.src ? '_blank' : undefined"
             :rel="item.src ? 'noopener noreferrer' : undefined"
-            class="timeline-item record-item"
-            :class="{ 'has-link': !!item.src }"
+            class="timeline-card record-item"
+            :class="{ 'has-link surface-card': !!item.src }"
           >
             <span class="record-term">
-              <time :datetime="item.start">{{ new Date(item.start).toLocaleDateString("ja-JP", { month: "long", timeZone: "UTC" }) }}</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ new Date(item.end).toLocaleDateString("ja-JP", { month: "long", timeZone: "UTC" }) }}</time></template>
+              <time :datetime="item.start">{{ new Date(item.start).toLocaleDateString("ja-JP", { month: "long", timeZone: "UTC" }) }}</time><template v-if="item.end === 'present'">〜現在</template><template v-else-if="item.end">〜<time :datetime="item.end">{{ new Date(item.end).toLocaleDateString("ja-JP", { year: item.end.slice(0, 4) === item.start.slice(0, 4) ? undefined : "numeric", month: "long", timeZone: "UTC" }) }}</time></template>
             </span>
             <span class="item-title record-title">{{ item.title }}<IconExternalLink v-if="item.src" class="external-icon" aria-hidden="true" /></span>
           </component>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -49,14 +48,13 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 .timeline-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.875rem;
 }
 
-.year-header {
+.year-section {
   display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  padding: 0 0 0.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .year-text {
@@ -68,24 +66,19 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
 }
 
 .year-items {
-  --record-term-width: min(5rem, 40%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-gap);
+  container-type: inline-size;
 }
 
-.item-title {
-  transition: var(--transition);
-}
-
-.timeline-item {
+.timeline-card {
   color: oklch(var(--text));
   text-decoration: none;
   transition: var(--transition);
 
   &.has-link {
     cursor: pointer;
-
-    &:focus-visible {
-      outline-offset: calc(var(--focus-ring-offset) * -1);
-    }
 
     .item-title {
       color: oklch(var(--accent));
@@ -94,32 +87,9 @@ for (const item of timeline.toSorted((a, b) => b.start.localeCompare(a.start))) 
       text-underline-offset: 0.25rem;
     }
 
-    @media (hover: hover) {
-      &:hover {
-        background: oklch(var(--surface));
-
-        .item-title {
-          text-decoration-color: transparent;
-          opacity: var(--hover-opacity);
-        }
-      }
-    }
-
-    @media (hover: none) {
-      &:active {
-        background: oklch(var(--surface));
-      }
-    }
-
     @media (prefers-contrast: more) {
       .item-title {
         text-decoration-thickness: 2px;
-        text-decoration-style: solid;
-      }
-    }
-
-    @media (forced-colors: active) and (hover: hover) {
-      &:hover .item-title {
         text-decoration-style: solid;
       }
     }
