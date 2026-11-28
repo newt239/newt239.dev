@@ -15,3 +15,18 @@ const sortedCertifications = certifications.toSorted((a, b) => b.date.localeComp
     </ul>
   </div>
 </template>
+
+<style scoped>
+.certifications {
+  container-type: inline-size;
+}
+
+.record-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  @container (width >= 55.5rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+</style>
